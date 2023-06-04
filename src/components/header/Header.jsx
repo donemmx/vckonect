@@ -15,7 +15,7 @@ export default function Header() {
     }
   return (
     <>
-      <div className="header__main w-[100vw] h-[100px] fixed z-50 bg-hero">
+      <div className="header__main w-[100vw] h-[80px] fixed z-50 bg-hero">
         <div className="header flex items-center justify-between p-2 w-[90%] md:w-[85%] m-auto">
           <div className="logo h-[25px] md:h-[30px] lg:h-[35px]">
             <img
