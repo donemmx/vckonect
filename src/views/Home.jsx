@@ -6,10 +6,14 @@ import vetClinic from "../assets/bg/vet-clinic.png";
 import vetStore from "../assets/bg/vet-store.png";
 import searchYellow from '../assets/icons/search-icons/search-icon-yellow.svg'
 import searchBlue from '../assets/icons/search-icons/search-icon-blue.svg'
+import diseaseIcon from '../assets/icons/search-icons/disease-predictor-icon.svg'
+import calculatorIcon from '../assets/icons/search-icons/feed-calculator-icon.svg'
 import vetIcon from '../assets/icons/search-icons/vet-icon-red.svg'
 import storeIcon from '../assets/icons/search-icons/store-icon-green.svg'
 import arrowGreen from '../assets/icons/arrow-icons/next-icon-green.svg'
 import arrowYellow from '../assets/icons/arrow-icons/next-icon-yellow.svg'
+import arrowMixed from '../assets/icons/arrow-icons/next-icon-mixed.svg'
+import arrowOrange from '../assets/icons/arrow-icons/next-icon-orange.svg'
 import arrowBlue from '../assets/icons/arrow-icons/next-icon-blue.svg'
 import arrowRed from '../assets/icons/arrow-icons/next-icon-red.svg'
 
@@ -55,6 +59,15 @@ export default function Home() {
               <CardOne title='Register your store' subtitle='Create a vet vendor account in (3) three simple step on to make your vet store visible to nearby customers.' btnText='Get Started' icon={arrowGreen} image={storeIcon}/>
             </div>
           </div>
+        </div>
+      </div>
+      <div className="calculator flex pt-[10vh] pb-10 w-[100%] h-[100%] md:h-[50vh] bg-[#FFFAF4]">
+        <div className="main hero__body w-[90%] md:w-[85%] h-[100%] m-auto">
+        <div className="title font-black text-center head__two ">Feed Calculator & Disease Predictor</div>
+            <div className="grouped flex justify-center flex-wrap items-center gap-4 pt-10">
+                <CardOne image={calculatorIcon} title='Feed Calculator' subtitle='Discover the appropriate amount of feed to give your livestock to stay healthy and productive' btnText='Try it Now' icon={arrowOrange}/>
+                <CardOne image={diseaseIcon} title='Disease Predictor' subtitle='Diagnose and treat various diseases in animals to improving their health and well-being' btnText='Try it Now' icon={arrowMixed} />
+            </div>
         </div>
       </div>
     </div>
