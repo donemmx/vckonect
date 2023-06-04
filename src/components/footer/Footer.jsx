@@ -2,7 +2,8 @@ import logo from "../../assets/logo/vc-logo.svg";
 import icon1 from "../../assets/icons/socials/linkedin.svg";
 import icon2 from "../../assets/icons/socials/twitter-icon.svg";
 import icon3 from "../../assets/icons/socials/discord-icon.svg";
-import icon4 from "../../assets/icons/socials/facebook-icon.svg";
+import icon4 from "../../assets/icons/socials/slack-icon.svg";
+import icon5 from "../../assets/icons/socials/facebook-icon.svg";
 
 export default function Footer() {
   return (
@@ -17,6 +18,7 @@ export default function Footer() {
             <img src={icon2} alt="" />
             <img src={icon3} alt="" />
             <img src={icon4} alt="" />
+            <img src={icon5} alt="" />
           </div>
           <p className="text-sm"> Copyright Vetkonect 2023 </p>
         </div>
