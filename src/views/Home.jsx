@@ -10,6 +10,8 @@ import searchBlue from '../assets/icons/search-icons/search-icon-blue.svg'
 import diseaseIcon from '../assets/icons/search-icons/disease-predictor-icon.svg'
 import calculatorIcon from '../assets/icons/search-icons/feed-calculator-icon.svg'
 import vetIcon from '../assets/icons/search-icons/vet-icon-red.svg'
+import chatIcon from '../assets/icons/search-icons/chat-icon-yellow.svg'
+import sendIcon from '../assets/icons/search-icons/send-icon-green.svg'
 import storeIcon from '../assets/icons/search-icons/store-icon-green.svg'
 import arrowGreen from '../assets/icons/arrow-icons/next-icon-green.svg'
 import arrowYellow from '../assets/icons/arrow-icons/next-icon-yellow.svg'
@@ -74,11 +76,11 @@ export default function Home() {
       <div className="vetClinic flex pt-[10vh] pb-10 w-[100%] h-[100%] md:h-[100vh] bg-cover bg-[#FBFBFB]">
         <div className="flexBody hero__body w-[90%] md:w-[85%] h-[100%] m-auto">
           <div className="title font-black head__two ">Forum Chat & Direct Messages</div>
-          <div className="grouped flex flex-col-reverse md:flex md:flex-row space-x-2  justify-between">
+          <div className="grouped flex flex-col md:flex md:flex-row space-x-2  justify-between">
             <div className="left pt-[4%]">
               <div className="grouped flex flex-col gap-5">
-                <CardOne image={searchBlue} title='Join our forum chat' subtitle='Connect with others to share and receive knowledge, experiences, and advice on pet and livestock health and behavior issues' btnText='Browse Now' icon={arrowBlue}/>
-                <CardOne image={vetIcon} title='Send a direct message' subtitle='Connect with others by sending a direct message, and also receiving and replying the messages on the direct message tab option on the forum chat page.' btnText='Get Started' icon={arrowRed} />
+                <CardOne image={chatIcon} title='Join our forum chat' subtitle='Connect with others to share and receive knowledge, experiences, and advice on pet and livestock health and behavior issues' btnText='Browse Now' icon={arrowYellow}/>
+                <CardOne image={sendIcon} title='Send a direct message' subtitle='Connect with others by sending a direct message, and also receiving and replying the messages on the direct message tab option on the forum chat page.' btnText='Get Started' icon={arrowGreen} />
               </div>
             </div>
             <div className="right">
