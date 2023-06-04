@@ -1,21 +1,20 @@
-import cardImg from '../../assets/icons/search-icons/search-icon-green.svg'
-import arrow from '../../assets/icons/arrow-icons/next-icon-green.svg'
 
-export default function CardOne() {
+
+export default function CardOne({image, title, icon, subtitle, btnText }) {
   return (
     <div className=" card w-[100%] md:w-[500px]">
-            <img src={cardImg} className=' h-10' alt="" />
+            <img src={image} className=' h-10' alt="" />
         <div className="right flex flex-col">
             <div className="heading text-[.9rem] md:text-[1rem]">
-            Discover a vet in your area
+           {title}
             </div>
             <div className="card__text">
-            Discover nearby veterinarians who can provide quality vet care for your pets/livestock via our platform.
+          {subtitle}
             </div>
             <div className="bottom mt-3">
                 <button className="small__btn">
-                    Browse now
-                    <img src={arrow} alt="" className=' h-5' />
+                    {btnText}
+                    <img src={icon} alt="" className=' h-5' />
                 </button>
             </div>
         </div>
