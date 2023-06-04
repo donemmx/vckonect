@@ -56,4 +56,11 @@ body {
   color: white;
   border-radius: 50px;
   font-weight: bold;
+  background-position: left;
+  transition: all 300ms ease-in-out;
+}
+
+.primary__btn:hover{
+  background-size: 15rem;
+  background-position: right;
 }
