@@ -5,6 +5,7 @@ import hamburger from "../../assets/icons/header-icons/hamburger-icon.svg";
 
 export default function Header() {
   return (
+    <>
     <div className="header__main w-[100vw] h-[10vh] fixed z-50 bg-hero">
       <div className="header flex items-center justify-between p-2 w-[90%] md:w-[85%] m-auto">
         <div className="logo h-[25px] md:h-[30px] lg:h-[35px]" >
@@ -25,5 +26,9 @@ export default function Header() {
         </div>
       </div>
     </div>
+    <div className="modal">
+        
+    </div>
+    </>
   );
 }
