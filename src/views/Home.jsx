@@ -19,6 +19,7 @@ import arrowMixed from '../assets/icons/arrow-icons/next-icon-mixed.svg'
 import arrowOrange from '../assets/icons/arrow-icons/next-icon-orange.svg'
 import arrowBlue from '../assets/icons/arrow-icons/next-icon-blue.svg'
 import arrowRed from '../assets/icons/arrow-icons/next-icon-red.svg'
+import Footer from "../components/footer/Footer";
 
 export default function Home() {
   return (
@@ -93,6 +94,7 @@ export default function Home() {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }
