@@ -14,7 +14,7 @@ export default function SectionTwo() {
         <div className="left absolute top-10 lg:top-[14%] ">
           <CardOne image={searchGreen} btnText='Get Started' icon={arrowGreen} subtitle='Create a vet account in (3) three simple step to be visible to nearby clients as a licensed Veterinarian.' title='Discover a vet in your area' />
         </div>
-        <div className="right absolute bottom-[-20%]  lg:bottom-[-10%] lg:top-[38%] right-[0%]">
+        <div className="right absolute bottom-[-30%]  lg:bottom-[-10%] lg:top-[38%] right-[0%]">
           <CardOne image={vetIcon} btnText='Get Started' icon={arrowYellow} subtitle='Create a vet account in (3) three simple step to be visible to nearby clients as a licensed Veterinarian.' title='Discover a vet in your area' />
         </div>
         <div className="sectionBg flex items-center justify-center">
