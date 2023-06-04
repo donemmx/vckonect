@@ -30,7 +30,7 @@ body {
 }
 .head__two {
   font-family: "nunito";
-  font-size: clamp(1.4rem, 4.5vw, 2.713rem);
+  font-size: clamp(1.4rem, 2.5vw, 2.513rem);
   font-variation-settings: "wght" 900;
   line-height: 1.2;
 }
