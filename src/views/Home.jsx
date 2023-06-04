@@ -46,7 +46,7 @@ export default function Home() {
       <div className="vetVendor  flex pt-[10vh] pb-10 w-[100%] h-[100%] md:h-[95vh] bg-cover bg-[#FBFBFB]">
         <div className="body w-[90%] md:w-[85%] h-[100%] m-auto">
           <div className="title font-black head__two ">Vet Vendor & Stores</div>
-          <div className="grouped flex flex-col md:flex md:flex-row space-x-2  justify-between">
+          <div className="grouped flex flex-col-reverse md:flex md:flex-row space-x-2  justify-between">
             <div className="left lg:w-[50%]">
             <img
                 src={vetStore}
