@@ -32,7 +32,7 @@ body {
 }
 .head__two{
   font-family: 'nunito';
-  font-size: clamp(1.4rem, 4.5vw, 2.513rem);
+  font-size: clamp(1.4rem, 4.5vw, 2.713rem);
   font-variation-settings: 'wght' 900;
   line-height: 1.2;
 }
@@ -42,4 +42,18 @@ body {
   font-size: clamp(.85rem, 4.5vw, 1.1rem);
   font-variation-settings: 'wght' 300;
   line-height: 1.5;
+}
+
+.primary__btn{
+  height: clamp(50px, 4.5vw, 55px);
+  background: url('./assets/bg/button-bg.png');
+  background-size: cover;
+  padding: 15px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(0.75rem, 2.5vw, 1rem);
+  color: white;
+  border-radius: 50px;
+  font-weight: bold;
 }
