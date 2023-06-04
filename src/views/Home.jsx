@@ -4,6 +4,7 @@ import Section from "../components/section/Section";
 import SectionTwo from "../components/sectionTwo/SectionTwo";
 import vetClinic from "../assets/bg/vet-clinic.png";
 import vetStore from "../assets/bg/vet-store.png";
+import chatImg from "../assets/bg/chat-img.png";
 import searchYellow from '../assets/icons/search-icons/search-icon-yellow.svg'
 import searchBlue from '../assets/icons/search-icons/search-icon-blue.svg'
 import diseaseIcon from '../assets/icons/search-icons/disease-predictor-icon.svg'
@@ -68,6 +69,26 @@ export default function Home() {
                 <CardOne image={calculatorIcon} title='Feed Calculator' subtitle='Discover the appropriate amount of feed to give your livestock to stay healthy and productive' btnText='Try it Now' icon={arrowOrange}/>
                 <CardOne image={diseaseIcon} title='Disease Predictor' subtitle='Diagnose and treat various diseases in animals to improving their health and well-being' btnText='Try it Now' icon={arrowMixed} />
             </div>
+        </div>
+      </div>
+      <div className="vetClinic flex pt-[10vh] pb-10 w-[100%] h-[100%] md:h-[100vh] bg-cover bg-[#FBFBFB]">
+        <div className="flexBody hero__body w-[90%] md:w-[85%] h-[100%] m-auto">
+          <div className="title font-black head__two ">Forum Chat & Direct Messages</div>
+          <div className="grouped flex flex-col-reverse md:flex md:flex-row space-x-2  justify-between">
+            <div className="left pt-[4%]">
+              <div className="grouped flex flex-col gap-5">
+                <CardOne image={searchBlue} title='Join our forum chat' subtitle='Connect with others to share and receive knowledge, experiences, and advice on pet and livestock health and behavior issues' btnText='Browse Now' icon={arrowBlue}/>
+                <CardOne image={vetIcon} title='Send a direct message' subtitle='Connect with others by sending a direct message, and also receiving and replying the messages on the direct message tab option on the forum chat page.' btnText='Get Started' icon={arrowRed} />
+              </div>
+            </div>
+            <div className="right">
+              <img
+                src={chatImg}
+                alt=""
+                className=" h-full w-full object-contain"
+              />
+            </div>
+          </div>
         </div>
       </div>
     </div>
