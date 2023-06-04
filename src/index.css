@@ -1,5 +1,5 @@
 @font-face {
-  font-family: 'nunito';
+  font-family: "nunito";
   src: url(./assets/font/Nunito-VariableFont_wght.ttf);
 }
 
@@ -7,10 +7,9 @@
 @tailwind components;
 @tailwind utilities;
 
-
 :root {
   --primary: #0b6614;
-  --secondary: #FFDAB0;
+  --secondary: #ffdab0;
   --gray: #f1f1f1;
   --orange-bg: #fff1e7;
   --background: #fbfbfb;
@@ -20,33 +19,32 @@
 }
 
 body {
-  font-family: 'nunito' !important;
+  font-family: "nunito" !important;
 }
 
-
-.head__one{
-  font-family: 'nunito';
+.head__one {
+  font-family: "nunito";
   font-size: clamp(1.8rem, 4.5vw, 2.813rem);
-  font-variation-settings: 'wght' 900;
+  font-variation-settings: "wght" 900;
   line-height: 1.2;
 }
-.head__two{
-  font-family: 'nunito';
+.head__two {
+  font-family: "nunito";
   font-size: clamp(1.4rem, 4.5vw, 2.713rem);
-  font-variation-settings: 'wght' 900;
+  font-variation-settings: "wght" 900;
   line-height: 1.2;
 }
 
-.paragraph{
-  font-family: 'nunito';
-  font-size: clamp(.85rem, 4.5vw, 1.1rem);
-  font-variation-settings: 'wght' 300;
+.paragraph {
+  font-family: "nunito";
+  font-size: clamp(0.85rem, 2.5vw, 1.1rem);
+  font-variation-settings: "wght" 300;
   line-height: 1.5;
 }
 
-.primary__btn{
+.primary__btn {
   height: clamp(50px, 4.5vw, 55px);
-  background: url('./assets/bg/button-bg.png');
+  background: url("./assets/bg/button-bg.png");
   background-size: cover;
   padding: 15px 40px;
   display: flex;
@@ -60,7 +58,47 @@ body {
   transition: all 300ms ease-in-out;
 }
 
-.primary__btn:hover{
+.primary__btn:hover {
   background-size: 15rem;
   background-position: right;
+}
+
+.card {
+  background: #ffffff;
+  box-shadow: 0px 17.7729px 54.686px rgba(27, 25, 86, 0.06);
+  border-radius: 21.8744px;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: 1fr 10fr;
+  grid-gap: 20px;
+  height: 150px;
+}
+
+.small__btn {
+  width: 142px;
+  height: clamp(28px, 4.5vw, 32px);
+  font-size: clamp(0.6rem, 2.5vw, 0.75rem);
+  background: #f1f1f1;
+  border: 1px solid #ebebeb;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: center;
+  margin-left: auto;
+}
+
+.small__btn {
+  
+}
+
+
+.heading{
+  color: #1D2432;
+  font-weight: bold;
+}
+
+.card__text{
+  color: #555555;
+  font-size: clamp(0.72rem, 2.5vw, 0.85rem);
 }

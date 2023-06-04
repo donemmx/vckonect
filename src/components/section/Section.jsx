@@ -8,7 +8,7 @@ import people from "../../assets/bg/people-img.png";
 
 export default function Section() {
   return (
-    <div className="section pt-[10vh] pb-[10vh] bg-[--background] w-[100%]  bg-main">
+    <div className="section pt-[10vh] pb-[10vh] w-[100%]  bg-[white]">
       <div className="main w-[90%] md:w-[85%] m-auto flex flex-col-reverse  md:grid grid-cols-12 ">
         <div className="section__left col-span-8">
           <div className="title head__two">About Vet Konect</div>
