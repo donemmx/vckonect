@@ -28,10 +28,10 @@ export default function Vetcard() {
           </div>
         </div>
         <div className="bottom bg-white p-2 rounded-b-[12px]">
-          <div className="name font-black text-[1.2rem]">
+          <div className="name font-black sm:text-[.85rem] md:text-[1.2rem]">
             Dr. Orji Hyacinth C
           </div>
-          <div className="location flex items-center gap-2">
+          <div className="location flex text-sm items-center gap-2">
             <img src={location} alt="" className=" h-5" />
             Delta, Nigeria
           </div>
