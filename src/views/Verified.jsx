@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import veriiedIcon from "../assets/icons/create-account/onboard/verified-icon.svg";
 
 export default function Verified() {
@@ -15,7 +16,7 @@ export default function Verified() {
           with your account credentials.
         </div>
         <div className="form flex flex-col gap-3 pt-5">
-          <button className="green__btn">Login</button>
+          <Link to='/login' className="green__btn">Login</Link>
         </div>
       </div>
     </div>

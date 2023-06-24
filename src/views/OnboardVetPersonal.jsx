@@ -88,7 +88,7 @@ export default function OnboardVetPersonal() {
           <Link to="/onboard-verify" className="green__btn">
             Proceed
           </Link>
-          <Link to="/onboard-animal-owner-account" className="tertiary__btn">
+          <Link to="/onboard-vet-account" className="tertiary__btn">
             Back
           </Link>
         </div>

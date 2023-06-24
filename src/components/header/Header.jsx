@@ -17,13 +17,13 @@ export default function Header({bg}) {
     <>
       <div className={`${bg? 'bg-hero' : ' bg-white' }  w-[100vw] h-[85px] flex justify-center items-center fixed z-50 `}>
         <div className="header flex items-center justify-between p-2 w-[90%] md:w-[85%] m-auto">
-          <div className="logo h-[25px] md:h-[30px] lg:h-[35px]">
+          <Link to='/' className="logo h-[25px] md:h-[30px] lg:h-[35px]">
             <img
               src={logo}
               alt=""
               className=" w-[100%] h-[100%] object-contain"
             />
-          </div>
+          </Link>
           <div className="header__links  hidden lg:flex space-x-5 ">
             <Link to={"/login"}>About Us</Link>
             <Link to={"/login"}>Feed Calculator</Link>

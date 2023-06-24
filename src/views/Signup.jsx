@@ -2,6 +2,7 @@ import AccountCard from "../components/accountCard/AccountCard";
 import animalOwner from '../assets/icons/create-account/animal-owner-signup-icon.svg'
 import vetIcon from '../assets/icons/create-account/vet-signup-icon.svg'
 import blueArrow from '../assets/icons/arrow-icons/next-icon-blue.svg';
+import greenArrow from '../assets/icons/arrow-icons/next-icon-green.svg';
 export default function Signup() {
   return (
     <div className="login flex justify-center items-center h-[100vh]">
@@ -12,7 +13,7 @@ export default function Signup() {
       </div>
       <div className="form flex flex-col gap-3 pt-6">
         <AccountCard image={animalOwner} icon={blueArrow} title='As an Animal Owner' subtitle='Discover vets, vet clinics, and vendors around you' link={'/onboard-animal-owner-account'}  />
-        <AccountCard image={vetIcon} icon={blueArrow} title='Become a Vet' subtitle='Join our pool of veterinarians on vet konect'  link={'/onboard-vet-account'}    />
+        <AccountCard image={vetIcon} icon={greenArrow} title='Become a Vet' subtitle='Join our pool of veterinarians on vet konect'  link={'/onboard-vet-account'}    />
        
       </div>
     </div>

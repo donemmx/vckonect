@@ -47,7 +47,7 @@ export default function OnboardVerify() {
         <Link to="/verified" className="green__btn">
           Verify
         </Link>
-        <Link to="/onboard-animal-owner-verify" className="tertiary__btn">
+        <Link to="#" className="tertiary__btn">
           Back
         </Link>
       </div>
