@@ -86,6 +86,11 @@ const router = createBrowserRouter([
                 element: <OnboardVetVerify/>
 
             },
+            {
+                path: '/verified',
+                element: <Verified/>
+
+            },
         ]
     }
 ])

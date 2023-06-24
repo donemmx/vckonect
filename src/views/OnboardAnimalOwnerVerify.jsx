@@ -7,8 +7,8 @@ import arrow from "../assets/icons/create-account/onboard/arrow-account-next.svg
 
 export default function OnboardAnimalOwnerVerify() {
   return (
-    <div className="login flex justify-center items-center h-[140vh]">
-      <div className=" w-[80%] lg:w-[35%] md:w-[60%]">
+    <div className="login flex justify-center items-center h-[100vh]">
+      <div className=" w-[90%] lg:w-[35%] md:w-[60%]">
         <h2 className="title font-black text-center head__two">
           Create Account
         </h2>
@@ -17,7 +17,7 @@ export default function OnboardAnimalOwnerVerify() {
           by clicking on one of the cards below
         </div>
         <div className="form flex flex-col gap-3 pt-6">
-          <div className="progress flex w-[80%] mx-auto items-center justify-evenly">
+          <div className="progress flex w-[90%] mx-auto items-center justify-evenly">
             <div className="step1 w-[40px] text-[12px] text-center ]">
               <img src={accountlIcon} alt="" />
               <p className="text-green-800 font-bold">Account Details</p>
@@ -30,8 +30,8 @@ export default function OnboardAnimalOwnerVerify() {
             <img src={arrow} alt="" />
 
             <div className="step1 w-[40px] text-[12px] text-center">
-              <img src={verifyIcon} alt="" />
-              <p>Verify Account </p>
+              <img className="greenOverlay"  src={verifyIcon} alt="" />
+              <p className="text-green-800 font-bold">Verify Account </p>
             </div>
           </div>
           <div className="pt-2 subtitle paragraph text-center">
@@ -40,10 +40,10 @@ export default function OnboardAnimalOwnerVerify() {
           </div>
           <span className="p-float-label">
             <InputText id="username" />
-            <label htmlFor="username">First Name</label>
+            <label htmlFor="username">OTP Code</label>
           </span>
 
-          <Link to="/onboard-animal-owner-verify" className="green__btn">
+          <Link to="/verified" className="green__btn">
             Verify
           </Link>
           <Link to="/onboard-animal-owner-verify" className="tertiary__btn">

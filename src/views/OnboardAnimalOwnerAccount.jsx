@@ -20,7 +20,7 @@ export default function OnboardAnimalOwnerAccount() {
           by clicking on one of the cards below
         </div>
         <div className="form flex flex-col gap-3 pt-6">
-          <div className="progress flex w-[80%] mx-auto items-center justify-evenly">
+          <div className="progress flex w-[90%] mx-auto items-center justify-evenly">
             <div className="step1 w-[40px] text-[12px] text-center ]">
               <img src={accountlIcon} alt="" />
               <p className="text-green-800 font-bold">Account Details</p>

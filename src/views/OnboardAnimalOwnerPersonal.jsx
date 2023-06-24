@@ -21,7 +21,7 @@ export default function OnboardAnimalOwnerPersonal() {
     }
   return (
     <div className="login flex justify-center items-center h-[140vh]">
-      <div className=" w-[80%] lg:w-[35%] md:w-[60%]">
+      <div className=" w-[90%] lg:w-[35%] md:w-[60%]">
         <h2 className="title font-black text-center head__two">
           Create Account
         </h2>
@@ -79,7 +79,7 @@ export default function OnboardAnimalOwnerPersonal() {
           <Link to="/onboard-animal-owner-verify" className="green__btn">
             Proceed
           </Link>
-          <Link to="/onboard-animal-owner-verify" className="tertiary__btn">
+          <Link to="/onboard-animal-owner-account" className="tertiary__btn">
             Back
           </Link>
         </div>
