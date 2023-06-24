@@ -1,18 +1,13 @@
 import { useState } from "react";
 import Footer from "../components/footer/Footer";
 import Vetcard from "../components/vetCard/Vetcard";
-import { SelectButton } from "primereact/selectbutton";
 import vetClinic from "../assets/tab-icon/vet-clinic-tab.svg";
 import vetStore from "../assets/tab-icon/vet-store-tab.svg";
 import vet from "../assets/tab-icon/vet-icon-tab.svg";
+import search from "../assets/icons/search-icons/search-icon-white.svg";
 
 export default function Search() {
   const [value, setValue] = useState(null);
-  const items = [
-    { name: "Veterinarian", value: "vet", image: { vet } },
-    { name: "Vet Vendor & Store", value: "store", image: { vetStore } },
-    { name: "Vet Clinic", value: "clinic", image: { vetClinic } },
-  ];
   return (
     <>
       <div className="section flex pt-[10vh] pb-10 w-[100%] h-[100%] bg-cover bg-[#fff]">
@@ -30,6 +25,15 @@ export default function Search() {
             <div className="tab__menu tab-right">
               <img src={vetClinic} alt="" />
               <p>Vet Clinic</p>
+            </div>
+          </div>
+          <div className="search pt-5">
+            <div className="form__group flex space-x-4 items-center p-2 border-[#EBEBEB] border-2  bg-white rounded-full">
+              <img src={location} alt="" className=" h-[26px] px-3 object-contain" />
+              <input type="text" placeholder="Type in your location"  className=" outline-none p-1 w-full"/>
+              <div className="search__btn  bg-gray-600 h-[45px] w-[80px] flex items-center justify-center rounded-r-full">
+                <img src={search} alt="" className=" h-[15px]"  />
+              </div>
             </div>
           </div>
           <div className="group pt-12  pb-10 grid md:grid-cols-2 grid-gap-2 lg:grid-cols-4 w-full">
