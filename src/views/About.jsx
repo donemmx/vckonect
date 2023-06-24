@@ -5,6 +5,8 @@ import red from "../assets/bg/light-red-shape-bg.svg";
 import green from "../assets/bg/green-shape-bg.svg";
 import Cardcolor from "../components/cardColor/Cardcolor";
 import Value from "../components/value/Value";
+import Footer from "../components/footer/Footer";
+import flags from "../assets/icons/flag-high.svg";
 
 export default function About() {
   return (
@@ -54,7 +56,23 @@ export default function About() {
           </div>
         </div>
       </div>
-      <Value/>
+
+      <Value />
+      <div className="section pt-[15vh] pb-[15vh]  bg-[#FFFAF4]">
+        <div className="main gap-4  w-[90%] md:w-[85%] m-auto flex flex-col justify-center ">
+          <div className="title text-center font-black head__two pb-4 ">
+            Area Covered on Map (Africa)
+          </div>
+          <div className="flex justify-center items-center">
+            <img
+              src={flags}
+              alt=""
+              className="  w-[70%] h-[70%]  object-contain"
+            />
+          </div>
+        </div>
+      </div>
+      <Footer />
     </>
   );
 }
