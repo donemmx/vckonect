@@ -11,7 +11,7 @@ import arrow from "../assets/icons/create-account/onboard/arrow-account-next.svg
 export default function OnboardAnimalOwnerAccount() {
   return (
     <div className="login flex justify-center items-center h-[140vh]">
-      <div className=" w-[80%] lg:w-[35%] md:w-[60%]">
+      <div className=" w-[90%] lg:w-[35%] md:w-[60%]">
         <h2 className="title font-black text-center head__two">
           Create Account
         </h2>
@@ -49,7 +49,7 @@ export default function OnboardAnimalOwnerAccount() {
             <Password toggleMask feedback={false} />
             <label htmlFor="password"> Confirm Password</label>
           </span>
-          <button className="green__btn">Proceed</button>
+          <Link to='/onboard-animal-owner-details' className="green__btn">Proceed</Link>
           <div className=" flex items-center justify-center gap-4">
             <img
               src={linkedIn}
