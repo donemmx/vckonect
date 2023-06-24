@@ -15,7 +15,7 @@ export default function Header({bg}) {
     }
   return (
     <>
-      <div className={`${bg? 'bg-hero' : '' }  w-[100vw] h-[85px] flex justify-center items-center fixed z-50 `}>
+      <div className={`${bg? 'bg-hero' : ' bg-white' }  w-[100vw] h-[85px] flex justify-center items-center fixed z-50 `}>
         <div className="header flex items-center justify-between p-2 w-[90%] md:w-[85%] m-auto">
           <div className="logo h-[25px] md:h-[30px] lg:h-[35px]">
             <img
@@ -50,10 +50,10 @@ export default function Header({bg}) {
       {open ? (
         <div className="modal w-[220px] h-[24vh] z-50 bg-white fixed top-[9%] right-[8%] rounded-md shadow-sm"  data-aos="fade" >
           <div className="modal__body flex  flex-col gap-2 p-4">
-            <div className="group text-[15px] text-gray-600 p-2 flex items-center gap-3 hover:bg-gray-300 rounded-md cursor-pointer">
+            <Link to='/login' onClick={openModal} className="group text-[15px] text-gray-600 p-2 flex items-center gap-3 hover:bg-gray-300 rounded-md cursor-pointer">
               <img src={user} alt="" className="h-4" />
               Login / Signup
-            </div>
+            </Link>
             <div className="group text-[15px] text-gray-600 p-2 flex items-center gap-3  hover:bg-gray-300 rounded-md cursor-pointer">
               <img src={language} alt="" className="h-4" />
               Language Option
