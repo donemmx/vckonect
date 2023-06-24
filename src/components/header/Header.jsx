@@ -7,7 +7,7 @@ import support from "../../assets/icons/modal-icons/support-icon.svg";
 import user from "../../assets/icons/modal-icons/user-icon.svg";
 import { useState } from "react";
 
-export default function Header() {
+export default function Header({bg}) {
     const [open, setOpen] = useState(false)
 
     const openModal=()=> {
@@ -15,7 +15,7 @@ export default function Header() {
     }
   return (
     <>
-      <div className="header__main w-[100vw] h-[85px] flex justify-center items-center fixed z-50 bg-hero">
+      <div className={`${bg? 'bg-hero' : '' }  w-[100vw] h-[85px] flex justify-center items-center fixed z-50 `}>
         <div className="header flex items-center justify-between p-2 w-[90%] md:w-[85%] m-auto">
           <div className="logo h-[25px] md:h-[30px] lg:h-[35px]">
             <img

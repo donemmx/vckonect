@@ -4,7 +4,7 @@ import Header from "./header/Header";
 export default function DefaultLayout() {
   return (
     <div>
-        <Header/>
+        <Header bg={true}/>
         <Outlet />
     </div>
   )

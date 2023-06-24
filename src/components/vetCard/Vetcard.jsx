@@ -8,7 +8,7 @@ import verified from "../../assets/vetcard/verified-icon.svg";
 
 export default function Vetcard() {
   return (
-    <div className=" verCard ">
+    <div className=" verCard">
       <div className="group h-full w-full">
         <div className="top vetUser h-[65%] w-[100%]">
           <div className="availbility">
