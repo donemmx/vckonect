@@ -23,7 +23,7 @@ export default function About() {
                 and vendors to pet owners and livestock farmers by leveraging
                 the use of technology.
               </p>
-              <div className="section__cards flex w-[90%] flex-wrap pt-10 gap-4">
+              <div className="section__cards flex w-[100%] md:w-[90%] flex-wrap items-center justify-center pt-10 gap-4">
                 <Cardcolor
                   text={"Number of Veterinarians"}
                   title={"8k+"}
@@ -56,9 +56,8 @@ export default function About() {
           </div>
         </div>
       </div>
-
       <Value />
-      <div className="section pt-[15vh] pb-[15vh]  bg-[#FFFAF4]">
+      <div className="section h-[40vh] flex items-center justify-center  bg-[#FFFAF4]">
         <div className="main gap-4  w-[90%] md:w-[85%] m-auto flex flex-col justify-center ">
           <div className="title text-center font-black head__two pb-4 ">
             Area Covered on Map (Africa)

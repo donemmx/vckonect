@@ -7,8 +7,8 @@ import CardOne from "../cardOne/CardOne";
 
 export default function Value() {
   return (
-    <div className="section pt-[10vh] pb-[5vh] w-full h-[80vh]  bg-[#F4F4FF]">
-      <div className="main w-[90%] md:w-[85%] m-auto relative ">
+    <div className="section pt-[10vh] pb-[5vh] w-full h-full lg:h-[80vh]  bg-[#F4F4FF]">
+      <div className="main w-[90%] md:w-[85%] m-auto relative">
         <div className="title head__two  pb-5">Veterinarian</div>
         <div className=" grid lg:grid-cols-2 gap-1">
           <div className=" pt-5 left flex flex-col gap-4 ">
