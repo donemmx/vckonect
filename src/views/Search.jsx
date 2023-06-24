@@ -1,7 +1,18 @@
+import { useState } from "react";
 import Footer from "../components/footer/Footer";
 import Vetcard from "../components/vetCard/Vetcard";
-
+import { SelectButton } from 'primereact/selectbutton';
+import vetClinic from '../assets/tab-icon/vet-clinic-tab.svg'
+import vetStore from '../assets/tab-icon/vet-store-tab.svg'
+import vet from '../assets/tab-icon/vet-icon-tab.svg'
+        
 export default function Search() {
+    const [value, setValue] = useState(null);
+    const items = [
+        { name: 'Veterinarian', value: 'vet', image: {vet} },
+        { name: 'Vet Vendor & Store', value: 'store', image: {vetStore} },
+        { name: 'Vet Clinic', value: 'clinic', image: {vetClinic} }
+    ];
   return (
     <>
       <div className="section flex pt-[10vh] pb-10 w-[100%] h-[100%] bg-cover bg-[#fff]">
