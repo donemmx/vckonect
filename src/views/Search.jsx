@@ -6,6 +6,7 @@ import vetStore from "../assets/tab-icon/vet-store-tab.svg";
 import vet from "../assets/tab-icon/vet-icon-tab.svg";
 import search from "../assets/icons/search-icons/search-icon-white.svg";
 import verified from "../assets/vetcard/verified-icon.svg";
+import location from "../assets/icons/marker-icon.svg";
 
 export default function Search() {
   const [active, setActive] = useState('vet');
