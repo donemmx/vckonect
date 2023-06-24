@@ -1,13 +1,12 @@
+import { InputText } from "primereact/inputtext";
 import { Link } from "react-router-dom";
-import { Password } from "primereact/password";
 
-
-export default function ResetPassword() {
+export default function Otp() {
   return (
     <div className="login flex justify-center items-center h-[105vh]">
       <div className=" w-[90%] lg:w-[35%] md:w-[60%]">
         <h2 className="title font-black text-center head__two">
-          Reset Password
+          OTP 
         </h2>
         <div className="pt-2 subtitle paragraph text-center">
         Kindly retrieve your password
@@ -16,17 +15,19 @@ export default function ResetPassword() {
           <div className="progress flex w-[90%] mx-auto items-center justify-evenly">
       
           </div>
- 
+          <div className="pt-2 subtitle paragraph text-center">
+            Kindly enter the 6 digit code sent to your email in the input field
+            below
+          </div>
           <span className="p-float-label">
-            <Password toggleMask  feedback={false} />
-            <label htmlFor="password">Password</label>
+            <InputText id="username" />
+            <label htmlFor="username">OTP Code</label>
           </span>
-          <span className="p-float-label">
-            <Password toggleMask  feedback={false} />
-            <label htmlFor="password">Confirm Password</label>
-          </span>
-          <Link to="/verified" className="green__btn">
-            Confirm
+          <div className="pt-2 subtitle cursor-pointer paragraph underline text-center">
+            Resend Code
+          </div>
+          <Link to="/reset-password" className="green__btn">
+            Verify
           </Link>
           <Link to="#" className="tertiary__btn">
             Back
@@ -34,5 +35,5 @@ export default function ResetPassword() {
         </div>
       </div>
     </div>
-  )
+  );
 }

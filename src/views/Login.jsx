@@ -22,7 +22,7 @@ export default function Login() {
             <Password toggleMask  feedback={false} />
             <label htmlFor="password">Password</label>
           </span>
-          <span className="text-sm underline cursor-pointer pt-2">Forgot your password?</span>
+          <Link to='/forgot-password' className="text-sm underline cursor-pointer pt-2">Forgot your password?</Link>
           <button className="green__btn">Login</button>
           <div className=" flex items-center justify-center gap-4">
               <img src={linkedIn} alt="" className="h-[35px] w-[35px] object-contain cursor-pointer"  />

@@ -5,6 +5,7 @@ import orange from "../../assets/bg/orange-shape-bg.svg";
 import red from "../../assets/bg/light-red-shape-bg.svg";
 import green from "../../assets/bg/green-shape-bg.svg";
 import people from "../../assets/bg/people-img.png";
+import { Link } from "react-router-dom";
 
 export default function Section() {
   return (
@@ -47,7 +48,7 @@ export default function Section() {
               <div className="top font-black text-[1.5rem]">20+</div>
               <small>Team Members</small>
             </div>
-            <button className="primary__btn mt-10">Read About Us</button>
+            <Link to='/about-us' className="primary__btn mt-10 w-fit ">Read About Us</Link>
           </div>
         </div>
         <div className="section__right col-span-4">
