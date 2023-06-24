@@ -8,8 +8,8 @@ import verified from "../../assets/vetcard/verified-icon.svg";
 
 export default function Vetcard() {
   return (
-    <div className=" verCard">
-      <div className="group h-full w-full">
+    <div className=" verCard mb-6">
+      <div className="group h-full w-full ">
         <div className="top vetUser h-[65%] w-[100%]">
           <div className="availbility">
             <div className=" flex items-center gap-2 text-[.8rem]">

@@ -5,6 +5,7 @@ import vetClinic from "../assets/tab-icon/vet-clinic-tab.svg";
 import vetStore from "../assets/tab-icon/vet-store-tab.svg";
 import vet from "../assets/tab-icon/vet-icon-tab.svg";
 import search from "../assets/icons/search-icons/search-icon-white.svg";
+import verified from "../assets/vetcard/verified-icon.svg";
 
 export default function Search() {
   const [value, setValue] = useState(null);
@@ -13,10 +14,10 @@ export default function Search() {
       <div className="section flex pt-[10vh] pb-10 w-[100%] h-[100%] bg-cover bg-[#fff]">
         <div className="body flexBody hero__body w-[90%] md:w-[85%] h-[100%] m-auto">
           <div className="tab">
-            <div className="tab__menu tab-left">
+            <div className="tab__menu tab-left active">
               <img src={vet} alt="" />
               <p>Veterinarian</p>
-              <img src="" alt="" />
+              <img src={verified} alt="" />
             </div>
             <div className="tab__menu tab-center">
               <img src={vetStore} alt="" />
@@ -36,7 +37,7 @@ export default function Search() {
               </div>
             </div>
           </div>
-          <div className="group pt-12  pb-10 grid md:grid-cols-2 grid-gap-2 lg:grid-cols-4 w-full">
+          <div className="group pt-12 gap-6  pb-10 grid md:grid-cols-2  lg:grid-cols-4 w-full">
             <Vetcard />
             <Vetcard />
             <Vetcard />
