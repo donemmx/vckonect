@@ -332,7 +332,6 @@ box-shadow: 6px 13px 40px 0px rgba(27, 25, 86, 0.06);
 .tab__menu:hover{
   border: 2px solid #52CE06;
   background: var(--white-color, #FFF);
-  
   /* Shadow */
   box-shadow: 6px 13px 40px 0px rgba(27, 25, 86, 0.06);
 }
@@ -351,7 +350,5 @@ box-shadow: 6px 13px 40px 0px rgba(27, 25, 86, 0.06);
 .active {
   border: 2px solid #52CE06;
   background: var(--white-color, #FFF);
-  
-  /* Shadow */
   box-shadow: 6px 13px 40px 0px rgba(27, 25, 86, 0.06);
 }

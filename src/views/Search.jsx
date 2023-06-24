@@ -8,24 +8,32 @@ import search from "../assets/icons/search-icons/search-icon-white.svg";
 import verified from "../assets/vetcard/verified-icon.svg";
 
 export default function Search() {
-  const [value, setValue] = useState(null);
+  const [active, setActive] = useState('vet');
+
+  const selectTab = (value) => {
+  setActive(value)
+    }
   return (
     <>
       <div className="section flex pt-[10vh] pb-10 w-[100%] h-[100%] bg-cover bg-[#fff]">
         <div className="body flexBody hero__body w-[90%] md:w-[85%] h-[100%] m-auto">
           <div className="tab">
-            <div className="tab__menu tab-left active">
+            <div className={`${active == 'vet'? 'active' : ''} tab__menu tab-left  cursor-pointer`} onClick={() => selectTab('vet')}>
               <img src={vet} alt="" />
               <p>Veterinarian</p>
-              <img src={verified} alt="" />
+              {active === 'vet' ?  <img src={verified} alt="" /> : '' }
             </div>
-            <div className="tab__menu tab-center">
-              <img src={vetStore} alt="" />
+            <div className={`tab__menu tab-center   ${active == 'store'? 'active' : ''} cursor-pointer`}  onClick={()=> selectTab('store')}>
+              <img src={vetStore} alt=""/>
               <p>Vet Vendor & Store</p>
+             {active === 'store' ? <img src={verified} alt="" /> : ''}
+
             </div>
-            <div className="tab__menu tab-right">
+            <div className={`tab__menu tab-right ${active == 'clinic'? 'active' : ''}   cursor-pointer`} onClick={ () => selectTab('clinic')}>
               <img src={vetClinic} alt="" />
               <p>Vet Clinic</p>
+              {active === 'clinic' ? <img src={verified} alt="" /> : ''}
+
             </div>
           </div>
           <div className="search pt-5">
