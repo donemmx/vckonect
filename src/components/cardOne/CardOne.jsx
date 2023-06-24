@@ -11,12 +11,13 @@ export default function CardOne({image, title, icon, subtitle, btnText }) {
             <div className="card__text">
           {subtitle}
             </div>
-            <div className="bottom mt-3">
+           {btnText ?   <div className="bottom mt-3">
                 <button className="small__btn">
                     {btnText}
                     <img src={icon} alt="" className=' h-5' />
                 </button>
-            </div>
+            </div> : ''
+            }
         </div>
     </div>
   )

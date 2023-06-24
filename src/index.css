@@ -122,7 +122,7 @@ body {
   display: grid;
   grid-template-columns: 1fr 10fr;
   grid-gap: 20px;
-  height: 160px;
+  /* height: 160px; */
 }
 
 .accountCard {
