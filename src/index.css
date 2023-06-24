@@ -353,3 +353,10 @@ box-shadow: 6px 13px 40px 0px rgba(27, 25, 86, 0.06);
   background: var(--white-color, #FFF);
   box-shadow: 6px 13px 40px 0px rgba(27, 25, 86, 0.06);
 }
+
+.menuSearch{
+  display: grid;
+  grid-template-columns: 8fr 3fr;
+  width: 100%;
+  place-content: center;
+}

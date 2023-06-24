@@ -7,6 +7,9 @@ import vet from "../assets/tab-icon/vet-icon-tab.svg";
 import search from "../assets/icons/search-icons/search-icon-white.svg";
 import verified from "../assets/vetcard/verified-icon.svg";
 import location from "../assets/icons/marker-icon.svg";
+import filter from "../assets/menu-search/filter.svg";
+import mapView from "../assets/menu-search/map-view.svg";
+import listView from "../assets/menu-search/list-view.svg";
 
 export default function Search() {
   const [active, setActive] = useState('vet');
@@ -37,7 +40,8 @@ export default function Search() {
 
             </div>
           </div>
-          <div className="search pt-5">
+          <div className="menuSearch pt-8">
+          <div className="search">
             <div className="form__group flex space-x-4 items-center p-2 border-[#EBEBEB] border-2  bg-white rounded-full">
               <img src={location} alt="" className=" h-[26px] px-3 object-contain" />
               <input type="text" placeholder="Type in your location"  className=" outline-none p-1 w-full"/>
@@ -46,6 +50,13 @@ export default function Search() {
               </div>
             </div>
           </div>
+          <div className="flex items-center justify-center gap-5">
+          <img src={filter} className="h-[60px] object-contain" alt="" />
+          <img src={listView} className="h-[60px] object-contain" alt="" />
+          <img src={mapView} className="h-[60px] object-contain"  alt="" />
+          </div>
+          </div>
+
           <div className="group pt-12 gap-6  pb-10 grid md:grid-cols-2  lg:grid-cols-4 w-full">
             <Vetcard />
             <Vetcard />
