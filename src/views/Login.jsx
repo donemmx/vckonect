@@ -3,11 +3,12 @@ import { Password } from "primereact/password";
 import linkedIn from '../assets/icons/linkedin.svg'
 import google from '../assets/icons/google.svg'
 import or from '../assets/icons/or.svg'
+import { Link } from "react-router-dom";
 
 export default function Login() {
   return (
-    <div className="login flex justify-center items-center h-[130vh]">
-      <div className=" w-[25%]">
+    <div className="login flex justify-center items-center h-[120vh]">
+      <div className=" w-[80%] lg:w-[30%] md:w-[50%]">
         <h2 className="title font-black text-center head__two">Login</h2>
         <div className="subtitle paragraph text-center">
           Secure access to your account
@@ -21,14 +22,14 @@ export default function Login() {
             <Password toggleMask  feedback={false} />
             <label htmlFor="password">Password</label>
           </span>
-          <span>Forgot your password?</span>
+          <span className="text-sm underline cursor-pointer pt-2">Forgot your password?</span>
           <button className="green__btn">Login</button>
           <div className=" flex items-center justify-center gap-4">
-              <img src={linkedIn} alt="" className="h-[35px] w-[35px] object-contain"  />
-              <img src={google} alt=""  className="h-[35px] w-[35px] object-contain" />
+              <img src={linkedIn} alt="" className="h-[35px] w-[35px] object-contain cursor-pointer"  />
+              <img src={google} alt=""  className="h-[35px] w-[35px] object-contain cursor-pointer" />
           </div>
-          <img src={or} alt="" className="h-[70px] w-full object-cover" />
-          <button className="secondary__btn">Create Account</button>
+          <img src={or} alt="" className=" w-full object-cover" />
+          <Link to='/signup' className="secondary__btn mt-[-30px]">Create Account</Link>
         </div>
       </div>
     </div>
