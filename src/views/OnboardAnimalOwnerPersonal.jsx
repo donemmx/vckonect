@@ -76,7 +76,7 @@ export default function OnboardAnimalOwnerPersonal() {
             Confirm that you agree to our terms and conditions at Vet Konect
             </label>
           </div>
-          <Link to="/onboard-animal-owner-verify" className="green__btn">
+          <Link to="/onboard-verify" className="green__btn">
             Proceed
           </Link>
           <Link to="/onboard-animal-owner-account" className="tertiary__btn">
