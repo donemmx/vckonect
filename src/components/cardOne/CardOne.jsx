@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 
 
 export default function CardOne({image, title, icon, subtitle, btnText }) {
@@ -12,10 +13,10 @@ export default function CardOne({image, title, icon, subtitle, btnText }) {
           {subtitle}
             </div>
            {btnText ?   <div className="bottom mt-3">
-                <button className="small__btn">
+                <Link to='/search' className="small__btn">
                     {btnText}
                     <img src={icon} alt="" className=' h-5' />
-                </button>
+                </Link>
             </div> : ''
             }
         </div>

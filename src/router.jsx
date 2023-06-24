@@ -14,6 +14,7 @@ import OnboardVetAccount from "./views/OnboardVetAccount";
 import OnboardVetPersonal from "./views/OnboardVetPersonal";
 import OnboardVerify from "./views/OnboardVerify";
 import Otp from "./views/Otp";
+import Search from "./views/Search";
 
 const router = createBrowserRouter([
     {
@@ -54,6 +55,10 @@ const router = createBrowserRouter([
             {
                 path: '/otp',
                 element: <Otp/>
+            },
+            {
+                path: '/search',
+                element: <Search/>
             },
             {
                 path: '/onboard-animal-owner-details',
