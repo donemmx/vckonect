@@ -155,7 +155,7 @@ export default function Home() {
           <div className="title font-black head__two ">
             Most Contacted Nearby Vet
           </div>
-          <div className="group pt-12  pb-10 grid grid-cols-4 overflow-y-hidden overflow-x-scroll w-full">
+          <div className="group scrollable">
             <Vetcard />
             <Vetcard />
             <Vetcard />
