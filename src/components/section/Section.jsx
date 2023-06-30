@@ -21,7 +21,7 @@ export default function Section() {
               and vendors to pet owners and livestock farmers by leveraging the
               use of technology.
             </p>
-            <div className="section__cards flex flex-wrap pt-10 gap-2">
+            <div className="section__cards flex flex-wrap items-center justify-center md:justify-start pt-10 gap-2">
               <Cardcolor
                 text={"Number of Veterinarians"}
                 title={"8k+"}
