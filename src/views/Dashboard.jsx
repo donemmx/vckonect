@@ -57,36 +57,36 @@ export default function Dashboard() {
           <div className=" bg-white  flex items-center justify-between p-6 border rounded-lg">
             <div className="">
               <div className="font-bold text-sm">
-                Deleted Vendor From Client List
+              Liked a Forum Chat
               </div>
-              <div className=" text-[11px]">Vendor Name</div>
+              <div className=" text-[11px]">Topic</div>
             </div>
             <div className="text-[11px] bg-gray-100 p-2 border rounded-full">10 mins ago</div>
           </div>
           <div className=" bg-white  flex items-center justify-between p-6 border rounded-lg">
             <div className="">
               <div className="font-bold text-sm">
-                Deleted Vendor From Client List
+              Case Closed
               </div>
-              <div className=" text-[11px]">Vendor Name</div>
+              <div className=" text-[11px]">Case Title - Case ID</div>
             </div>
             <div className="text-[11px] bg-gray-100 p-2 border rounded-full">10 mins ago</div>
           </div>
           <div className=" bg-white  flex items-center justify-between p-6 border rounded-lg">
             <div className="">
               <div className="font-bold text-sm">
-                Deleted Vendor From Client List
+              Sent a Direct Message
               </div>
-              <div className=" text-[11px]">Vendor Name</div>
+              <div className=" text-[11px]">Message first paragraph</div>
             </div>
             <div className="text-[11px] bg-gray-100 p-2 border rounded-full">10 mins ago</div>
           </div>
           <div className=" bg-white flex items-center justify-between p-6 border rounded-lg">
             <div className="">
               <div className="font-bold text-sm">
-                Deleted Vendor From Client List
+              Replied a Direct Message
               </div>
-              <div className=" text-[11px]">Vendor Name</div>
+              <div className=" text-[11px]">Message first paragraph</div>
             </div>
             <div className="text-[11px] bg-gray-100 p-2 border rounded-full">10 mins ago</div>
           </div>
