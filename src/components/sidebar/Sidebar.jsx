@@ -11,7 +11,7 @@ import adsicon from '../../assets/sidebar/ads.svg'
 import { Link } from 'react-router-dom'
 export default function Sidebar() {
   return (
-    <div className=" fixed z-50  w-full lg:w-fit pr-14 lg:pr-0 top-[16vh] lg:top-[15vh] pb-10 left-8 h-[16vh] lg:h-[85vh] overflow-x-scroll lg:overflow-y-scroll no-scrollbar flex items-center lg:flex-col gap-2 justify-between">
+    <div className=" fixed z-50  w-full lg:w-fit pr-14 lg:pr-0 top-[14vh] lg:top-[15vh] pb-10 left-8 h-[16vh] lg:h-[85vh] overflow-x-scroll lg:overflow-y-scroll no-scrollbar flex items-center lg:flex-col gap-2 justify-between">
       <Link to='' className=" flex items-center flex-col gap-1 cursor-pointer justify-center bg-white w-[90px] px-6 h-[80px] p-2 rounded-[15px] border hover:border-[2px] hover:border-green-500">
         <img className='h-[30px]' src={homeicon} alt="" />
         <small className='text-[10px] leading-3 font-bold'>Home</small>
