@@ -23,7 +23,7 @@ export default function Dashboard() {
           subtitle="Join the poor of vendors on our platform to earn from sales."
           link={"/"}
         />
-         <AccountCard
+        <AccountCard
           image={livestockIcon}
           icon={arrow}
           title="Manage Your Pet & Livestock Farm"
@@ -37,6 +37,60 @@ export default function Dashboard() {
           subtitle="Promote your products by activating promotion subscription plan"
           link={"/"}
         />
+      </div>
+      <div className="activity mt-5  mb-5 p-4 border bg-white rounded-lg">
+        <div className="flex items-center gap-6">
+          <h2 className=" text-[1rem] lg:text-[1.3rem] font-black ">Recent Activities</h2>
+          <h4 className=" text-[1rem] lg:text-[1.3rem]">Forum Trending Topics</h4>
+        </div>
+
+        <div className="posts p-3 mt-5 grid gap-2">
+          <div className=" bg-white  flex items-center justify-between p-6 border rounded-lg">
+            <div className="">
+              <div className="font-bold text-sm">
+                Deleted Vendor From Client List
+              </div>
+              <div className=" text-[11px]">Vendor Name</div>
+            </div>
+            <div className="text-[11px] bg-gray-100 p-2 border rounded-full">10 mins ago</div>
+          </div>
+          <div className=" bg-white  flex items-center justify-between p-6 border rounded-lg">
+            <div className="">
+              <div className="font-bold text-sm">
+                Deleted Vendor From Client List
+              </div>
+              <div className=" text-[11px]">Vendor Name</div>
+            </div>
+            <div className="text-[11px] bg-gray-100 p-2 border rounded-full">10 mins ago</div>
+          </div>
+          <div className=" bg-white  flex items-center justify-between p-6 border rounded-lg">
+            <div className="">
+              <div className="font-bold text-sm">
+                Deleted Vendor From Client List
+              </div>
+              <div className=" text-[11px]">Vendor Name</div>
+            </div>
+            <div className="text-[11px] bg-gray-100 p-2 border rounded-full">10 mins ago</div>
+          </div>
+          <div className=" bg-white  flex items-center justify-between p-6 border rounded-lg">
+            <div className="">
+              <div className="font-bold text-sm">
+                Deleted Vendor From Client List
+              </div>
+              <div className=" text-[11px]">Vendor Name</div>
+            </div>
+            <div className="text-[11px] bg-gray-100 p-2 border rounded-full">10 mins ago</div>
+          </div>
+          <div className=" bg-white flex items-center justify-between p-6 border rounded-lg">
+            <div className="">
+              <div className="font-bold text-sm">
+                Deleted Vendor From Client List
+              </div>
+              <div className=" text-[11px]">Vendor Name</div>
+            </div>
+            <div className="text-[11px] bg-gray-100 p-2 border rounded-full">10 mins ago</div>
+          </div>
+        </div>
       </div>
     </div>
   );
