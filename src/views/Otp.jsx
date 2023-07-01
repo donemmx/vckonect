@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export default function Otp() {
   return (
-    <div className="login flex justify-center items-center h-[105vh]">
+    <div className="login flex justify-center items-center h-[100vh]">
       <div className=" w-[90%] lg:w-[35%] md:w-[60%]">
         <h2 className="title font-black text-center head__two">
           OTP 
