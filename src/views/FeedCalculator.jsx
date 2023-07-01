@@ -52,7 +52,7 @@ export default function FeedCalculator() {
             ) : (
               ""
             )}
-            {bridType === "Broilers" ? (
+            {livestock === "poultry" && bridType === "Broilers" ? (
               <span className="p-float-label">
                 <Dropdown
                   value={feedType}
@@ -64,6 +64,9 @@ export default function FeedCalculator() {
                 <label htmlFor="livestock">Feed Type (Required): </label>
               </span>
             ) : (
+             ''
+            )}
+            {livestock === "poultry" && bridType === "Layers" ? (
               <span className="p-float-label">
                 <Dropdown
                   value={feedType}
@@ -74,8 +77,10 @@ export default function FeedCalculator() {
                 />
                 <label htmlFor="livestock">Feed Type (Required): </label>
               </span>
+            ) : (
+             ''
             )}
-            { bridType !== null ?
+            { livestock === "poultry" && bridType !== null ?
               <>
                 {bridType === "Broilers" ? (
                   <span className="p-float-label">
