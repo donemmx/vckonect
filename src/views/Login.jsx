@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 
 export default function Login() {
   return (
-    <div className="login flex justify-center items-center h-[120vh]">
+    <div className="login flex justify-center items-center h-[100vh] lg:h-[120vh]">
       <div className=" w-[80%] lg:w-[30%] md:w-[50%]">
         <h2 className="title font-black text-center head__two">Login</h2>
         <div className="subtitle paragraph text-center">

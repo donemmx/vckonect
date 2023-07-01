@@ -7,7 +7,7 @@ import arrow from "../assets/icons/create-account/onboard/arrow-account-next.svg
 
 export default function OnboardVerify() {
   return (
-    <div className="login flex justify-center items-center h-[105vh]">
+    <div className="login flex justify-center items-center h-[100vh] lg:h-[105vh]">
       <div className=" w-[90%] lg:w-[35%] md:w-[60%]">
         <h2 className="title font-black text-center head__two">
           Create Account
