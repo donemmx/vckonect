@@ -411,12 +411,13 @@ button:disabled {
   padding-bottom: 0px;
 }
 
-.p-dropdown-panel .p-dropdown-items .p-dropdown-item.p-highlight {
+.p-dropdown-panel .p-dropdown-items .p-dropdown-item.p-highlight, .p-multiselect-panel .p-multiselect-items .p-multiselect-item.p-highlight {
   color: var(--primary) !important;
   background: #eeffea !important;
+  box-shadow: none !important;
 }
 
-.p-dropdown-panel .p-dropdown-items .p-dropdown-item {
+.p-dropdown-panel .p-dropdown-items .p-dropdown-item, .p-multiselect-panel .p-multiselect-items .p-multiselect-item {
   font-size: 0.9rem;
 }
 
