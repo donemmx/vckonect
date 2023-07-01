@@ -15,11 +15,10 @@ export default function Footer() {
           <p className="pt-4 text-sm">100, Wuse Road, Abuja, Nigeria.</p>
           <p className="text-sm"> hello@vkonnect.com | +10020001234 </p>
           <div className="icons flex items-center gap-3">
-            <img src={icon1} alt="" />
-            <img src={icon2} alt="" />
-            <img src={icon3} alt="" />
-            <img src={icon4} alt="" />
-            <img src={icon5} alt="" />
+           <a href="https://twitter.com/vetkonect" target="_" referrerPolicy="no-referral"> <img src={icon2} alt="" /></a>
+           <a href="https://facebook.com/vetkonect" target="_" referrerPolicy="no-referral"> <img src={icon5} alt="" /> </a>
+           <a href="https://linkedin.com/in/vet-konect-68a2b31a6" target="_" referrerPolicy="no-referral">  <img src={icon1} alt="" /> </a>
+           <a href="https://youtube.com/@vetkonect" target="_" referrerPolicy="no-referral"> <img src={icon4} alt="" /> </a>
           </div>
           <p className="text-sm"> Copyright Vetkonect 2023 </p>
         </div>
