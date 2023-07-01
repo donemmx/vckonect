@@ -26,8 +26,8 @@ export default function Header({bg}) {
           </Link>
           <div className="header__links  hidden lg:flex space-x-5 ">
             <Link to={"/about-us"}>About Us</Link>
-            <Link to={"/login"}>Feed Calculator</Link>
-            <Link to={"/login"}>Disease Predictor</Link>
+            <Link to={"/feed-calculator"}>Feed Calculator</Link>
+            <Link to={"/disease-prediction"}>Disease Predictor</Link>
             <Link to={"/login"}>Blog Post</Link>
             <Link to={"/login"}>Chat Forum</Link>
           </div>
