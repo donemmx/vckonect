@@ -57,7 +57,7 @@ export default function Search() {
           </div>
           </div>
 
-          <div className="group pt-12 gap-6  pb-10 grid md:grid-cols-2  lg:grid-cols-4 w-full">
+          <div className="scrollable pt-12 gap-6  pb-10 grid md:grid-cols-2  lg:grid-cols-4 w-full">
             <Vetcard />
             <Vetcard />
             <Vetcard />

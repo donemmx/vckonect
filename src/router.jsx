@@ -15,8 +15,11 @@ import OnboardVetPersonal from "./views/OnboardVetPersonal";
 import OnboardVerify from "./views/OnboardVerify";
 import Otp from "./views/Otp";
 import Search from "./views/Search";
+import Dashboard from "./views/Dashboard";
+import DashboardLayout from "./components/DashboardLayout";
 
 const router = createBrowserRouter([
+  
     {
         path: '/',
         element:<DefaultLayout/>,
@@ -30,6 +33,48 @@ const router = createBrowserRouter([
                 element: <About/>
             },
 
+        ]
+    },
+    {
+        path: '/',
+        element:<DashboardLayout/>,
+        children: [
+            {
+                path: '/dashboard',
+                element: <Dashboard />
+            },
+            {
+                path: '/livestock',
+                element: <Dashboard />
+            },
+            {
+                path: '/clients',
+                element: <Dashboard />
+            },
+            {
+                path: '/stores',
+                element: <Dashboard />
+            },
+            {
+                path: '/chat',
+                element: <Dashboard />
+            },
+            {
+                path: '/feed-calculator',
+                element: <Dashboard />
+            },
+            {
+                path: '/disease-prediction',
+                element: <Dashboard />
+            },
+            {
+                path: '/account',
+                element: <Dashboard />
+            },
+            {
+                path: '/ads-promotion',
+                element: <Dashboard />
+            },
         ]
     },
     {
