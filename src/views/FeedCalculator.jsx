@@ -64,7 +64,7 @@ export default function FeedCalculator() {
                 <label htmlFor="livestock">Feed Type (Required): </label>
               </span>
             ) : (
-             ''
+              ""
             )}
             {livestock === "poultry" && bridType === "Layers" ? (
               <span className="p-float-label">
@@ -78,9 +78,9 @@ export default function FeedCalculator() {
                 <label htmlFor="livestock">Feed Type (Required): </label>
               </span>
             ) : (
-             ''
+              ""
             )}
-            { livestock === "poultry" && bridType !== null ?
+            {livestock === "poultry" && bridType !== null ? (
               <>
                 {bridType === "Broilers" ? (
                   <span className="p-float-label">
@@ -94,8 +94,34 @@ export default function FeedCalculator() {
                   <InputText id="username" />
                   <label htmlFor="username">Number of Birds (Required)</label>
                 </span>
-              </> : ''
-            }
+              </>
+            ) : (
+              ""
+            )}
+            {livestock === "fishes" ? (
+              <>
+                <span className="p-float-label">
+                  <InputText id="username" />
+                  <label htmlFor="username">Size of Fish (Required): </label>
+                </span>
+                <span className="p-float-label">
+                  <InputText id="username" />
+                  <label htmlFor="username">Number of Fish (Required): </label>
+                </span>
+              </>
+            ) : (
+              ""
+            )}
+            {livestock === "pigs" ? (
+              <>
+                <span className="p-float-label">
+                  <InputText id="username" />
+                  <label htmlFor="username">Number of Pigs (Required): </label>
+                </span>
+              </>
+            ) : (
+              ""
+            )}
             <button className="green__btn" disabled>
               Submit
             </button>
