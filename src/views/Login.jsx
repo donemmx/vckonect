@@ -23,7 +23,7 @@ export default function Login() {
             <label htmlFor="password">Password</label>
           </span>
           <Link to='/forgot-password' className="text-sm underline cursor-pointer pt-2">Forgot your password?</Link>
-          <button className="green__btn">Login</button>
+          <Link to='/dashboard' className="green__btn">Login</Link>
           <div className=" flex items-center justify-center gap-4">
               <img src={linkedIn} alt="" className="h-[35px] w-[35px] object-contain cursor-pointer"  />
               <img src={google} alt=""  className="h-[35px] w-[35px] object-contain cursor-pointer" />
