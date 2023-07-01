@@ -17,6 +17,8 @@ import Otp from "./views/Otp";
 import Search from "./views/Search";
 import Dashboard from "./views/Dashboard";
 import DashboardLayout from "./components/DashboardLayout";
+import FeedCalculator from "./views/FeedCalculator";
+import DiseasePrediction from "./views/DiseasePrediction";
 
 const router = createBrowserRouter([
   
@@ -61,11 +63,11 @@ const router = createBrowserRouter([
             },
             {
                 path: '/feed-calculator',
-                element: <Dashboard />
+                element: <FeedCalculator />
             },
             {
                 path: '/disease-prediction',
-                element: <Dashboard />
+                element: <DiseasePrediction />
             },
             {
                 path: '/account',
