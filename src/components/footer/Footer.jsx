@@ -4,6 +4,7 @@ import icon2 from "../../assets/icons/socials/twitter-icon.svg";
 import icon3 from "../../assets/icons/socials/discord-icon.svg";
 import icon4 from "../../assets/icons/socials/slack-icon.svg";
 import icon5 from "../../assets/icons/socials/facebook-icon.svg";
+import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
@@ -25,9 +26,9 @@ export default function Footer() {
         <div className="group col-span-full md:col-span-4">
           <div className="title">Quick Links</div>
           <div className="group list-none underline text-sm grid gap-2 pt-3 cursor-pointer">
-            <li>About Us</li>
-            <li>Feed Calculator</li>
-            <li>Disease Predictor</li>
+            <Link to='/about-us'>About Us</Link>
+            <Link to='/feed-calculator' >Feed Calculator</Link>
+            <Link to='/disease-prediction'>Disease Predictor</Link>
             <li>Blog Post</li>
             <li>Chat Forum</li>
           </div>
