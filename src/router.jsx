@@ -22,6 +22,7 @@ import DiseasePrediction from "./views/DiseasePrediction";
 import PetandLiveStock from "./views/PetandLiveStock";
 import Account from "./views/Account";
 import Promotion from "./views/Promotion";
+import AccountDetails from "./views/AccountDetails";
 
 const router = createBrowserRouter([
   
@@ -75,6 +76,10 @@ const router = createBrowserRouter([
             {
                 path: '/account',
                 element: <Account />
+            },
+            {
+                path: '/account-details',
+                element: <AccountDetails />
             },
             {
                 path: '/ads-promotion',

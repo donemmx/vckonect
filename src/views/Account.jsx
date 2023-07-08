@@ -5,6 +5,7 @@ import shareIcon from "../assets/icons/share-icon.svg";
 import messageIcon from "../assets/icons/message-icon.svg";
 import markerIcon from "../assets/icons/location-icon.svg";
 import handIcon from "../assets/account/hand-icon.svg";
+import { Link } from "react-router-dom";
 
 export default function Account() {
   return (
@@ -15,14 +16,14 @@ export default function Account() {
             <i className="pi pi-angle-left p-1 lg:p-3 h-[25px] w-[25px] lg:h-[45px] lg:w-[45px] bg-white rounded-full"></i>
             Back
           </div>
-          <div className=" flex items-center gap-3 text-[.75rem] lg:text-[.9rem] cursor-pointer">
+          <Link to='/account-details' className=" flex items-center gap-3 text-[.75rem] lg:text-[.9rem] cursor-pointer">
             Edit
             <img
               src={editIcon}
               alt=""
               className="p-1 lg:p-3 h-[25px] w-[25px] lg:h-[45px] lg:w-[45px] bg-white rounded-full"
             />
-          </div>
+          </Link>
         </div>
       </div>
       <div className="flex items-center justify-center mt-[-6vh]">
