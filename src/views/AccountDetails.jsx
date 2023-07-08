@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 
 export default function AccountDetails() {
   const [specialty, setSpecialty] = useState(null);
+  const [open, setOpen] = useState(false);
 
   const Specialties = [
     "Small Animal Medicine",
@@ -15,20 +16,22 @@ export default function AccountDetails() {
 
   return (
     <div className=" bg-white h-[140vh] mb-10 rounded-md border-[1px] border-[#EBEBEB]">
-         <Link to='/account' className="flex items-center gap-3 text-[.75rem] lg:text-[.9rem] cursor-pointer ml-10 mt-10">
-            <i className="pi pi-angle-left p-1 lg:p-3 h-[25px] w-[25px] lg:h-[45px] lg:w-[45px] bg-white rounded-full"></i>
-            Back
-          </Link>
+      <Link
+        to="/account"
+        className="flex items-center gap-3 text-[.75rem] lg:text-[.9rem] cursor-pointer ml-10 mt-10"
+      >
+        <i className="pi pi-angle-left p-1 lg:p-3 h-[25px] w-[25px] lg:h-[45px] lg:w-[45px] bg-white rounded-full"></i>
+        Back
+      </Link>
       <div className="flex justify-center items-center pt-[10vh]">
         <div className=" w-[90%] lg:w-[35%] md:w-[60%]">
           <h2 className="title font-black text-center head__two">
             Account Details
           </h2>
           <div className="pt-2 subtitle paragraph text-center">
-          You can update your profile information by filling the field below
+            You can update your profile information by filling the field below
           </div>
           <div className="form flex flex-col gap-3 pt-6">
-         
             <span className="p-float-label">
               <InputText id="username" />
               <label htmlFor="username">Email Address (Required)</label>
@@ -38,7 +41,6 @@ export default function AccountDetails() {
                 value={specialty}
                 onChange={(e) => setSpecialty(e.value)}
                 options={Specialties}
-                filter
                 placeholder="Select Specialty"
                 className="w-full md:w-20rem"
               />
@@ -60,8 +62,25 @@ export default function AccountDetails() {
               <InputText id="username" />
               <label htmlFor="username">Address (Required): </label>
             </span>
+            { open ?
+              <>
+                <span className="p-float-label">
+                  <InputText id="username" />
+                  <label htmlFor="username">Password (Required): </label>
+                </span>
+                <span className="p-float-label">
+                  <InputText id="username" />
+                  <label htmlFor="username">Change Password (Required): </label>
+                </span>
+              </>
+              : ''
+            }
+
+           { !open ? <button className="green__btn" onClick={() => setOpen(!open)}>
+              Change Password
+            </button> : ''}
             <button className="green__btn" disabled>
-              Submit
+              Save
             </button>
           </div>
         </div>
