@@ -1,7 +1,6 @@
 import logo from "../../assets/logo/vc-logo.svg";
 import icon1 from "../../assets/icons/socials/linkedin.svg";
 import icon2 from "../../assets/icons/socials/twitter-icon.svg";
-import icon3 from "../../assets/icons/socials/discord-icon.svg";
 import icon4 from "../../assets/icons/socials/slack-icon.svg";
 import icon5 from "../../assets/icons/socials/facebook-icon.svg";
 import { Link } from "react-router-dom";

@@ -4,8 +4,16 @@ import livestockIcon from "../assets/sidebar/livestock.svg";
 import adsIcon from "../assets/sidebar/ads.svg";
 import arrow from "../assets/sidebar/gray-arrow.svg";
 import AccountCard from "../components/accountCard/AccountCard";
+import { useState } from "react";
+import DashboardCard from "../components/dashboardCard/DashboardCard";
 
 export default function Dashboard() {
+  const [tab, setTab] = useState('activity');
+
+  const activeTab = (type) => {
+    setTab(type)
+  };
+
   return (
     <div className="">
       <div className="form grid grid-cols-1 md:grid-cols-2 gap-3 pt-6">
@@ -40,57 +48,76 @@ export default function Dashboard() {
       </div>
       <div className="activity mt-5  mb-5 p-4 border bg-white rounded-lg">
         <div className="flex items-center gap-6">
-          <h2 className=" text-[1rem] lg:text-[1.3rem] font-black ">Recent Activities</h2>
-          <h4 className=" text-[1rem] lg:text-[1.3rem]">Forum Trending Topics</h4>
+          <h2 className={` text-[1rem] lg:text-[1.3rem] cursor-pointer ${tab === 'activity' ? 'font-black' : '' } `} onClick={()=> activeTab('activity')}>
+            Recent Activities
+          </h2>
+          <h4 className={`text-[1rem] lg:text-[1.3rem] cursor-pointer ${tab === 'forum' ? 'font-black' : ''} `}  onClick={() => activeTab('forum')}>
+            Forum Trending Topics
+          </h4>
         </div>
 
-        <div className="posts p-3 mt-5 grid gap-2">
-          <div className=" bg-white  flex items-center justify-between p-6 border rounded-lg">
-            <div className="">
-              <div className="font-bold text-sm">
-                Deleted Vendor From Client List
-              </div>
-              <div className=" text-[11px]">Vendor Name</div>
-            </div>
-            <div className="text-[11px] bg-gray-100 p-2 border rounded-full">10 mins ago</div>
+        {tab == 'activity' ? (
+          <div className="posts p-3 mt-5 grid gap-2">
+            <DashboardCard
+              time={"10"}
+              title={"Deleted Vendor From Client List"}
+              name={"Topic"}
+            />
+            <DashboardCard
+              time={"10"}
+              title={"Liked a Forum Chat"}
+              name={"Topic"}
+            />
+            <DashboardCard
+              time={"10"}
+              title={"Case Title - Case ID"}
+              name={"Topic"}
+            />
+            <DashboardCard
+              time={"10"}
+              title={"Sent a Direct Message"}
+              name={"Message first paragraph"}
+            />
+            <DashboardCard
+              time={"10"}
+              title={" Replied a Direct Message"}
+              name={"Message first paragraph"}
+            />
           </div>
-          <div className=" bg-white  flex items-center justify-between p-6 border rounded-lg">
-            <div className="">
-              <div className="font-bold text-sm">
-              Liked a Forum Chat
-              </div>
-              <div className=" text-[11px]">Topic</div>
-            </div>
-            <div className="text-[11px] bg-gray-100 p-2 border rounded-full">10 mins ago</div>
+        ) : (
+          ""
+        )}
+        {tab == 'forum' ? (
+          <div className="posts p-3 mt-5 grid gap-2">
+            <DashboardCard
+              time={"10"}
+              title={"How to care for your pet"}
+              name={"Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet."}
+            />
+            <DashboardCard
+              time={"10"}
+              title={"Pet Owners Hacks"}
+              name={"Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet."}
+            />
+            <DashboardCard
+              time={"10"}
+              title={"Seasonal Pet SIckness"}
+              name={"Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet."}
+            />
+            <DashboardCard
+              time={"10"}
+              title={"Livestock Farmer Should Avoid This Three Things During Winter"}
+              name={"Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet."}
+            />
+            <DashboardCard
+              time={"10"}
+              title={" Common Foot Sickness for Dogs"}
+              name={"Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet."}
+            />
           </div>
-          <div className=" bg-white  flex items-center justify-between p-6 border rounded-lg">
-            <div className="">
-              <div className="font-bold text-sm">
-              Case Closed
-              </div>
-              <div className=" text-[11px]">Case Title - Case ID</div>
-            </div>
-            <div className="text-[11px] bg-gray-100 p-2 border rounded-full">10 mins ago</div>
-          </div>
-          <div className=" bg-white  flex items-center justify-between p-6 border rounded-lg">
-            <div className="">
-              <div className="font-bold text-sm">
-              Sent a Direct Message
-              </div>
-              <div className=" text-[11px]">Message first paragraph</div>
-            </div>
-            <div className="text-[11px] bg-gray-100 p-2 border rounded-full">10 mins ago</div>
-          </div>
-          <div className=" bg-white flex items-center justify-between p-6 border rounded-lg">
-            <div className="">
-              <div className="font-bold text-sm">
-              Replied a Direct Message
-              </div>
-              <div className=" text-[11px]">Message first paragraph</div>
-            </div>
-            <div className="text-[11px] bg-gray-100 p-2 border rounded-full">10 mins ago</div>
-          </div>
-        </div>
+        ) : (
+          ""
+        )}
       </div>
     </div>
   );
