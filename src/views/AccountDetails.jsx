@@ -79,7 +79,7 @@ export default function AccountDetails() {
            { !open ? <button className="green__btn" onClick={() => setOpen(!open)}>
               Change Password
             </button> : ''}
-            <button className="green__btn" disabled>
+            <button className="green__btn">
               Save
             </button>
           </div>
