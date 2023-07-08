@@ -71,10 +71,10 @@ export default function Account() {
         </div>
       </div>
 
-      <div className="user flex flex-col justify-center items-center mt-[15vh]">
+      <div className="user  flex flex-col justify-center items-center w-[65%] lg:w-[20%] mx-auto mt-[15vh]">
         <img src={handIcon} alt="" className=" w-[30px]"/>
         <h4 className=" font-bold pt-3">Hey! Users</h4>
-        <p className="text-sm w-[20%] text-center text-[#666666]">Kindly click any of your choice from the icon button above to connect with this user</p>
+        <p className="text-sm text-center text-[#666666]">Kindly click any of your choice from the icon button above to connect with this user</p>
       </div>
     </div>
   );
