@@ -19,6 +19,9 @@ import Dashboard from "./views/Dashboard";
 import DashboardLayout from "./components/DashboardLayout";
 import FeedCalculator from "./views/FeedCalculator";
 import DiseasePrediction from "./views/DiseasePrediction";
+import PetandLiveStock from "./views/PetandLiveStock";
+import Account from "./views/Account";
+import Promotion from "./views/Promotion";
 
 const router = createBrowserRouter([
   
@@ -47,7 +50,7 @@ const router = createBrowserRouter([
             },
             {
                 path: '/livestock',
-                element: <Dashboard />
+                element: <PetandLiveStock />
             },
             {
                 path: '/clients',
@@ -71,11 +74,11 @@ const router = createBrowserRouter([
             },
             {
                 path: '/account',
-                element: <Dashboard />
+                element: <Account />
             },
             {
                 path: '/ads-promotion',
-                element: <Dashboard />
+                element: <Promotion />
             },
         ]
     },
