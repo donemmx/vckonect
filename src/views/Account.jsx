@@ -12,7 +12,7 @@ export default function Account() {
       <div className="top bg-account h-[25vh] p-3 lg:p-10 rounded-t-lg">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3 text-[.75rem] lg:text-[.9rem] cursor-pointer">
-            <i className="pi pi-angle-left p-1 lg:p-3 h-[25px] w-[25px] lg:h-[40px] lg:w-[40px] bg-white rounded-full"></i>
+            <i className="pi pi-angle-left p-1 lg:p-3 h-[25px] w-[25px] lg:h-[45px] lg:w-[45px] bg-white rounded-full"></i>
             Back
           </div>
           <div className=" flex items-center gap-3 text-[.75rem] lg:text-[.9rem] cursor-pointer">
@@ -20,7 +20,7 @@ export default function Account() {
             <img
               src={editIcon}
               alt=""
-              className="p-1 lg:p-3 h-[25px] w-[25px] lg:h-[40px] lg:w-[40px] bg-white rounded-full"
+              className="p-1 lg:p-3 h-[25px] w-[25px] lg:h-[45px] lg:w-[45px] bg-white rounded-full"
             />
           </div>
         </div>
@@ -36,7 +36,7 @@ export default function Account() {
         Dolapo Adaba
       </div>
 
-      <div className=" text-[.82rem] flex items-center gap-7 justify-center mt-3">
+      <div className=" text-[.82rem] flex items-center gap-7 justify-center mt-2">
         <div className="flex flex-col items-center justify-center ">
           <img
             src={callIcon}
