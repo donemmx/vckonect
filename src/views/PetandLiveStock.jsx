@@ -3,6 +3,7 @@ import addIcon from "../assets/icons/add-icon.svg";
 import PeLivestocktCard from "../components/livestockpetCard/PeLivestocktCard";
 import farmImg from "../assets/icons/farm.png";
 import dogImg from "../assets/icons/dog.png";
+import { Link } from "react-router-dom";
 
 export default function PetandLiveStock() {
   const [tab, setTab] = useState("pets");
@@ -32,10 +33,10 @@ export default function PetandLiveStock() {
           </h4>
         </div>
         {tab === 'pets' ? (<>
-          <div className="border-[1px] hover:border-[#52CE06] cursor-pointer  flex items-center justify-between p-3 rounded-[18px] mt-10 mb-5">
+          <Link to='/add-pet' className="border-[1px] hover:border-[#52CE06] cursor-pointer  flex items-center justify-between p-3 rounded-[18px] mt-10 mb-5">
             <p className="font-bold px-2">Add New Post</p>
             <img src={addIcon} alt="" className="w-[40px]" />
-          </div>
+          </Link>
 
           <PeLivestocktCard
             petImg={dogImg}
@@ -44,10 +45,10 @@ export default function PetandLiveStock() {
           />
         </>) : (
           <>
-            <div className="border-[1px] hover:border-[#52CE06] cursor-pointer  flex items-center justify-between p-3 rounded-[18px] mt-10 mb-5">
+            <Link to='/add-farm' className="border-[1px] hover:border-[#52CE06] cursor-pointer  flex items-center justify-between p-3 rounded-[18px] mt-10 mb-5">
               <p className="font-bold px-2">Add New Post</p>
               <img src={addIcon} alt="" className="w-[40px]" />
-            </div>
+            </Link>
 
             <PeLivestocktCard
               petImg={farmImg}

@@ -13,7 +13,6 @@ export default function AccountDetails() {
     "Ruminant medicine",
     "Wildlife medicine",
   ];
-
   return (
     <div className=" bg-white h-[140vh] mb-10 rounded-md border-[1px] border-[#EBEBEB]">
       <Link

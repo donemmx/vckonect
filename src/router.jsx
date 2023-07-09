@@ -27,6 +27,8 @@ import Activities from "./views/Activities";
 import Stores from "./views/Stores";
 import Forum from "./views/Forum";
 import Clients from "./views/Clients";
+import AddFarm from "./views/AddFarm";
+import AddPet from "./views/AddPet";
 
 const router = createBrowserRouter([
   
@@ -56,6 +58,14 @@ const router = createBrowserRouter([
             {
                 path: '/livestock',
                 element: <PetandLiveStock />
+            },
+            {
+                path: '/add-pet',
+                element: <AddPet />
+            },
+            {
+                path: '/add-farm',
+                element: <AddFarm />
             },
             {
                 path: '/clients',
