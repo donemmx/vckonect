@@ -6,34 +6,34 @@ import openIcon from "../../assets/bg/card-next-bg.svg";
 import star from "../../assets/vetcard/star-icon.svg";
 import verified from "../../assets/vetcard/verified-icon.svg";
 
-export default function Vetcard() {
+export default function StoreCard() {
   return (
     <div className=" vetCard mb-6">
       <div className="group h-full w-full ">
-        <div className="top vetUser h-[65%] w-[250px]">
+        <div className="top storeUser h-[65%] w-[250px]">
           <div className="availbility">
             <div className=" flex items-center gap-2 text-[.8rem]">
               <div className="available "></div>
-              Available
+              Open
             </div>
           </div>
           <div className="bottom flex items-center justify-between p-2 absolute bottom-2 w-full ">
-          <div className="rating text-white text-sm flex items-center gap-2">
-            <img src={star} alt="" />
-              4.5 of 5
-          </div>
-          <div className="verfied">
-            <img src={verified} alt="" />
-          </div>
+            <div className="rating text-white text-sm flex items-center gap-2">
+              <img src={star} alt="" />
+              4.0 of 5
+            </div>
+            <div className="verfied">
+              <img src={verified} alt="" />
+            </div>
           </div>
         </div>
         <div className="bottom bg-white p-2 rounded-b-[12px]">
           <div className="name font-black sm:text-[.85rem] md:text-[1.2rem]">
-            Dr. Orji Hyacinth C
+            Goodsilron Store
           </div>
           <div className="location flex text-sm items-center gap-2">
             <img src={location} alt="" className=" h-5" />
-            Delta, Nigeria
+            Cross River, Nigeria
           </div>
           <div className="buttons pt-1 flex justify-between items-center mt-3">
             <div className="group flex items-center gap-3  ">

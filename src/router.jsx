@@ -24,6 +24,7 @@ import Account from "./views/Account";
 import Promotion from "./views/Promotion";
 import AccountDetails from "./views/AccountDetails";
 import Activities from "./views/Activities";
+import Stores from "./views/Stores";
 
 const router = createBrowserRouter([
   
@@ -60,7 +61,7 @@ const router = createBrowserRouter([
             },
             {
                 path: '/stores',
-                element: <Dashboard />
+                element: <Stores />
             },
             {
                 path: '/chat',
