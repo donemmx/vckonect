@@ -30,6 +30,7 @@ import Clients from "./views/Clients";
 import AddFarm from "./views/AddFarm";
 import AddPet from "./views/AddPet";
 import AddForumPost from "./views/AddForumPost";
+import AddStore from "./views/AddStore";
 
 const router = createBrowserRouter([
   
@@ -75,6 +76,10 @@ const router = createBrowserRouter([
             {
                 path: '/stores',
                 element: <Stores />
+            },
+            {
+                path: '/add-store',
+                element: <AddStore />
             },
             {
                 path: '/forum',
