@@ -26,6 +26,7 @@ import AccountDetails from "./views/AccountDetails";
 import Activities from "./views/Activities";
 import Stores from "./views/Stores";
 import Forum from "./views/Forum";
+import Clients from "./views/Clients";
 
 const router = createBrowserRouter([
   
@@ -58,7 +59,7 @@ const router = createBrowserRouter([
             },
             {
                 path: '/clients',
-                element: <Dashboard />
+                element: <Clients />
             },
             {
                 path: '/stores',
