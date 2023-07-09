@@ -8,6 +8,7 @@ import feedicon from "../../assets/sidebar/feed-calc.svg";
 import diseaseicon from "../../assets/sidebar/disease-prediction.svg";
 import accounticon from "../../assets/sidebar/account.svg";
 import adsicon from "../../assets/sidebar/ads.svg";
+import activitiesicon from "../../assets/sidebar/activities.svg";
 import { Link } from "react-router-dom";
 export default function Sidebar() {
   return (
@@ -87,6 +88,15 @@ export default function Sidebar() {
           <img className="h-[30px]" src={accounticon} alt="" />
           <small className="text-[10px] leading-3 font-bold text-center">
             Account
+          </small>
+        </Link>
+        <Link
+          to="/activities"
+          className="flex items-center flex-col gap-1 cursor-pointer justify-center bg-white w-[90px] px-6 h-[80px] p-2 rounded-[15px] border hover:border-[2px] hover:border-green-500"
+        >
+          <img className="h-[30px]" src={activitiesicon} alt="" />
+          <small className="text-[10px] leading-3 font-bold text-center">
+            Activities
           </small>
         </Link>
         <Link

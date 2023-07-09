@@ -23,6 +23,7 @@ import PetandLiveStock from "./views/PetandLiveStock";
 import Account from "./views/Account";
 import Promotion from "./views/Promotion";
 import AccountDetails from "./views/AccountDetails";
+import Activities from "./views/Activities";
 
 const router = createBrowserRouter([
   
@@ -80,6 +81,10 @@ const router = createBrowserRouter([
             {
                 path: '/account-details',
                 element: <AccountDetails />
+            },
+            {
+                path: '/activities',
+                element: <Activities />
             },
             {
                 path: '/ads-promotion',
