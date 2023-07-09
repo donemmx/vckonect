@@ -11,7 +11,7 @@ export default function AddForumPost() {
 
   return (
     <div>
-      <div className="">Forum Chat / Add to Forum</div>
+      <div className="pb-4"> <span className="underline">Forum Chat</span> / Add to Forum</div>
       <div className=" bg-white h-full p-5 flex flex-col gap-8 rounded-md border-[1px] border-[#EBEBEB]">
         <div className=" font-black text-2xl">Add to Forum Chat</div>
         <span className="p-float-label">
