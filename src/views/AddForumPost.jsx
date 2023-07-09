@@ -39,6 +39,8 @@ export default function AddForumPost() {
         ) : (
           <input type="file" onChange={handleChange} />
         )}
+            <button className="green__btn">Submit</button>
+
       </div>
     </div>
   );
