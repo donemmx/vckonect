@@ -1,6 +1,7 @@
 import { useState } from "react";
 import addIcon from "../assets/icons/add-icon.svg";
 import PeLivestocktCard from "../components/livestockpetCard/PeLivestocktCard";
+import farmImg from "../assets/icons/farm.png";
 import dogImg from "../assets/icons/dog.png";
 
 export default function PetandLiveStock() {
@@ -30,12 +31,31 @@ export default function PetandLiveStock() {
             LiveStock Farms
           </h4>
         </div>
-        <div className="border-[1px] hover:border-[#52CE06] cursor-pointer  flex items-center justify-between p-3 rounded-[18px] mt-10 mb-5">
-          <p className="font-bold px-2">Add New Post</p>
-          <img src={addIcon} alt="" className="w-[40px]" />
-        </div>
+        {tab === 'pets' ? (<>
+          <div className="border-[1px] hover:border-[#52CE06] cursor-pointer  flex items-center justify-between p-3 rounded-[18px] mt-10 mb-5">
+            <p className="font-bold px-2">Add New Post</p>
+            <img src={addIcon} alt="" className="w-[40px]" />
+          </div>
 
-        <PeLivestocktCard petImg={dogImg} petName='Kora' petName2='Catherine'/>
+          <PeLivestocktCard
+            petImg={dogImg}
+            petName="Kora"
+            petName2="Catherine"
+          />
+        </>) : (
+          <>
+            <div className="border-[1px] hover:border-[#52CE06] cursor-pointer  flex items-center justify-between p-3 rounded-[18px] mt-10 mb-5">
+              <p className="font-bold px-2">Add New Post</p>
+              <img src={addIcon} alt="" className="w-[40px]" />
+            </div>
+
+            <PeLivestocktCard
+              petImg={farmImg}
+              petName="Adibala Poultry"
+              petName2="Grace Hill Poultry"
+            />
+          </>
+        )}
       </div>
     </div>
   );
