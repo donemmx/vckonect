@@ -25,6 +25,7 @@ import Promotion from "./views/Promotion";
 import AccountDetails from "./views/AccountDetails";
 import Activities from "./views/Activities";
 import Stores from "./views/Stores";
+import Forum from "./views/Forum";
 
 const router = createBrowserRouter([
   
@@ -64,8 +65,8 @@ const router = createBrowserRouter([
                 element: <Stores />
             },
             {
-                path: '/chat',
-                element: <Dashboard />
+                path: '/forum',
+                element: <Forum />
             },
             {
                 path: '/feed-calculator',
