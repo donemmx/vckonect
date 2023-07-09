@@ -4,19 +4,13 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 export default function AddFarm() {
-  const [specialty, setSpecialty] = useState(null);
   const [gender, setGender] = useState(null);
   const [file, setFile] = useState(null);
   function handleChange(e) {
     console.log(e.target.files);
     setFile(URL.createObjectURL(e.target.files[0]));
   }
-  const Specialties = [
-    "Small Animal Medicine",
-    "Avian Medicine",
-    "Ruminant medicine",
-    "Wildlife medicine",
-  ];
+
   const Genders = ["Male", "Female"];
   return (
     <div className=" bg-white h-full pb-20 mb-10 rounded-md border-[1px] border-[#EBEBEB]">

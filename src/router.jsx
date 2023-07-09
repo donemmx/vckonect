@@ -29,6 +29,7 @@ import Forum from "./views/Forum";
 import Clients from "./views/Clients";
 import AddFarm from "./views/AddFarm";
 import AddPet from "./views/AddPet";
+import AddForumPost from "./views/AddForumPost";
 
 const router = createBrowserRouter([
   
@@ -78,6 +79,10 @@ const router = createBrowserRouter([
             {
                 path: '/forum',
                 element: <Forum />
+            },
+            {
+                path: '/add-to-forum',
+                element: <AddForumPost />
             },
             {
                 path: '/feed-calculator',

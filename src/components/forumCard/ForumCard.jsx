@@ -31,7 +31,7 @@ export default function ForumCard({user,forumImg, name, position , title}) {
       aliquip ex ea commodo consequat...see more
     </div>
     <div className="">
-      <div className=" text-[.82rem] flex items-center gap-7 justify-end mt-2">
+      <div className=" text-[.82rem] flex items-center flex-wrap gap-7 justify-end mt-2">
         <div className="flex gap-3 items-center justify-center ">
           <img
             src={commentsIcon}

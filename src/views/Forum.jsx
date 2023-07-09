@@ -6,6 +6,7 @@ import user3 from "../assets/icons/user-3.png";
 import forumImg from "../assets/icons/forum-image.png";
 import forumImg2 from "../assets/icons/forum-image-2.png";
 import ForumCard from "../components/forumCard/ForumCard";
+import { Link } from "react-router-dom";
 
 export default function Forum() {
   const [tab, setTab] = useState("chat");
@@ -15,10 +16,10 @@ export default function Forum() {
   };
   return (
     <div>
-      <div className="border-[1px] hover:border-[#52CE06] cursor-pointer  flex items-center justify-between p-3 rounded-[18px] mt-10 mb-5">
+      <Link to='/add-to-forum' className="border-[1px] hover:border-[#52CE06] cursor-pointer  flex items-center justify-between p-3 rounded-[18px] mt-10 mb-5">
         <p className="font-bold px-2">Add to Forum Chat</p>
         <img src={addIcon} alt="" className="w-[40px]" />
-      </div>
+      </Link>
 
       <div className="pets mt-5  mb-5 p-4 border bg-white rounded-lg">
         <div className="flex items-center gap-6">
@@ -51,7 +52,7 @@ export default function Forum() {
             </div>
           </div>
         </div>
-        <div className=" flex items-center gap-1 w-[70%] mt-3">
+        <div className=" flex items-center flex-wrap gap-1 w-full lg:w-[70%] mt-3">
           <div className="text-[11px] bg-white flex items-center justify-center mr-auto lg:ml-auto w-[90px] p-2 border rounded-full">
             Dogs
           </div>
