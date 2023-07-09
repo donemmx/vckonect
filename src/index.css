@@ -439,6 +439,16 @@ textarea {
   font-size: 0.9rem;
 }
 
+.p-inputswitch.p-inputswitch-checked .p-inputswitch-slider{
+  background: none !important;
+  box-shadow: none !important;
+  border: 1px solid var(--primary) !important;
+}
+.p-inputswitch.p-inputswitch-checked .p-inputswitch-slider::before{
+  background: var(--primary) !important;
+
+}
+
 @media screen and (max-width: 820px) {
   .base {
     position: fixed;
