@@ -1,5 +1,11 @@
 import { useState } from "react";
 import addIcon from "../assets/icons/add-icon.svg";
+import userIcon from "../assets/icons/user-1.png";
+import user2 from "../assets/icons/user-2.png";
+import user3 from "../assets/icons/user-3.png";
+import forumImg from "../assets/icons/forum-image.png";
+import forumImg2 from "../assets/icons/forum-image-2.png";
+import ForumCard from "../components/forumCard/ForumCard";
 
 export default function Forum() {
   const [tab, setTab] = useState("chat");
@@ -46,30 +52,33 @@ export default function Forum() {
           </div>
         </div>
         <div className=" flex items-center gap-1 w-[70%] mt-3">
-
-        <div className="text-[11px] bg-white flex items-center justify-center mr-auto lg:ml-auto w-[90px] p-2 border rounded-full">
-          Dogs
-        </div>
-        <div className="text-[11px] bg-white flex items-center justify-center mr-auto lg:ml-auto w-[90px] p-2 border rounded-full">
-          Poultry
-        </div>
-        <div className="text-[11px] bg-white flex items-center justify-center mr-auto lg:ml-auto w-[90px] p-2 border rounded-full">
-          Vet Clinics
-        </div>
-        <div className="text-[11px] bg-white flex items-center justify-center mr-auto lg:ml-auto w-[90px] p-2 border rounded-full">
-          Vet Store
-        </div>
-        <div className="text-[11px] bg-white flex items-center justify-center mr-auto lg:ml-auto w-[90px] p-2 border rounded-full">
-          Vaccination
-        </div>
-        <div className="text-[11px] bg-white flex items-center justify-center mr-auto lg:ml-auto w-[120px] p-2 border rounded-full">
-          Dog Treatment
-        </div>
-        <div className="text-[11px] bg-white flex items-center justify-center mr-auto lg:ml-auto w-[90px] p-2 border rounded-full">
-          Fish Feeding
-        </div>
+          <div className="text-[11px] bg-white flex items-center justify-center mr-auto lg:ml-auto w-[90px] p-2 border rounded-full">
+            Dogs
+          </div>
+          <div className="text-[11px] bg-white flex items-center justify-center mr-auto lg:ml-auto w-[90px] p-2 border rounded-full">
+            Poultry
+          </div>
+          <div className="text-[11px] bg-white flex items-center justify-center mr-auto lg:ml-auto w-[90px] p-2 border rounded-full">
+            Vet Clinics
+          </div>
+          <div className="text-[11px] bg-white flex items-center justify-center mr-auto lg:ml-auto w-[90px] p-2 border rounded-full">
+            Vet Store
+          </div>
+          <div className="text-[11px] bg-white flex items-center justify-center mr-auto lg:ml-auto w-[90px] p-2 border rounded-full">
+            Vaccination
+          </div>
+          <div className="text-[11px] bg-white flex items-center justify-center mr-auto lg:ml-auto w-[120px] p-2 border rounded-full">
+            Dog Treatment
+          </div>
+          <div className="text-[11px] bg-white flex items-center justify-center mr-auto lg:ml-auto w-[90px] p-2 border rounded-full">
+            Fish Feeding
+          </div>
         </div>
       </div>
+
+      <ForumCard user={userIcon} name='Dr. Amechi Anayor' position='Veterinarian'  forumImg={forumImg} title='Lorem ipsum dolor sit amet, consectetur adipiscing elit'/>
+      <ForumCard user={user2} name='Good Silron' position='Veterinarian'  title='Incididunt ut labore et dolore magna aliquaLorem ipsum dolor sit amet'/>
+      <ForumCard user={user3} name='Grace Jonesse' position='Veterinarian' forumImg={forumImg2}  title='Consectetur adipiscing elit'/>
     </div>
   );
 }
