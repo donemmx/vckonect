@@ -31,6 +31,11 @@ import AddFarm from "./views/AddFarm";
 import AddPet from "./views/AddPet";
 import AddForumPost from "./views/AddForumPost";
 import AddStore from "./views/AddStore";
+import Cases from "./views/Cases";
+import StoreDetails from "./views/StoreDetails";
+import Clinic from "./views/Clinic";
+import AddClinic from "./views/AddClinic";
+import AddCase from "./views/AddCase";
 
 const router = createBrowserRouter([
   
@@ -74,8 +79,28 @@ const router = createBrowserRouter([
                 element: <Clients />
             },
             {
+                path: '/clinic',
+                element: <Clinic />
+            },
+            {
+                path: '/add-clinic',
+                element: <AddClinic />
+            },
+            {
+                path: '/cases',
+                element: <Cases />
+            },
+            {
+                path: '/add-case',
+                element: <AddCase />
+            },
+            {
                 path: '/stores',
                 element: <Stores />
+            },
+            {
+                path: '/store-details',
+                element: <StoreDetails />
             },
             {
                 path: '/add-store',

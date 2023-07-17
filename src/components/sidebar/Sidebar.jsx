@@ -7,6 +7,8 @@ import chaticon from "../../assets/sidebar/chat.svg";
 import feedicon from "../../assets/sidebar/feed-calc.svg";
 import diseaseicon from "../../assets/sidebar/disease-prediction.svg";
 import accounticon from "../../assets/sidebar/account.svg";
+import clinicIcon from "../../assets/sidebar/clinic-dash.svg";
+import casesIcon from "../../assets/sidebar/cases.svg";
 import adsicon from "../../assets/sidebar/ads.svg";
 import activitiesicon from "../../assets/sidebar/activities.svg";
 import { Link } from "react-router-dom";
@@ -26,6 +28,24 @@ export default function Sidebar() {
         >
           <img className="h-[30px]" src={dashicon} alt="" />
           <small className="text-[10px] leading-3 font-bold">Dashboard</small>
+        </Link>
+        <Link
+          to="/cases"
+          className="flex items-center flex-col gap-1 cursor-pointer justify-center bg-white w-[90px] px-6 h-[80px] p-2 rounded-[15px] border hover:border-[2px] hover:border-green-500"
+        >
+          <img className="h-[30px]" src={casesIcon} alt="" />
+          <small className="text-[10px] leading-3 text-center font-bold">
+            Cases
+          </small>
+        </Link>
+        <Link
+          to="/livestock"
+          className="flex items-center flex-col gap-1 cursor-pointer justify-center bg-white w-[90px] px-6 h-[80px] p-2 rounded-[15px] border hover:border-[2px] hover:border-green-500"
+        >
+          <img className="h-[30px]" src={clinicIcon} alt="" />
+          <small className="text-[10px] leading-3 text-center font-bold">
+            Clinic
+          </small>
         </Link>
         <Link
           to="/livestock"
