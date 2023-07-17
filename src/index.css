@@ -240,6 +240,18 @@ body {
   border-radius: 12px 12px 0 0;
 }
 
+.clinicUser {
+  background-image: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.1),
+      rgba(0, 0, 0, 0.9)
+    ),
+    url(./assets/bg/clinic.png);
+  background-size: cover;
+  position: relative;
+  border-radius: 12px 12px 0 0;
+}
+
 .storeUser {
   background-image: linear-gradient(
       to bottom,

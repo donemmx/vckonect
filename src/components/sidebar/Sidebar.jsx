@@ -39,7 +39,7 @@ export default function Sidebar() {
           </small>
         </Link>
         <Link
-          to="/livestock"
+          to="/clinic"
           className="flex items-center flex-col gap-1 cursor-pointer justify-center bg-white w-[90px] px-6 h-[80px] p-2 rounded-[15px] border hover:border-[2px] hover:border-green-500"
         >
           <img className="h-[30px]" src={clinicIcon} alt="" />
