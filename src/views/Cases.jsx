@@ -1,4 +1,3 @@
-import { useState } from "react";
 import addIcon from "../assets/icons/add-icon.svg";
 import { Link } from "react-router-dom";
 import PeLivestocktCard from "../components/livestockpetCard/PeLivestocktCard";

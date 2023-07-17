@@ -9,7 +9,6 @@ export default function Promotion() {
   const [specialty, setSpecialty] = useState(null);
   const [file, setFile] = useState(null);
   const [plan, setPlan] = useState("weekly");
-  const [week, setWeek] = useState(1);
   const [avialability, setAvailability] = useState(false);
   const [agree, setAgree] = useState(false);
   function handleChange(e) {
@@ -27,9 +26,6 @@ export default function Promotion() {
     setAgree(!agree);
   };
 
-  const setActivePlan = (data) => {
-    setPlan(data);
-  };
   return (
     <div className=" flex flex-wrap gap-6">
       <div className="activity mt-5  mb-5 p-5 lg:p-10 border bg-white rounded-lg w-full lg:w-[58%]">

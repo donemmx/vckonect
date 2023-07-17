@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import addIcon from "../assets/icons/add-icon.svg";
-import Vetcard from "../components/vetCard/Vetcard";
 import ClinicCard from "../components/clinicCard/ClinicCard";
 
 export default function Clinic() {
