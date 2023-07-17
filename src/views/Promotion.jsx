@@ -45,6 +45,8 @@ export default function Promotion() {
         <div className="promo flex flex-wrap gap-4">
           <PromoCard available={true} />
           <PromoCard available={true} />
+          <PromoCard available={true} />
+          <PromoCard available={true} />
         </div>
         <div className="flex items-center justify-center gap-2 text-[.8rem] bg-[#FFE7E7] border border-[#FF9999] rounded p-3 mt-4 mb-4 ">
           <div className="unavailable "></div>
@@ -53,6 +55,7 @@ export default function Promotion() {
         <div className="promo flex flex-wrap gap-4">
           <PromoCard />
           <PromoCard />
+         
         </div>
       </div>
       <div className="activity mt-5  mb-5 p-10 border bg-white rounded-lg w-full lg:w-[38%]">
