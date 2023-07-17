@@ -6,7 +6,7 @@ export default function Clinic() {
   return (
     <div>
     <div className=" font-black text-2xl">Client</div>
-    <div className="border border-[#52CE06] p-3 rounded-[18px] bg-[#F9FFF5] mt-5">
+    <div className="border border-[#52CE06] p-3 rounded-[18px] bg-[#F9FFF5] mt-6">
       <small>Congratulations</small>
       <p>Your Clinic License Number (CLN) has been verified and Approved</p> 
     </div>
