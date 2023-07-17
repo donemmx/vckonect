@@ -32,7 +32,7 @@ export default function Promotion() {
   };
   return (
     <div className=" flex flex-wrap gap-6">
-      <div className="activity mt-5  mb-5 p-10 border bg-white rounded-lg w-full lg:w-[58%]">
+      <div className="activity mt-5  mb-5 p-5 lg:p-10 border bg-white rounded-lg w-full lg:w-[58%]">
         <div className="flex items-center gap-6">
           <h2 className="text-[1rem] lg:text-[1.3rem] cursor-pointer font-black">
             Ads Promotions
@@ -57,7 +57,7 @@ export default function Promotion() {
           <PromoCard />
         </div>
       </div>
-      <div className="activity mt-5  mb-5 p-10 border bg-white rounded-lg w-full lg:w-[38%]">
+      <div className="activity mt-5  mb-5 p-5 lg:p-10 border bg-white rounded-lg w-full lg:w-[38%]">
         <div className="flex items-center gap-6">
           <div className="w-full">
             <h2 className="title font-black  head__two">Ads Promotion</h2>
@@ -155,8 +155,8 @@ export default function Promotion() {
                   Konect
                 </label>
               </div>
-              <div className="group flex gap-2">
-                <div className="left w-[40%] border p-4 rounded-lg">
+              <div className="group flex flex-wrap gap-2">
+                <div className="left w-full lg:w-[40%] border p-4 rounded-lg">
                   <div className="text-center">Free Trial Plan</div>
                   <div className="mt-3">
                     <div
@@ -191,7 +191,7 @@ export default function Promotion() {
                     </div>
                   </div>
                 </div>
-                <div className="right w-[60%] border rounded-lg">
+                <div className="right w-full lg:w-[56%] border rounded-lg">
                   <div className="p-4 ">
                     <div className="font-black text-center">
                       Weekly (7 Days)
