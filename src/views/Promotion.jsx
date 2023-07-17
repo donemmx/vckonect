@@ -55,7 +55,6 @@ export default function Promotion() {
         <div className="promo flex flex-wrap gap-4">
           <PromoCard />
           <PromoCard />
-         
         </div>
       </div>
       <div className="activity mt-5  mb-5 p-10 border bg-white rounded-lg w-full lg:w-[38%]">
@@ -192,33 +191,37 @@ export default function Promotion() {
                     </div>
                   </div>
                 </div>
-                <div className="right w-[60%] border p-4 rounded-lg">
-                  <div className="font-black text-center">Weekly (7 Days)</div>
-                  <div className="text-center">(3 Products Max)</div>
-                  <div className=" flex items-center justify-between mt-3">
-                    <div className="number p-3 border h-[40px] w-[40px] rounded-lg flex items-center justify-center">
-                      1
+                <div className="right w-[60%] border rounded-lg">
+                  <div className="p-4 ">
+                    <div className="font-black text-center">
+                      Weekly (7 Days)
                     </div>
-                    <div className="number p-3 border h-[40px] w-[40px] bg-gray-100 rounded-lg flex items-center justify-center">
-                      2
+                    <div className="text-center">(3 Products Max)</div>
+                    <div className=" flex items-center justify-between mt-3">
+                      <div className="number p-3 border h-[40px] w-[40px] rounded-lg flex items-center justify-center">
+                        1
+                      </div>
+                      <div className="number p-3 border h-[40px] w-[40px] bg-gray-100 rounded-lg flex items-center justify-center">
+                        2
+                      </div>
+                      <div className="number p-3 border h-[40px] w-[40px] rounded-lg flex items-center justify-center">
+                        3
+                      </div>
+                      <div className="number p-3 border h-[40px] w-[40px] rounded-lg flex items-center justify-center">
+                        4
+                      </div>
                     </div>
-                    <div className="number p-3 border h-[40px] w-[40px] rounded-lg flex items-center justify-center">
-                      3
-                    </div>
-                    <div className="number p-3 border h-[40px] w-[40px] rounded-lg flex items-center justify-center">
-                      4
+                    <div className="text-center mt-2">
+                      <small>Pricing</small>
+                      <small> (VAT Inclusive)</small>
+                      <p className=""> $0.99 x 2 = 2.00</p>
+                      <h2 className="font-black text-3xl"> $2.00 </h2>
                     </div>
                   </div>
-                  <div className="text-center mt-2">
-                    <small>Pricing</small>
-                    <small> (VAT Inclusive)</small>
-                    <p className=""> $0.99 x 2 = 2.00</p>
-                    <h2 className="font-black text-3xl">  $2.00 </h2>
-                      
-                  </div>
+                  <div className="p-4 bg-green-800 text-center text-white text-sm font-bold rounded-b-lg"> SELECT PLAN</div>
                 </div>
               </div>
-              <button className="green__btn">Promote Product</button>
+              <button className="green__btn" disabled>Promote Product</button>
             </div>
           </div>
         </div>
