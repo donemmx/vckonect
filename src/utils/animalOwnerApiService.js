@@ -89,10 +89,10 @@ const getAnimalOwnerActivity = (payload) => {
 // Register Animal owner
 
 const registerAnimalOwner1 = (payload) => {
-  const { stage, email, firstName, lastName, phone } = payload;
+  const { stage, email, password } = payload;
   return axios
     .post(
-      `${baseURl}/registerAnimalOwner?stage=${stage}&email=${email}&first_name=${firstName}&last_name=${lastName}&phone_number=${phone}`
+      `${baseURl}/registerAnimalOwner?stage=${stage}&email=${email}&password=${password}`
     )
     .then((res) => res.data)
     .catch((err) => console.log(err));
