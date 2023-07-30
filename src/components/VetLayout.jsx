@@ -1,15 +1,25 @@
-import { Outlet } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 import Header from "./header/Header";
 import VetSidebar from "./sidebar/VetSidebar";
+import { authState } from "../atom/authAtom";
+import { useRecoilValue } from "recoil";
 
 export default function VetLayout() {
+  let auth = useRecoilValue(authState);
+
   return (
     <div>
-      <Header />
-      <VetSidebar />
-      <div className="absolute left-[5.5vw] lg:left-[13vw] top-[25vh] lg:top-[15vh] w-[90%] lg:w-[80%]">
-        <Outlet />
-      </div>
+      {auth.token ? (
+        <>
+          <Header />
+          <VetSidebar />
+          <div className="absolute left-[5.5vw] lg:left-[13vw] top-[25vh] lg:top-[15vh] w-[90%] lg:w-[80%]">
+            <Outlet />
+          </div>
+        </>
+      ) : (
+        <Navigate to="/login" />
+      )}
     </div>
   );
 }

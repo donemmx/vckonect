@@ -48,7 +48,6 @@ import DashboardHome from "./views/user/DashboardHome";
 import PetandLiveStock from "./views/user/PetandLiveStock";
 
 const router = createBrowserRouter([
-  
     {
         path: '/',
         element:<DefaultLayout/>,
