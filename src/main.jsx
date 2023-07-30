@@ -1,13 +1,26 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import './index.css'
-import { RouterProvider } from 'react-router-dom'
-import router from './router.jsx'
-import App from './App'
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import { RouterProvider } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import { RecoilRoot } from "recoil";
+import router from "./router.jsx";
+import "react-toastify/dist/ReactToastify.css";
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+import App from "./App";
+
+ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <App/>
-    <RouterProvider router={router}/>
-  </React.StrictMode>,
-)
+    <RecoilRoot>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+      />
+      <App />
+      <RouterProvider router={router} />
+    </RecoilRoot>
+  </React.StrictMode>
+);
