@@ -22,7 +22,7 @@ export default function DashboardHome() {
     <>
       <div className=" flex ">
         <div className=" w-full h-full m-auto">
-          <div className="tab">
+          <div className="homeTab pt-0">
             <div
               className={`${
                 active == "vet" ? "active" : ""
@@ -112,9 +112,15 @@ export default function DashboardHome() {
           </div>
 
           <div className=" pt-12 gap-6  pb-10 grid md:grid-cols-2  lg:grid-cols-4 w-full">
-            {active == "vet" ? <Vetcard /> : ""}
-            {active == "store" ? <StoreCard /> : ""}
-            {active == "clinic" ? <ClinicCard /> : ""}
+            {active == "vet"
+              ? [1, 2, 3, 4, 5, 6, 7].map((res) => <Vetcard key={res} />)
+              : ""}
+            {active == "store"
+              ? [1, 2, 3, 4, 5, 6, 7,8].map((res) => <StoreCard key={res} />)
+              : ""}
+            {active == "clinic"
+              ? [1, 2, 3, 4, 5, 6, 7,8].map((res) => <ClinicCard key={res} />)
+              : ""}
           </div>
         </div>
       </div>

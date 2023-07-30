@@ -45,7 +45,7 @@ import AdminActivity from "./views/admin/AdminActivity";
 import VetLayout from "./components/VetLayout";
 import AnimalOwnerLayout from "./components/AnimalOwnerLayout";
 import DashboardHome from "./views/user/DashboardHome";
-import PetandLiveStock from "./views/User/PetandLiveStock";
+import PetandLiveStock from "./views/user/PetandLiveStock";
 
 const router = createBrowserRouter([
   

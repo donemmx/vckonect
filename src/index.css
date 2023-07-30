@@ -377,6 +377,14 @@ body {
   margin-inline: auto;
   padding-top: 50px;
 }
+.homeTab {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-inline: auto;
+}
 
 .tab__menu {
   width: 100%;
