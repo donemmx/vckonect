@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import addIcon from "../assets/icons/add-icon.svg";
-import StoreCard from "../components/storeCard/StoreCard";
+import addIcon from "../../assets/icons/add-icon.svg";
+import StoreCard from "../../components/storeCard/StoreCard";
 
 export default function Stores() {
   return (

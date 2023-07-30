@@ -1,6 +1,6 @@
-import ClientCard from "../components/clientCard/ClientCard";
-import user2 from "../assets/icons/user-2.png";
-import user3 from "../assets/icons/user-3.png";
+import ClientCard from "../../components/clientCard/ClientCard";
+import user2 from "../../assets/icons/user-2.png";
+import user3 from "../../assets/icons/user-3.png";
 export default function Clients() {
 
   return (

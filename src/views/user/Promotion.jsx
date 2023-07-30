@@ -1,5 +1,5 @@
 import { useState } from "react";
-import PromoCard from "../components/promoCard/PromoCard";
+import PromoCard from "../../components/promoCard/PromoCard";
 import { Dropdown } from "primereact/dropdown";
 import { InputText } from "primereact/inputtext";
 import { InputSwitch } from "primereact/inputswitch";

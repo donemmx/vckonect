@@ -1,10 +1,10 @@
-import editIcon from "../assets/account/edit-icon.svg";
-import userIcon from "../assets/account/user.png";
-import callIcon from "../assets/icons/phone-icon.svg";
-import shareIcon from "../assets/icons/share-icon.svg";
-import messageIcon from "../assets/icons/message-icon.svg";
-import markerIcon from "../assets/icons/location-icon.svg";
-import handIcon from "../assets/account/hand-icon.svg";
+import editIcon from "../../assets/account/edit-icon.svg";
+import userIcon from "../../assets/account/user.png";
+import callIcon from "../../assets/icons/phone-icon.svg";
+import shareIcon from "../../assets/icons/share-icon.svg";
+import messageIcon from "../../assets/icons/message-icon.svg";
+import markerIcon from "../../assets/icons/location-icon.svg";
+import handIcon from "../../assets/account/hand-icon.svg";
 import { Link } from "react-router-dom";
 
 export default function Account() {

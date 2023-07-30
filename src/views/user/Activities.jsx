@@ -1,4 +1,4 @@
-import DashboardCard from "../components/dashboardCard/DashboardCard";
+import DashboardCard from "../../components/dashboardCard/DashboardCard";
 
 export default function Activities() {
   return (

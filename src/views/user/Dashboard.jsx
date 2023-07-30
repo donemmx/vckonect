@@ -1,11 +1,11 @@
-import searchIcon from "../assets/sidebar/search-dash.svg";
-import storeIcon from "../assets/sidebar/stores.svg";
-import livestockIcon from "../assets/sidebar/livestock.svg";
-import adsIcon from "../assets/sidebar/ads.svg";
-import arrow from "../assets/sidebar/gray-arrow.svg";
-import AccountCard from "../components/accountCard/AccountCard";
+import searchIcon from "../../assets/sidebar/search-dash.svg";
+import storeIcon from "../../assets/sidebar/stores.svg";
+import livestockIcon from "../../assets/sidebar/livestock.svg";
+import adsIcon from "../../assets/sidebar/ads.svg";
+import arrow from "../../assets/sidebar/gray-arrow.svg";
+import AccountCard from "../../components/accountCard/AccountCard";
 import { useState } from "react";
-import DashboardCard from "../components/dashboardCard/DashboardCard";
+import DashboardCard from "../../components/dashboardCard/DashboardCard";
 
 export default function Dashboard() {
   const [tab, setTab] = useState('activity');

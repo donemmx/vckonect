@@ -1,11 +1,11 @@
 import { useState } from "react";
-import addIcon from "../assets/icons/add-icon.svg";
-import userIcon from "../assets/icons/user-1.png";
-import user2 from "../assets/icons/user-2.png";
-import user3 from "../assets/icons/user-3.png";
-import forumImg from "../assets/icons/forum-image.png";
-import forumImg2 from "../assets/icons/forum-image-2.png";
-import ForumCard from "../components/forumCard/ForumCard";
+import addIcon from "../../assets/icons/add-icon.svg";
+import userIcon from "../../assets/icons/user-1.png";
+import user2 from "../../assets/icons/user-2.png";
+import user3 from "../../assets/icons/user-3.png";
+import forumImg from "../../assets/icons/forum-image.png";
+import forumImg2 from "../../assets/icons/forum-image-2.png";
+import ForumCard from "../../components/forumCard/ForumCard";
 import { Link } from "react-router-dom";
 
 export default function Forum() {

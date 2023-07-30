@@ -1,8 +1,8 @@
 import { useState } from "react";
-import addIcon from "../assets/icons/add-icon.svg";
-import PeLivestocktCard from "../components/livestockpetCard/PeLivestocktCard";
-import farmImg from "../assets/icons/farm.png";
-import dogImg from "../assets/icons/dog.png";
+import addIcon from "../../assets/icons/add-icon.svg";
+import PeLivestocktCard from "../../components/livestockpetCard/PeLivestocktCard";
+import farmImg from "../../assets/icons/farm.png";
+import dogImg from "../../assets/icons/dog.png";
 import { Link } from "react-router-dom";
 
 export default function PetandLiveStock() {
