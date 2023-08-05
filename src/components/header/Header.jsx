@@ -93,7 +93,7 @@ export default function Header({ bg }) {
       )}
       {open && userData ? (
         <div
-        className="modal w-[220px] h-[24vh] z-50 bg-white fixed top-[9%] right-[8%] rounded-md shadow-sm"
+        className="modal w-[220px] h-[16vh] z-50 bg-white fixed top-[9%] right-[8%] rounded-md shadow-sm"
         data-aos="fade"
       >
         <div className="modal__body flex  flex-col gap-2 p-4">
