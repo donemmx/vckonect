@@ -15,6 +15,10 @@ const userTwo = yup.object().shape({
     address: yup.string().required("Required")
 })
 
+const verify = yup.object().shape({
+    activation_code: yup.string().required("Required")
+})
+
 const vetUser = yup.object().shape({
     firstName: yup.string().required("Required"),
     lastName: yup.string().required("Required"),
@@ -114,5 +118,6 @@ export {
     clinic,
     addCase,
     addPetCase,
-    addFarmCase
+    addFarmCase,
+    verify
 }

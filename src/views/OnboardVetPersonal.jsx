@@ -141,7 +141,7 @@ export default function OnboardVetPersonal() {
           <span className="p-float-label">
             <InputText
               id="username"
-              name="phone"
+              name="phone_number"
               value={values.phone_number}
               onChange={handleChange}
               onBlur={handleBlur}

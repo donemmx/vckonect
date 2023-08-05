@@ -4,40 +4,41 @@ import accountlIcon from "../assets/icons/create-account/onboard/account-details
 import personalIcon from "../assets/icons/create-account/onboard/personal-info-icon.svg";
 import verifyIcon from "../assets/icons/create-account/onboard/verify-account-icon.svg";
 import arrow from "../assets/icons/create-account/onboard/arrow-account-next.svg";
-import { useRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import { useFormik } from "formik";
-import { registerVeterinarian1 } from "../utils/vetApiService";
+import { registration } from "../atom/registrationAtom";
+import { toast } from "react-toastify";
+import { registerAnimalOwner3 } from "../utils/animalOwnerApiService";
+import { verify } from "../validations/UserValidation";
 
 export default function OnboardVerify() {
-  const [data, setData] = useRecoilState(registration);
+  const regEmail = useRecoilValue(registration);
   const location = useNavigate();
 
   const onSubmit = async (values) => {
     const payload = {
-      stage: 1,
+      stage: 3,
+      email: regEmail,
       ...values,
     };
-    await registerVeterinarian1(payload)
+    await registerAnimalOwner3(payload)
       .then((res) => {
         if (!res.code) {
-          location("/onboard-animal-owner-details");
-          setData(values.email);
+          location("/verified");
           toast.success(res.detail);
         } else {
           toast.error(res.detail);
         }
       })
       .catch((err) => console.log(err));
-  
   };
 
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
       initialValues: {
-        email: "",
-        password: "",
-        confirmPassword: "",
+        activation_code: "",
       },
+      validationSchema: verify,
       onSubmit,
     });
 
@@ -51,7 +52,7 @@ export default function OnboardVerify() {
           Create a new account to become a user or a veterinarians on vet konect
           by clicking on one of the cards below
         </div>
-        <div className="form flex flex-col gap-3 pt-6">
+        <form onSubmit={handleSubmit} className="form flex flex-col gap-3 pt-6">
           <div className="progress flex w-[90%] mx-auto items-center justify-evenly">
             <div className="step1 w-[40px] text-[12px] text-center ]">
               <img src={accountlIcon} alt="" />
@@ -70,21 +71,32 @@ export default function OnboardVerify() {
             </div>
           </div>
           <div className="pt-2 subtitle paragraph text-center">
-            Kindly enter the 6 digit code sent to your email in the input field
+            Kindly enter the 4 digit code sent to your email in the input field
             below
           </div>
           <span className="p-float-label">
-            <InputText id="username" />
+            <InputText
+              id="username"
+              name="activation_code"
+              value={values.activation_code}
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />
             <label htmlFor="username">OTP Code</label>
           </span>
-          <div className="pt-2 subtitle cursor-pointer paragraph underline text-center">Resend Code</div>
-          <Link to="/verified" className="green__btn">
+          {errors.activation_code && touched.activation_code && (
+            <p className="error">{errors.activation_code}</p>
+          )}
+          <div className="pt-2 subtitle cursor-pointer paragraph underline text-center">
+            Resend Code
+          </div>
+          <button to="/verified" className="green__btn">
             Verify
-          </Link>
+          </button>
           <Link to="#" className="tertiary__btn">
             Back
           </Link>
-        </div>
+        </form>
       </div>
     </div>
   );
