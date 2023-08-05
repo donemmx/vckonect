@@ -42,7 +42,7 @@ export default function Header({ bg }) {
             <Link to={"/about-us"}>About Us</Link>
             <Link to={"/feed-calculator"}>Feed Calculator</Link>
             <Link to={"/disease-prediction"}>Disease Predictor</Link>
-            <Link to={"/blog"}>Blog Post</Link>
+            {/* <Link to={"/blog"}>Blog Post</Link> */}
             <Link to={"/forum"}>Chat Forum</Link>
           </div>
           <div className="header__user">
