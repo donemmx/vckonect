@@ -8,6 +8,7 @@ import userPic from "../../assets/icons/modal-icons/user-icon.svg";
 import { useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { user } from "../../atom/userAtom";
+import { toast } from "react-toastify";
 
 export default function Header({ bg }) {
   const [open, setOpen] = useState(false);
@@ -19,6 +20,8 @@ export default function Header({ bg }) {
 
   const logOut = () => {
     setData(null)
+    toast.success("Successfully logged out");
+
   }
   return (
     <>

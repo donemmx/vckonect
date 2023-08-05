@@ -27,7 +27,7 @@ export default function Login() {
           //   toast.error("Please activate your account");
           // }
           // else{
-          //   toast.error("Successfully logged in");
+            toast.success("Successfully logged in");
             setData(res)
           // }
 
