@@ -4,7 +4,7 @@ const passwordRule = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}$/
 
 const userOne = yup.object().shape({
     email: yup.string().email("Please enter a valid email").required("Required"),
-    password: yup.string().min(5).max(14).matches(passwordRule, {message: "Please create a stronger password"}).required("Required"),
+    password: yup.string().min(5).max(25).matches(passwordRule, {message: "Please create a stronger password"}).required("Required"),
     confirmPassword: yup.string().oneOf([yup.ref('password'), null], "Passwords must match").required("Required")
 })
 
