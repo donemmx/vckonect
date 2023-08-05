@@ -65,10 +65,10 @@ export default function OnboardVerify() {
             </div>
             <img src={arrow} alt="" />
 
-            <div className="step1 w-[40px] text-[12px] text-center">
+            <Link to='/' className="cursor-pointer step1 w-[40px] text-[12px] text-center">
               <img className="greenOverlay" src={verifyIcon} alt="" />
               <p className="text-green-800 font-bold">Verify Account </p>
-            </div>
+            </Link>
           </div>
           <div className="pt-2 subtitle paragraph text-center">
             Kindly enter the 4 digit code sent to your email in the input field

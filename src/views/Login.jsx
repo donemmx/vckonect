@@ -7,7 +7,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { loginUser } from "../validations/UserValidation";
 import { toast } from "react-toastify";
 import { useFormik } from "formik";
-import { login } from "../utils/userApiService";
+import {
+  login,
+  loginWithGoogle,
+  loginWithLinkedin,
+} from "../utils/userApiService";
 import { user } from "../atom/userAtom";
 import { useRecoilState } from "recoil";
 
@@ -22,20 +26,36 @@ export default function Login() {
     await login(payload)
       .then((res) => {
         if (!res.code) {
-          location("/dashboard");
+          if (res.role === "Veternarian") {
+            location("/vet-dashboard");
+          } else if (res.role === "Animal Owner") {
+            location("/animal-owner-dashboard");
+          } else {
+            location("/admin-dashboard");
+          }
           // if(res.account_activation === null){
           //   toast.error("Please activate your account");
           // }
           // else{
-            toast.success("Successfully logged in");
-            setData(res)
+          toast.success("Successfully logged in");
+          setData(res);
           // }
-
         } else {
           toast.error(res.detail);
         }
       })
       .catch((err) => console.log(err));
+  };
+
+  const googleLogin = async () => {
+    await loginWithGoogle();
+    console.log(await loginWithGoogle().headers["continue"]);
+  };
+
+  const linkedinLogin = async () => {
+    await loginWithLinkedin().then((res) => {
+      console.log(res.headers);
+    });
   };
 
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
@@ -88,26 +108,28 @@ export default function Login() {
           >
             Forgot your password?
           </Link>
-          <button className="green__btn">
-            Login
-          </button>
-          <div className=" flex items-center justify-center gap-4">
+          <button className="green__btn">Login</button>
+        </form>
+        <div className=" flex items-center justify-center mt-5 gap-4">
+          <button onClick={linkedinLogin} className=" bg-none border-none">
             <img
               src={linkedIn}
               alt=""
               className="h-[35px] w-[35px] object-contain cursor-pointer"
             />
+          </button>
+          <button onClick={googleLogin} className=" bg-none border-none">
             <img
               src={google}
               alt=""
               className="h-[35px] w-[35px] object-contain cursor-pointer"
             />
-          </div>
-          <img src={or} alt="" className=" w-full object-cover" />
-          <Link to="/signup" className="secondary__btn mt-[-30px]">
-            Create Account
-          </Link>
-        </form>
+          </button>
+        </div>
+        <img src={or} alt="" className=" w-full object-cover" />
+        <Link to="/signup" className="secondary__btn mt-[-30px]">
+          Create Account
+        </Link>
       </div>
     </div>
   );

@@ -8,7 +8,7 @@ export default function AnimalOwnerLayout() {
   let userData = useRecoilValue(user);
   return (
     <div>
-      { userData?.role === 'petUser'  ?
+      { userData?.role === 'Animal Owner'  ?
         <>
           <Header />
           <AnimalOwnerSidebar />

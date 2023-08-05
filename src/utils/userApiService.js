@@ -13,17 +13,14 @@ const login = (payload) => {
 };
 
 const loginWithGoogle = () => {
-  return axios
+  const data = axios
     .get(`${publicBaseURl}/google/loginUsingGoogle`)
-    .then((res) => res.data)
-    .catch((err) => console.log(err));
+  return  data
 };
 
 const loginWithLinkedin = () => {
   return axios
     .get(`${publicBaseURl}/linkedin/loginUsingLinkedin`)
-    .then((res) => res.data)
-    .catch((err) => console.log(err));
 };
 
 // Store

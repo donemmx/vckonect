@@ -7,13 +7,23 @@ export default function GuestLayout() {
   let userData = useRecoilValue(user);
   return (
     <div className="">
-      {!userData ? (
+      {!userData?.role ? (
         <div>
           <Header />
           <Outlet />
         </div>
       ) : (
-        <Navigate to='/dashboard' />
+        <>
+          {userData?.role === "Veternarian" ? (
+            <Navigate to="/vet-dashboard" />
+          ) : "" || userData?.role === "Animal Owner" ? (
+            <Navigate to="/animal-owner-dashboard" />
+          ) : "" || userData?.role === "Admin" ? (
+            <Navigate to="/admin-dashboard" />
+          ) : (
+            ""
+          )}
+        </>
       )}
     </div>
   );

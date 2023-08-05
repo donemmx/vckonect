@@ -18,21 +18,21 @@ export default function VetSidebar() {
   return (
       <div className="fixed z-50   w-full lg:w-fit pr-14 lg:pr-0 top-[12vh] lg:top-[15vh] pb-10 left-8 h-[18vh] lg:h-[85vh] overflow-x-scroll lg:overflow-y-scroll no-scrollbar flex items-center lg:flex-col gap-2 justify-between">
         <Link
-          to="/home"
+          to="/vet-home"
           className=" flex items-center flex-col gap-1 cursor-pointer justify-center bg-white w-[90px] px-6 h-[80px] p-2 rounded-[15px] border hover:border-[2px] hover:border-green-500"
         >
           <img className="h-[30px]" src={homeicon} alt="" />
           <small className="text-[10px] leading-3 font-bold">Home</small>
         </Link>
         <Link
-          to="/dashboard"
+          to="/vet-dashboard"
           className="flex items-center flex-col gap-1 cursor-pointer justify-center bg-white w-[90px] px-6 h-[80px] p-2 rounded-[15px] border hover:border-[2px] hover:border-green-500"
         >
           <img className="h-[30px]" src={dashicon} alt="" />
           <small className="text-[10px] leading-3 font-bold">Dashboard</small>
         </Link>
         <Link
-          to="/cases"
+          to="/vet-cases"
           className="flex items-center flex-col gap-1 cursor-pointer justify-center bg-white w-[90px] px-6 h-[80px] p-2 rounded-[15px] border hover:border-[2px] hover:border-green-500"
         >
           <img className="h-[30px]" src={casesIcon} alt="" />
@@ -41,7 +41,7 @@ export default function VetSidebar() {
           </small>
         </Link>
         <Link
-          to="/clinic"
+          to="/vet-clinic"
           className="flex items-center flex-col gap-1 cursor-pointer justify-center bg-white w-[90px] px-6 h-[80px] p-2 rounded-[15px] border hover:border-[2px] hover:border-green-500"
         >
           <img className="h-[30px]" src={clinicIcon} alt="" />
@@ -50,7 +50,7 @@ export default function VetSidebar() {
           </small>
         </Link>
         <Link
-          to="/clients"
+          to="/vet-clients"
           className="flex items-center flex-col gap-1 cursor-pointer justify-center bg-white w-[90px] px-6 h-[80px] p-2 rounded-[15px] border hover:border-[2px] hover:border-green-500"
         >
           <img className="h-[30px]" src={clienticon} alt="" />
@@ -59,7 +59,7 @@ export default function VetSidebar() {
           </small>
         </Link>
         <Link
-          to="/stores"
+          to="/vet-stores"
           className="flex items-center flex-col gap-1 cursor-pointer justify-center bg-white w-[90px] px-6 h-[80px] p-2 rounded-[15px] border hover:border-[2px] hover:border-green-500"
         >
           <img className="h-[30px]" src={storeicon} alt="" />
@@ -68,7 +68,7 @@ export default function VetSidebar() {
           </small>
         </Link>
         <Link
-          to="/forum"
+          to="/vet-forum"
           className="flex items-center flex-col gap-1 cursor-pointer justify-center bg-white w-[90px] px-6 h-[80px] p-2 rounded-[15px] border hover:border-[2px] hover:border-green-500"
         >
           <img className="h-[30px]" src={chaticon} alt="" />
@@ -77,7 +77,7 @@ export default function VetSidebar() {
           </small>
         </Link>
         <Link
-          to="/feed-calculator"
+          to="/vet-feed-calculator"
           className="flex items-center flex-col gap-1 cursor-pointer justify-center bg-white w-[90px] px-6 h-[80px] p-2 rounded-[15px] border hover:border-[2px] hover:border-green-500"
         >
           <img className="h-[30px]" src={feedicon} alt="" />
@@ -86,7 +86,7 @@ export default function VetSidebar() {
           </small>
         </Link>
         <Link
-          to="/disease-prediction"
+          to="/vet-disease-prediction"
           className="flex items-center flex-col gap-1 cursor-pointer justify-center bg-white w-[90px] px-6 h-[80px] p-2 rounded-[15px] border hover:border-[2px] hover:border-green-500"
         >
           <img src={diseaseicon} alt="" />
@@ -95,7 +95,7 @@ export default function VetSidebar() {
           </small>
         </Link>
         <Link
-          to="/account"
+          to="/vet-account"
           className="flex items-center flex-col gap-1 cursor-pointer justify-center bg-white w-[90px] px-6 h-[80px] p-2 rounded-[15px] border hover:border-[2px] hover:border-green-500"
         >
           <img className="h-[30px]" src={accounticon} alt="" />
@@ -104,7 +104,7 @@ export default function VetSidebar() {
           </small>
         </Link>
         <Link
-          to="/activities"
+          to="/vet-activities"
           className="flex items-center flex-col gap-1 cursor-pointer justify-center bg-white w-[90px] px-6 h-[80px] p-2 rounded-[15px] border hover:border-[2px] hover:border-green-500"
         >
           <img className="h-[30px]" src={activitiesicon} alt="" />
@@ -113,7 +113,7 @@ export default function VetSidebar() {
           </small>
         </Link>
         <Link
-          to="/ads-promotion"
+          to="/vet-ads-promotion"
           className="flex items-center flex-col gap-1 cursor-pointer justify-center bg-white w-[90px] px-6 h-[80px] p-2 rounded-[15px] border hover:border-[2px] hover:border-green-500"
         >
           <img className="h-[30px]" src={adsicon} alt="" />

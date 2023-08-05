@@ -68,68 +68,68 @@ const router = createBrowserRouter([
         element:<VetLayout/>,
         children: [
             {
-                path: '/dashboard',
+                path: '/vet-dashboard',
                 element: <Dashboard />
             },
             {
-                path: '/home',
+                path: '/vet-home',
                 element: <DashboardHome />
             },
             {
-                path: '/cases',
+                path: '/vet-cases',
                 element: <Cases />
             },
             {
-                path: '/clients',
+                path: '/vet-clients',
                 element: <Clients />
             },
             {
-                path: '/clinic',
+                path: '/vet-clinic',
                 element: <Clinic />
             },
             {
-                path: '/add-clinic',
+                path: '/vet-add-clinic',
                 element: <AddClinic />
             },
            
             {
-                path: '/add-case',
+                path: '/vet-add-case',
                 element: <AddCase />
             },
             {
-                path: '/stores',
+                path: '/vet-stores',
                 element: <Stores />
             },
             {
-                path: '/store-details',
+                path: '/vet-store-details',
                 element: <StoreDetails />
             },
             {
-                path: '/add-store',
+                path: '/vet-add-store',
                 element: <AddStore />
             },
             {
-                path: '/forum',
+                path: '/vet-forum',
                 element: <Forum />
             },
             {
-                path: '/add-to-forum',
+                path: '/vet-add-to-forum',
                 element: <AddForumPost />
             },
             {
-                path: '/feed-calculator',
+                path: '/vet-feed-calculator',
                 element: <FeedCalculator />
             },
             {
-                path: '/disease-prediction',
+                path: '/vet-disease-prediction',
                 element: <DiseasePrediction />
             },
             {
-                path: '/account',
+                path: '/vet-account',
                 element: <Account />
             },
             {
-                path: '/account-details',
+                path: '/vet-account-details',
                 element: <AccountDetails />
             },
             {
@@ -147,11 +147,11 @@ const router = createBrowserRouter([
         element:<AnimalOwnerLayout/>,
         children: [
             {
-                path: '/dashboard',
+                path: '/animal-owner-dashboard',
                 element: <Dashboard />
             },
             {
-                path: '/home',
+                path: '/animal-owner-home',
                 element: <DashboardHome />
             },
             {
@@ -167,51 +167,51 @@ const router = createBrowserRouter([
                 element: <AddFarm />
             },
             {
-                path: '/clients',
+                path: '/animal-owner-clients',
                 element: <Clients />
             },
             {
-                path: '/stores',
+                path: '/animal-owner-stores',
                 element: <Stores />
             },
             {
-                path: '/store-details',
+                path: '/animal-owner-store-details',
                 element: <StoreDetails />
             },
             {
-                path: '/add-store',
+                path: '/animal-owner-add-store',
                 element: <AddStore />
             },
             {
-                path: '/forum',
+                path: '/animal-owner-forum',
                 element: <Forum />
             },
             {
-                path: '/add-to-forum',
+                path: '/animal-owner-add-to-forum',
                 element: <AddForumPost />
             },
             {
-                path: '/feed-calculator',
+                path: '/animal-owner-feed-calculator',
                 element: <FeedCalculator />
             },
             {
-                path: '/disease-prediction',
+                path: '/animal-owner-disease-prediction',
                 element: <DiseasePrediction />
             },
             {
-                path: '/account',
+                path: '/animal-owner-account',
                 element: <Account />
             },
             {
-                path: '/account-details',
+                path: '/animal-owner-account-details',
                 element: <AccountDetails />
             },
             {
-                path: '/activities',
+                path: '/animal-owner-activities',
                 element: <Activities />
             },
             {
-                path: '/promotion',
+                path: '/animal-owner-promotion',
                 element: <Promotion />
             },
         ]
@@ -221,7 +221,7 @@ const router = createBrowserRouter([
         element:<AdminLayout/>,
         children: [
             {
-                path: '/dashboard',
+                path: '/admin-dashboard',
                 element: <AdminDashboard />
             },
             {
