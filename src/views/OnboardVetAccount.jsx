@@ -8,8 +8,24 @@ import accountlIcon from "../assets/icons/create-account/onboard/account-details
 import personalIcon from "../assets/icons/create-account/onboard/personal-info-icon.svg";
 import verifyIcon from "../assets/icons/create-account/onboard/verify-account-icon.svg";
 import arrow from "../assets/icons/create-account/onboard/arrow-account-next.svg";
+import { useState } from "react";
+import { registerVeterinarian1 } from "../utils/vetApiService";
 
 export default function OnboardVetAccount() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
+  const proceed = async () => {
+    const payload = {
+      email,
+      password,
+    };
+    await registerVeterinarian1(payload).then((res)=> {
+      console.log(res);
+    })
+  };
+
   return (
     <div className="login flex justify-center items-center h-[140vh]">
       <div className=" w-[90%] lg:w-[35%] md:w-[60%]">
@@ -38,19 +54,35 @@ export default function OnboardVetAccount() {
               <p>Verify Account </p>
             </div>
           </div>
-          <span className="p-float-label">
-            <InputText id="username" />
-            <label htmlFor="username">Email</label>
-          </span>
-          <span className="p-float-label">
-            <Password toggleMask feedback={false} />
-            <label htmlFor="password">Password</label>
-          </span>
-          <span className="p-float-label">
-            <Password toggleMask feedback={false} />
-            <label htmlFor="password"> Confirm Password</label>
-          </span>
-          <Link to='/onboard-vet-details' className="green__btn">Proceed</Link>
+            <span className="p-float-label">
+              <InputText
+                id="username"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <label htmlFor="username">Email</label>
+            </span>
+            <span className="p-float-label">
+              <Password
+                toggleMask
+                feedback={false}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <label htmlFor="password">Password</label>
+            </span>
+            <span className="p-float-label">
+              <Password
+                toggleMask
+                feedback={false}
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+              />
+              <label htmlFor="password"> Confirm Password</label>
+            </span>
+            <button onClick={proceed} className="green__btn">
+              Proceed
+            </button>
           <div className=" flex items-center justify-center gap-4">
             <img
               src={linkedIn}
@@ -70,5 +102,5 @@ export default function OnboardVetAccount() {
         </div>
       </div>
     </div>
-  )
+  );
 }

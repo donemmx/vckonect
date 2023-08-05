@@ -1,45 +1,45 @@
 import axios from "axios";
 
-const baseURl = "https://vetkonect.com/backend/public/api/web/v2/";
+const baseURl = "https://vetkonect.com/backend/public/api/web/v2";
 
 //   Admin
 
 const activatePromotion = (payload) => {
-  const { userId, role } = payload;
+  // const { userId, role } = payload;
   return axios
-    .post(`${baseURl}/activatePromotion?user_id=${userId}&user_role=${role}`)
+    .post(`${baseURl}/activatePromotion`, payload)
     .then((res) => res.data)
     .catch((err) => console.log(err));
 };
 
 const deactivatePromotion = (payload) => {
-  const { userId, role } = payload;
+  // const { userId, role } = payload;
   return axios
-    .post(`${baseURl}/deactivatePromotion?user_id=${userId}&user_role=${role}`)
+    .post(`${baseURl}/deactivatePromotion`, payload)
     .then((res) => res.data)
     .catch((err) => console.log(err));
 };
 
 const activateAccount = (payload) => {
-  const { id, role } = payload;
+  // const { id, role } = payload;
   return axios
-    .post(`${baseURl}/activateAccount?id=${id}&role=${role}`)
+    .post(`${baseURl}/activateAccount`, payload)
     .then((res) => res.data)
     .catch((err) => console.log(err));
 };
 
 const deactivateAccount = (payload) => {
-  const { id, role } = payload;
+  // const { id, role } = payload;
   return axios
-    .post(`${baseURl}/deactivateAccount?id=${id}&role=${role}`)
+    .post(`${baseURl}/deactivateAccount`, payload)
     .then((res) => res.data)
     .catch((err) => console.log(err));
 };
 
 const verifyLicenseNumber = (payload) => {
-  const { id, userId } = payload;
+  // const { id, userId } = payload;
   return axios
-    .post(`${baseURl}/deactivateAccount?id=${id}&user_id=${userId}`)
+    .post(`${baseURl}/deactivateAccount`, payload)
     .then((res) => res.data)
     .catch((err) => console.log(err));
 };
@@ -47,66 +47,66 @@ const verifyLicenseNumber = (payload) => {
 // Get User
 
 const adminGetAnimalOwner = (payload) => {
-  const { name } = payload;
+  // const { name } = payload;
   return axios
-    .post(`${baseURl}/adminGetAnimalOwner?name=${name}`)
+    .post(`${baseURl}/adminGetAnimalOwner`, payload)
     .then((res) => res.data)
     .catch((err) => console.log(err));
 };
 
 const adminGetVeterinarian = (payload) => {
-  const { name } = payload;
+  // const { name } = payload;
   return axios
-    .post(`${baseURl}/adminGetVeterinarian?name=${name}`)
+    .post(`${baseURl}/adminGetVeterinarian`, payload)
     .then((res) => res.data)
     .catch((err) => console.log(err));
 };
 
 const adminGetClinic = (payload) => {
-  const { name } = payload;
+  // const { name } = payload;
   return axios
-    .post(`${baseURl}/adminGetClinic?name=${name}`)
+    .post(`${baseURl}/adminGetClinic`, payload)
     .then((res) => res.data)
     .catch((err) => console.log(err));
 };
 
 
 const adminGetFarm = (payload) => {
-  const { name } = payload;
+  // const { name } = payload;
   return axios
-    .post(`${baseURl}/adminGetFarm?name=${name}`)
+    .post(`${baseURl}/adminGetFarm`, payload)
     .then((res) => res.data)
     .catch((err) => console.log(err));
 };
 
 const adminGetPet = (payload) => {
-  const { name } = payload;
+  // const { name } = payload;
   return axios
-    .post(`${baseURl}/adminGetPet?name=${name}`)
+    .post(`${baseURl}/adminGetPet`, payload)
     .then((res) => res.data)
     .catch((err) => console.log(err));
 };
 
 const adminGetProduct = (payload) => {
-  const { name } = payload;
+  // const { name } = payload;
   return axios
-    .post(`${baseURl}/adminGetProduct?name=${name}`)
+    .post(`${baseURl}/adminGetProduct`, payload)
     .then((res) => res.data)
     .catch((err) => console.log(err));
 };
 
 const adminGetPromotion = (payload) => {
-  const { name } = payload;
+  // const { name } = payload;
   return axios
-    .post(`${baseURl}/adminGetPromotion?name=${name}`)
+    .post(`${baseURl}/adminGetPromotion`, payload)
     .then((res) => res.data)
     .catch((err) => console.log(err));
 };
 
 const adminGetSubscription = (payload) => {
-  const { name } = payload;
+  // const { name } = payload;
   return axios
-    .post(`${baseURl}/adminGetSubscription?name=${name}`)
+    .post(`${baseURl}/adminGetSubscription`, payload)
     .then((res) => res.data)
     .catch((err) => console.log(err));
 };
@@ -121,9 +121,9 @@ const usersCounter = () => {
 // Admin Activity
 
 const getAdminActivity = (payload) => {
-  const { id } = payload;
+  // const { id } = payload;
   return axios
-    .post(`${baseURl}/getAdminActivity?staff_id=${id}`)
+    .post(`${baseURl}/getAdminActivity`, payload)
     .then((res) => res.data)
     .catch((err) => console.log(err));
 };
@@ -132,40 +132,40 @@ const getAdminActivity = (payload) => {
 
 
 const updateAdminProfile = (payload) => {
-  const { id, email, firstName, lastName, phone, location, password, newPassword, picture } = payload;
+  // const { id, email, firstName, lastName, phone, location, password, newPassword, picture } = payload;
   return axios
     .post(
-      `${baseURl}/registerVeterinarian?staff_id=${id}&email=${email}&phone_number=${phone}&profile_picture=${picture}&first_name=${firstName}&last_name=${lastName}&location=${location}&password=${password}&new_password=${newPassword}`
+      `${baseURl}/registerVeterinarian`, payload
     )
     .then((res) => res.data)
     .catch((err) => console.log(err));
 };
 
 const adminLogin = (payload) => {
-  const { id, password } = payload;
+  // const { id, password } = payload;
   return axios
     .post(
-      `${baseURl}/adminLogin?staff_id=${id}&password=${password}`
+      `${baseURl}/adminLogin`, payload
     )
     .then((res) => res.data)
     .catch((err) => console.log(err));
 };
 
 const approveForumChat = (payload) => {
-  const { forumChatId, role, userId } = payload;
+  // const { forumChatId, role, userId } = payload;
   return axios
     .post(
-      `${baseURl}/approveForumChat?forum_chat_id=${forumChatId}&user_id=${userId}&user_role=${role}`
+      `${baseURl}/approveForumChat`, payload
     )
     .then((res) => res.data)
     .catch((err) => console.log(err));
 };
 
 const rejectForumChat = (payload) => {
-  const { reason ,forumChatId, role, userId } = payload;
+  // const { reason ,forumChatId, role, userId } = payload;
   return axios
     .post(
-      `${baseURl}/rejectForumChat?forum_chat_id=${forumChatId}&user_id=${userId}&user_role=${role}&reason=${reason}`
+      `${baseURl}/rejectForumChat`, payload
     )
     .then((res) => res.data)
     .catch((err) => console.log(err));

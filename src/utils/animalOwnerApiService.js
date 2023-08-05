@@ -1,41 +1,41 @@
 import axios from "axios";
 
-const baseURl = "https://vetkonect.com/backend/public/api/web/v2/";
+const baseURl = "https://vetkonect.com/backend/public/api/web/v2";
 
 // Farm
 
 const addFarm = (payload) => {
-  const {
-    userId,
-    farmName,
-    location,
-    workers,
-    livestockType,
-    livestock,
-    age,
-    sex,
-    farmId,
-  } = payload;
+  // const {
+  //   userId,
+  //   farmName,
+  //   location,
+  //   workers,
+  //   livestockType,
+  //   livestock,
+  //   age,
+  //   sex,
+  //   farmId,
+  // } = payload;
   return axios
     .post(
-      `${baseURl}/getFarm?user_id=${userId}&farm_name=${farmName}&location=${location}&no_of_worker=${workers}&livestock_type=${livestockType}&no_of_livestock=${livestock}&age=${age}&sex=${sex}&farm_id=${farmId}`
+      `${baseURl}/getFarm`, payload
     )
     .then((res) => res.data)
     .catch((err) => console.log(err));
 };
 
 const getFarm = (payload) => {
-  const { userId, id } = payload;
+  // const { userId, id } = payload;
   return axios
-    .post(`${baseURl}/getFarm?user_id=${userId}&id=${id}`)
+    .post(`${baseURl}/getFarm`, payload)
     .then((res) => res.data)
     .catch((err) => console.log(err));
 };
 
 const getOneFarm = (payload) => {
-  const { userId, id } = payload;
+  // const { userId, id } = payload;
   return axios
-    .post(`${baseURl}/getOneFarm?user_id=${userId}&id=${id}`)
+    .post(`${baseURl}/getOneFarm`, payload)
     .then((res) => res.data)
     .catch((err) => console.log(err));
 };
@@ -43,35 +43,35 @@ const getOneFarm = (payload) => {
 //   Pets
 
 const addPet = (payload) => {
-  const { userId, petName, specie, breed, sex, age } = payload;
+  // const { userId, petName, specie, breed, sex, age } = payload;
   return axios
     .post(
-      `${baseURl}/addPet?user_id=${userId}&pet_name=${petName}&specie=${specie}&breed=${breed}&sex=${sex}&age=${age}`
+      `${baseURl}/addPet`, payload
     )
     .then((res) => res.data)
     .catch((err) => console.log(err));
 };
 
 const getOnePet = (payload) => {
-  const { userId, id } = payload;
+  // const { userId, id } = payload;
   return axios
-    .post(`${baseURl}/getOnePet?user_id=${userId}&id=${id}`)
+    .post(`${baseURl}/getOnePet`, payload)
     .then((res) => res.data)
     .catch((err) => console.log(err));
 };
 
 const getPet = (payload) => {
-  const { userId, id } = payload;
+  // const { userId, id } = payload;
   return axios
-    .post(`${baseURl}/getOnePet?user_id=${userId}&id=${id}`)
+    .post(`${baseURl}/getOnePet`, payload)
     .then((res) => res.data)
     .catch((err) => console.log(err));
 };
 
 const deletePet = (payload) => {
-  const { userId, id } = payload;
+  // const { userId, id } = payload;
   return axios
-    .post(`${baseURl}/deletePet?user_id=${userId}&id=${id}`)
+    .post(`${baseURl}/deletePet`, payload)
     .then((res) => res.data)
     .catch((err) => console.log(err));
 };
@@ -79,9 +79,9 @@ const deletePet = (payload) => {
 // Animal owner Activity
 
 const getAnimalOwnerActivity = (payload) => {
-  const { role, id } = payload;
+  // const { role, id } = payload;
   return axios
-    .post(`${baseURl}/getAnimalOwnerActivity?id=${id}&role=${role}`)
+    .post(`${baseURl}/getAnimalOwnerActivity`, payload)
     .then((res) => res.data)
     .catch((err) => console.log(err));
 };
@@ -89,36 +89,36 @@ const getAnimalOwnerActivity = (payload) => {
 // Register Animal owner
 
 const registerAnimalOwner1 = (payload) => {
-  const { stage, email, password } = payload;
+  // const { stage, email, password } = payload;
   return axios
     .post(
-      `${baseURl}/registerAnimalOwner?stage=${stage}&email=${email}&password=${password}`
+      `${baseURl}/registerAnimalOwner`, payload
     )
     .then((res) => res.data)
     .catch((err) => console.log(err));
 };
 
 const registerAnimalOwner2 = (payload) => {
-  const { stage, email, firstName, lastName, phone, address } = payload;
+  // const { stage, email, firstName, lastName, phone, address } = payload;
   return axios
     .post(
-      `${baseURl}/registerAnimalOwner?stage=${stage}&email=${email}&first_name=${firstName}&last_name=${lastName}&phone_number=${phone}&address=${address}`
+      `${baseURl}/registerAnimalOwner`, payload
     )
     .then((res) => res.data)
     .catch((err) => console.log(err));
 };
 
 const registerAnimalOwner3 = (payload) => {
-  const { stage, email, code } = payload;
+  // const { stage, email, code } = payload;
   return axios
     .post(
-      `${baseURl}/registerAnimalOwner?stage=${stage}&email=${email}&activation_code=${code}`
+      `${baseURl}/registerAnimalOwner`, payload
     )
     .then((res) => res.data)
     .catch((err) => console.log(err));
 };
 
-export {
+export  {
   addFarm,
   getOneFarm,
   getFarm,

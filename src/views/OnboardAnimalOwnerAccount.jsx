@@ -3,12 +3,36 @@ import { Password } from "primereact/password";
 import linkedIn from "../assets/icons/linkedin.svg";
 import google from "../assets/icons/google.svg";
 import or from "../assets/icons/or.svg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import accountlIcon from "../assets/icons/create-account/onboard/account-details-icon.svg";
 import personalIcon from "../assets/icons/create-account/onboard/personal-info-icon.svg";
 import verifyIcon from "../assets/icons/create-account/onboard/verify-account-icon.svg";
 import arrow from "../assets/icons/create-account/onboard/arrow-account-next.svg";
+import { useState } from "react";
+import { registerAnimalOwner1 } from "../utils/animalOwnerApiService";
+import { useRecoilState } from "recoil";
+import { registration } from "../atom/registrationAtom";
 export default function OnboardAnimalOwnerAccount() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [ data, setData ] = useRecoilState(registration)
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const location = useNavigate();
+  const proceed = async () => {
+    const payload = {
+      stage: 1,
+      email: email,
+      password: password,
+    };
+
+    setData(payload)
+    
+    await registerAnimalOwner1(payload).then((res) => {
+      console.log(res);
+      location('/onboard-animal-owner-details')
+    });
+  };
+
   return (
     <div className="login flex justify-center items-center h-[140vh]">
       <div className=" w-[90%] lg:w-[35%] md:w-[60%]">
@@ -38,18 +62,34 @@ export default function OnboardAnimalOwnerAccount() {
             </div>
           </div>
           <span className="p-float-label">
-            <InputText id="username" />
+            <InputText
+              id="username"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
             <label htmlFor="username">Email</label>
           </span>
           <span className="p-float-label">
-            <Password toggleMask feedback={false} />
+            <Password
+              toggleMask
+              feedback={false}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
             <label htmlFor="password">Password</label>
           </span>
           <span className="p-float-label">
-            <Password toggleMask feedback={false} />
+            <Password
+              toggleMask
+              feedback={false}
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+            />
             <label htmlFor="password"> Confirm Password</label>
           </span>
-          <Link to='/onboard-animal-owner-details' className="green__btn">Proceed</Link>
+          <button onClick={proceed} className="green__btn">
+            Proceed
+          </button>
           <div className=" flex items-center justify-center gap-4">
             <img
               src={linkedIn}

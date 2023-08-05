@@ -8,6 +8,8 @@ import { Checkbox } from "primereact/checkbox";
 import { useState } from "react";
 
 export default function OnboardAnimalOwnerPersonal() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
     const [ingredients, setIngredients] = useState([]);
     const onIngredientsChange = (e) => {
         let _ingredients = [...ingredients];
