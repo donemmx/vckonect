@@ -25,9 +25,17 @@ const vetUser = yup.object().shape({
 })
 
 
+const loginUser =  yup.object().shape({
+    email: yup.string().email("Please enter a valid email").required("Required"),
+    password: yup.string().required("Required"),
+})
+
+
+
 
 export {
     userOne,
     userTwo,
-    vetUser
+    vetUser,
+    loginUser
 }
