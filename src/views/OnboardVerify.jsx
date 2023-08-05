@@ -1,11 +1,46 @@
 import { InputText } from "primereact/inputtext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import accountlIcon from "../assets/icons/create-account/onboard/account-details-icon.svg";
 import personalIcon from "../assets/icons/create-account/onboard/personal-info-icon.svg";
 import verifyIcon from "../assets/icons/create-account/onboard/verify-account-icon.svg";
 import arrow from "../assets/icons/create-account/onboard/arrow-account-next.svg";
+import { useRecoilState } from "recoil";
+import { useFormik } from "formik";
+import { registerVeterinarian1 } from "../utils/vetApiService";
 
 export default function OnboardVerify() {
+  const [data, setData] = useRecoilState(registration);
+  const location = useNavigate();
+
+  const onSubmit = async (values) => {
+    const payload = {
+      stage: 1,
+      ...values,
+    };
+    await registerVeterinarian1(payload)
+      .then((res) => {
+        if (!res.code) {
+          location("/onboard-animal-owner-details");
+          setData(values.email);
+          toast.success(res.detail);
+        } else {
+          toast.error(res.detail);
+        }
+      })
+      .catch((err) => console.log(err));
+  
+  };
+
+  const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
+    useFormik({
+      initialValues: {
+        email: "",
+        password: "",
+        confirmPassword: "",
+      },
+      onSubmit,
+    });
+
   return (
     <div className="login flex justify-center items-center h-[100vh] lg:h-[105vh]">
       <div className=" w-[90%] lg:w-[35%] md:w-[60%]">

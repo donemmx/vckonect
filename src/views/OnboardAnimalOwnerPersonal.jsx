@@ -8,7 +8,7 @@ import arrow from "../assets/icons/create-account/onboard/arrow-account-next.svg
 import { Checkbox } from "primereact/checkbox";
 import { useState } from "react";
 import { useFormik } from "formik";
-import { userAnimalOwnerTwo } from "../validations/UserValidation";
+import { userTwo } from "../validations/UserValidation";
 import { registerAnimalOwner2 } from "../utils/animalOwnerApiService";
 import { useRecoilValue } from "recoil";
 import { registration } from "../atom/registrationAtom";
@@ -38,13 +38,11 @@ export default function OnboardAnimalOwnerPersonal() {
     await registerAnimalOwner2(payload)
       .then((res) => {
         console.log(res.code === 200);
-        if(!res.code){
+        if (!res.code) {
           location("/onboard-verify");
-          toast.success(res.detail)
-
-        }
-        else{
-          toast.error(res.detail)
+          toast.success(res.detail);
+        } else {
+          toast.error(res.detail);
         }
       })
       .catch((err) => console.log(err));
@@ -58,7 +56,7 @@ export default function OnboardAnimalOwnerPersonal() {
         phone: "",
         address: "",
       },
-      validationSchema: userAnimalOwnerTwo,
+      validationSchema: userTwo,
       onSubmit,
     });
   return (

@@ -13,7 +13,7 @@ import { registerAnimalOwner1 } from "../utils/animalOwnerApiService";
 import { useRecoilState } from "recoil";
 import { registration } from "../atom/registrationAtom";
 import { useFormik } from "formik";
-import { userAnimalOwnerOne } from "../validations/UserValidation";
+import { userOne } from "../validations/UserValidation";
 import { toast } from "react-toastify";
 export default function OnboardAnimalOwnerAccount() {
   const [data, setData] = useRecoilState(registration);
@@ -45,11 +45,10 @@ export default function OnboardAnimalOwnerAccount() {
         password: "",
         confirmPassword: "",
       },
-      validationSchema: userAnimalOwnerOne,
+      validationSchema: userOne,
       onSubmit,
     });
 
-  console.log(errors);
 
   return (
     <div className="login flex justify-center items-center h-[140vh]">
