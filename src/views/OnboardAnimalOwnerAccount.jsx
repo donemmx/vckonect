@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { InputText } from "primereact/inputtext";
 import { Password } from "primereact/password";
 import linkedIn from "../assets/icons/linkedin.svg";
@@ -8,30 +9,47 @@ import accountlIcon from "../assets/icons/create-account/onboard/account-details
 import personalIcon from "../assets/icons/create-account/onboard/personal-info-icon.svg";
 import verifyIcon from "../assets/icons/create-account/onboard/verify-account-icon.svg";
 import arrow from "../assets/icons/create-account/onboard/arrow-account-next.svg";
-import { useState } from "react";
 import { registerAnimalOwner1 } from "../utils/animalOwnerApiService";
 import { useRecoilState } from "recoil";
 import { registration } from "../atom/registrationAtom";
+import { useFormik } from "formik";
+import { userAnimalOwnerOne } from "../validations/UserValidation";
+import { toast } from "react-toastify";
 export default function OnboardAnimalOwnerAccount() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [ data, setData ] = useRecoilState(registration)
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [data, setData] = useRecoilState(registration);
   const location = useNavigate();
-  const proceed = async () => {
+
+  const onSubmit = async (values) => {
     const payload = {
       stage: 1,
-      email: email,
-      password: password,
+      ...values,
     };
-
-    setData(payload)
-    
-    await registerAnimalOwner1(payload).then((res) => {
-      console.log(res);
-      location('/onboard-animal-owner-details')
-    });
+    await registerAnimalOwner1(payload)
+      .then((res) => {
+        if (!res.code) {
+          location("/onboard-animal-owner-details");
+          setData(values.email);
+          toast.success(res.detail);
+        } else {
+          toast.error(res.detail);
+        }
+      })
+      .catch((err) => console.log(err));
+  
   };
+
+  const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
+    useFormik({
+      initialValues: {
+        email: "",
+        password: "",
+        confirmPassword: "",
+      },
+      validationSchema: userAnimalOwnerOne,
+      onSubmit,
+    });
+
+  console.log(errors);
 
   return (
     <div className="login flex justify-center items-center h-[140vh]">
@@ -43,7 +61,7 @@ export default function OnboardAnimalOwnerAccount() {
           Create a new account to become a user or a veterinarians on vet konect
           by clicking on one of the cards below
         </div>
-        <div className="form flex flex-col gap-3 pt-6">
+        <form onSubmit={handleSubmit} className="form flex flex-col gap-3 pt-6">
           <div className="progress flex w-[90%] mx-auto items-center justify-evenly">
             <div className="step1 w-[40px] text-[12px] text-center ]">
               <img src={accountlIcon} alt="" />
@@ -64,32 +82,46 @@ export default function OnboardAnimalOwnerAccount() {
           <span className="p-float-label">
             <InputText
               id="username"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              name="email"
+              value={values.email}
+              onChange={handleChange}
+              onBlur={handleBlur}
             />
             <label htmlFor="username">Email</label>
           </span>
+          {errors.email && touched.email && (
+            <p className="error">{errors.email}</p>
+          )}
           <span className="p-float-label">
             <Password
               toggleMask
+              name="password"
               feedback={false}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              value={values.password}
+              onChange={handleChange}
+              onBlur={handleBlur}
             />
             <label htmlFor="password">Password</label>
           </span>
+          {errors.password && touched.password && (
+            <p className="error">{errors.password}</p>
+          )}
+
           <span className="p-float-label">
             <Password
               toggleMask
+              name="confirmPassword"
               feedback={false}
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
+              value={values.confirmPassword}
+              onChange={handleChange}
+              onBlur={handleBlur}
             />
             <label htmlFor="password"> Confirm Password</label>
           </span>
-          <button onClick={proceed} className="green__btn">
-            Proceed
-          </button>
+          {errors.confirmPassword && touched.confirmPassword && (
+            <p className="error">{errors.confirmPassword}</p>
+          )}
+          <button className="green__btn">Proceed</button>
           <div className=" flex items-center justify-center gap-4">
             <img
               src={linkedIn}
@@ -106,7 +138,7 @@ export default function OnboardAnimalOwnerAccount() {
           <Link to="/login" className="secondary__btn mt-[-30px]">
             Login
           </Link>
-        </div>
+        </form>
       </div>
     </div>
   );

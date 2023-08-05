@@ -130,6 +130,11 @@ body {
   background-position: right;
 }
 
+.error{
+  font-size: 0.85rem;
+  color: red;
+}
+
 .card {
   background: #ffffff;
   box-shadow: 0px 17.7729px 54.686px rgba(27, 25, 86, 0.06);
