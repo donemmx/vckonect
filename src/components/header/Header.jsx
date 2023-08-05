@@ -1,4 +1,5 @@
-import { Link } from "react-router-dom";
+/* eslint-disable no-unused-vars */
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/logo/vc-logo.svg";
 import userImg from "../../assets/icons/header-icons/user-icon.svg";
 import hamburger from "../../assets/icons/header-icons/hamburger-icon.svg";
@@ -11,18 +12,33 @@ import { user } from "../../atom/userAtom";
 import { toast } from "react-toastify";
 
 export default function Header({ bg }) {
+  const location = useNavigate();
+
   const [open, setOpen] = useState(false);
   const userData = useRecoilValue(user);
-  const [data, setData] = useRecoilState(user)
+  const [data, setData] = useRecoilState(user);
   const openModal = () => {
     setOpen(!open);
   };
 
   const logOut = () => {
-    setData(null)
+    setData(null);
     toast.success("Successfully logged out");
+  };
 
-  }
+  const checker = (route) => {
+    if (data?.role) {
+      if (data?.role === "Veternarian") {
+        location(`/vet-${route}`);
+      } else if (data?.role === "Animal Owner") {
+        location(`/animal-owner-${route}`);
+      } else {
+        location(`/admin-${route}`);
+      }
+    } else {
+      location("/login");
+    }
+  };
   return (
     <>
       <div
@@ -40,10 +56,14 @@ export default function Header({ bg }) {
           </Link>
           <div className="header__links  hidden lg:flex space-x-5 ">
             <Link to={"/about-us"}>About Us</Link>
-            <Link to={"/feed-calculator"}>Feed Calculator</Link>
-            <Link to={"/disease-prediction"}>Disease Predictor</Link>
+            <div onClick={() => checker("feed-calculator")} className=" cursor-pointer">
+              Feed Calculator
+            </div>
+            <div onClick={() => checker("disease-prediction") } className=" cursor-pointer">
+              Disease Predictor
+            </div>
             {/* <Link to={"/blog"}>Blog Post</Link> */}
-            <Link to={"/forum"}>Chat Forum</Link>
+            <div onClick={() => checker("forum") } className=" cursor-pointer">Chat Forum</div>
           </div>
           <div className="header__user">
             <div
@@ -89,30 +109,30 @@ export default function Header({ bg }) {
           </div>
         </div>
       ) : (
-       ""
+        ""
       )}
       {open && userData ? (
         <div
-        className="modal w-[220px] h-[16vh] z-50 bg-white fixed top-[9%] right-[8%] rounded-md shadow-sm"
-        data-aos="fade"
-      >
-        <div className="modal__body flex  flex-col gap-2 p-4">
-          <button
-            onClick={logOut}
-            className="group text-[15px] text-gray-600 p-2 flex items-center gap-3 hover:bg-gray-300 rounded-md cursor-pointer"
-          >
-            <img src={userPic} alt="" className="h-4" />
-            Log out
-          </button>
-         
-          <div className="group text-[15px] text-gray-600 p-2 flex items-center gap-3  hover:bg-gray-300 rounded-md cursor-pointer">
-            <img src={support} alt="" className="h-4" />
-            Customer Support
+          className="modal w-[220px] h-[16vh] z-50 bg-white fixed top-[9%] right-[8%] rounded-md shadow-sm"
+          data-aos="fade"
+        >
+          <div className="modal__body flex  flex-col gap-2 p-4">
+            <button
+              onClick={logOut}
+              className="group text-[15px] text-gray-600 p-2 flex items-center gap-3 hover:bg-gray-300 rounded-md cursor-pointer"
+            >
+              <img src={userPic} alt="" className="h-4" />
+              Log out
+            </button>
+
+            <div className="group text-[15px] text-gray-600 p-2 flex items-center gap-3  hover:bg-gray-300 rounded-md cursor-pointer">
+              <img src={support} alt="" className="h-4" />
+              Customer Support
+            </div>
           </div>
         </div>
-      </div>
       ) : (
-       ""
+        ""
       )}
     </>
   );

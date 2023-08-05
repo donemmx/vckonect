@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { InputText } from "primereact/inputtext";
 import { Password } from "primereact/password";
 import linkedIn from "../assets/icons/linkedin.svg";

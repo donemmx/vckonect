@@ -229,7 +229,7 @@ const router = createBrowserRouter([
                 element: <UserFeatures />
             },
             {
-                path: '/forum',
+                path: '/admin-forum',
                 element: <AdminForum />
             },
             {
@@ -237,15 +237,15 @@ const router = createBrowserRouter([
                 element: <Subscriptions />
             },
             {
-                path: '/promotion',
+                path: '/admin-promotion',
                 element: <AdminPromotion />
             },
             {
-                path: '/account',
+                path: '/admin-account',
                 element: <AdminAccount />
             },
             {
-                path: '/activity',
+                path: '/admin-activity',
                 element: <AdminActivity />
             },
         ]
