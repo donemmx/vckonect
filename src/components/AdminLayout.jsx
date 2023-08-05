@@ -1,15 +1,15 @@
 import { Navigate, Outlet } from "react-router-dom";
 import Header from "./header/Header";
 import Sidebar from "./sidebar/Sidebar";
-import { authState } from "../atom/authAtom";
 import { useRecoilValue } from "recoil";
+import { user } from "../atom/userAtom";
 
 export default function AdminLayout() {
-  let auth = useRecoilValue(authState);
+  let userData = useRecoilValue(user);
 
   return (
     <div>
-      {auth.token ? (
+      {userData?.role === 'admin' ? (
         <>
           <Header />
           <Sidebar />

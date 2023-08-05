@@ -1,15 +1,15 @@
 import { Navigate, Outlet } from "react-router-dom";
 import Header from "./header/Header";
 import VetSidebar from "./sidebar/VetSidebar";
-import { authState } from "../atom/authAtom";
 import { useRecoilValue } from "recoil";
+import { user } from "../atom/userAtom";
 
 export default function VetLayout() {
-  let auth = useRecoilValue(authState);
+  let auth = useRecoilValue(user);
 
   return (
     <div>
-      {auth.token ? (
+      {auth?.role === null ? (
         <>
           <Header />
           <VetSidebar />

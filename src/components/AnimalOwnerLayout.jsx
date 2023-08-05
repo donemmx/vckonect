@@ -2,13 +2,13 @@ import { Navigate, Outlet } from "react-router-dom";
 import Header from "./header/Header";
 import AnimalOwnerSidebar from "./sidebar/AnimalOwnerSidebar";
 import { useRecoilValue } from "recoil";
-import { authState } from "../atom/authAtom";
+import { user } from "../atom/userAtom";
 
 export default function AnimalOwnerLayout() {
-  let auth = useRecoilValue(authState);
+  let userData = useRecoilValue(user);
   return (
     <div>
-      { auth.token ?
+      { userData?.role === 'petUser'  ?
         <>
           <Header />
           <AnimalOwnerSidebar />

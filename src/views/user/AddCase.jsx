@@ -4,7 +4,9 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 export default function AddCase() {
-  const Genders = ["Male", "Female"];
+  const types = ["Pet", "Farm"];
+  const genders = ["Male", "Female"];
+  const [type, setType] = useState(null);
   const [gender, setGender] = useState(null);
 
   return (
@@ -22,7 +24,7 @@ export default function AddCase() {
             Case Details
           </h2>
           <div className="pt-2 subtitle paragraph text-center">
-          You can add a new case to your case list
+            You can add a new case to your case list
           </div>
           <div className="form flex flex-col gap-3 pt-6">
             <span className="p-float-label">
@@ -40,15 +42,98 @@ export default function AddCase() {
             </span>
             <span className="p-float-label">
               <Dropdown
-                value={gender}
-                onChange={(e) => setGender(e.value)}
-                options={Genders}
+                value={type}
+                onChange={(e) => setType(e.value)}
+                options={types}
                 placeholder="Select Pet or Farm"
                 className="w-full md:w-20rem"
               />
               <label htmlFor="username">Select Pet or Farm </label>
             </span>
+            {type === "Pet" ? (
+              <>
+                <span className="p-float-label">
+                  <InputText id="username" />
+                  <label htmlFor="username">Pet Name</label>
+                </span>
 
+                <span className="p-float-label">
+                  <InputText id="username" />
+                  <label htmlFor="username">Specie </label>
+                </span>
+                <span className="p-float-label">
+                  <InputText id="username" />
+                  <label htmlFor="username">Breed </label>
+                </span>
+                <span className="p-float-label">
+                  <InputText id="username" />
+                  <label htmlFor="username">Age (years)</label>
+                </span>
+                <span className="p-float-label">
+                  <Dropdown
+                    value={gender}
+                    onChange={(e) => setGender(e.value)}
+                    options={genders}
+                    placeholder="Select Pet or Farm"
+                    className="w-full md:w-20rem"
+                  />
+                  <label htmlFor="username"> Sex</label>
+                </span>
+                <span className="p-float-label">
+                  <InputText id="username" />
+                  <label htmlFor="username">Pet Number </label>
+                </span>
+         
+              </>
+            ) : (
+              ""
+            )}
+            {type === "Farm" ? (
+              <>
+                <span className="p-float-label">
+                  <InputText id="username" />
+                  <label htmlFor="username">Farm Name</label>
+                </span>
+
+                <span className="p-float-label">
+                  <InputText id="username" />
+                  <label htmlFor="username">Type of Livestock </label>
+                </span>
+                <span className="p-float-label">
+                  <InputText id="username" />
+                  <label htmlFor="username">Number of Livestock </label>
+                </span>
+                <span className="p-float-label">
+                  <InputText id="username" />
+                  <label htmlFor="username">Number of Workers</label>
+                </span>
+
+                <span className="p-float-label">
+                  <InputText id="username" />
+                  <label htmlFor="username">Age </label>
+                </span>
+                <span className="p-float-label">
+                  <Dropdown
+                    value={gender}
+                    onChange={(e) => setGender(e.value)}
+                    options={genders}
+                    placeholder="Select Pet or Farm"
+                    className="w-full md:w-20rem"
+                  />
+                  <label htmlFor="username">Sex </label>
+                </span>
+                <span className="p-float-label">
+                  <InputText id="username" />
+                  <label htmlFor="username">Location </label>
+                </span>
+                <span className="p-float-label">
+                  <InputText id="username" />
+                  <label htmlFor="username">Other Details </label>
+                </span>
+              </>
+            ) : (
+              ""
+            )}
             <button className="green__btn">Save</button>
           </div>
         </div>

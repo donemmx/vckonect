@@ -22,14 +22,14 @@ export default function Login() {
     await login(payload)
       .then((res) => {
         if (!res.code) {
-          // location("/dashboard");
-          if(res.account_activation === null){
-            toast.error("Please activate your account");
-          }
-          else{
-            toast.error("Successfully logged in");
+          location("/dashboard");
+          // if(res.account_activation === null){
+          //   toast.error("Please activate your account");
+          // }
+          // else{
+          //   toast.error("Successfully logged in");
             setData(res)
-          }
+          // }
 
         } else {
           toast.error(res.detail);
