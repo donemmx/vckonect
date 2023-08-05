@@ -53,7 +53,7 @@ export default function OnboardAnimalOwnerPersonal() {
       initialValues: {
         firstName: "",
         lastName: "",
-        phone: "",
+        phone_number: "",
         address: "",
       },
       validationSchema: userTwo,
@@ -119,14 +119,14 @@ export default function OnboardAnimalOwnerPersonal() {
             <InputText
               id="username"
               name="phone"
-              value={values.phone}
+              value={values.phone_number}
               onChange={handleChange}
               onBlur={handleBlur}
             />
             <label htmlFor="username">Phone No.</label>
           </span>
-          {errors.phone && touched.phone && (
-            <p className="error">{errors.phone}</p>
+          {errors.phone_number && touched.phone_number && (
+            <p className="error">{errors.phone_number}</p>
           )}
 
           <span className="p-float-label">

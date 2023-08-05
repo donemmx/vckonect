@@ -11,14 +11,14 @@ const userOne = yup.object().shape({
 const userTwo = yup.object().shape({
     firstName: yup.string().required("Required"),
     lastName: yup.string().required("Required"),
-    phone: yup.string().required("Required"),
+    phone_number: yup.string().required("Required"),
     address: yup.string().required("Required")
 })
 
 const vetUser = yup.object().shape({
     firstName: yup.string().required("Required"),
     lastName: yup.string().required("Required"),
-    phone: yup.string().required("Required"),
+    phone_number: yup.string().required("Required"),
     address: yup.string().required("Required"),
     vetNumber: yup.string().required("Required"),
     speciality: yup.string().required("Required"),
