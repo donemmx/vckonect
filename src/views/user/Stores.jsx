@@ -49,7 +49,7 @@ export default function Stores() {
         }
         
       </div>
-      <div className=" flex gap-2 flex-wrap items-center justify-center">
+      <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 items-center justify-center">
         {allStores.map((res) => (
           <StoreCard
             key={res.id}
