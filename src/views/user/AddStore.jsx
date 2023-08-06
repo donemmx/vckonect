@@ -60,9 +60,14 @@ export default function AddStore() {
       phone_number: phone,
     };
     await addStore(payload)
-      .then(() => {
-       toast.success('Store added successfully')
-       window.history.back()
+      .then((res) => {
+        if(res.code){
+          toast.error(res.detail)
+        }
+        else{
+          toast.success('Store added successfully')
+          window.history.back()
+        }
       })
       .catch((err) => console.log(err));
   };
