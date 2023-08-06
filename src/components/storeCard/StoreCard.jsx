@@ -3,8 +3,6 @@ import chat from "../../assets/icons/chat-icon.svg";
 import message from "../../assets/icons/message-icon.svg";
 import location from "../../assets/icons/marker-icon.svg";
 import openIcon from "../../assets/bg/card-next-bg.svg";
-import star from "../../assets/vetcard/star-icon.svg";
-import verified from "../../assets/vetcard/verified-icon.svg";
 
 export default function StoreCard({
   availability,
@@ -14,7 +12,7 @@ export default function StoreCard({
   storePhone,
 }) {
   return (
-    <div className=" vetCard mb-6">
+    <div className=" vetCard mb-6" >
       <div className="group h-full w-full ">
         <div className="top h-[65%] w-full"  style={{
             backgroundImage: `url(${image})`,
