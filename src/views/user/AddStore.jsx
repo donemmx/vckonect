@@ -2,14 +2,56 @@ import { InputText } from "primereact/inputtext";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { InputSwitch } from "primereact/inputswitch";
+import { addStore } from "../../utils/userApiService";
+import { toast } from "react-toastify";
+import { useFormik } from "formik";
+import { v4 } from "uuid";
+import { useRecoilValue } from "recoil";
+import { user } from "../../atom/userAtom";
+import { store } from "../../validations/UserValidation";
 
 export default function AddStore() {
+  const userData = useRecoilValue(user)
   const [file, setFile] = useState(null);
   const [avialability, setAvailability] = useState(false);
-  function handleChange(e) {
+  function getImage(e) {
     console.log(e.target.files);
     setFile(URL.createObjectURL(e.target.files[0]));
   }
+
+  const onSubmit = async (values) => {
+    const {storeName, phone, ...others} = values
+    const payload = {
+      user_role: userData.role,
+      user_id: userData.id,
+      store_id: v4(),
+      availability: avialability,
+      picture: file,
+      ...others,
+      store_name: storeName,
+      phone_number: phone,
+
+    };
+    await addStore(payload)
+      .then(() => {
+       toast.success('Post added successfully')
+       window.history.back()
+      })
+      .catch((err) => console.log(err));
+    console.log(payload);
+  };
+
+  const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
+    useFormik({
+      initialValues: {
+        storeName: "",
+        email: "",
+        phone: "",
+        location: "",
+      },
+      validationSchema: store,
+      onSubmit,
+    });
   return (
     <div className=" bg-white h-full pb-20 mb-10 rounded-md border-[1px] border-[#EBEBEB]">
       <Link
@@ -20,7 +62,7 @@ export default function AddStore() {
         Back
       </Link>
       <div className="flex justify-center items-center pt-[10vh]">
-        <div className=" w-[90%] lg:w-[35%] md:w-[60%]">
+        <form onSubmit={handleSubmit} className=" w-[90%] lg:w-[35%] md:w-[60%]">
           <h2 className="title font-black text-center head__two">
             Store Details
           </h2>
@@ -29,21 +71,53 @@ export default function AddStore() {
           </div>
           <div className="form flex flex-col gap-3 pt-6">
             <span className="p-float-label">
-              <InputText id="username" />
+              <InputText id="username" 
+               name="storeName"
+               value={values.storeName}
+               onChange={handleChange}
+               onBlur={handleBlur}
+              />
               <label htmlFor="username">Store Name :</label>
             </span>
+            {errors.storeName && touched.storeName && (
+            <p className="error">{errors.storeName}</p>
+          )}
             <span className="p-float-label">
-              <InputText id="username" />
+              <InputText id="username" 
+               name="email"
+               value={values.email}
+               onChange={handleChange}
+               onBlur={handleBlur}
+              />
               <label htmlFor="livestock">Email (Required) :</label>
             </span>
+            {errors.email && touched.email && (
+            <p className="error">{errors.email}</p>
+          )}
             <span className="p-float-label">
-              <InputText id="username" />
+              <InputText id="username" 
+               name="phone"
+               value={values.phone}
+               onChange={handleChange}
+               onBlur={handleBlur}
+              />
               <label htmlFor="username">Clinic Phone No (Required) :</label>
             </span>
+            {errors.phone && touched.phone && (
+            <p className="error">{errors.phone}</p>
+          )}
             <span className="p-float-label">
-              <InputText id="username" />
+              <InputText id="username" 
+               name="location"
+               value={values.location}
+               onChange={handleChange}
+               onBlur={handleBlur}
+              />
               <label htmlFor="username">Location (Required) : </label>
             </span>
+            {errors.location && touched.location && (
+            <p className="error">{errors.location}</p>
+          )}
             <div className=" flex items-center justify-between p-2 h-[60px]">
             Availability Status - {avialability ? 'Open' : 'Closed'}
               <InputSwitch
@@ -65,12 +139,12 @@ export default function AddStore() {
                 </div>
               </>
             ) : (
-              <input type="file" onChange={handleChange} />
+              <input type="file" onChange={getImage} />
             )}
 
             <button className="green__btn">Save</button>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   );

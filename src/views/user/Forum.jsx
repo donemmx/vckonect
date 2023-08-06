@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import addIcon from "../../assets/icons/add-icon.svg";
 import userIcon from "../../assets/icons/user-1.png";
 import user2 from "../../assets/icons/user-2.png";
@@ -6,20 +6,40 @@ import user3 from "../../assets/icons/user-3.png";
 import forumImg from "../../assets/icons/forum-image.png";
 import forumImg2 from "../../assets/icons/forum-image-2.png";
 import ForumCard from "../../components/forumCard/ForumCard";
-import { Link } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { user } from "../../atom/userAtom";
+import { useNavigate } from "react-router-dom";
+import { getForumChat } from "../../utils/userApiService";
 
 export default function Forum() {
   const [tab, setTab] = useState("chat");
+  const location = useNavigate();
 
+  const userData = useRecoilValue(user);
   const activeTab = (type) => {
     setTab(type);
   };
+
+  const checker = (route) => {
+    if (userData?.role === "Veternarian") {
+      location(`/vet-${route}`);
+    } else {
+      location(`/animal-owner-${route}`);
+    }
+  };
+
+  useEffect(()=> {
+    getForumChat().then((res)=> console.log(res))
+  }, [])
+
   return (
     <div>
-      <Link to='/add-to-forum' className="border-[1px] hover:border-[#52CE06] cursor-pointer  flex items-center justify-between p-3 rounded-[18px] mt-10 mb-5">
+      <button onClick={() =>checker('add-to-forum')}
+        className="border-[1px] hover:border-[#52CE06] cursor-pointer  flex items-center justify-between p-3 rounded-[18px] mt-10 mb-5 w-full"
+      >
         <p className="font-bold px-2">Add to Forum Chat</p>
         <img src={addIcon} alt="" className="w-[40px]" />
-      </Link>
+      </button>
 
       <div className="pets mt-5  mb-5 p-4 border bg-white rounded-lg">
         <div className="flex items-center gap-6">
@@ -77,9 +97,26 @@ export default function Forum() {
         </div>
       </div>
 
-      <ForumCard user={userIcon} name='Dr. Amechi Anayor' position='Veterinarian'  forumImg={forumImg} title='Lorem ipsum dolor sit amet, consectetur adipiscing elit'/>
-      <ForumCard user={user2} name='Good Silron' position='Veterinarian'  title='Incididunt ut labore et dolore magna aliquaLorem ipsum dolor sit amet'/>
-      <ForumCard user={user3} name='Grace Jonesse' position='Veterinarian' forumImg={forumImg2}  title='Consectetur adipiscing elit'/>
+      <ForumCard
+        user={userIcon}
+        name="Dr. Amechi Anayor"
+        position="Veterinarian"
+        forumImg={forumImg}
+        title="Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+      />
+      <ForumCard
+        user={user2}
+        name="Good Silron"
+        position="Veterinarian"
+        title="Incididunt ut labore et dolore magna aliquaLorem ipsum dolor sit amet"
+      />
+      <ForumCard
+        user={user3}
+        name="Grace Jonesse"
+        position="Veterinarian"
+        forumImg={forumImg2}
+        title="Consectetur adipiscing elit"
+      />
     </div>
   );
 }

@@ -51,9 +51,9 @@ const product = yup.object().shape({
 
 const store = yup.object().shape({
     phone: yup.string().required("Required"),
-    email: yup.string().required("Required"),
+    storeName: yup.string().required("Required"),
+    email: yup.string().email("Please enter a valid email").required("Required"),
     location: yup.string().required("Required"),
-    availability: yup.string().required("Required"),
 })
 
 const farm = yup.object().shape({
@@ -93,6 +93,13 @@ const addPetCase  =  yup.object().shape({
     sex: yup.string().required("Required"),
     caseTitle: yup.string().required("Required"),
 })
+const pet  =  yup.object().shape({
+    petName: yup.string().required("Required"),
+    specie: yup.string().required("Required"),
+    breed: yup.string().required("Required"),
+    age: yup.string().required("Required"),
+    sex: yup.string().required("Required"),
+})
 
 const addFarmCase  =  yup.object().shape({
     clientName: yup.string().required("Required"),
@@ -119,5 +126,6 @@ export {
     addCase,
     addPetCase,
     addFarmCase,
-    verify
+    verify,
+    pet
 }

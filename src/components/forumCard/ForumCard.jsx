@@ -2,13 +2,28 @@ import commentsIcon from "../../assets/icons/comments-icon.svg";
 import likeIcon from "../../assets/icons/like-icon.svg";
 import share from "../../assets/icons/share-icon.svg";
 import sendIcon from "../../assets/icons/send-icon.svg";
+import { useRecoilValue } from "recoil";
+import { likeForumChat } from "../../utils/userApiService";
+import { user } from "../../atom/userAtom";
 
-export default function ForumCard({user,forumImg, name, position , title}) {
+export default function ForumCard({userImg,forumImg, name, content, position , title, forumChatId}) {
+  const userData = useRecoilValue(user)
+  const likeForum =  async () => {
+    const payload = {
+      user_role: userData.role,
+      user_id: userData.id,
+      forum_chat_id: forumChatId
+    }
+      await likeForumChat(payload).then((res)=> {
+        console.log(res);
+      })
+  }
+
   return (
     <div className="border rounded-lg p-5 my-4">
     <div className="flex justify-between flex-wrap gap-2">
       <div className="flex items-center gap-4">
-        <img src={user} alt="" className="h-[50px]" />
+        <img src={userImg} alt="" className="h-[50px]" />
         <div className=" flex flex-col font-bold text-md">
         {name}
           <small className=" font-light text-sm">{position}</small>
@@ -25,10 +40,7 @@ export default function ForumCard({user,forumImg, name, position , title}) {
      {title}
     </div>
     <div className=" font-thin">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-      eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-      minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-      aliquip ex ea commodo consequat...see more
+    {content}
     </div>
     <div className="">
       <div className=" text-[.82rem] flex items-center flex-wrap gap-7 justify-end mt-2">
@@ -43,6 +55,7 @@ export default function ForumCard({user,forumImg, name, position , title}) {
         <div className="flex gap-3 items-center justify-center">
           <img
             src={likeIcon}
+            onClick={likeForum}
             alt=""
             className=" p-2 mb-2 h-[35px] w-[35px] bg-white rounded-full border-[1px] border-[#EBEBEB] shadow"
           />

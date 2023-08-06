@@ -1,13 +1,47 @@
+import { useFormik } from "formik";
 import { Dropdown } from "primereact/dropdown";
 import { InputText } from "primereact/inputtext";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { addPet } from "../../utils/animalOwnerApiService";
+import { pet } from "../../validations/UserValidation";
 
 export default function AddPet() {
+
+  const onSubmit = async (values) => {
+    const payload = {
+      stage: 1,
+      ...values,
+    };
+    await addPet(payload)
+      .then((res) => {
+        if (!res.code) {
+          location("/onboard-vet-details");
+          setData(values.email);
+          toast.success(res.detail);
+        } else {
+          toast.error(res.detail);
+        }
+      })
+      .catch((err) => console.log(err));
+  
+  };
+
+
+  const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
+    useFormik({
+      initialValues: {
+        email: "",
+        password: "",
+      },
+      validationSchema: pet,
+      onSubmit,
+    });
+
   const [specialty, setSpecialty] = useState(null);
   const [gender, setGender] = useState(null);
   const [file, setFile] = useState(null);
-  function handleChange(e) {
+  function selectFile(e) {
     console.log(e.target.files);
     setFile(URL.createObjectURL(e.target.files[0]));
   }
@@ -87,7 +121,7 @@ export default function AddPet() {
             ) : (
                 <input
                 type="file"
-                onChange={handleChange}
+                onChange={selectFile}
               />
             )}
 
