@@ -61,7 +61,7 @@ export default function AddStore() {
     };
     await addStore(payload)
       .then(() => {
-       toast.success('Post added successfully')
+       toast.success('Store added successfully')
        window.history.back()
       })
       .catch((err) => console.log(err));
