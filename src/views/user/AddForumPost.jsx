@@ -48,7 +48,7 @@ export default function AddForumPost() {
   const onSubmit = async (values) => {
     const payload = {
       role: userData.role,
-      id: v4(),
+      id: userData.id,
       picture: file,
       ...values,
     };
