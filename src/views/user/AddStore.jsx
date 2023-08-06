@@ -1,5 +1,5 @@
 import { InputText } from "primereact/inputtext";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { InputSwitch } from "primereact/inputswitch";
 import { addStore } from "../../utils/userApiService";
@@ -11,26 +11,53 @@ import { user } from "../../atom/userAtom";
 import { store } from "../../validations/UserValidation";
 
 export default function AddStore() {
-  const userData = useRecoilValue(user)
+  const imageMimeType = /image\/(png|jpg|jpeg)/i;
+  const userData = useRecoilValue(user);
   const [file, setFile] = useState(null);
+  const [fileDataURL, setFileDataURL] = useState(null);
   const [avialability, setAvailability] = useState(false);
   function getImage(e) {
-    console.log(e.target.files);
-    setFile(URL.createObjectURL(e.target.files[0]));
+    const file = e.target.files[0];
+    if (!file.type.match(imageMimeType)) {
+      alert("Image mime type is not valid");
+      return;
+    }
+    setFile(file);
   }
 
+  useEffect(() => {
+    let fileReader,
+      isCancel = false;
+    if (file) {
+      fileReader = new FileReader();
+      fileReader.onload = (e) => {
+        const { result } = e.target;
+        if (result && !isCancel) {
+          setFileDataURL(result);
+        }
+      };
+      fileReader.readAsDataURL(file);
+    }
+    return () => {
+      isCancel = true;
+      if (fileReader && fileReader.readyState === 1) {
+        fileReader.abort();
+      }
+    };
+  }, [file]);
+  console.log(fileDataURL);
+
   const onSubmit = async (values) => {
-    const {storeName, phone, ...others} = values
+    const { storeName, phone, ...others } = values;
     const payload = {
       user_role: userData.role,
       user_id: userData.id,
       store_id: v4(),
       availability: avialability,
-      picture: file,
+      picture: fileDataURL,
       ...others,
       store_name: storeName,
       phone_number: phone,
-
     };
     await addStore(payload)
       .then(() => {
@@ -38,7 +65,6 @@ export default function AddStore() {
        window.history.back()
       })
       .catch((err) => console.log(err));
-    console.log(payload);
   };
 
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
@@ -62,7 +88,10 @@ export default function AddStore() {
         Back
       </Link>
       <div className="flex justify-center items-center pt-[10vh]">
-        <form onSubmit={handleSubmit} className=" w-[90%] lg:w-[35%] md:w-[60%]">
+        <form
+          onSubmit={handleSubmit}
+          className=" w-[90%] lg:w-[35%] md:w-[60%]"
+        >
           <h2 className="title font-black text-center head__two">
             Store Details
           </h2>
@@ -71,75 +100,84 @@ export default function AddStore() {
           </div>
           <div className="form flex flex-col gap-3 pt-6">
             <span className="p-float-label">
-              <InputText id="username" 
-               name="storeName"
-               value={values.storeName}
-               onChange={handleChange}
-               onBlur={handleBlur}
+              <InputText
+                id="username"
+                name="storeName"
+                value={values.storeName}
+                onChange={handleChange}
+                onBlur={handleBlur}
               />
               <label htmlFor="username">Store Name :</label>
             </span>
             {errors.storeName && touched.storeName && (
-            <p className="error">{errors.storeName}</p>
-          )}
+              <p className="error">{errors.storeName}</p>
+            )}
             <span className="p-float-label">
-              <InputText id="username" 
-               name="email"
-               value={values.email}
-               onChange={handleChange}
-               onBlur={handleBlur}
+              <InputText
+                id="username"
+                name="email"
+                value={values.email}
+                onChange={handleChange}
+                onBlur={handleBlur}
               />
               <label htmlFor="livestock">Email (Required) :</label>
             </span>
             {errors.email && touched.email && (
-            <p className="error">{errors.email}</p>
-          )}
+              <p className="error">{errors.email}</p>
+            )}
             <span className="p-float-label">
-              <InputText id="username" 
-               name="phone"
-               value={values.phone}
-               onChange={handleChange}
-               onBlur={handleBlur}
+              <InputText
+                id="username"
+                name="phone"
+                value={values.phone}
+                onChange={handleChange}
+                onBlur={handleBlur}
               />
               <label htmlFor="username">Clinic Phone No (Required) :</label>
             </span>
             {errors.phone && touched.phone && (
-            <p className="error">{errors.phone}</p>
-          )}
+              <p className="error">{errors.phone}</p>
+            )}
             <span className="p-float-label">
-              <InputText id="username" 
-               name="location"
-               value={values.location}
-               onChange={handleChange}
-               onBlur={handleBlur}
+              <InputText
+                id="username"
+                name="location"
+                value={values.location}
+                onChange={handleChange}
+                onBlur={handleBlur}
               />
               <label htmlFor="username">Location (Required) : </label>
             </span>
             {errors.location && touched.location && (
-            <p className="error">{errors.location}</p>
-          )}
+              <p className="error">{errors.location}</p>
+            )}
             <div className=" flex items-center justify-between p-2 h-[60px]">
-            Availability Status - {avialability ? 'Open' : 'Closed'}
+              Availability Status - {avialability ? "Open" : "Closed"}
               <InputSwitch
                 checked={avialability}
                 onChange={(e) => setAvailability(e.value)}
               />
             </div>
-            {file !== null ? (
+            {  fileDataURL !== null ? (
               <>
                 <img
-                  src={file}
+                  src={fileDataURL}
                   className="h-[200px] w-full object-cover border-[1px] rounded-md"
                 />
                 <div
                   className="underline cursor-pointer"
-                  onClick={() => setFile(null)}
+                  onClick={() => setFileDataURL(null)}
                 >
                   Remove Image
                 </div>
               </>
             ) : (
-              <input type="file" onChange={getImage} />
+              <input
+                type="file"
+                id="image"
+                accept=".png, .jpg, .jpeg"
+                onChange={getImage}
+              />
             )}
 
             <button className="green__btn">Save</button>
