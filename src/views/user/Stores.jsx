@@ -19,7 +19,7 @@ export default function Stores() {
   };
 
   useEffect(()=> {
-      getStore().then((res)=> {
+      getStore({id:userData.id}).then((res)=> {
         SetAllStores(res)
       })
   }, [])
