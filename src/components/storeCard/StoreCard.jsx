@@ -6,34 +6,51 @@ import openIcon from "../../assets/bg/card-next-bg.svg";
 import star from "../../assets/vetcard/star-icon.svg";
 import verified from "../../assets/vetcard/verified-icon.svg";
 
-export default function StoreCard() {
+export default function StoreCard({
+  availability,
+  image,
+  storeName,
+  storeLocation,
+  storePhone,
+}) {
   return (
     <div className=" vetCard mb-6">
       <div className="group h-full w-full ">
-        <div className="top storeUser h-[65%] w-[250px]">
+        <div className="top h-[65%] w-full"  style={{
+            backgroundImage: `url(${image})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center'
+          }}>
           <div className="availbility">
-            <div className=" flex items-center gap-2 text-[.8rem]">
-              <div className="available "></div>
-              Open
-            </div>
+            {availability === "1" ? (
+              <div className=" flex items-center gap-2 text-[.8rem]">
+                <div className="available "></div>
+                Open
+              </div>
+            ) : (
+              <div className=" flex items-center gap-2 text-[.8rem]">
+                <div className="unavailable "></div>
+                Closed
+              </div>
+            )}
           </div>
           <div className="bottom flex items-center justify-between p-2 absolute bottom-2 w-full ">
-            <div className="rating text-white text-sm flex items-center gap-2">
+            {/* <div className="rating text-white text-sm flex items-center gap-2">
               <img src={star} alt="" />
               4.0 of 5
-            </div>
-            <div className="verfied">
+            </div> */}
+            {/* <div className="verfied">
               <img src={verified} alt="" />
-            </div>
+            </div> */}
           </div>
         </div>
         <div className="bottom bg-white p-2 rounded-b-[12px]">
           <div className="name font-black sm:text-[.85rem] md:text-[1.2rem]">
-            Goodsilron Store
+            {storeName}
           </div>
           <div className="location flex text-sm items-center gap-2">
             <img src={location} alt="" className=" h-5" />
-            Cross River, Nigeria
+            {storeLocation}
           </div>
           <div className="buttons pt-1 flex justify-between items-center mt-3">
             <div className="group flex items-center gap-3  ">
