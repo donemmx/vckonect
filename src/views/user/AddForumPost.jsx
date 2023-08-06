@@ -49,7 +49,7 @@ export default function AddForumPost() {
     const payload = {
       role: userData.role,
       id: userData.id,
-      picture: file,
+      picture: fileDataURL,
       ...values,
     };
     await createForumChat(payload)
