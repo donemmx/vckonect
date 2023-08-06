@@ -41,7 +41,7 @@ export default function Stores() {
         {
         loading ?
         [1, 2, 3, 4].map((data) => (
-          <div className="w-full" key={data}>
+          <div className="w-full mt-10" key={data}>
             <Loading />
           </div>
         ))
