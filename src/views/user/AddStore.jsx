@@ -1,6 +1,6 @@
 import { InputText } from "primereact/inputtext";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { InputSwitch } from "primereact/inputswitch";
 import { addStore } from "../../utils/userApiService";
 import { toast } from "react-toastify";
@@ -13,6 +13,8 @@ import { store } from "../../validations/UserValidation";
 export default function AddStore() {
   const imageMimeType = /image\/(png|jpg|jpeg)/i;
   const userData = useRecoilValue(user);
+  const location = useNavigate();
+
   const [file, setFile] = useState(null);
   const [fileDataURL, setFileDataURL] = useState(null);
   const [avialability, setAvailability] = useState(false);
@@ -45,7 +47,14 @@ export default function AddStore() {
       }
     };
   }, [file]);
-  console.log(fileDataURL);
+ 
+  const checker = (route) => {
+    if (userData?.role === "Veternarian") {
+      location(`/vet-${route}`);
+    } else {
+      location(`/animal-owner-${route}`);
+    }
+  };
 
   const onSubmit = async (values) => {
     const { storeName, phone, ...others } = values;
@@ -85,13 +94,13 @@ export default function AddStore() {
     });
   return (
     <div className=" bg-white h-full pb-20 mb-10 rounded-md border-[1px] border-[#EBEBEB]">
-      <Link
-        to="/stores"
+      <button
+        onClick={() => checker("stores")}
         className="flex items-center gap-3 text-[.75rem] lg:text-[.9rem] cursor-pointer ml-10 mt-10"
       >
         <i className="pi pi-angle-left p-1 lg:p-3 h-[25px] w-[25px] lg:h-[45px] lg:w-[45px] bg-white rounded-full"></i>
         Back
-      </Link>
+      </button>
       <div className="flex justify-center items-center pt-[10vh]">
         <form
           onSubmit={handleSubmit}
