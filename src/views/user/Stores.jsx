@@ -57,7 +57,7 @@ export default function Stores() {
             storeName={res.store_name}
             storeLocation={res.location}
             storePhone={res.phone_number}
-            image={res.image}
+            image={res.picture}
           />
         ))}
       </div>
