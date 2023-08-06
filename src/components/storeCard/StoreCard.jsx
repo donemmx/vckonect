@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import phone from "../../assets/icons/phone-icon.svg";
 import chat from "../../assets/icons/chat-icon.svg";
 import message from "../../assets/icons/message-icon.svg";

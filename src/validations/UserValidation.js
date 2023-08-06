@@ -54,6 +54,7 @@ const store = yup.object().shape({
     storeName: yup.string().required("Required"),
     email: yup.string().email("Please enter a valid email").required("Required"),
     location: yup.string().required("Required"),
+    picture: yup.string().required("Required")
 })
 
 const farm = yup.object().shape({
