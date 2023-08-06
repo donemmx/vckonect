@@ -1,6 +1,6 @@
 import { InputText } from "primereact/inputtext";
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { InputSwitch } from "primereact/inputswitch";
 import { addStore } from "../../utils/userApiService";
 import { toast } from "react-toastify";
@@ -11,7 +11,6 @@ import { user } from "../../atom/userAtom";
 import { store } from "../../validations/UserValidation";
 
 export default function AddStore() {
-  const imageMimeType = /image\/(png|jpg|jpeg)/i;
   const userData = useRecoilValue(user);
   const location = useNavigate();
 
@@ -19,12 +18,9 @@ export default function AddStore() {
   const [fileDataURL, setFileDataURL] = useState(null);
   const [avialability, setAvailability] = useState(false);
   function getImage(e) {
-    const file = e.target.files[0];
-    if (!file.type.match(imageMimeType)) {
-      alert("Image mime type is not valid");
-      return;
-    }
-    setFile(file);
+    const data = e.target.files[0];
+    setFile(data);
+    console.log(file);
   }
 
   useEffect(() => {
@@ -47,7 +43,7 @@ export default function AddStore() {
       }
     };
   }, [file]);
- 
+
   const checker = (route) => {
     if (userData?.role === "Veternarian") {
       location(`/vet-${route}`);
@@ -63,19 +59,18 @@ export default function AddStore() {
       user_id: userData.id,
       store_id: v4(),
       availability: avialability,
-      picture: fileDataURL,
+      picture: file,
       ...others,
       store_name: storeName,
       phone_number: phone,
     };
     await addStore(payload)
       .then((res) => {
-        if(res.code){
-          toast.error(res.detail)
-        }
-        else{
-          toast.success('Store added successfully')
-          window.history.back()
+        if (res.code) {
+          toast.error(res.detail);
+        } else {
+          toast.success("Store added successfully");
+          window.history.back();
         }
       })
       .catch((err) => console.log(err));
@@ -172,7 +167,7 @@ export default function AddStore() {
                 onChange={(e) => setAvailability(e.value)}
               />
             </div>
-            {  fileDataURL !== null ? (
+            {fileDataURL !== null ? (
               <>
                 <img
                   src={fileDataURL}

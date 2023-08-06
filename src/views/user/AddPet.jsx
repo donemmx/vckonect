@@ -5,6 +5,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { addPet } from "../../utils/animalOwnerApiService";
 import { pet } from "../../validations/UserValidation";
+import { toast } from "react-toastify";
 
 export default function AddPet() {
 
@@ -16,9 +17,8 @@ export default function AddPet() {
     await addPet(payload)
       .then((res) => {
         if (!res.code) {
-          location("/onboard-vet-details");
-          setData(values.email);
-          toast.success(res.detail);
+          location("/livestock");
+          toast.success("Pet added successfully");
         } else {
           toast.error(res.detail);
         }
