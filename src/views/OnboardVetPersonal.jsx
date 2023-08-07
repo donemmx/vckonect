@@ -28,10 +28,15 @@ export default function OnboardVetPersonal() {
   const location = useNavigate();
 
   const onSubmit = async (values) => {
+
+    const {firstName, lastName, vetNumber, ...others}  = values
     const payload = {
       stage: 2,
       email: regEmail,
-      ...values,
+      first_name: firstName,
+      last_name: lastName,
+      vet_number: vetNumber,
+      ...others,
     };
     await registerVeterinarian2(payload)
       .then((res) => {

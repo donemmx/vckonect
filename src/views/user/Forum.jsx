@@ -104,7 +104,7 @@ export default function Forum() {
         forumImg={forumImg}
         title="Lorem ipsum dolor sit amet, consectetur adipiscing elit"
       />
-      <ForumCard
+      {/* <ForumCard
         user={user2}
         name="Good Silron"
         position="Veterinarian"
@@ -116,7 +116,7 @@ export default function Forum() {
         position="Veterinarian"
         forumImg={forumImg2}
         title="Consectetur adipiscing elit"
-      />
+      /> */}
     </div>
   );
 }

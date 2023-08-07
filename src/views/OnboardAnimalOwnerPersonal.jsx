@@ -29,10 +29,13 @@ export default function OnboardAnimalOwnerPersonal() {
   };
 
   const onSubmit = async (values) => {
+    const {firstName, lastName, ...others}  = values
     const payload = {
       stage: 2,
+      first_name: firstName,
+      last_name: lastName,
       email: regEmail,
-      ...values,
+      ...others,
     };
 
     await registerAnimalOwner2(payload)

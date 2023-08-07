@@ -17,16 +17,21 @@ export default function AddStore() {
 
   const [file, setFile] = useState(null);
   const [fileDataURL, setFileDataURL] = useState(null);
-  const [avialability, setAvailability] = useState(false);
-  function getImage(e) {
-    const file = e.target.files[0];
-    if (!file.type.match(imageMimeType)) {
-      alert("Image mime type is not valid");
-      return;
-    }
-    setFile(file);
-  }
+  const [avialability, setAvailability] = useState(0);
+  // function getImage(e) {
+  //   const file = e.target.files[0];
+  //   if (!file.type.match(imageMimeType)) {
+  //     alert("Image mime type is not valid");
+  //     return;
+  //   }
+  //   setFile(file);
+  // }
 
+  const getImage = (e) => {
+    const fileData = e.target.files[0];
+    setFile(fileData);
+    console.log(fileData);
+  };
   useEffect(() => {
     let fileReader,
       isCancel = false;
@@ -47,7 +52,7 @@ export default function AddStore() {
       }
     };
   }, [file]);
- 
+
   const checker = (route) => {
     if (userData?.role === "Veternarian") {
       location(`/vet-${route}`);
@@ -57,25 +62,29 @@ export default function AddStore() {
   };
 
   const onSubmit = async (values) => {
+    const formData=new FormData();
     const { storeName, phone, ...others } = values;
     const payload = {
       user_role: userData.role,
       user_id: userData.id,
       store_id: v4(),
       availability: avialability,
-      picture: fileDataURL,
+      picture: file,
       ...others,
       store_name: storeName,
       phone_number: phone,
     };
-    await addStore(payload)
+    Object.entries(payload).forEach(([key, value])=>{
+     formData.append(key, value);
+    })
+    await addStore(formData)
       .then((res) => {
-        if(res.code){
-          toast.error(res.detail)
-        }
-        else{
-          toast.success('Store added successfully')
-          window.history.back()
+        console.log(res);
+        if (res.code) {
+          toast.error(res.detail);
+        } else {
+          toast.success("Store added successfully");
+          window.history.back();
         }
       })
       .catch((err) => console.log(err));
@@ -103,6 +112,7 @@ export default function AddStore() {
       </button>
       <div className="flex justify-center items-center pt-[10vh]">
         <form
+          encType="multipart/form-data"
           onSubmit={handleSubmit}
           className=" w-[90%] lg:w-[35%] md:w-[60%]"
         >
@@ -169,10 +179,10 @@ export default function AddStore() {
               Availability Status - {avialability ? "Open" : "Closed"}
               <InputSwitch
                 checked={avialability}
-                onChange={(e) => setAvailability(e.value)}
+                onChange={() => setAvailability(1)}
               />
             </div>
-            {  fileDataURL !== null ? (
+            {fileDataURL !== null ? (
               <>
                 <img
                   src={fileDataURL}
@@ -190,7 +200,7 @@ export default function AddStore() {
                 type="file"
                 id="image"
                 accept=".png, .jpg, .jpeg"
-                onChange={getImage}
+                onChange={(e) => getImage(e)}
               />
             )}
 
