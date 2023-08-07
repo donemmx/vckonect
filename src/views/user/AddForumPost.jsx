@@ -15,14 +15,12 @@ export default function AddForumPost() {
 
   const userData = useRecoilValue(user);
   const [file, setFile] = useState(null);
-  function getImage(e) {
-    const file = e.target.files[0];
-    if (!file.type.match(imageMimeType)) {
-      alert("Image mime type is not valid");
-      return;
-    }
-    setFile(file);
-  }
+
+  const getImage = (e) => {
+    const fileData = e.target.files[0];
+    setFile(fileData);
+    console.log(fileData);
+  };
 
   useEffect(() => {
     let fileReader,
@@ -46,13 +44,19 @@ export default function AddForumPost() {
   }, [file]);
 
   const onSubmit = async (values) => {
+    const formData = new FormData();
+
     const payload = {
       role: userData.role,
       id: userData.id,
-      picture: fileDataURL,
+      picture: file,
       ...values,
     };
-    await createForumChat(payload)
+
+    Object.entries(payload).forEach(([key, value])=>{
+      formData.append(key, value);
+     }) 
+    await createForumChat(formData)
       .then(() => {
         toast.success("Post added successfully");
         window.history.back();
@@ -127,7 +131,7 @@ export default function AddForumPost() {
             type="file"
             id="image"
             accept=".png, .jpg, .jpeg"
-            onChange={getImage}
+            onChange={(e) => getImage(e)}
           />
         )}
         <button className="green__btn">Submit</button>

@@ -14,6 +14,7 @@ import { getForumChat } from "../../utils/userApiService";
 export default function Forum() {
   const [tab, setTab] = useState("chat");
   const location = useNavigate();
+  const [forumData, setForumData] = useState([]);
 
   const userData = useRecoilValue(user);
   const activeTab = (type) => {
@@ -28,13 +29,14 @@ export default function Forum() {
     }
   };
 
-  useEffect(()=> {
-    getForumChat().then((res)=> console.log(res))
-  }, [])
+  useEffect(() => {
+    getForumChat().then((res) => setForumData(res));
+  }, []);
 
   return (
     <div>
-      <button onClick={() =>checker('add-to-forum')}
+      <button
+        onClick={() => checker("add-to-forum")}
         className="border-[1px] hover:border-[#52CE06] cursor-pointer  flex items-center justify-between p-3 rounded-[18px] mt-10 mb-5 w-full"
       >
         <p className="font-bold px-2">Add to Forum Chat</p>
@@ -97,13 +99,18 @@ export default function Forum() {
         </div>
       </div>
 
-      <ForumCard
-        user={userIcon}
-        name="Dr. Amechi Anayor"
-        position="Veterinarian"
-        forumImg={forumImg}
-        title="Lorem ipsum dolor sit amet, consectetur adipiscing elit"
-      />
+      {forumData.map((res) => (
+        <div className="" key={res.id}>
+          <ForumCard
+            user={userIcon}
+            name={res.user_name}
+            position={res.user_role}
+            content={res.content}
+            forumImg={res.picture}
+            title={res.title}
+          />
+        </div>
+      ))}
       {/* <ForumCard
         user={user2}
         name="Good Silron"
