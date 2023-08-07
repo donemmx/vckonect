@@ -43,7 +43,7 @@ export default function ForumCard({
           </div>
         </div>
       </div>
-      {forumImg ? (
+      {forumImg.length > 64 ? (
         <div className=" h-[240px]">
           <img
             src={forumImg}
