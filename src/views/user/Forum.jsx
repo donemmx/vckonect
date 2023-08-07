@@ -108,6 +108,9 @@ export default function Forum() {
             content={res.content}
             forumImg={res.picture}
             title={res.title}
+            comments={res.comments}
+            likes={res.likes}
+            forumChatId={res.id}
           />
         </div>
       ))}

@@ -12,6 +12,8 @@ export default function ForumCard({
   name,
   content,
   position,
+  comments,
+  likes,
   title,
   forumChatId,
 }) {
@@ -26,6 +28,7 @@ export default function ForumCard({
       console.log(res);
     });
   };
+  
 
   return (
     <div className="border rounded-lg p-5 my-4">
@@ -64,7 +67,7 @@ export default function ForumCard({
               alt=""
               className=" p-2 mb-2 h-[35px] w-[35px] bg-white rounded-full border-[1px] border-[#EBEBEB] shadow"
             />
-            5 Comments
+            {comments.length}
           </div>
           <div className="flex gap-3 items-center justify-center">
             <img
@@ -73,7 +76,7 @@ export default function ForumCard({
               alt=""
               className=" p-2 mb-2 h-[35px] w-[35px] bg-white rounded-full border-[1px] border-[#EBEBEB] shadow"
             />
-            20 Likes
+           {likes.length}
           </div>
           <div className="flex flex-col items-center justify-center">
             <img
