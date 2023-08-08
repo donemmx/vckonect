@@ -2,9 +2,11 @@ import commentsIcon from "../../assets/icons/comments-icon.svg";
 import likeIcon from "../../assets/icons/like-icon.svg";
 import share from "../../assets/icons/share-icon.svg";
 import sendIcon from "../../assets/icons/send-icon.svg";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { likeForumChat } from "../../utils/userApiService";
 import { user } from "../../atom/userAtom";
+import { useEffect, useState } from "react";
+import { storeData } from "../../atom/storeAtom";
 
 export default function ForumCard({
   userImg,
@@ -18,16 +20,20 @@ export default function ForumCard({
   forumChatId,
 }) {
   const userData = useRecoilValue(user);
+  const [userStore, setUserStore] = useRecoilState(storeData)
   const likeForum = async () => {
     const payload = {
       user_role: userData.role,
       user_id: userData.id,
       forum_chat_id: forumChatId,
     };
-    await likeForumChat(payload).then((res) => {
-      console.log(res);
+    await likeForumChat(payload).then(() => {
+      const count = Math.random(userData.id).toFixed(2)
+      setUserStore({like: count})
     });
   };
+
+ 
   
 
   return (

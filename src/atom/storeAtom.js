@@ -7,7 +7,7 @@ const {persistAtom} = recoilPersist({
 
 })
 
-export const store = atom({
+export const storeData = atom({
     key: 'store',
     default: [],
     effects_UNSTABLE: [persistAtom]

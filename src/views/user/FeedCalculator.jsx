@@ -1,5 +1,5 @@
 import { Dropdown } from "primereact/dropdown";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { InputText } from "primereact/inputtext";
 
 export default function FeedCalculator() {
@@ -15,6 +15,11 @@ export default function FeedCalculator() {
   const bridTypes = ["Broilers", "Layers"];
   const broilersFeedTypes = ["Starter", "Finisher"];
   const layersFeedTypes = ["Chick Mash", "Growers Mash", "Layers Mash/Pellet"];
+
+
+  useEffect(()=> {
+
+  }, [livestock, ])
 
   return (
     <div className="mt-14 lg:mt-4">

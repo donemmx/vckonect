@@ -10,12 +10,13 @@ import { useRecoilValue } from "recoil";
 import { user } from "../../atom/userAtom";
 import { useNavigate } from "react-router-dom";
 import { getForumChat } from "../../utils/userApiService";
+import { storeData } from "../../atom/storeAtom";
 
 export default function Forum() {
   const [tab, setTab] = useState("chat");
   const location = useNavigate();
   const [forumData, setForumData] = useState([]);
-
+  const userStore = useRecoilValue(storeData)
   const userData = useRecoilValue(user);
   const activeTab = (type) => {
     setTab(type);
@@ -31,7 +32,9 @@ export default function Forum() {
 
   useEffect(() => {
     getForumChat().then((res) => setForumData(res));
-  }, []);
+  }, [userStore?.like]);
+
+
 
   return (
     <div>
