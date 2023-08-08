@@ -15,6 +15,7 @@ import {
 } from "../utils/userApiService";
 import { user } from "../atom/userAtom";
 import { useRecoilState } from "recoil";
+import { log } from "deck.gl";
 
 export default function Login() {
   const location = useNavigate();
@@ -49,8 +50,13 @@ export default function Login() {
   };
 
   const googleLogin = async () => {
-    await loginWithGoogle();
-    console.log(await loginWithGoogle().headers["continue"]);
+    await loginWithGoogle().then((res)=> {
+      console.log(res.data.url);
+
+      let params = `scrollbars=no,resizable=no,status=no,location=no,toolbar=no,menubar=no,
+width=0,height=0,left=-1000,top=-1000`;
+      window.open(res.data.url, 'test', params )
+    })
   };
 
   const linkedinLogin = async () => {
