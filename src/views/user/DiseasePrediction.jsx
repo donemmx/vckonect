@@ -30,13 +30,15 @@ export default function DiseasePrediction() {
 
 
   useEffect(() => {
-    const payload = {
-      livestock: livestock,
-    };
-    getLivestockDiseases(payload).then((res) => {
-      setDisease(res);
-      
-    });
+    if(livestock){
+      const payload = {
+        livestock: livestock,
+      };
+      getLivestockDiseases(payload).then((res) => {
+        setDisease(res);
+        
+      });
+    }
   }, [livestock]);
   return (
     <div className="mt-14 lg:mt-4">
