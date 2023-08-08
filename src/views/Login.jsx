@@ -122,13 +122,13 @@ width=0,height=0,left=-1000,top=-1000`;
           <button className="green__btn">Login</button>
         </form>
         <div className=" flex items-center justify-center mt-5 gap-4">
-          <button onClick={linkedinLogin} className=" bg-none border-none">
+          {/* <button onClick={linkedinLogin} className=" bg-none border-none">
             <img
               src={linkedIn}
               alt=""
               className="h-[35px] w-[35px] object-contain cursor-pointer"
             />
-          </button>
+          </button> */}
           {/* <button onClick={googleLogin} className=" bg-none border-none">
             <img
               src={google}
@@ -136,6 +136,24 @@ width=0,height=0,left=-1000,top=-1000`;
               className="h-[35px] w-[35px] object-contain cursor-pointer"
             />
           </button> */}
+            <LoginSocialLinkedin
+            isOnlyGetToken
+            client_id={linkedinClientId}
+            client_secret={linkedinSecretId}
+            redirect_uri={'https://vetkonect.com/backend/public/api/linkedin/callback/'}
+            onResolve={({ data }) => {
+              setData(data)
+            }}
+            onReject={(err) => {
+              console.log(err)
+            }}
+          >
+              <img
+              src={linkedIn}
+              alt=""
+              className="h-[35px] w-[35px] object-contain cursor-pointer"
+            />
+          </LoginSocialLinkedin>
           <LoginSocialGoogle
             isOnlyGetToken
             client_id={googleClientId}
@@ -153,20 +171,7 @@ width=0,height=0,left=-1000,top=-1000`;
               className="h-[35px] w-[35px] object-contain cursor-pointer"
             />
           </LoginSocialGoogle>
-          <LoginSocialLinkedin
-            isOnlyGetToken
-            client_id={linkedinClientId}
-            client_secret={linkedinSecretId}
-            redirect_uri={'https://vetkonect.com/backend/public/api/linkedin/callback/'}
-            onResolve={({ data }) => {
-              setData(data)
-            }}
-            onReject={(err) => {
-              console.log(err)
-            }}
-          >
-            {/* <LinkedInLoginButton /> */}
-          </LoginSocialLinkedin>
+        
         </div>
         <img src={or} alt="" className=" w-full object-cover" />
         <Link to="/signup" className="secondary__btn mt-[-30px]">
