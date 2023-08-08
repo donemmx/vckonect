@@ -11,7 +11,7 @@ export default function DiseasePrediction() {
   const [symptom, setSymptom] = useState(null);
   const [disease, setDisease] = useState(null);
   const [result, setResult] = useState(null);
-  const animalSpecies = ["Poultry", "Dog", "Swine", "Goat", "Cattle", "Cat"];
+  const animalSpecies = ["Poultry", "Piggery", "Goat", "Cattle",  "Sheep"];
 
   const predict = () => {
     const payload = {
