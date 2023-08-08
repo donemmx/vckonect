@@ -19,7 +19,7 @@ export default function FeedCalculator() {
 
   useEffect(()=> {
 
-  }, [livestock, ])
+  }, [ ])
 
   return (
     <div className="mt-14 lg:mt-4">

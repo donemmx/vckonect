@@ -17,10 +17,14 @@ import { user } from "../atom/userAtom";
 import { useRecoilState } from "recoil";
 import { log } from "deck.gl";
 
+import { LoginSocialGoogle, LoginSocialLinkedin } from "reactjs-social-login";
+
 export default function Login() {
   const location = useNavigate();
   const [data, setData] = useRecoilState(user);
-
+  const googleClientId = '905736705694-be5othcfreqgko6km4qce2sci8od92ki.apps.googleusercontent.com'
+  const linkedinClientId = '77c5cdjvez8wof'
+  const linkedinSecretId = 'jM6eGS3zA6HgKbKN'
   const onSubmit = async (values) => {
     const payload = {
       ...values,
@@ -125,13 +129,44 @@ width=0,height=0,left=-1000,top=-1000`;
               className="h-[35px] w-[35px] object-contain cursor-pointer"
             />
           </button>
-          <button onClick={googleLogin} className=" bg-none border-none">
+          {/* <button onClick={googleLogin} className=" bg-none border-none">
             <img
               src={google}
               alt=""
               className="h-[35px] w-[35px] object-contain cursor-pointer"
             />
-          </button>
+          </button> */}
+          <LoginSocialGoogle
+            isOnlyGetToken
+            client_id={googleClientId}
+            redirect_uri={'https://vetkonect.com/backend/public/api/google/callback/'}
+            onResolve={({ data }) => {
+              setData(data)
+            }}
+            onReject={(err) => {
+              console.log(err)
+            }}
+          >
+            <img
+              src={google}
+              alt=""
+              className="h-[35px] w-[35px] object-contain cursor-pointer"
+            />
+          </LoginSocialGoogle>
+          <LoginSocialLinkedin
+            isOnlyGetToken
+            client_id={linkedinClientId}
+            client_secret={linkedinSecretId}
+            redirect_uri={'https://vetkonect.com/backend/public/api/linkedin/callback/'}
+            onResolve={({ data }) => {
+              setData(data)
+            }}
+            onReject={(err) => {
+              console.log(err)
+            }}
+          >
+            {/* <LinkedInLoginButton /> */}
+          </LoginSocialLinkedin>
         </div>
         <img src={or} alt="" className=" w-full object-cover" />
         <Link to="/signup" className="secondary__btn mt-[-30px]">
