@@ -275,6 +275,27 @@ const deleteClient = (payload) => {
     .then((res) => res.data)
     .catch((err) => console.log(err));
 };
+const getLivestockDiseases = async (payload) => {
+  // const { userId, id, clientId } = payload;
+  return await axios
+    .post(
+      `${baseURl}/getLivestockDiseases`, payload
+    )
+    .then((res) => res.data)
+    .catch((err) => console.log(err));
+};
+
+const diseasePredictor = async (payload) => {
+  // const { userId, id, clientId } = payload;
+  return await axios
+    .post(
+      `${baseURl}/diseasePredictor`, payload
+    )
+    .then((res) => res.data)
+    .catch((err) => console.log(err));
+};
+
+
 
 export {
   login,
@@ -305,4 +326,6 @@ export {
   getClient,
   deleteClient,
   getSubscriptionPlan,
+  getLivestockDiseases,
+  diseasePredictor
 };
