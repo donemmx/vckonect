@@ -296,6 +296,16 @@ const diseasePredictor = async (payload) => {
 };
 
 
+const feedCalculator = async (payload) => {
+  return await axios
+    .post(
+      `${baseURl}/feedCalculator`, payload
+    )
+    .then((res) => res.data)
+    .catch((err) => console.log(err));
+};
+
+
 
 export {
   login,
@@ -327,5 +337,6 @@ export {
   deleteClient,
   getSubscriptionPlan,
   getLivestockDiseases,
-  diseasePredictor
+  diseasePredictor,
+  feedCalculator
 };
