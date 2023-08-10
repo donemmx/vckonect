@@ -12,15 +12,15 @@ const login = (payload) => {
     .catch((err) => console.log(err));
 };
 
-const loginWithGoogle = () => {
+const googleCallback = (token) => {
   const data = axios
-    .get(`${publicBaseURl}/google/loginUsingGoogle`)
+    .get(`${publicBaseURl}/google/callback?token=${token}`)
   return  data
 };
 
-const loginWithLinkedin = () => {
+const linkedInCallback = (token) => {
   return axios
-    .get(`${publicBaseURl}/linkedin/loginUsingLinkedin`)
+    .get(`${publicBaseURl}/linkedin//callback?token=${token}`)
 };
 
 // Store
@@ -309,8 +309,8 @@ const feedCalculator = async (payload) => {
 
 export {
   login,
-  loginWithGoogle,
-  loginWithLinkedin,
+  googleCallback,
+  linkedInCallback,
   getStoreByFilter,
   getClinicByFilter,
   deleteStore,

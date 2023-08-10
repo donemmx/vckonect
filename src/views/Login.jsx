@@ -9,9 +9,9 @@ import { loginUser } from "../validations/UserValidation";
 import { toast } from "react-toastify";
 import { useFormik } from "formik";
 import {
+  googleCallback,
+  linkedInCallback,
   login,
-  loginWithGoogle,
-  loginWithLinkedin,
 } from "../utils/userApiService";
 import { user } from "../atom/userAtom";
 import { useRecoilState } from "recoil";
@@ -128,8 +128,9 @@ export default function Login() {
             client_secret={linkedinSecretId}
             redirect_uri={'https://vetkonect.com/backend/public/api/linkedin/callback/'}
             onResolve={({ data }) => {
-              // setData(data)
-              console.log(data);
+              linkedInCallback(data.access_token).then((res)=> {
+                console.log(res);
+              })
             }}
             onReject={(err) => {
               console.log(err)
@@ -147,7 +148,9 @@ export default function Login() {
             redirect_uri={'https://vetkonect.com/backend/public/api/google/callback/'}
             onResolve={({ data }) => {
               // setData(data)
-              console.log(data);
+              googleCallback(data.access_token).then((res)=> {
+                console.log(res);
+              })
 
             }}
             onReject={(err) => {
