@@ -53,21 +53,7 @@ export default function Login() {
       .catch((err) => console.log(err));
   };
 
-  const googleLogin = async () => {
-    await loginWithGoogle().then((res)=> {
-      console.log(res.data.url);
 
-      let params = `scrollbars=no,resizable=no,status=no,location=no,toolbar=no,menubar=no,
-width=0,height=0,left=-1000,top=-1000`;
-      window.open(res.data.url, 'test', params )
-    })
-  };
-
-  const linkedinLogin = async () => {
-    await loginWithLinkedin().then((res) => {
-      console.log(res.headers);
-    });
-  };
 
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
@@ -142,7 +128,8 @@ width=0,height=0,left=-1000,top=-1000`;
             client_secret={linkedinSecretId}
             redirect_uri={'https://vetkonect.com/backend/public/api/linkedin/callback/'}
             onResolve={({ data }) => {
-              setData(data)
+              // setData(data)
+              console.log(data);
             }}
             onReject={(err) => {
               console.log(err)
@@ -159,7 +146,9 @@ width=0,height=0,left=-1000,top=-1000`;
             client_id={googleClientId}
             redirect_uri={'https://vetkonect.com/backend/public/api/google/callback/'}
             onResolve={({ data }) => {
-              setData(data)
+              // setData(data)
+              console.log(data);
+
             }}
             onReject={(err) => {
               console.log(err)
