@@ -25,6 +25,7 @@ export default function Login() {
   const googleClientId = '905736705694-be5othcfreqgko6km4qce2sci8od92ki.apps.googleusercontent.com'
   const linkedinClientId = '77c5cdjvez8wof'
   const linkedinSecretId = 'jM6eGS3zA6HgKbKN'
+  const state='1234567890'
   const onSubmit = async (values) => {
     const payload = {
       ...values,
@@ -126,6 +127,7 @@ export default function Login() {
             isOnlyGetToken
             client_id={linkedinClientId}
             client_secret={linkedinSecretId}
+            state={state}
             redirect_uri='https://vetkonect.com/backend/public/api/linkedin/callback'
             onResolve={({ data }) => {
               linkedInCallback().then((res)=> {
