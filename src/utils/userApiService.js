@@ -20,7 +20,7 @@ const googleCallback = (token) => {
 
 const linkedInCallback = (token) => {
   return axios
-    .get(`${publicBaseURl}/linkedin//callback?token=${token}`, {
+    .get(`${publicBaseURl}/linkedin/callback?token=${token}`, {
       headers: {
         Authorization: 'Bearer AQVZmfOTTXG0UL1fh1qtEah0TrGI7gvGyl7tTWI9iekJwP59CEMwYbT4SS6UzqhgjWesZ3AOYoYkIRO90KCMDn3YRLq_CnQi9kXl7MiUDcxVslzvE9jP0ERfxr-KULHiRIRwwsoBdUxLq36UIBAyQdRSF3iu0bxzKnBHOdYsqr_ZfLM6JU5aALJa4bAJNium-hWCMBaZsbuVnGXnuum-7b9Y_p8y8qZ58b7owtPveNzjzPHA-OKLW-ub0prfkqVSqkc5G1RMxfGLzXDZmIZ8FKWOFdlDc2WQj5EKdT_Ah0YYTDP4bslluOfAif-9zzOP96nb33EMeN_AckBWY53qhvMHO_KBSg'
       }
