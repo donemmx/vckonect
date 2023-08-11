@@ -123,7 +123,6 @@ export default function Login() {
             />
           </button> */}
             <LoginSocialLinkedin
-            isOnlyGetToken
             client_id={linkedinClientId}
             client_secret={linkedinSecretId}
             redirect_uri={'https://vetkonect.com/backend/public/api/linkedin/callback/'}
