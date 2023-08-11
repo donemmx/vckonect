@@ -23,8 +23,8 @@ export default function Login() {
   const location = useNavigate();
   const [data, setData] = useRecoilState(user);
   const googleClientId = '905736705694-be5othcfreqgko6km4qce2sci8od92ki.apps.googleusercontent.com'
-  const linkedinClientId = '77c5cdjvez8wof'
-  const linkedinSecretId = 'jM6eGS3zA6HgKbKN'
+  const linkedinClientId = '77rtdwfd6z16sq'
+  const linkedinSecretId = 'g1ZNkCJhauWyMHnH'
   const onSubmit = async (values) => {
     const payload = {
       ...values,
@@ -125,9 +125,9 @@ export default function Login() {
             <LoginSocialLinkedin
             client_id={linkedinClientId}
             client_secret={linkedinSecretId}
-            redirect_uri={'https://vetkonect.com/backend/public/api/linkedin/callback?token=AQVZmfOTTXG0UL1fh1qtEah0TrGI7gvGyl7tTWI9iekJwP59CEMwYbT4SS6UzqhgjWesZ3AOYoYkIRO90KCMDn3YRLq_CnQi9kXl7MiUDcxVslzvE9jP0ERfxr-KULHiRIRwwsoBdUxLq36UIBAyQdRSF3iu0bxzKnBHOdYsqr_ZfLM6JU5aALJa4bAJNium-hWCMBaZsbuVnGXnuum-7b9Y_p8y8qZ58b7owtPveNzjzPHA-OKLW-ub0prfkqVSqkc5G1RMxfGLzXDZmIZ8FKWOFdlDc2WQj5EKdT_Ah0YYTDP4bslluOfAif-9zzOP96nb33EMeN_AckBWY53qhvMHO_KBSg'}
+            redirect_uri={'https://vetkonect.com/backend/public/api/linkedin/callback'}
             onResolve={({ data }) => {
-              linkedInCallback('AQVZmfOTTXG0UL1fh1qtEah0TrGI7gvGyl7tTWI9iekJwP59CEMwYbT4SS6UzqhgjWesZ3AOYoYkIRO90KCMDn3YRLq_CnQi9kXl7MiUDcxVslzvE9jP0ERfxr-KULHiRIRwwsoBdUxLq36UIBAyQdRSF3iu0bxzKnBHOdYsqr_ZfLM6JU5aALJa4bAJNium-hWCMBaZsbuVnGXnuum-7b9Y_p8y8qZ58b7owtPveNzjzPHA-OKLW-ub0prfkqVSqkc5G1RMxfGLzXDZmIZ8FKWOFdlDc2WQj5EKdT_Ah0YYTDP4bslluOfAif-9zzOP96nb33EMeN_AckBWY53qhvMHO_KBSg').then((res)=> {
+              linkedInCallback().then((res)=> {
                 console.log(res);
               })
             }}
