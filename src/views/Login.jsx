@@ -123,6 +123,7 @@ export default function Login() {
             />
           </button> */}
             <LoginSocialLinkedin
+            isOnlyGetToken
             client_id={linkedinClientId}
             client_secret={linkedinSecretId}
             state="126790000000"
