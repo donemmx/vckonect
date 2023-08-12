@@ -4,6 +4,8 @@ import chat from "../../assets/icons/chat-icon.svg";
 import message from "../../assets/icons/message-icon.svg";
 import location from "../../assets/icons/marker-icon.svg";
 import openIcon from "../../assets/bg/card-next-bg.svg";
+import { deleteStore } from "../../utils/userApiService";
+import { toast } from "react-toastify";
 
 export default function StoreCard({
   availability,
@@ -11,15 +13,35 @@ export default function StoreCard({
   storeName,
   storeLocation,
   storePhone,
+  deleteIcon,
+  store_id
 }) {
+
+  let deleteStoreById = () => {
+    deleteStore({store_id: store_id}).then((res)=> {
+      toast.success('Store deleted successfully')
+      
+    }).catch((err)=> {
+      toast.error(err.message)
+    })
+  }
+
   return (
-    <div className=" vetCard mb-6" >
+    <div className=" vetCard mb-6">
       <div className="group h-full w-full ">
-        <div className="top h-[65%] w-full"  style={{
+        <div
+          className="top h-[65%] w-full"
+          style={{
             backgroundImage: `url(${image})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center'
-          }}>
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        >
+          {deleteIcon ? (
+            <i className="pi pi-trash text-white p-2 rounded-md mt-2 ml-2 cursor-pointer bg-slate-900" onClick={deleteStoreById}></i>
+          ) : (
+            ""
+          )}
           <div className="availbility">
             {availability === "1" ? (
               <div className=" flex items-center gap-2 text-[.8rem]">

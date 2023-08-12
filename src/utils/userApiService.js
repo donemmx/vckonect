@@ -56,9 +56,9 @@ const getStore = (payload) => {
     .catch((err) => console.log(err));
 };
 
-const deleteStore = (id) => {
+const deleteStore = (payload) => {
   return axios
-    .post(`${baseURl}/deleteStore`, id)
+    .post(`${baseURl}/deleteStore`, payload)
     .then((res) => res.data)
     .catch((err) => console.log(err));
 };

@@ -17,7 +17,7 @@ export default function AddStore() {
 
   const [file, setFile] = useState(null);
   const [fileDataURL, setFileDataURL] = useState(null);
-  const [avialability, setAvailability] = useState(0);
+  const [avialability, setAvailability] = useState(false);
   // function getImage(e) {
   //   const file = e.target.files[0];
   //   if (!file.type.match(imageMimeType)) {
@@ -62,21 +62,25 @@ export default function AddStore() {
   };
 
   const onSubmit = async (values) => {
-    const formData=new FormData();
+    const formData = new FormData();
+    let available = 0;
     const { storeName, phone, ...others } = values;
+    if (avialability) {
+      available = 1;
+    }
     const payload = {
       user_role: userData.role,
       user_id: userData.id,
       store_id: v4(),
-      availability: avialability,
+      availability: available,
       picture: file,
       ...others,
       store_name: storeName,
       phone_number: phone,
     };
-    Object.entries(payload).forEach(([key, value])=>{
-     formData.append(key, value);
-    })
+    Object.entries(payload).forEach(([key, value]) => {
+      formData.append(key, value);
+    });
     await addStore(formData)
       .then((res) => {
         console.log(res);
@@ -157,7 +161,7 @@ export default function AddStore() {
                 onChange={handleChange}
                 onBlur={handleBlur}
               />
-              <label htmlFor="username">Clinic Phone No (Required) :</label>
+              <label htmlFor="username">Store Phone No (Required) :</label>
             </span>
             {errors.phone && touched.phone && (
               <p className="error">{errors.phone}</p>
@@ -179,7 +183,7 @@ export default function AddStore() {
               Availability Status - {avialability ? "Open" : "Closed"}
               <InputSwitch
                 checked={avialability}
-                onChange={() => setAvailability(1)}
+                onChange={() => setAvailability(!avialability)}
               />
             </div>
             {fileDataURL !== null ? (

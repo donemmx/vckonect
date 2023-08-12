@@ -58,6 +58,8 @@ export default function Stores() {
             storeLocation={res.location}
             storePhone={res.phone_number}
             image={res.picture}
+            deleteIcon={true}
+            store_id={res.id}
           />
         ))}
       </div>
