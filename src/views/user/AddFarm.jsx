@@ -54,14 +54,13 @@ export default function AddFarm() {
 
   const onSubmit = async (values) => {
     const formData = new FormData();
-    const { farmName,location,workers,livestockType, livestock, ...others } = values;
+    const { farmName,workers,livestockType, livestock, ...others } = values;
 
     const payload = {
       user_id: userData.id,
       farm_id: v4(),
       farm_name: farmName,
       picture: file,
-      location: location,
       no_of_worker: workers,
       livestock_type:livestockType,
       no_of_livestock: livestock,
@@ -203,15 +202,15 @@ export default function AddFarm() {
             {errors.age && touched.age && (
               <p className="error">{errors.age}</p>
             )}
-            {file !== null ? (
+            {fileDataURL !== null ? (
               <>
                 <img
-                  src={file}
+                  src={fileDataURL}
                   className="h-[200px] w-full object-cover border-[1px] rounded-md"
                 />
                 <div
                   className="underline cursor-pointer"
-                  onClick={() => setFile(null)}
+                  onClick={() => setFileDataURL(null)}
                 >
                   Remove Image
                 </div>
@@ -225,7 +224,7 @@ export default function AddFarm() {
                />
             )}
 
-            <button className="green__btn">Save</button>
+            <button type="submit" className="green__btn">Save</button>
           </form>
         </div>
       </div>
