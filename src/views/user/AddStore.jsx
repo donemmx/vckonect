@@ -11,7 +11,6 @@ import { user } from "../../atom/userAtom";
 import { store } from "../../validations/UserValidation";
 
 export default function AddStore() {
-  const imageMimeType = /image\/(png|jpg|jpeg)/i;
   const userData = useRecoilValue(user);
   const location = useNavigate();
 

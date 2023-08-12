@@ -22,6 +22,7 @@
   }
 }
 
+
 :root {
   --primary: #0b6614;
   --secondary: #ffdab0;
@@ -34,6 +35,23 @@
   --filter: invert(21%) sepia(43%) saturate(3218%) hue-rotate(111deg)
     brightness(96%) contrast(91%);
 }
+
+/* reset style */
+
+.p-datatable .p-datatable-tbody > tr > td{
+  padding: 0.5rem !important;
+}
+
+.p-datatable .p-datatable-thead > tr > th {
+  font-size: 14px !important;
+}
+
+.p-datatable .p-datatable-tbody > tr {
+  color: #495057;
+  font-size: 14px !important;
+}
+
+/*  */
 
 body {
   font-family: "nunito" !important;

@@ -2,6 +2,9 @@ import { Dropdown } from "primereact/dropdown";
 import { InputText } from "primereact/inputtext";
 import { useState } from "react";
 import { feedCalculator } from "../../utils/userApiService";
+import { DataTable } from "primereact/datatable";
+import { Column } from "primereact/column";
+import { Button } from "primereact/button";
 
 export default function FeedCalculator() {
   const [livestock, setlivestock] = useState(null);
@@ -63,6 +66,21 @@ export default function FeedCalculator() {
       setResult(res);
     });
   };
+
+
+  const numberFormat = (data) => {
+    if(typeof data  === 'number'){
+      return data.toFixed(2);
+    }
+    return '-'
+};
+
+  const header = (
+    <div className="flex items-center justify-between gap-2">
+        <span className="text-xl text-900 font-bold">{livestock}</span>
+        <Button icon="pi pi-refresh" rounded raised onClick={restart}/>
+    </div>
+);
 
   return (
     <div className="mt-14 lg:mt-4">
@@ -206,8 +224,9 @@ export default function FeedCalculator() {
                 Submit
               </button>
             </form>
-          ) : (
-            <div className="mt-5 shadow-xl rounded-lg p-5" >
+          ) : 
+           result.livestock_category === "Poultry" ? (
+            <div className="mt-5 shadow-xl rounded-lg p-5">
               <h3 className="text-[60px] font-black text-center mt-4 text-[#1D2432]">
                 {result.weight}
               </h3>
@@ -250,6 +269,18 @@ export default function FeedCalculator() {
                 </button>
               </div>
             </div>
+          ) :
+          livestock === "Pig" ? (
+            <div className="mt-5">
+              <DataTable value={result} header={header}>
+                <Column field="pellet_size" header="Pellet size"></Column>
+                <Column field="feed" header="Feed"></Column>
+                <Column field="space_requires" body={numberFormat} header="Space"></Column>
+              </DataTable>
+             
+            </div>
+          ) : (
+            ""
           )}
         </div>
       </div>

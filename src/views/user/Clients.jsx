@@ -1,6 +1,5 @@
 import ClientCard from "../../components/clientCard/ClientCard";
 import user2 from "../../assets/icons/user-2.png";
-import user3 from "../../assets/icons/user-3.png";
 import { useEffect, useState } from "react";
 import { getClient } from "../../utils/userApiService";
 import { useRecoilValue } from "recoil";
