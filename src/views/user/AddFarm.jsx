@@ -12,7 +12,6 @@ import { farm } from "../../validations/UserValidation";
 
 export default function AddFarm() {
   const userData = useRecoilValue(user);
-  const [gender, setGender] = useState(null);
   const [file, setFile] = useState(null);
   const [fileDataURL, setFileDataURL] = useState(null);
 
@@ -27,7 +26,6 @@ export default function AddFarm() {
   const getImage = (e) => {
     const fileData = e.target.files[0];
     setFile(fileData);
-    console.log(fileData);
   };
 
   useEffect(() => {
@@ -67,6 +65,7 @@ export default function AddFarm() {
       ...others,
       
     };
+    console.log(payload);
     Object.entries(payload).forEach(([key, value]) => {
       formData.append(key, value);
     });
