@@ -1,25 +1,65 @@
 import { Dropdown } from "primereact/dropdown";
-import { useEffect, useState } from "react";
 import { InputText } from "primereact/inputtext";
+import { useState } from "react";
+import { feedCalculator } from "../../utils/userApiService";
 
 export default function FeedCalculator() {
   const [livestock, setlivestock] = useState(null);
+  const [fishSize, setFishSize] = useState(null);
+  const [noOfFish, setNoOfFish] = useState(null);
+  const [noOfPigs, setNoOfPigs] = useState(null);
   const [bridType, setBridType] = useState(null);
+  const [weeks, setWeeks] = useState(null);
+  const [noOfBirds, setNoOfBirds] = useState(null);
   const [feedType, setFeedType] = useState(null);
   const livestocks = [
-    { name: "Poultry", value: "poultry" },
-    { name: "Fishes", value: "fishes" },
-    { name: "Pigs", value: "pigs" },
+    { name: "Poultry", value: "Poultry" },
+    { name: "Fishes", value: "Fish" },
+    { name: "Pigs", value: "Pig" },
   ];
 
   const bridTypes = ["Broilers", "Layers"];
   const broilersFeedTypes = ["Starter", "Finisher"];
   const layersFeedTypes = ["Chick Mash", "Growers Mash", "Layers Mash/Pellet"];
 
+  let handleSubmit = (e) => {
+    e.preventDefault()
+    let payload
+    if(livestock == 'Poultry'){
+      if(bridType == 'Layers'){
+        payload = {
+         livestock_category: livestock,
+         bird_type: bridType,
+         feed_type: feedType,
+         no_of_bird: noOfBirds
+       }
+      }
+      else{
+        payload = {
+          livestock_category: livestock,
+          bird_type: bridType,
+          feed_type: feedType,
+          no_of_week: weeks,
+          no_of_bird: noOfBirds
+        }
+      }
+    }
+    else if(livestock == 'Fish'){
+      payload = {
+        livestock_category: livestock,
+        no_of_fish: noOfFish
+      }
+    }
+    else {
+      payload = {
+        livestock_category: livestock,
+        no_of_pig: noOfPigs
+      }
+    }
 
-  useEffect(()=> {
+    feedCalculator(payload).then((res)=> console.log(res))
+  }
 
-  }, [ ])
 
   return (
     <div className="mt-14 lg:mt-4">
@@ -31,7 +71,7 @@ export default function FeedCalculator() {
           <div className="pt-2 subtitle paragraph text-center">
             Calculate Feed for your pets and livestocks
           </div>
-          <div className="form flex flex-col gap-3 pt-6">
+          <form onSubmit={handleSubmit} className="form flex flex-col gap-3 pt-6">
             <span className="p-float-label">
               <Dropdown
                 value={livestock}
@@ -43,7 +83,7 @@ export default function FeedCalculator() {
               />
               <label htmlFor="livestock">Livestock Category (Required): </label>
             </span>
-            {livestock === "poultry" ? (
+            {livestock === "Poultry" ? (
               <span className="p-float-label">
                 <Dropdown
                   value={bridType}
@@ -57,7 +97,7 @@ export default function FeedCalculator() {
             ) : (
               ""
             )}
-            {livestock === "poultry" && bridType === "Broilers" ? (
+            {livestock === "Poultry" && bridType === "Broilers" ? (
               <span className="p-float-label">
                 <Dropdown
                   value={feedType}
@@ -71,7 +111,7 @@ export default function FeedCalculator() {
             ) : (
               ""
             )}
-            {livestock === "poultry" && bridType === "Layers" ? (
+            {livestock === "Poultry" && bridType === "Layers" ? (
               <span className="p-float-label">
                 <Dropdown
                   value={feedType}
@@ -85,52 +125,52 @@ export default function FeedCalculator() {
             ) : (
               ""
             )}
-            {livestock === "poultry" && bridType !== null ? (
+            {livestock === "Poultry" && bridType !== null ? (
               <>
                 {bridType === "Broilers" ? (
                   <span className="p-float-label">
-                    <InputText id="username" />
-                    <label htmlFor="username">Number of Weeks (Required)</label>
+                    <InputText id="username" value={weeks} onChange={(e)=> setWeeks(e.target.value)} />
+                    <label htmlFor="usernam" >Number of Weeks (Required)</label>
                   </span>
                 ) : (
                   ""
                 )}
                 <span className="p-float-label">
-                  <InputText id="username" />
-                  <label htmlFor="username">Number of Birds (Required)</label>
+                  <InputText id="username" value={noOfBirds} onChange={(e) => setNoOfBirds(e.target.value)} />
+                  <label htmlFor="username" >Number of Birds (Required)</label>
                 </span>
               </>
             ) : (
               ""
             )}
-            {livestock === "fishes" ? (
+            {livestock === "Fish" ? (
               <>
                 <span className="p-float-label">
-                  <InputText id="username" />
-                  <label htmlFor="username">Size of Fish (Required): </label>
+                  <InputText id="username"   value={fishSize} onChange={(e) => setFishSize(e.target.value)}/>
+                  <label htmlFor="username" >Size of Fish (Required): </label>
                 </span>
                 <span className="p-float-label">
-                  <InputText id="username" />
-                  <label htmlFor="username">Number of Fish (Required): </label>
+                  <InputText id="username"  value={noOfFish} onChange={(e) => setNoOfFish(e.target.value)}/>
+                  <label htmlFor="username" >Number of Fish (Required): </label>
                 </span>
               </>
             ) : (
               ""
             )}
-            {livestock === "pigs" ? (
+            {livestock === "Pig" ? (
               <>
                 <span className="p-float-label">
-                  <InputText id="username" />
-                  <label htmlFor="username">Number of Pigs (Required): </label>
+                  <InputText id="username"  value={noOfPigs} onChange={(e) => setNoOfPigs(e.target.value)} />
+                  <label htmlFor="username" >Number of Pigs (Required): </label>
                 </span>
               </>
             ) : (
               ""
             )}
-            <button className="green__btn" disabled>
+            <button type="submit" className="green__btn">
               Submit
             </button>
-          </div>
+          </form>
         </div>
       </div>
     </div>
