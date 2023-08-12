@@ -40,6 +40,13 @@ const OtpResend = (payload) => {
     .catch((err) => console.log(err));
 };
 
+const getClient = (payload) => {
+  return axios
+    .post(`${baseURl}/getClient`, payload)
+    .then((res) => res.data)
+    .catch((err) => console.log(err));
+};
+
 const googleCallback = (token) => {
   const data = axios
     .get(`${publicBaseURl}/google/callback?token=${token}`)
@@ -288,13 +295,6 @@ const addClient = (payload) => {
     .catch((err) => console.log(err));
 };
 
-const getClient = (payload) => {
-  // const { userId } = payload;
-  return axios
-    .post(`${baseURl}/getClient`, payload)
-    .then((res) => res.data)
-    .catch((err) => console.log(err));
-};
 
 const deleteClient = (payload) => {
   // const { userId, id, clientId } = payload;
@@ -392,5 +392,5 @@ export {
   changePassword,
   updateUserProfile,
   getPromotionPlan,
-  subscribePromotionPlan
+  subscribePromotionPlan,
 };
