@@ -64,7 +64,7 @@ export default function PetandLiveStock() {
 
             {allPets.map((res) => (
               <PeLivestocktCard
-                petImg={dogImg}
+                petImg={res.picture}
                 specie={res.specie}
                 breed={res.breed}
                 sex={res.sex}
