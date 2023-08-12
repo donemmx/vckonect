@@ -335,6 +335,15 @@ const feedCalculator = async (payload) => {
     .catch((err) => console.log(err));
 };
 
+const getUserById = async (payload) => {
+  return await axios
+    .post(
+      `${baseURl}/getUserById`, payload
+    )
+    .then((res) => res.data)
+    .catch((err) => console.log(err));
+};
+
 const getPromotionPlan = async () => {
   return await axios
     .get(
@@ -393,4 +402,5 @@ export {
   updateUserProfile,
   getPromotionPlan,
   subscribePromotionPlan,
+  getUserById
 };

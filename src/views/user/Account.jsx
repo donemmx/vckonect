@@ -6,8 +6,29 @@ import messageIcon from "../../assets/icons/message-icon.svg";
 import markerIcon from "../../assets/icons/location-icon.svg";
 import handIcon from "../../assets/account/hand-icon.svg";
 import { Link } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { user } from "../../atom/userAtom";
+import { getUserById } from "../../utils/userApiService";
+import { useEffect, useState } from "react";
 
 export default function Account() {
+  const userData = useRecoilValue(user);
+  const [userDetails, setUserDetails] = useState()
+  
+  let payload = {
+    id: userData.id,
+    role: userData.role
+  }
+
+  const getUser = ()=> {
+    getUserById(payload).then((res)=> {
+        setUserDetails(res)
+    })
+  }
+
+  useEffect(()=> getUser, [] )
+
+
   return (
     <div className=" bg-white h-[110vh] mb-10  rounded-md border-[1px] border-[#EBEBEB]">
       <div className="top bg-account h-[25vh] p-3 lg:p-10 rounded-t-lg">
@@ -34,7 +55,7 @@ export default function Account() {
         />
       </div>
       <div className="name text-[1.25rem] pt-1 text-center font-bold">
-        Dolapo Adaba
+        {userDetails?.first_name}  {userDetails?.last_name} 
       </div>
 
       <div className=" text-[.82rem] flex items-center gap-7 justify-center mt-2">
