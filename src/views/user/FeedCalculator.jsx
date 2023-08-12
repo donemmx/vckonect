@@ -28,6 +28,14 @@ export default function FeedCalculator() {
 
   const restart = () => {
     setResult(null);
+    setlivestock(null)
+    setFishSize(null)
+    setNoOfFish(null)
+    setNoOfPigs(null)
+    setBridType(null)
+    setNoOfBirds(null)
+    setFeedType(null)
+    setWeeks(null)
   };
 
   let handleSubmit = (e) => {
