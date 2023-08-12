@@ -18,14 +18,6 @@ export default function AddStore() {
   const [file, setFile] = useState(null);
   const [fileDataURL, setFileDataURL] = useState(null);
   const [avialability, setAvailability] = useState(false);
-  // function getImage(e) {
-  //   const file = e.target.files[0];
-  //   if (!file.type.match(imageMimeType)) {
-  //     alert("Image mime type is not valid");
-  //     return;
-  //   }
-  //   setFile(file);
-  // }
 
   const getImage = (e) => {
     const fileData = e.target.files[0];

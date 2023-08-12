@@ -69,6 +69,7 @@ export default function AddFarm() {
     Object.entries(payload).forEach(([key, value]) => {
       formData.append(key, value);
     });
+
     await addFarm(formData)
       .then((res) => {
         console.log(res);
@@ -81,6 +82,7 @@ export default function AddFarm() {
       })
       .catch((err) => console.log(err));
   };
+
 
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
@@ -164,7 +166,7 @@ export default function AddFarm() {
                 value={values.livestockType}
                 onChange={handleChange}
                 options={livestocks}
-                placeholder="Select Specialty"
+                placeholder="Select Livestock"
                 className="w-full md:w-20rem"
               />
 
@@ -180,7 +182,7 @@ export default function AddFarm() {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 options={Genders}
-                placeholder="Select Specialty"
+                placeholder="Select Sex"
                 className="w-full md:w-20rem"
               />
               <label htmlFor="username">Sex (Required) : </label>
