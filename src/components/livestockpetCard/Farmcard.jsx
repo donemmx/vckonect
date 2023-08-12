@@ -5,12 +5,14 @@ import expandIcon from "../../assets/icons/expand-icon.svg";
 
 export default function FarmCard({
   petImg,
-  specie,
-  date,
+  location,
+  livestockType,
   age,
-  breed,
+  livestockNumber,
   sex,
-  name
+  name,
+  farmId,
+  date
 }) {
   return (
     <>
@@ -20,7 +22,7 @@ export default function FarmCard({
             <img src={petImg} alt="" className="h-full" />
             <div className=" flex flex-col font-bold text-xl">
               {name}
-              <small className=" font-light text-sm">PT092201a</small>
+              <small className=" font-light text-sm">{farmId}</small>
             </div>
           </div>
           <div className="flex items-center gap-2 w-fit ml-auto">
@@ -46,12 +48,16 @@ export default function FarmCard({
         </div>
         <div className="py-4">
           <div className="grouped-pets px-4 py-1 flex items-center justify-between">
-            <div className="title font-bold">Specie</div>
-            <div className="value">{specie}</div>
+            <div className="title font-bold">Location</div>
+            <div className="value">{location}</div>
           </div>
           <div className="grouped-pets px-4 py-1 flex items-center justify-between">
-            <div className="title font-bold">Breed</div>
-            <div className="value">{breed}</div>
+            <div className="title font-bold">Tivestock type</div>
+            <div className="value">{livestockType}</div>
+          </div>
+          <div className="grouped-pets px-4 py-1 flex items-center justify-between">
+            <div className="title font-bold">No. of Livestock</div>
+            <div className="value">{livestockNumber}</div>
           </div>
           <div className="grouped-pets px-4 py-1 flex items-center justify-between">
             <div className="title font-bold">Sex</div>
