@@ -1,6 +1,6 @@
 import { Dropdown } from "primereact/dropdown";
 import { InputText } from "primereact/inputtext";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { addFarm } from "../../utils/animalOwnerApiService";
 import { toast } from "react-toastify";
@@ -13,8 +13,9 @@ import { farm } from "../../validations/UserValidation";
 export default function AddFarm() {
   const userData = useRecoilValue(user);
   const [gender, setGender] = useState(null);
-  const [livestockType, setLivestockType] = useState(null);
   const [file, setFile] = useState(null);
+  const [fileDataURL, setFileDataURL] = useState(null);
+
 
   const livestocks = [
      "Poultry" ,
@@ -23,25 +24,49 @@ export default function AddFarm() {
      "Sheep"
   ];
 
-  function imageSet(e) {
-    console.log(e.target.files);
-    setFile(URL.createObjectURL(e.target.files[0]));
-  }
+  const getImage = (e) => {
+    const fileData = e.target.files[0];
+    setFile(fileData);
+    console.log(fileData);
+  };
+
+  useEffect(() => {
+    let fileReader,
+      isCancel = false;
+    if (file) {
+      fileReader = new FileReader();
+      fileReader.onload = (e) => {
+        const { result } = e.target;
+        if (result && !isCancel) {
+          setFileDataURL(result);
+        }
+      };
+      fileReader.readAsDataURL(file);
+    }
+    return () => {
+      isCancel = true;
+      if (fileReader && fileReader.readyState === 1) {
+        fileReader.abort();
+      }
+    };
+  }, [file]);
+
 
   const onSubmit = async (values) => {
     const formData = new FormData();
-    let available = 0;
-    const { storeName, phone, ...others } = values;
+    const { farmName,location,workers,livestockType, livestock, ...others } = values;
 
     const payload = {
-      user_role: userData.role,
       user_id: userData.id,
-      store_id: v4(),
-      availability: available,
+      farm_id: v4(),
+      farm_name: farmName,
       picture: file,
+      location: location,
+      no_of_worker: workers,
+      livestock_type:livestockType,
+      no_of_livestock: livestock,
       ...others,
-      store_name: storeName,
-      phone_number: phone,
+      
     };
     Object.entries(payload).forEach(([key, value]) => {
       formData.append(key, value);
@@ -52,7 +77,7 @@ export default function AddFarm() {
         if (res.code) {
           toast.error(res.detail);
         } else {
-          toast.success("Store added successfully");
+          toast.success("Farm added successfully");
           window.history.back();
         }
       })
@@ -192,7 +217,12 @@ export default function AddFarm() {
                 </div>
               </>
             ) : (
-              <input type="file" onChange={imageSet} />
+              <input
+              type="file"
+              id="image"
+              accept=".png, .jpg, .jpeg"
+              onChange={(e) => getImage(e)}
+               />
             )}
 
             <button className="green__btn">Save</button>
