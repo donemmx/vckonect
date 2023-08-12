@@ -1,16 +1,40 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import addIcon from "../../assets/icons/add-icon.svg";
 import PeLivestocktCard from "../../components/livestockpetCard/PeLivestocktCard";
 import farmImg from "../../assets/icons/farm.png";
 import dogImg from "../../assets/icons/dog.png";
 import { Link } from "react-router-dom";
+import { getFarm, getPet } from "../../utils/animalOwnerApiService";
+import { useRecoilValue } from "recoil";
+import { user } from "../../atom/userAtom";
 
 export default function PetandLiveStock() {
+  const userData = useRecoilValue(user);
+  const [loading, setLoading] = useState(true)
+
   const [tab, setTab] = useState("pets");
+  const [allFarms, setAllFarms] = useState([]);
+  const [allPets, setAllPets] = useState([]);
 
   const activeTab = (type) => {
     setTab(type);
   };
+
+  useEffect(() => {
+    let payload = {
+      user_id: userData.id
+    }
+    if(tab == 'pets'){
+      getPet(payload)
+      .then((res)=> setAllPets(res))
+    }
+    else{
+      getFarm(payload).then((res) => {
+        setAllFarms(res);
+        setLoading(false)
+      });
+    }
+  }, []);
   return (
     <div className="p-3">
       <div className="pets mt-5  mb-5 p-4 border bg-white rounded-lg">

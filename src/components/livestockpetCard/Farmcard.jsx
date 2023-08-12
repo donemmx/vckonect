@@ -3,7 +3,7 @@ import editIcon from "../../assets/account/edit-icon.svg";
 import deleteIcon from "../../assets/icons/delete-icon.svg";
 import expandIcon from "../../assets/icons/expand-icon.svg";
 
-export default function PeLivestocktCard({
+export default function FarmCard({
   petImg,
   specie,
   date,
