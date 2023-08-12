@@ -93,7 +93,6 @@ export default function AddFarm() {
       initialValues: {
         farmName: "",
         workers: "",
-        livestockType: "",
         age: "",
         location: "",
       },
