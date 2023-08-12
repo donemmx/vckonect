@@ -9,6 +9,7 @@ import { loginUser } from "../validations/UserValidation";
 import { toast } from "react-toastify";
 import { useFormik } from "formik";
 import {
+  getUserById,
   googleCallback,
   linkedInCallback,
   login,
@@ -45,6 +46,11 @@ export default function Login() {
           // }
           // else{
           toast.success("Successfully logged in");
+          getUserById({id: res.id, role: res.role}).then((fullData)=> {
+            setData({
+             ...fullData, ...res
+            })
+        })
           setData(res);
           // }
         } else {

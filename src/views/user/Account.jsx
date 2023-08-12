@@ -24,7 +24,7 @@ export default function Account() {
     getUserById(payload).then((res)=> {
         setUserDetails(res)
         setUserData({
-          fullDetails: res
+         ...userData, ...res
         })
     })
   }
