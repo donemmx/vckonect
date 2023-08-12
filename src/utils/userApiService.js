@@ -12,11 +12,41 @@ const login = (payload) => {
     .catch((err) => console.log(err));
 };
 
+const resetPassword = (payload) => {
+  return axios
+    .post(`${baseURl}/resetPassword`, payload)
+    .then((res) => res.data)
+    .catch((err) => console.log(err));
+};
+
+const changePassword = (payload) => {
+  return axios
+    .post(`${baseURl}/changePassword`, payload)
+    .then((res) => res.data)
+    .catch((err) => console.log(err));
+};
+
+const updateUserProfile = (payload) => {
+  return axios
+    .post(`${baseURl}/updateUserProfile`, payload)
+    .then((res) => res.data)
+    .catch((err) => console.log(err));
+};
+
+const OtpResend = (payload) => {
+  return axios
+    .post(`${baseURl}/resendOtp`, payload)
+    .then((res) => res.data)
+    .catch((err) => console.log(err));
+};
+
 const googleCallback = (token) => {
   const data = axios
     .get(`${publicBaseURl}/google/callback?token=${token}`)
   return  data
 };
+
+
 
 const linkedInCallback = () => {
   return axios
@@ -305,6 +335,24 @@ const feedCalculator = async (payload) => {
     .catch((err) => console.log(err));
 };
 
+const getPromotionPlan = async () => {
+  return await axios
+    .get(
+      `${baseURl}/getPromotionPlan`
+    )
+    .then((res) => res.data)
+    .catch((err) => console.log(err));
+};
+
+const subscribePromotionPlan = async (payload) => {
+  return await axios
+    .post(
+      `${baseURl}/subscribePromotionPlan`, payload
+    )
+    .then((res) => res.data)
+    .catch((err) => console.log(err));
+};
+
 
 
 export {
@@ -338,5 +386,11 @@ export {
   getSubscriptionPlan,
   getLivestockDiseases,
   diseasePredictor,
-  feedCalculator
+  feedCalculator,
+  OtpResend,
+  resetPassword,
+  changePassword,
+  updateUserProfile,
+  getPromotionPlan,
+  subscribePromotionPlan
 };

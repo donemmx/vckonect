@@ -129,6 +129,22 @@ const getVeterinarianActivity = (payload) => {
     .catch((err) => console.log(err));
 };
 
+const getVeterinarianByLocation = (payload) => {
+  // const { role, id } = payload;
+  return axios
+    .post(`${baseURl}/getVeterinarianByLocation`, payload)
+    .then((res) => res.data)
+    .catch((err) => console.log(err));
+};
+
+const getVeterinarianByFilter = (payload) => {
+  // const { role, id } = payload;
+  return axios
+    .post(`${baseURl}/getVeterinarianByFilter`, payload)
+    .then((res) => res.data)
+    .catch((err) => console.log(err));
+};
+
 // Register Animal owner
 
 const registerVeterinarian1 = (payload) => {
@@ -174,5 +190,7 @@ export {
   getVeterinarianActivity,
   registerVeterinarian1,
   registerVeterinarian2,
-  registerVeterinarian3
+  registerVeterinarian3,
+  getVeterinarianByLocation,
+  getVeterinarianByFilter
 };
