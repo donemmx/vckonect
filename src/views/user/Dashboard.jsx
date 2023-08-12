@@ -4,16 +4,38 @@ import livestockIcon from "../../assets/sidebar/livestock.svg";
 import adsIcon from "../../assets/sidebar/ads.svg";
 import arrow from "../../assets/sidebar/gray-arrow.svg";
 import AccountCard from "../../components/accountCard/AccountCard";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DashboardCard from "../../components/dashboardCard/DashboardCard";
+import { getForumChat } from "../../utils/userApiService";
+import { getAnimalOwnerActivity } from "../../utils/animalOwnerApiService";
+import { useRecoilValue } from "recoil";
+import { user } from "../../atom/userAtom";
+import moment from "moment";
 
 export default function Dashboard() {
-  const [tab, setTab] = useState('activity');
+  const [tab, setTab] = useState("activity");
+  const userData = useRecoilValue(user);
 
+  const [forumData, setForumData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [allActivities, setAllActivities] = useState([]);
   const activeTab = (type) => {
-    setTab(type)
+    setTab(type);
   };
+  useEffect(() => {
+    getForumChat().then((res) => setForumData(res));
+  }, []);
 
+  useEffect(() => {
+    let payload = {
+      id: userData.id,
+      role: userData.role,
+    };
+    getAnimalOwnerActivity(payload).then((res) => {
+      setAllActivities(res);
+      setLoading(false);
+    });
+  }, []);
   return (
     <div className="">
       <div className="form grid grid-cols-1 md:grid-cols-2 gap-3 pt-6">
@@ -48,72 +70,48 @@ export default function Dashboard() {
       </div>
       <div className="activity mt-5  mb-5 p-4 border bg-white rounded-lg">
         <div className="flex items-center gap-6">
-          <h2 className={` text-[1rem] lg:text-[1.3rem] cursor-pointer ${tab === 'activity' ? 'font-black' : '' } `} onClick={()=> activeTab('activity')}>
+          <h2
+            className={` text-[1rem] lg:text-[1.3rem] cursor-pointer ${
+              tab === "activity" ? "font-black" : ""
+            } `}
+            onClick={() => activeTab("activity")}
+          >
             Recent Activities
           </h2>
-          <h4 className={`text-[1rem] lg:text-[1.3rem] cursor-pointer ${tab === 'forum' ? 'font-black' : ''} `}  onClick={() => activeTab('forum')}>
+          <h4
+            className={`text-[1rem] lg:text-[1.3rem] cursor-pointer ${
+              tab === "forum" ? "font-black" : ""
+            } `}
+            onClick={() => activeTab("forum")}
+          >
             Forum Trending Topics
           </h4>
         </div>
 
-        {tab == 'activity' ? (
+        {tab == "activity" ? (
           <div className="posts p-3 mt-5 grid gap-2">
-            <DashboardCard
-              time={"10"}
-              title={"Deleted Vendor From Client List"}
-              name={"Topic"}
-            />
-            <DashboardCard
-              time={"10"}
-              title={"Liked a Forum Chat"}
-              name={"Topic"}
-            />
-            <DashboardCard
-              time={"10"}
-              title={"Case Title - Case ID"}
-              name={"Topic"}
-            />
-            <DashboardCard
-              time={"10"}
-              title={"Sent a Direct Message"}
-              name={"Message first paragraph"}
-            />
-            <DashboardCard
-              time={"10"}
-              title={" Replied a Direct Message"}
-              name={"Message first paragraph"}
-            />
+            {allActivities.map((res) => (
+              <DashboardCard
+                time={moment(res.date).fromNow()}
+                title={res.title}
+                name={res.detail}
+                key={res.id}
+              />
+            ))}
           </div>
         ) : (
           ""
         )}
-        {tab == 'forum' ? (
+        {tab == "forum" ? (
           <div className="posts p-3 mt-5 grid gap-2">
-            <DashboardCard
-              time={"10"}
-              title={"How to care for your pet"}
-              name={"Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet."}
-            />
-            <DashboardCard
-              time={"10"}
-              title={"Pet Owners Hacks"}
-              name={"Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet."}
-            />
-            <DashboardCard
-              time={"10"}
-              title={"Seasonal Pet SIckness"}
-              name={"Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet."}
-            />
-            <DashboardCard
-              time={"10"}
-              title={"Livestock Farmer Should Avoid This Three Things During Winter"}
-              name={"Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet."}
-            />
-            <DashboardCard
-              time={"10"}
-              title={" Common Foot Sickness for Dogs"}
-              name={"Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet."}
-            />
+            {forumData.map((res) => (
+              <DashboardCard
+                time={moment(res.date).fromNow()}
+                title={res.title}
+                name={res.user_name}
+                key={res.id}
+              />
+            ))}
           </div>
         ) : (
           ""

@@ -1,7 +1,6 @@
 import { useRecoilValue } from "recoil";
 import DashboardCard from "../../components/dashboardCard/DashboardCard";
 import { user } from "../../atom/userAtom";
-import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getAnimalOwnerActivity } from "../../utils/animalOwnerApiService";
 import moment from "moment";
