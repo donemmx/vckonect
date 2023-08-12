@@ -60,6 +60,7 @@ const farm = yup.object().shape({
     farmName: yup.string().required("Required"),
     workers: yup.string().required("Required"),
     location: yup.string().required("Required"),
+    livestockNumber: yup.string().required("Required"),
     age: yup.string().required("Required"),
 })
 

@@ -55,7 +55,7 @@ export default function AddFarm() {
 
   const onSubmit = async (values) => {
     const formData = new FormData();
-    const { farmName,workers,livestockType, ...others } = values;
+    const { farmName,workers, livestockNumber, ...others } = values;
 
     const payload = {
       user_id: userData.id,
@@ -64,8 +64,8 @@ export default function AddFarm() {
       picture: file,
       no_of_worker: workers,
       sex: gender,
-      livestock_type:livestockType,
-      no_of_livestock: livestock,
+      livestock_type:livestock,
+      no_of_livestock: livestockNumber,
       ...others,
       
     };
@@ -95,6 +95,7 @@ export default function AddFarm() {
         workers: "",
         age: "",
         location: "",
+        livestockNumber: ""
       },
       validationSchema: farm,
       onSubmit,
@@ -158,6 +159,7 @@ export default function AddFarm() {
               />
               <label htmlFor="username">Number of Workers (Required) :</label>
             </span>
+       
             {errors.workers && touched.workers && (
               <p className="error">{errors.workers}</p>
             )}
@@ -172,7 +174,16 @@ export default function AddFarm() {
 
               <label htmlFor="username">Type of livestock (Required) : </label>
             </span>
-            
+            <span className="p-float-label">
+              <InputText
+                id="username"
+                name="livestockNumber"
+                value={values.livestockNumber}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+              <label htmlFor="username">Number of Livestock (Required) :</label>
+            </span>
             <span className="p-float-label">
               <Dropdown
                 name="sex"
