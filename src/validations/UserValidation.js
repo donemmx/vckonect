@@ -61,9 +61,7 @@ const farm = yup.object().shape({
     workers: yup.string().required("Required"),
     location: yup.string().required("Required"),
     livestockType: yup.string().required("Required"),
-    livestock: yup.string().required("Required"),
     age: yup.string().required("Required"),
-    sex: yup.string().required("Required"),
 })
 
 const clinic = yup.object().shape({

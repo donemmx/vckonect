@@ -13,6 +13,9 @@ import { farm } from "../../validations/UserValidation";
 export default function AddFarm() {
   const userData = useRecoilValue(user);
   const [file, setFile] = useState(null);
+  const [gender, setGender] = useState(null);
+  const [livestock, setLivestock] = useState(null);
+
   const [fileDataURL, setFileDataURL] = useState(null);
 
 
@@ -52,7 +55,7 @@ export default function AddFarm() {
 
   const onSubmit = async (values) => {
     const formData = new FormData();
-    const { farmName,workers,livestockType, livestock, ...others } = values;
+    const { farmName,workers,livestockType, ...others } = values;
 
     const payload = {
       user_id: userData.id,
@@ -60,6 +63,7 @@ export default function AddFarm() {
       farm_name: farmName,
       picture: file,
       no_of_worker: workers,
+      sex: gender,
       livestock_type:livestockType,
       no_of_livestock: livestock,
       ...others,
@@ -90,9 +94,7 @@ export default function AddFarm() {
         farmName: "",
         workers: "",
         livestockType: "",
-        livestock: "",
         age: "",
-        sex: "",
         location: "",
       },
       validationSchema: farm,
@@ -163,9 +165,8 @@ export default function AddFarm() {
             <span className="p-float-label">
               <Dropdown
                 name="livestockType"
-                value={values.livestockType}
-                onChange={handleChange}
-                onBlur={handleBlur}
+                value={livestock}
+                onChange={(e)=> setLivestock(e.target.value)}
                 options={livestocks}
                 placeholder="Select Livestock"
                 className="w-full md:w-20rem"
@@ -173,24 +174,19 @@ export default function AddFarm() {
 
               <label htmlFor="username">Type of livestock (Required) : </label>
             </span>
-            {errors.livestockType && touched.livestockType && (
-              <p className="error">{errors.livestockType}</p>
-            )}
+            
             <span className="p-float-label">
               <Dropdown
                 name="sex"
-                value={values.sex}
-                onChange={handleChange}
-                onBlur={handleBlur}
+                value={gender}
+                onChange={(e)=> setGender(e.target.value)}
                 options={Genders}
                 placeholder="Select Sex"
                 className="w-full md:w-20rem"
               />
               <label htmlFor="username">Sex (Required) : </label>
             </span>
-            {errors.sex && touched.sex && (
-              <p className="error">{errors.sex}</p>
-            )}
+           
             <span className="p-float-label">
               <InputText
                 id="username"
