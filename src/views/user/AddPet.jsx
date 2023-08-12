@@ -53,6 +53,7 @@ export default function AddPet() {
       specie: specie,
       breed: breed,
       sex: gender,
+      picture: file,
       age: age,
     };
     Object.entries(payload).forEach(([key, value]) => {
