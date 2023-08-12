@@ -78,10 +78,14 @@ export default function FeedCalculator() {
 
   const numberFormat = (data) => {
     if(typeof data  === 'number'){
-      return data.toFixed(2);
+      return Number(data.space_requires).toFixed(2);
     }
     return '-'
 };
+
+const format = (data) => {
+  return Number(data.feed).toFixed(2);
+}
 
   const header = (
     <div className="flex items-center justify-between gap-2">
@@ -282,13 +286,20 @@ export default function FeedCalculator() {
             <div className="mt-5">
               <DataTable value={result} header={header}>
                 <Column field="pellet_size" header="Pellet size"></Column>
-                <Column field="feed" header="Feed"></Column>
+                <Column field="feed" body={format} header="Feed"></Column>
                 <Column field="space_requires" body={numberFormat} header="Space"></Column>
               </DataTable>
              
             </div>
           ) : (
-            ""
+            <div className="mt-5">
+              <DataTable value={result} header={header}>
+                <Column field="pellet_size" header="Pellet size"></Column>
+                <Column field="feed" body={format} header="Feed"></Column>
+                <Column field="space_requires" body={numberFormat} header="Space"></Column>
+              </DataTable>
+             
+            </div>
           )}
         </div>
       </div>
