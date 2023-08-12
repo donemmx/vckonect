@@ -23,6 +23,7 @@ import Footer from "../components/footer/Footer";
 import Vetcard from "../components/vetCard/Vetcard";
 
 export default function Home() {
+
   return (
     <div>
       <Hero />

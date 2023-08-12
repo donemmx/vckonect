@@ -13,8 +13,8 @@ export default function Activities() {
 
   useEffect(() => {
     let payload ={
-      id: userData.id,
-      role: userData.role
+      id: userData?.id,
+      role: userData?.role
     }
     getAnimalOwnerActivity(payload).then((res) => {
       setAllActivities(res);
