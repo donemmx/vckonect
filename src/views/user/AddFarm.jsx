@@ -164,7 +164,6 @@ export default function AddFarm() {
             )}
             <span className="p-float-label">
               <Dropdown
-                name="livestockType"
                 value={livestock}
                 onChange={(e)=> setLivestock(e.target.value)}
                 options={livestocks}
