@@ -59,22 +59,22 @@ export default function Account() {
       </div>
 
       <div className=" text-[.82rem] flex items-center gap-7 justify-center mt-2">
-        <div className="flex flex-col items-center justify-center ">
+        <a href={`tel:${userDetails?.phone_number}`} className="flex flex-col items-center justify-center ">
           <img
             src={callIcon}
             alt=""
             className=" p-2 mb-2 h-[35px] w-[35px] bg-white rounded-full border-[1px] border-[#EBEBEB] shadow"
           />
           Call
-        </div>
-        <div className="flex flex-col items-center justify-center">
+        </a>
+        <a href={`mailto:${userDetails?.email}`} className="flex flex-col items-center justify-center">
           <img
             src={messageIcon}
             alt=""
             className=" p-2 mb-2 h-[35px] w-[35px] bg-white rounded-full border-[1px] border-[#EBEBEB] shadow"
           />
           Email
-        </div>
+        </a>
         <div className="flex flex-col items-center justify-center">
           <img
             src={markerIcon}
