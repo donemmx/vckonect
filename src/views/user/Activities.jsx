@@ -1,6 +1,27 @@
+import { useRecoilValue } from "recoil";
 import DashboardCard from "../../components/dashboardCard/DashboardCard";
+import { user } from "../../atom/userAtom";
+import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { getAnimalOwnerActivity } from "../../utils/animalOwnerApiService";
+import moment from "moment";
 
 export default function Activities() {
+
+  const userData = useRecoilValue(user);
+  const [loading, setLoading] = useState(true)
+  const [allActivities, setAllActivities] = useState([]);
+
+  useEffect(() => {
+    let payload ={
+      id: userData.id,
+      role: userData.role
+    }
+    getAnimalOwnerActivity(payload).then((res) => {
+      setAllActivities(res);
+      setLoading(false)
+    });
+  }, []);
   return (
     <div className="">
       <div className="activity mt-5  mb-5 p-4 border bg-white rounded-lg">
@@ -12,31 +33,14 @@ export default function Activities() {
         </div>
 
           <div className="posts p-3 mt-5 grid gap-2">
+          {allActivities.map((res) => (
             <DashboardCard
-              time={"10"}
-              title={"Deleted Vendor From Client List"}
-              name={"Topic"}
+              time={moment(res.date).fromNow()}
+              title={res.title}
+              name={res.detail}
+              key={res.id}
             />
-            <DashboardCard
-              time={"10"}
-              title={"Liked a Forum Chat"}
-              name={"Topic"}
-            />
-            <DashboardCard
-              time={"10"}
-              title={"Case Title - Case ID"}
-              name={"Topic"}
-            />
-            <DashboardCard
-              time={"10"}
-              title={"Sent a Direct Message"}
-              name={"Message first paragraph"}
-            />
-            <DashboardCard
-              time={"10"}
-              title={" Replied a Direct Message"}
-              name={"Message first paragraph"}
-            />
+          ))}
           </div>
       </div>
     </div>

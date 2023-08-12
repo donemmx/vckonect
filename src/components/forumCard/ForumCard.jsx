@@ -7,6 +7,7 @@ import { likeForumChat } from "../../utils/userApiService";
 import { user } from "../../atom/userAtom";
 import { useEffect, useState } from "react";
 import { storeData } from "../../atom/storeAtom";
+import moment from "moment";
 
 export default function ForumCard({
   userImg,
@@ -18,6 +19,7 @@ export default function ForumCard({
   likes,
   title,
   forumChatId,
+  date
 }) {
   const userData = useRecoilValue(user);
   const [userStore, setUserStore] = useRecoilState(storeData)
@@ -48,7 +50,7 @@ export default function ForumCard({
         </div>
         <div className="flex items-center gap-2 w-fit ml-auto">
           <div className="text-[11px] bg-gray-100 flex items-center justify-center mr-auto lg:ml-auto w-[90px] p-2 border rounded-full">
-            10 mins ago
+           {moment(date).fromNow()}
           </div>
         </div>
       </div>

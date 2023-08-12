@@ -9,7 +9,7 @@ export default function DashboardCard({title, name, time}) {
       <div className=" text-[11px]">{name}</div>
     </div>
     <div className="text-[11px] bg-gray-100 flex items-center justify-center mr-auto lg:ml-auto w-[90px] p-2 border rounded-full">
-      {time} mins ago
+      {time}
     </div>
   </div>
   )

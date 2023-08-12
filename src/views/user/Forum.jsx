@@ -114,6 +114,7 @@ export default function Forum() {
             comments={res.comments}
             likes={res.likes}
             forumChatId={res.id}
+            date={res.date}
           />
         </div>
       ))}
