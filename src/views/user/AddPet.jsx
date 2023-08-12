@@ -51,6 +51,12 @@ export default function AddPet() {
     "Ruminant medicine",
     "Wildlife medicine",
   ];
+  const species = [
+    "Dog",
+    "Cat",
+    "Pig",
+    "Sheep",
+  ];
   const Genders = ["Male", "Female"];
 
   return (
@@ -79,7 +85,7 @@ export default function AddPet() {
               <Dropdown
                 value={specialty}
                 onChange={(e) => setSpecialty(e.value)}
-                options={Specialties}
+                options={species}
                 placeholder="Select Specialty"
                 className="w-full md:w-20rem"
               />
