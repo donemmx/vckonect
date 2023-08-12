@@ -62,11 +62,20 @@ export default function PetandLiveStock() {
             <img src={addIcon} alt="" className="w-[40px]" />
           </Link>
 
-          <PeLivestocktCard
-            petImg={dogImg}
-            petName="Kora"
-            petName2="Catherine"
-          />
+          { allPets.map((res)=> (
+            <PeLivestocktCard
+              petImg={dogImg}
+              specie={res.specie}
+              breed={res.breed}
+              sex={res.sex}
+              age={res.age}
+              date={res.date}
+              petId={res.pet_id}
+              name={res.pet_name}
+              key={res.id}
+            />
+          ))
+}
         </>) : (
           <>
             <Link to='/add-farm' className="border-[1px] hover:border-[#52CE06] cursor-pointer  flex items-center justify-between p-3 rounded-[18px] mt-10 mb-5">

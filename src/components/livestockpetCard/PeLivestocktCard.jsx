@@ -10,7 +10,8 @@ export default function PeLivestocktCard({
   age,
   breed,
   sex,
-  name
+  name,
+  petId
 }) {
   return (
     <>
@@ -20,7 +21,7 @@ export default function PeLivestocktCard({
             <img src={petImg} alt="" className="h-full" />
             <div className=" flex flex-col font-bold text-xl">
               {name}
-              <small className=" font-light text-sm">PT092201a</small>
+              <small className=" font-light text-sm">{petId}</small>
             </div>
           </div>
           <div className="flex items-center gap-2 w-fit ml-auto">
