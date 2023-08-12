@@ -8,7 +8,7 @@ import { Button } from "primereact/button";
 
 export default function FeedCalculator() {
   const [livestock, setlivestock] = useState(null);
-  const [fishSize, setFishSize] = useState(null);
+  // const [fishSize, setFishSize] = useState(null);
   const [noOfFish, setNoOfFish] = useState(null);
   const [noOfPigs, setNoOfPigs] = useState(null);
   const [bridType, setBridType] = useState(null);
@@ -29,7 +29,7 @@ export default function FeedCalculator() {
   const restart = () => {
     setResult(null);
     setlivestock(null)
-    setFishSize(null)
+    // setFishSize(null)
     setNoOfFish(null)
     setNoOfPigs(null)
     setBridType(null)
@@ -190,14 +190,14 @@ export default function FeedCalculator() {
               )}
               {livestock === "Fish" ? (
                 <>
-                  <span className="p-float-label">
+                  {/* <span className="p-float-label">
                     <InputText
                       id="username"
                       value={fishSize}
                       onChange={(e) => setFishSize(e.target.value)}
                     />
                     <label htmlFor="username">Size of Fish (Required): </label>
-                  </span>
+                  </span> */}
                   <span className="p-float-label">
                     <InputText
                       id="username"
