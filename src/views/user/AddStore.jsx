@@ -208,7 +208,7 @@ export default function AddStore() {
               />
             )}
 
-            <button className="green__btn">Save</button>
+            <button type="submit" className="green__btn">Save</button>
           </div>
         </form>
       </div>
