@@ -94,6 +94,7 @@ export default function PetandLiveStock() {
                 livestockType={res.livestock_type}
                 sex={res.sex}
                 age={res.age}
+                date={res.date}
                 farmId={res.farm_id}
                 key={res.id}
               />
