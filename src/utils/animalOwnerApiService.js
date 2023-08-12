@@ -5,20 +5,9 @@ const baseURl = "https://vetkonect.com/backend/public/api/web/v2";
 // Farm
 
 const addFarm = (payload) => {
-  // const {
-  //   userId,
-  //   farmName,
-  //   location,
-  //   workers,
-  //   livestockType,
-  //   livestock,
-  //   age,
-  //   sex,
-  //   farmId,
-  // } = payload;
   return axios
     .post(
-      `${baseURl}/getFarm`, payload
+      `${baseURl}/addFarm`, payload
     )
     .then((res) => res.data)
     .catch((err) => console.log(err));
