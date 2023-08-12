@@ -58,11 +58,11 @@ export default function Account() {
         />
       </div>
       <div className="name text-[1.25rem] pt-1 text-center font-bold">
-        {userDetails?.first_name}  {userDetails?.last_name} 
+        {userData?.first_name}  {userData?.last_name} 
       </div>
 
       <div className=" text-[.82rem] flex items-center gap-7 justify-center mt-2">
-        <a href={`tel:${userDetails?.phone_number}`} className="flex flex-col items-center justify-center ">
+        <a href={`tel:${userData?.phone_number}`} className="flex flex-col items-center justify-center ">
           <img
             src={callIcon}
             alt=""
@@ -70,7 +70,7 @@ export default function Account() {
           />
           Call
         </a>
-        <a href={`mailto:${userDetails?.email}`} className="flex flex-col items-center justify-center">
+        <a href={`mailto:${userData?.email}`} className="flex flex-col items-center justify-center">
           <img
             src={messageIcon}
             alt=""
