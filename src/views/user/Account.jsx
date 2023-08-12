@@ -6,13 +6,13 @@ import messageIcon from "../../assets/icons/message-icon.svg";
 import markerIcon from "../../assets/icons/location-icon.svg";
 import handIcon from "../../assets/account/hand-icon.svg";
 import { Link } from "react-router-dom";
-import { useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import { user } from "../../atom/userAtom";
 import { getUserById } from "../../utils/userApiService";
 import { useEffect, useState } from "react";
 
 export default function Account() {
-  const userData = useRecoilValue(user);
+  const [userData, setUserData] = useRecoilState(user);
   const [userDetails, setUserDetails] = useState()
   
   let payload = {
@@ -23,6 +23,9 @@ export default function Account() {
   const getUser = ()=> {
     getUserById(payload).then((res)=> {
         setUserDetails(res)
+        setUserData({
+          fullDetails: res
+        })
     })
   }
 
