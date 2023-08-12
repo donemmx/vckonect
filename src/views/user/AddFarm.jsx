@@ -165,6 +165,7 @@ export default function AddFarm() {
                 name="livestockType"
                 value={values.livestockType}
                 onChange={handleChange}
+                onBlur={handleBlur}
                 options={livestocks}
                 placeholder="Select Livestock"
                 className="w-full md:w-20rem"

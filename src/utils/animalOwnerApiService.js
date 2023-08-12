@@ -52,7 +52,7 @@ const getOnePet = (payload) => {
 const getPet = (payload) => {
   // const { userId, id } = payload;
   return axios
-    .post(`${baseURl}/getOnePet`, payload)
+    .post(`${baseURl}/getPet`, payload)
     .then((res) => res.data)
     .catch((err) => console.log(err));
 };

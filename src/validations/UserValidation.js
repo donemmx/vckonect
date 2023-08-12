@@ -95,10 +95,8 @@ const addPetCase  =  yup.object().shape({
 })
 const pet  =  yup.object().shape({
     petName: yup.string().required("Required"),
-    specie: yup.string().required("Required"),
     breed: yup.string().required("Required"),
     age: yup.string().required("Required"),
-    sex: yup.string().required("Required"),
 })
 
 const addFarmCase  =  yup.object().shape({

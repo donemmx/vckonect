@@ -1,62 +1,89 @@
 import { useFormik } from "formik";
 import { Dropdown } from "primereact/dropdown";
 import { InputText } from "primereact/inputtext";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { addPet } from "../../utils/animalOwnerApiService";
 import { pet } from "../../validations/UserValidation";
 import { toast } from "react-toastify";
+import { useRecoilValue } from "recoil";
+import { user } from "../../atom/userAtom";
 
 export default function AddPet() {
+  const userData = useRecoilValue(user);
+  const [specie, setSpecie] = useState(null);
+  const [gender, setGender] = useState(null);
+  const [file, setFile] = useState(null);
+  const [fileDataURL, setFileDataURL] = useState(null);
+
+  const getImage = (e) => {
+    const fileData = e.target.files[0];
+    setFile(fileData);
+    console.log(fileData);
+  };
+
+  useEffect(() => {
+    let fileReader,
+      isCancel = false;
+    if (file) {
+      fileReader = new FileReader();
+      fileReader.onload = (e) => {
+        const { result } = e.target;
+        if (result && !isCancel) {
+          setFileDataURL(result);
+        }
+      };
+      fileReader.readAsDataURL(file);
+    }
+    return () => {
+      isCancel = true;
+      if (fileReader && fileReader.readyState === 1) {
+        fileReader.abort();
+      }
+    };
+  }, [file]);
 
   const onSubmit = async (values) => {
+    const formData = new FormData();
+
+    const { petName, breed, age } = values;
     const payload = {
-      stage: 1,
-      ...values,
+      user_id: userData.id,
+      pet_name: petName,
+      specie: specie,
+      breed: breed,
+      sex: gender,
+      age: age,
     };
-    await addPet(payload)
+    Object.entries(payload).forEach(([key, value]) => {
+      formData.append(key, value);
+    });
+    await addPet(formData)
       .then((res) => {
         if (!res.code) {
-          location("/livestock");
+          window.history.back();
           toast.success("Pet added successfully");
         } else {
           toast.error(res.detail);
         }
       })
       .catch((err) => console.log(err));
-  
   };
-
 
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
       initialValues: {
-        email: "",
-        password: "",
+        petName: "",
+        breed: "",
+        age: "",
       },
       validationSchema: pet,
       onSubmit,
     });
 
-  const [specialty, setSpecialty] = useState(null);
-  const [gender, setGender] = useState(null);
-  const [file, setFile] = useState(null);
-  function selectFile(e) {
-    console.log(e.target.files);
-    setFile(URL.createObjectURL(e.target.files[0]));
-  }
-  const Specialties = [
-    "Small Animal Medicine",
-    "Avian Medicine",
-    "Ruminant medicine",
-    "Wildlife medicine",
-  ];
-  const species = [
-    "Dog",
-    "Cat",
-    "Pig",
-    "Sheep",
-  ];
+
+
+  const species = ["Dog", "Cat", "Pig", "Sheep"];
   const Genders = ["Male", "Female"];
 
   return (
@@ -76,63 +103,93 @@ export default function AddPet() {
           <div className="pt-2 subtitle paragraph text-center">
             You can add a new pet to your pet list
           </div>
-          <div className="form flex flex-col gap-3 pt-6">
+          <form
+            encType="multipart/form-data"
+            onSubmit={handleSubmit}
+            className="form flex flex-col gap-3 pt-6"
+          >
             <span className="p-float-label">
-              <InputText id="username" />
+              <InputText
+                id="username"
+                name="petName"
+                value={values.petName}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
               <label htmlFor="username">Name of Pet (Required)</label>
             </span>
+            {errors.petName && touched.petName && (
+              <p className="error">{errors.petName}</p>
+            )}
             <span className="p-float-label">
               <Dropdown
-                value={specialty}
-                onChange={(e) => setSpecialty(e.value)}
+                value={specie}
+                onChange={(e) => setSpecie(e.value)}
                 options={species}
-                placeholder="Select Specialty"
+                placeholder="Select Specie"
                 className="w-full md:w-20rem"
               />
               <label htmlFor="livestock">Specie (Required) :</label>
             </span>
             <span className="p-float-label">
-              <Dropdown
-                value={specialty}
-                onChange={(e) => setSpecialty(e.value)}
-                options={Specialties}
-                placeholder="Select Specialty"
-                className="w-full md:w-20rem"
+              <InputText
+                id="breed"
+                name="breed"
+                value={values.breed}
+                onChange={handleChange}
+                onBlur={handleBlur}
               />
               <label htmlFor="username">Breed (Required) :</label>
             </span>
+            {specie !== "Poultry" ? (
+              <span className="p-float-label">
+                <Dropdown
+                  value={gender}
+                  onChange={(e) => setGender(e.value)}
+                  options={Genders}
+                  placeholder="Select Specialty"
+                  className="w-full md:w-20rem"
+                />
+                <label htmlFor="username">Sex (Required) : </label>
+              </span>
+            ) : (
+              ""
+            )}
             <span className="p-float-label">
-              <Dropdown
-                value={gender}
-                onChange={(e) => setGender(e.value)}
-                options={Genders}
-                placeholder="Select Specialty"
-                className="w-full md:w-20rem"
+              <InputText
+                id="username"
+                name="age"
+                value={values.age}
+                onChange={handleChange}
+                onBlur={handleBlur}
               />
-              <label htmlFor="username">Sex (Required) : </label>
-            </span>
-            <span className="p-float-label">
-              <InputText id="username" />
               <label htmlFor="username">Age (Required) : </label>
             </span>
-      
-            {file !== null ? (
-                <>
-              <img
-                src={file}
-                className="h-[200px] w-full object-cover border-[1px] rounded-md"
-              />
-              <div className="underline cursor-pointer" onClick={()=> setFile(null)}>Remove Image</div>
-                </>
+            {errors.age && touched.age && <p className="error">{errors.age}</p>}
+            {fileDataURL !== null ? (
+              <>
+                <img
+                  src={fileDataURL}
+                  className="h-[200px] w-full object-cover border-[1px] rounded-md"
+                />
+                <div
+                  className="underline cursor-pointer"
+                  onClick={() => setFileDataURL(null)}
+                >
+                  Remove Image
+                </div>
+              </>
             ) : (
-                <input
+              <input
                 type="file"
-                onChange={selectFile}
+                id="image"
+                accept=".png, .jpg, .jpeg"
+                onChange={(e) => getImage(e)}
               />
             )}
 
             <button className="green__btn">Save</button>
-          </div>
+          </form>
         </div>
       </div>
     </div>
