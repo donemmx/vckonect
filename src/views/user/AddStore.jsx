@@ -12,6 +12,7 @@ import { store } from "../../validations/UserValidation";
 
 export default function AddStore() {
   const userData = useRecoilValue(user);
+  
   const location = useNavigate();
 
   const [file, setFile] = useState(null);

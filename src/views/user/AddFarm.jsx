@@ -2,15 +2,77 @@ import { Dropdown } from "primereact/dropdown";
 import { InputText } from "primereact/inputtext";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { addFarm } from "../../utils/animalOwnerApiService";
+import { toast } from "react-toastify";
+import { useFormik } from "formik";
+import { useRecoilValue } from "recoil";
+import { user } from "../../atom/userAtom";
+import { v4 } from "uuid";
+import { farm } from "../../validations/UserValidation";
 
 export default function AddFarm() {
+  const userData = useRecoilValue(user);
   const [gender, setGender] = useState(null);
+  const [livestockType, setLivestockType] = useState(null);
   const [file, setFile] = useState(null);
-  function handleChange(e) {
+
+  const livestocks = [
+     "Poultry" ,
+     "Fish",
+     "Pig",
+     "Sheep"
+  ];
+
+  function imageSet(e) {
     console.log(e.target.files);
     setFile(URL.createObjectURL(e.target.files[0]));
   }
 
+  const onSubmit = async (values) => {
+    const formData = new FormData();
+    let available = 0;
+    const { storeName, phone, ...others } = values;
+
+    const payload = {
+      user_role: userData.role,
+      user_id: userData.id,
+      store_id: v4(),
+      availability: available,
+      picture: file,
+      ...others,
+      store_name: storeName,
+      phone_number: phone,
+    };
+    Object.entries(payload).forEach(([key, value]) => {
+      formData.append(key, value);
+    });
+    await addFarm(formData)
+      .then((res) => {
+        console.log(res);
+        if (res.code) {
+          toast.error(res.detail);
+        } else {
+          toast.success("Store added successfully");
+          window.history.back();
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
+    useFormik({
+      initialValues: {
+        farmName: "",
+        workers: "",
+        livestockType: "",
+        livestock: "",
+        age: "",
+        sex: "",
+        location: "",
+      },
+      validationSchema: farm,
+      onSubmit,
+    });
   const Genders = ["Male", "Female"];
   return (
     <div className=" bg-white h-full pb-20 mb-10 rounded-md border-[1px] border-[#EBEBEB]">
@@ -29,38 +91,93 @@ export default function AddFarm() {
           <div className="pt-2 subtitle paragraph text-center">
             You can add a new farm to your farm list
           </div>
-          <div className="form flex flex-col gap-3 pt-6">
+          <form
+            encType="multipart/form-data"
+            onSubmit={handleSubmit}
+            className="form flex flex-col gap-3 pt-6"
+          >
             <span className="p-float-label">
-              <InputText id="username" />
-              <label htmlFor="username">Name of Poultry (Required)</label>
+              <InputText
+                id="username"
+                name="farmName"
+                value={values.farmName}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+              <label htmlFor="username">Name of Farm (Required)</label>
             </span>
+            {errors.farmName && touched.farmName && (
+              <p className="error">{errors.farmName}</p>
+            )}
             <span className="p-float-label">
-              <InputText id="username" />
+              <InputText
+                id="username"
+                name="location"
+                value={values.location}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
               <label htmlFor="livestock">Location / Address (Required) :</label>
             </span>
+            {errors.location && touched.location && (
+              <p className="error">{errors.location}</p>
+            )}
             <span className="p-float-label">
-              <InputText id="username" />
+              <InputText
+                id="username"
+                name="workers"
+                value={values.workers}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
               <label htmlFor="username">Number of Workers (Required) :</label>
             </span>
-            <span className="p-float-label">
-              <InputText id="username" />
-              <label htmlFor="username">Type of livestock (Required) : </label>
-            </span>
+            {errors.workers && touched.workers && (
+              <p className="error">{errors.workers}</p>
+            )}
             <span className="p-float-label">
               <Dropdown
-                value={gender}
-                onChange={(e) => setGender(e.value)}
+                name="livestockType"
+                value={values.livestockType}
+                onChange={handleChange}
+                options={livestocks}
+                placeholder="Select Specialty"
+                className="w-full md:w-20rem"
+              />
+
+              <label htmlFor="username">Type of livestock (Required) : </label>
+            </span>
+            {errors.livestockType && touched.livestockType && (
+              <p className="error">{errors.livestockType}</p>
+            )}
+            <span className="p-float-label">
+              <Dropdown
+                name="sex"
+                value={values.sex}
+                onChange={handleChange}
+                onBlur={handleBlur}
                 options={Genders}
                 placeholder="Select Specialty"
                 className="w-full md:w-20rem"
               />
               <label htmlFor="username">Sex (Required) : </label>
             </span>
+            {errors.sex && touched.sex && (
+              <p className="error">{errors.sex}</p>
+            )}
             <span className="p-float-label">
-              <InputText id="username" />
+              <InputText
+                id="username"
+                name="age"
+                value={values.age}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
               <label htmlFor="username">Age (Required) : </label>
             </span>
-
+            {errors.age && touched.age && (
+              <p className="error">{errors.age}</p>
+            )}
             {file !== null ? (
               <>
                 <img
@@ -75,11 +192,11 @@ export default function AddFarm() {
                 </div>
               </>
             ) : (
-              <input type="file" onChange={handleChange} />
+              <input type="file" onChange={imageSet} />
             )}
 
             <button className="green__btn">Save</button>
-          </div>
+          </form>
         </div>
       </div>
     </div>
