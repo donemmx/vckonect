@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import addIcon from "../../assets/icons/add-icon.svg";
 import PeLivestocktCard from "../../components/livestockpetCard/PeLivestocktCard";
-import farmImg from "../../assets/icons/farm.png";
-import dogImg from "../../assets/icons/dog.png";
 import { Link } from "react-router-dom";
 import { getFarm, getPet } from "../../utils/animalOwnerApiService";
 import { useRecoilValue } from "recoil";
@@ -58,7 +56,7 @@ export default function PetandLiveStock() {
               to="/add-pet"
               className="border-[1px] hover:border-[#52CE06] cursor-pointer  flex items-center justify-between p-3 rounded-[18px] mt-10 mb-5"
             >
-              <p className="font-bold px-2">Add New Post</p>
+              <p className="font-bold px-2">Add New Pet</p>
               <img src={addIcon} alt="" className="w-[40px]" />
             </Link>
 
@@ -82,7 +80,7 @@ export default function PetandLiveStock() {
               to="/add-farm"
               className="border-[1px] hover:border-[#52CE06] cursor-pointer  flex items-center justify-between p-3 rounded-[18px] mt-10 mb-5"
             >
-              <p className="font-bold px-2">Add New Post</p>
+              <p className="font-bold px-2">Add New Farm</p>
               <img src={addIcon} alt="" className="w-[40px]" />
             </Link>
             {allFarms.map((res) => (
