@@ -12,7 +12,7 @@ export default function Forum() {
   const [tab, setTab] = useState("chat");
   const location = useNavigate();
   const [forumData, setForumData] = useState([]);
-  const userStore = useRecoilValue(storeData)
+  const userStore = useRecoilValue(storeData);
   const userData = useRecoilValue(user);
   const activeTab = (type) => {
     setTab(type);
@@ -29,8 +29,6 @@ export default function Forum() {
   useEffect(() => {
     getForumChat().then((res) => setForumData(res));
   }, [userStore?.like]);
-
-
 
   return (
     <div>
@@ -98,6 +96,7 @@ export default function Forum() {
         </div>
       </div>
 
+    
       {forumData.map((res) => (
         <div className="" key={res.id}>
           <ForumCard
@@ -111,6 +110,7 @@ export default function Forum() {
             likes={res.likes}
             forumChatId={res.id}
             date={res.date}
+            fullData={res}
           />
         </div>
       ))}

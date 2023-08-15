@@ -6,11 +6,9 @@ import { useRecoilValue } from "recoil";
 import { user } from "../../atom/userAtom";
 import { useFormik } from "formik";
 import { forumChat } from "../../validations/UserValidation";
-import { v4 } from "uuid";
 import { toast } from "react-toastify";
 
 export default function AddForumPost() {
-  const imageMimeType = /image\/(png|jpg|jpeg)/i;
   const [fileDataURL, setFileDataURL] = useState(null);
 
   const userData = useRecoilValue(user);

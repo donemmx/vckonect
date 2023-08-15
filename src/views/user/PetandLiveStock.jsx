@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
 import addIcon from "../../assets/icons/add-icon.svg";
 import PeLivestocktCard from "../../components/livestockpetCard/PeLivestocktCard";
@@ -10,7 +11,6 @@ import FarmCard from "../../components/livestockpetCard/Farmcard";
 export default function PetandLiveStock() {
   const userData = useRecoilValue(user);
   const [loading, setLoading] = useState(true);
-
   const [tab, setTab] = useState("pets");
   const [allFarms, setAllFarms] = useState([]);
   const [allPets, setAllPets] = useState([]);

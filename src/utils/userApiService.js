@@ -201,6 +201,16 @@ const likeForumChat = (payload) => {
     .catch((err) => console.log(err));
 };
 
+const shareForumChat = (payload) => {
+  // const { role, id, forumChatId } = payload;
+  return axios
+    .post(
+      `${baseURl}/shareForumChat`, payload
+    )
+    .then((res) => res.data)
+    .catch((err) => console.log(err));
+};
+
 const createForumChat = (payload) => {
   // const { role, id, title, content, picture } = payload;
   return axios
@@ -402,5 +412,6 @@ export {
   updateUserProfile,
   getPromotionPlan,
   subscribePromotionPlan,
-  getUserById
+  getUserById,
+  shareForumChat
 };
