@@ -7,8 +7,8 @@ const {persistAtom} = recoilPersist({
 
 })
 
-export const forumStore = atom({
-    key: 'forum',
+export const reloadStore = atom({
+    key: 'reload',
     default: [],
     effects_UNSTABLE: [persistAtom]
 })

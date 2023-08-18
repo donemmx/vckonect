@@ -8,6 +8,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { user } from "../../atom/userAtom";
 import FarmCard from "../../components/livestockpetCard/Farmcard";
 import { actionState } from "../../atom/actionAtom";
+import { reloadStore } from "../../atom/reloadAtom";
 
 export default function PetandLiveStock() {
   const userData = useRecoilValue(user);
@@ -16,6 +17,7 @@ export default function PetandLiveStock() {
   const [tab, setTab] = useState("pets");
   const [allFarms, setAllFarms] = useState([]);
   const [allPets, setAllPets] = useState([]);
+  const reload = useRecoilValue(reloadStore);
 
   const activeTab = (type) => {
     setTab(type);
@@ -30,7 +32,7 @@ export default function PetandLiveStock() {
       setAllFarms(res);
       setLoading(false);
     });
-  }, [tab]);
+  }, [tab, reload]);
   return (
     <div className="lg:p-3">
       <div className="pets mt-5  mb-5 p-4 border bg-white rounded-lg">

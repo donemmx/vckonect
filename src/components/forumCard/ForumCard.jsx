@@ -5,7 +5,7 @@ import sendIcon from "../../assets/icons/send-icon.svg";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { likeForumChat, shareForumChat } from "../../utils/userApiService";
 import { user } from "../../atom/userAtom";
-import { forumStore } from "../../atom/forumAtom";
+import { reloadStore } from "../../atom/reloadAtom";
 import { storeData } from "../../atom/storeAtom";
 import moment from "moment";
 import { InputTextarea } from "primereact/inputtextarea";

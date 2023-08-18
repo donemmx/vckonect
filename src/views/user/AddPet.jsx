@@ -112,7 +112,7 @@ export default function AddPet() {
 
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
-      initialValues: loadedData || initialValues,
+      initialValues: action === 'add' ?  initialValues : loadedData,
       validationSchema: pet,
       onSubmit,
     });

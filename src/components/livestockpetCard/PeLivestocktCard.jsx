@@ -1,11 +1,12 @@
 import moment from "moment";
 import editIcon from "../../assets/account/edit-icon.svg";
-import deleteIcon from "../../assets/icons/delete-icon.svg";
-import expandIcon from "../../assets/icons/expand-icon.svg";
 import { useRecoilState } from "recoil";
 import { storeData } from "../../atom/storeAtom";
 import { actionState } from "../../atom/actionAtom";
 import { useNavigate } from "react-router-dom";
+import WarningCard from "../warningCard/WarningCard";
+import { deletePet } from "../../utils/animalOwnerApiService";
+import { toast } from "react-toastify";
 
 export default function PeLivestocktCard({
   petImg,
@@ -27,6 +28,13 @@ export default function PeLivestocktCard({
     setAction('edit')
     location('/add-pet')
   }
+
+  const deletePetData = () => {
+    deletePet(fullData).then(()=> {
+      toast.success('pet deleted successfully')
+    })
+  }
+
   return (
     <>
       <div className="border rounded-lg p-5">
@@ -40,7 +48,7 @@ export default function PeLivestocktCard({
           </div>
           <div className="flex items-center gap-2 w-fit ml-auto">
             <div className="text-[11px] bg-gray-100 flex items-center justify-center mr-auto lg:ml-auto w-[90px] p-2 border rounded-full">
-              {moment(date).fromNow()}
+              {moment(date).utc().fromNow()}
             </div>
             <img
               src={editIcon}
@@ -48,11 +56,12 @@ export default function PeLivestocktCard({
               className=" p-2 mb-2 h-[35px] w-[35px] bg-white rounded-full border-[1px] cursor-pointer border-[#EBEBEB] hover:border-green-400 hover:bg-green-100 transition-all ease-in-out"
               onClick={editPet}
             />
-            <img
-              src={deleteIcon}
-              alt=""
-              className=" p-2 mb-2 h-[35px] w-[35px] bg-white rounded-full border-[1px] cursor-pointer border-[#EBEBEB] hover:border-green-400 hover:bg-green-100 transition-all ease-in-out"
+            <WarningCard 
+            message={`Are you sure you want to delete ${name}?`}
+            header='Confirmation'
+            acceptFunction={deletePetData}
             />
+           
             {/* <img
               src={expandIcon}
               alt=""
