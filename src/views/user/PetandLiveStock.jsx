@@ -32,7 +32,7 @@ export default function PetandLiveStock() {
     });
   }, [tab]);
   return (
-    <div className="p-3">
+    <div className="lg:p-3">
       <div className="pets mt-5  mb-5 p-4 border bg-white rounded-lg">
         <div className="flex items-center gap-6">
           <h2
@@ -56,27 +56,28 @@ export default function PetandLiveStock() {
           <>
             <Link
               to="/add-pet"
-              onClick={()=> setAction('add')}
+              onClick={() => setAction("add")}
               className="border-[1px] hover:border-[#52CE06] cursor-pointer  flex items-center justify-between p-3 rounded-[18px] mt-10 mb-5"
             >
               <p className="font-bold px-2">Add New Pet</p>
               <img src={addIcon} alt="" className="w-[40px]" />
             </Link>
-
-            {allPets.map((res) => (
-              <PeLivestocktCard
-                petImg={res.picture}
-                specie={res.specie}
-                breed={res.breed}
-                sex={res.sex}
-                age={res.age}
-                date={res.date}
-                petId={res.pet_id}
-                name={res.pet_name}
-                fullData={res}
-                key={res.id}
-              />
-            ))}
+            <div className="grid md:grid-cols-2 gap-2">
+              {allPets.map((res) => (
+                <PeLivestocktCard
+                  petImg={res.picture}
+                  specie={res.specie}
+                  breed={res.breed}
+                  sex={res.sex}
+                  age={res.age}
+                  date={res.date}
+                  petId={res.pet_id}
+                  name={res.pet_name}
+                  fullData={res}
+                  key={res.id}
+                />
+              ))}
+            </div>
           </>
         ) : (
           <>

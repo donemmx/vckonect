@@ -61,19 +61,19 @@ export default function PeLivestocktCard({
           </div>
         </div>
         <div className="py-4">
-          <div className="grouped-pets px-4 py-1 flex items-center justify-between">
+          <div className="grouped-pets px-4 pt-1 flex items-center justify-between">
             <div className="title font-bold">Specie</div>
             <div className="value">{specie}</div>
           </div>
-          <div className="grouped-pets px-4 py-1 flex items-center justify-between">
+          <div className="grouped-pets px-4 pt-1 flex items-center justify-between">
             <div className="title font-bold">Breed</div>
             <div className="value">{breed}</div>
           </div>
-          <div className="grouped-pets px-4 py-1 flex items-center justify-between">
+          <div className="grouped-pets px-4 pt-1 flex items-center justify-between">
             <div className="title font-bold">Sex</div>
             <div className="value">{sex}</div>
           </div>
-          <div className="grouped-pets px-4 py-1 flex items-center justify-between">
+          <div className="grouped-pets px-4 pt-1 flex items-center justify-between">
             <div className="title font-bold">Age</div>
             <div className="value">{age}</div>
           </div>

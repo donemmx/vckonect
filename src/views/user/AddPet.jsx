@@ -19,7 +19,7 @@ export default function AddPet() {
   const [gender, setGender] = useState(null);
   const [file, setFile] = useState(null);
   const [fileDataURL, setFileDataURL] = useState(null);
-
+  const [picture, setPicture] = useState(null)
   const getImage = (e) => {
     const fileData = e.target.files[0];
     setFile(fileData);
@@ -121,6 +121,7 @@ export default function AddPet() {
     if (action && action == "edit") {
       setGender(petStore?.sex);
       setSpecie(petStore?.specie);
+      setPicture(petStore?.picture)
     }
   }, []);
 
@@ -207,15 +208,15 @@ export default function AddPet() {
               <label htmlFor="username">Age (Required) : </label>
             </span>
             {errors.age && touched.age && <p className="error">{errors.age}</p>}
-            {fileDataURL !== null ? (
+            {fileDataURL !== null || picture !== null ? (
               <>
                 <img
-                  src={fileDataURL}
+                  src={fileDataURL ?? picture}
                   className="h-[200px] w-full object-cover border-[1px] rounded-md"
                 />
                 <div
                   className="underline cursor-pointer"
-                  onClick={() => setFileDataURL(null)}
+                  onClick={() => {setFileDataURL(null), setPicture(null)}}
                 >
                   Remove Image
                 </div>
