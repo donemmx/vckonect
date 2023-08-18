@@ -7,11 +7,11 @@ import { getFarm, getPet } from "../../utils/animalOwnerApiService";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { user } from "../../atom/userAtom";
 import FarmCard from "../../components/livestockpetCard/Farmcard";
-import { storeData } from "../../atom/storeAtom";
+import { actionState } from "../../atom/actionAtom";
 
 export default function PetandLiveStock() {
   const userData = useRecoilValue(user);
-  const [store, setStore] = useRecoilState(storeData);
+  const [action, setAction] = useRecoilState(actionState);
   const [loading, setLoading] = useState(true);
   const [tab, setTab] = useState("pets");
   const [allFarms, setAllFarms] = useState([]);
@@ -56,7 +56,7 @@ export default function PetandLiveStock() {
           <>
             <Link
               to="/add-pet"
-              onClick={()=> setStore('add')}
+              onClick={()=> setAction('add')}
               className="border-[1px] hover:border-[#52CE06] cursor-pointer  flex items-center justify-between p-3 rounded-[18px] mt-10 mb-5"
             >
               <p className="font-bold px-2">Add New Pet</p>
