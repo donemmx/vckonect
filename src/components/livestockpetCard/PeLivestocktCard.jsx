@@ -31,8 +31,8 @@ export default function PeLivestocktCard({
 
   const deletePetData = () => {
     deletePet(fullData).then(()=> {
-      toast.success('pet deleted successfully')
-    })
+      toast.success('Pet deleted successfully')
+    }).catch((err)=> toast.error(err.detail))
   }
 
   return (

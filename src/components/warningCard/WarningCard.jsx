@@ -33,13 +33,13 @@ export default function WarningCard({ message, header, acceptFunction }) {
           </div>
           <div className="flex items-center justify-center gap-4">
             <button
-              className="border border-green-600 p-3 rounded px-4 text-sm flex items-center gap-2 text-green-700 "
+              className="border border-green-600 p-3 rounded px-4 text-sm flex items-center gap-2 text-green-700 hover:bg-green-700 hover:text-white "
               onClick={accept}
             >
               <i className="pi pi-check"></i>Yes, Proceed
             </button>
             <button
-              className="border border-green-600 p-3 rounded px-4 text-sm flex items-center gap-2 text-green-700"
+              className="border border-green-600 p-3 rounded px-4 text-sm flex items-center gap-2 text-green-700 hover:bg-green-700 hover:text-white"
               onClick={openModal}
             >
               <i className="pi pi-times"></i>No, Cancel
