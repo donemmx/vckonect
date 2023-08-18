@@ -10,7 +10,7 @@ import Loading from "../../components/loading/Loading";
 export default function Stores() {
   const userData = useRecoilValue(user);
   const location = useNavigate();
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(true);
   const [allStores, SetAllStores] = useState([]);
   const checker = (route) => {
     if (userData?.role === "Veternarian") {
@@ -23,7 +23,7 @@ export default function Stores() {
   useEffect(() => {
     getStore({ id: userData.id }).then((res) => {
       SetAllStores(res);
-      setLoading(false)
+      setLoading(false);
     });
   }, []);
   return (
@@ -38,28 +38,25 @@ export default function Stores() {
       </button>
 
       <div className=" flex gap-4 w-full mb-10">
-        {
-        loading ?
-        [1, 2, 3, 4].map((data) => (
-          <div className="w-full mt-10" key={data}>
-            <Loading />
-          </div>
-        ))
-        : ''
-        }
-        
+        {loading
+          ? [1, 2, 3, 4].map((data) => (
+              <div className="w-full mt-10" key={data}>
+                <Loading />
+              </div>
+            ))
+          : ""}
       </div>
       <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 items-center justify-center">
         {allStores.map((res) => (
           <StoreCard
-            key={res.id}
             availability={res.availability}
             storeName={res.store_name}
             storeLocation={res.location}
             storePhone={res.phone_number}
             image={res.picture}
-            deleteIcon={true}
+            fullData={res}
             store_id={res.id}
+            key={res.id}
           />
         ))}
       </div>

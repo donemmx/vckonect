@@ -6,6 +6,9 @@ import location from "../../assets/icons/marker-icon.svg";
 import openIcon from "../../assets/bg/card-next-bg.svg";
 import { deleteStore } from "../../utils/userApiService";
 import { toast } from "react-toastify";
+import WarningCard from "../warningCard/WarningCard";
+import { useRecoilValue } from "recoil";
+import { user } from "../../atom/userAtom";
 
 export default function StoreCard({
   availability,
@@ -13,18 +16,20 @@ export default function StoreCard({
   storeName,
   storeLocation,
   storePhone,
-  deleteIcon,
-  store_id
+  store_id,
+  fullData
 }) {
-
   let deleteStoreById = () => {
-    deleteStore({store_id: store_id}).then((res)=> {
-      toast.success('Store deleted successfully')
-      
-    }).catch((err)=> {
-      toast.error(err.message)
-    })
-  }
+    deleteStore({ store_id: store_id })
+      .then((res) => {
+        toast.success("Store deleted successfully");
+      })
+      .catch((err) => {
+        toast.error(err.message);
+      });
+  };
+
+  const userData = useRecoilValue(user)
 
   return (
     <div className=" vetCard mb-6">
@@ -37,8 +42,12 @@ export default function StoreCard({
             backgroundPosition: "center",
           }}
         >
-          {deleteIcon ? (
-            <i className="pi pi-trash text-white p-2 rounded-md mt-2 ml-2 cursor-pointer bg-slate-900" onClick={deleteStoreById}></i>
+          {userData?.id === fullData.user_id ? (
+            <WarningCard
+              message="Are you Sure you want to delete this store?"
+              header="Confirmation"
+              acceptFunction={deleteStoreById}
+            />
           ) : (
             ""
           )}
