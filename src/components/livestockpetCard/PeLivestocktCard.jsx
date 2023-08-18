@@ -2,6 +2,10 @@ import moment from "moment";
 import editIcon from "../../assets/account/edit-icon.svg";
 import deleteIcon from "../../assets/icons/delete-icon.svg";
 import expandIcon from "../../assets/icons/expand-icon.svg";
+import { useRecoilState } from "recoil";
+import { storeData } from "../../atom/storeAtom";
+import { actionState } from "../../atom/actionAtom";
+import { useNavigate } from "react-router-dom";
 
 export default function PeLivestocktCard({
   petImg,
@@ -11,8 +15,18 @@ export default function PeLivestocktCard({
   breed,
   sex,
   name,
-  petId
+  petId,
+  fullData
 }) {
+
+  const [petData, setPetData] = useRecoilState(storeData)
+  const [action, setAction] = useRecoilState(actionState)
+  const location = useNavigate()
+  const editPet = () => {
+    setPetData(fullData)
+    setAction('edit')
+    location('/add-pet')
+  }
   return (
     <>
       <div className="border rounded-lg p-5">
@@ -31,17 +45,18 @@ export default function PeLivestocktCard({
             <img
               src={editIcon}
               alt=""
-              className=" p-2 mb-2 h-[35px] w-[35px] bg-white rounded-full border-[1px] border-[#EBEBEB] shadow"
+              className=" p-2 mb-2 h-[35px] w-[35px] bg-white rounded-full border-[1px] border-[#EBEBEB]"
+              onClick={editPet}
             />
             <img
               src={deleteIcon}
               alt=""
-              className=" p-2 mb-2 h-[35px] w-[35px] bg-white rounded-full border-[1px] border-[#EBEBEB] shadow"
+              className=" p-2 mb-2 h-[35px] w-[35px] bg-white rounded-full border-[1px] border-[#EBEBEB] "
             />
             <img
               src={expandIcon}
               alt=""
-              className=" p-2 mb-2 h-[35px] w-[35px] bg-white rounded-full border-[1px] border-[#EBEBEB] shadow"
+              className=" p-2 mb-2 h-[35px] w-[35px] bg-white rounded-full border-[1px] border-[#EBEBEB] "
             />
           </div>
         </div>

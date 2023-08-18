@@ -4,12 +4,14 @@ import addIcon from "../../assets/icons/add-icon.svg";
 import PeLivestocktCard from "../../components/livestockpetCard/PeLivestocktCard";
 import { Link } from "react-router-dom";
 import { getFarm, getPet } from "../../utils/animalOwnerApiService";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { user } from "../../atom/userAtom";
 import FarmCard from "../../components/livestockpetCard/Farmcard";
+import { storeData } from "../../atom/storeAtom";
 
 export default function PetandLiveStock() {
   const userData = useRecoilValue(user);
+  const [store, setStore] = useRecoilState(storeData);
   const [loading, setLoading] = useState(true);
   const [tab, setTab] = useState("pets");
   const [allFarms, setAllFarms] = useState([]);
@@ -54,6 +56,7 @@ export default function PetandLiveStock() {
           <>
             <Link
               to="/add-pet"
+              onClick={()=> setStore('add')}
               className="border-[1px] hover:border-[#52CE06] cursor-pointer  flex items-center justify-between p-3 rounded-[18px] mt-10 mb-5"
             >
               <p className="font-bold px-2">Add New Pet</p>
@@ -70,6 +73,7 @@ export default function PetandLiveStock() {
                 date={res.date}
                 petId={res.pet_id}
                 name={res.pet_name}
+                fullData={res}
                 key={res.id}
               />
             ))}

@@ -1,5 +1,4 @@
 import editIcon from "../../assets/account/edit-icon.svg";
-import userIcon from "../../assets/account/user.png";
 import callIcon from "../../assets/icons/phone-icon.svg";
 import shareIcon from "../../assets/icons/share-icon.svg";
 import messageIcon from "../../assets/icons/message-icon.svg";
@@ -31,6 +30,8 @@ export default function Account() {
       });
     });
   };
+
+
 
   const setData = (data, type) => {
     const payload = [data, type];

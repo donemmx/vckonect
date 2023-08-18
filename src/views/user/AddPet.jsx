@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useFormik } from "formik";
 import { Dropdown } from "primereact/dropdown";
 import { InputText } from "primereact/inputtext";
@@ -6,11 +7,14 @@ import { Link } from "react-router-dom";
 import { addPet } from "../../utils/animalOwnerApiService";
 import { pet } from "../../validations/UserValidation";
 import { toast } from "react-toastify";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { user } from "../../atom/userAtom";
+import { actionState } from "../../atom/actionAtom";
+import { storeData } from "../../atom/storeAtom";
 
 export default function AddPet() {
   const userData = useRecoilValue(user);
+  const [petStore, setPetStore] = useRecoilState(storeData);
   const [specie, setSpecie] = useState(null);
   const [gender, setGender] = useState(null);
   const [file, setFile] = useState(null);
@@ -43,46 +47,77 @@ export default function AddPet() {
     };
   }, [file]);
 
+  const action = useRecoilValue(actionState);
   const onSubmit = async (values) => {
     const formData = new FormData();
-
     const { petName, breed, age } = values;
-    const payload = {
-      user_id: userData.id,
-      pet_name: petName,
-      specie: specie,
-      breed: breed,
-      sex: gender,
-      picture: file,
-      age: age,
-    };
+    let payload;
+    if (action && action === "edit") {
+      payload = {
+        user_id: petStore?.user_id,
+        pet_name: petName,
+        specie: specie,
+        breed: breed,
+        sex: gender,
+        picture: file ?? petStore?.picture,
+        pet_id: petStore?.pet_id,
+        age: age,
+      };
+    } else {
+      payload = {
+        user_id: userData.id,
+        pet_name: petName,
+        specie: specie,
+        breed: breed,
+        sex: gender,
+        picture: file,
+        age: age,
+      };
+    }
     Object.entries(payload).forEach(([key, value]) => {
       formData.append(key, value);
     });
-    await addPet(formData)
-      .then((res) => {
-        if (!res.code) {
-          window.history.back();
-          toast.success("Pet added successfully");
-        } else {
-          toast.error(res.detail);
-        }
-      })
-      .catch((err) => console.log(err));
+    console.log(payload);
+
+      await addPet(formData)
+        .then((res) => {
+          if (!res.code) {
+            window.history.back();
+            toast.success("Pet added successfully");
+            setPetStore(null)
+          } else {
+            toast.error(res.detail);
+          }
+        })
+        .catch((err) => console.log(err));
+  };
+
+  const initialValues = {
+    petName: "",
+    breed: "",
+    age: "",
+  };
+
+  const loadedData = {
+    petName: petStore?.pet_name,
+    breed: petStore?.breed,
+    age: petStore?.age,
   };
 
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
-      initialValues: {
-        petName: "",
-        breed: "",
-        age: "",
-      },
+      initialValues: loadedData || initialValues,
       validationSchema: pet,
       onSubmit,
     });
 
-
+  useEffect(() => {
+    if (action && action == "edit") {
+      setGender(petStore?.sex);
+      setSpecie(petStore?.specie);
+      //  setFile(petStore.picture)
+    }
+  }, []);
 
   const species = ["Dog", "Cat", "Pig", "Sheep"];
   const Genders = ["Male", "Female"];
