@@ -75,7 +75,7 @@ export default function ForumCard({
         onHide={() => setVisible(false)}
       >
         <div className="">
-          <span className="pt-3">
+          <form className="pt-3">
             <label htmlFor="username"></label>
             <textarea
               name="content"
@@ -86,7 +86,7 @@ export default function ForumCard({
               className="!border !border-gray-200 outline-none"
             ></textarea>
 
-          </span>
+          </form>
           <button className="green__btn mt-2"> <i className="pi pi-send"></i>Submit</button>
         </div>
       </Dialog>
