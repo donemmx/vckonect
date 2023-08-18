@@ -32,7 +32,7 @@ export default function PeLivestocktCard({
       <div className="border rounded-lg p-5">
         <div className="flex justify-between flex-wrap gap-2">
           <div className="pet flex items-center gap-4">
-            <img src={petImg} alt=""  className="h-14 w-14 rounded-full" />
+            <img src={petImg} alt=""  className="h-24 w-24 rounded-full" />
             <div className=" flex flex-col font-bold text-2xl">
               {name}
               <small className=" font-light text-sm">{petId}</small>
