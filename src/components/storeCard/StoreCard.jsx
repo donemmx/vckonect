@@ -42,7 +42,7 @@ export default function StoreCard({
             backgroundPosition: "center",
           }}
         >
-          {userData?.id === fullData.user_id ? (
+          {userData?.id === fullData?.user_id ? (
             <WarningCard
               message="Are you Sure you want to delete this store?"
               header="Confirmation"
