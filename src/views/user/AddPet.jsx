@@ -83,7 +83,13 @@ export default function AddPet() {
         .then((res) => {
           if (!res.code) {
             window.history.back();
-            toast.success("Pet added successfully");
+            if(action&& action === 'edit'){
+              toast.success("Pet details edited successfully");
+            }
+            else{
+              toast.success("Pet added successfully");
+
+            }
             setPetStore(null)
           } else {
             toast.error(res.detail);
