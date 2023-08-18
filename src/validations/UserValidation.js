@@ -49,7 +49,7 @@ const product = yup.object().shape({
     unit: yup.string().required("Required"),
 })
 
-const store = yup.object().shape({
+const storeValidation = yup.object().shape({
     phone: yup.string().required("Required"),
     storeName: yup.string().required("Required"),
     email: yup.string().email("Please enter a valid email").required("Required"),
@@ -116,7 +116,7 @@ export {
     loginUser,
     forumChat,
     product,
-    store,
+    storeValidation,
     farm,
     clinic,
     addCase,

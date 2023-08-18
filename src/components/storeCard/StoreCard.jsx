@@ -7,8 +7,12 @@ import openIcon from "../../assets/bg/card-next-bg.svg";
 import { deleteStore } from "../../utils/userApiService";
 import { toast } from "react-toastify";
 import WarningCard from "../warningCard/WarningCard";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { user } from "../../atom/userAtom";
+import { storeData } from "../../atom/storeAtom";
+import editIcon from "../../assets/account/edit-icon.svg";
+import { actionState } from "../../atom/actionAtom";
+import { useNavigate } from "react-router-dom";
 
 export default function StoreCard({
   availability,
@@ -17,9 +21,28 @@ export default function StoreCard({
   storeLocation,
   storePhone,
   store_id,
-  fullData
+  fullData,
 }) {
-  let deleteStoreById = () => {
+  const userData = useRecoilValue(user);
+  const [store, setStore] = useRecoilState(storeData);
+  const [action, setAction] = useRecoilState(actionState);
+  const location = useNavigate()
+
+  const editStore = () => {
+    setStore(fullData);
+    setAction("edit");
+    checker("add-store")
+  };
+
+  const checker = (route) => {
+    if (userData?.role === "Veternarian") {
+      location(`/vet-${route}`);
+    } else {
+      location(`/animal-owner-${route}`);
+    }
+  };
+
+  const deleteStoreById = () => {
     deleteStore({ store_id: store_id })
       .then((res) => {
         toast.success("Store deleted successfully");
@@ -29,7 +52,6 @@ export default function StoreCard({
       });
   };
 
-  const userData = useRecoilValue(user)
 
   return (
     <div className=" vetCard mb-6">
@@ -43,11 +65,19 @@ export default function StoreCard({
           }}
         >
           {userData?.id === fullData?.user_id ? (
-            <WarningCard
-              message="Are you Sure you want to delete this store?"
-              header="Confirmation"
-              acceptFunction={deleteStoreById}
-            />
+            <div className="flex items-center gap-4 p-3">
+              <img
+                src={editIcon}
+                alt=""
+                className=" p-2 mb-2 h-[35px] w-[35px] bg-white rounded-full border-[1px] cursor-pointer border-[#EBEBEB] hover:border-green-400 hover:bg-green-100 transition-all ease-in-out"
+                onClick={editStore}
+              />
+              <WarningCard
+                message="Are you Sure you want to delete this store?"
+                header="Confirmation"
+                acceptFunction={deleteStoreById}
+              />
+            </div>
           ) : (
             ""
           )}

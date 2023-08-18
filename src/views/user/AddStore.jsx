@@ -6,13 +6,18 @@ import { addStore } from "../../utils/userApiService";
 import { toast } from "react-toastify";
 import { useFormik } from "formik";
 import { v4 } from "uuid";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { user } from "../../atom/userAtom";
-import { store } from "../../validations/UserValidation";
+import { storeValidation } from "../../validations/UserValidation";
+import { actionState } from "../../atom/actionAtom";
+import { storeData } from "../../atom/storeAtom";
 
 export default function AddStore() {
   const userData = useRecoilValue(user);
-  
+  const action = useRecoilValue(actionState);
+  const [store, setStore] = useRecoilState(storeData);
+  const [picture, setPicture] = useState(null);
+
   const location = useNavigate();
 
   const [file, setFile] = useState(null);
@@ -60,16 +65,30 @@ export default function AddStore() {
     if (avialability) {
       available = 1;
     }
-    const payload = {
-      user_role: userData.role,
-      user_id: userData.id,
-      store_id: v4(),
-      availability: available,
-      picture: file,
-      ...others,
-      store_name: storeName,
-      phone_number: phone,
-    };
+    let payload;
+    if (action && action === "edit") {
+      payload = {
+        user_role: store?.user_role,
+        user_id: store?.user_id,
+        store_id: store?.store_id,
+        availability: available,
+        picture: file ?? store?.picture,
+        ...others,
+        store_name: storeName,
+        phone_number: phone,
+      };
+    } else {
+      payload = {
+        user_role: userData.role,
+        user_id: userData.id,
+        store_id: v4(),
+        availability: available,
+        picture: file,
+        ...others,
+        store_name: storeName,
+        phone_number: phone,
+      };
+    }
     Object.entries(payload).forEach(([key, value]) => {
       formData.append(key, value);
     });
@@ -79,24 +98,51 @@ export default function AddStore() {
         if (res.code) {
           toast.error(res.detail);
         } else {
-          toast.success("Store added successfully");
+          if (action && action === "edit") {
+            toast.success("Store details edited successfully");
+          } else {
+            toast.success("Store added successfully");
+          }
+
           window.history.back();
         }
       })
       .catch((err) => console.log(err));
   };
 
+  const initialValues = {
+    storeName: "",
+    email: "",
+    phone: "",
+    location: "",
+  };
+
+  const loadedData = {
+    storeName: store?.store_name,
+    email: store?.email,
+    phone: store?.phone_number,
+    location: store?.location,
+  };
+
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
-      initialValues: {
-        storeName: "",
-        email: "",
-        phone: "",
-        location: "",
-      },
-      validationSchema: store,
+      initialValues: action === "add" ? initialValues : loadedData,
+      validationSchema: storeValidation,
       onSubmit,
     });
+
+  useEffect(() => {
+    if (action && action == "edit") {
+      if(store?.availability == 1){
+        setAvailability(true);
+      }
+      else{
+        setAvailability(false);
+      }
+      setPicture(store?.picture);
+    }
+  }, []);
+
   return (
     <div className=" bg-white h-full pb-20 mb-10 rounded-md border-[1px] border-[#EBEBEB]">
       <button
@@ -178,15 +224,15 @@ export default function AddStore() {
                 onChange={() => setAvailability(!avialability)}
               />
             </div>
-            {fileDataURL !== null ? (
+            {fileDataURL !== null  || picture !== null ? (
               <>
                 <img
-                  src={fileDataURL}
+                   src={fileDataURL ?? picture}
                   className="h-[200px] w-full object-cover border-[1px] rounded-md"
                 />
                 <div
                   className="underline cursor-pointer"
-                  onClick={() => setFileDataURL(null)}
+                  onClick={() => {setFileDataURL(null), setPicture(null)}}
                 >
                   Remove Image
                 </div>
@@ -200,7 +246,9 @@ export default function AddStore() {
               />
             )}
 
-            <button type="submit" className="green__btn">Save</button>
+            <button type="submit" className="green__btn">
+              Save
+            </button>
           </div>
         </form>
       </div>

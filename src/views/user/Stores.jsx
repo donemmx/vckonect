@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import addIcon from "../../assets/icons/add-icon.svg";
 import StoreCard from "../../components/storeCard/StoreCard";
 import { useRecoilValue } from "recoil";
@@ -6,9 +7,11 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getStore } from "../../utils/userApiService";
 import Loading from "../../components/loading/Loading";
+import { reloadStore } from "../../atom/reloadAtom";
 
 export default function Stores() {
   const userData = useRecoilValue(user);
+  const reload = useRecoilValue(reloadStore);
   const location = useNavigate();
   const [loading, setLoading] = useState(true);
   const [allStores, SetAllStores] = useState([]);
@@ -21,11 +24,12 @@ export default function Stores() {
   };
 
   useEffect(() => {
-    getStore({ id: userData.id }).then((res) => {
+    getStore({ id: userData?.id }).then((res) => {
       SetAllStores(res);
       setLoading(false);
     });
-  }, []);
+  }, [reload]);
+  
   return (
     <div>
       <div className=" font-black text-2xl">Store</div>
