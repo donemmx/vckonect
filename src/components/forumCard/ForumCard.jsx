@@ -71,7 +71,7 @@ export default function ForumCard({
 
   const deleteFormData = () => {
     deleteForumChat(fullData).then(()=> {
-      toast.success('Post deleted successfully')
+      toast.success('Post')
     })
   }
 

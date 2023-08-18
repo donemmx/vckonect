@@ -30,7 +30,7 @@ export default function Forum() {
 
   useEffect(() => {
     getForumChat().then((res) => setForumData(res));
-  }, [userStore?.like, reload]);
+  }, [reload]);
 
   return (
     <div>
