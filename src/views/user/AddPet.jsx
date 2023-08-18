@@ -230,7 +230,7 @@ export default function AddPet() {
               />
             )}
 
-            <button className="green__btn">Save</button>
+            <button className="green__btn" disabled={errors}>Save</button>
           </form>
         </div>
       </div>

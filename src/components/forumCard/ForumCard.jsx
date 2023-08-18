@@ -3,7 +3,7 @@ import commentsIcon from "../../assets/icons/comments-icon.svg";
 import likeIcon from "../../assets/icons/like-icon.svg";
 import sendIcon from "../../assets/icons/send-icon.svg";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { likeForumChat, shareForumChat } from "../../utils/userApiService";
+import { deleteForumChat, likeForumChat, shareForumChat } from "../../utils/userApiService";
 import { user } from "../../atom/userAtom";
 import { reloadStore } from "../../atom/reloadAtom";
 import { storeData } from "../../atom/storeAtom";
@@ -11,6 +11,8 @@ import moment from "moment";
 import { InputTextarea } from "primereact/inputtextarea";
 import { useState } from "react";
 import { Dialog } from "primereact/dialog";
+import WarningCard from "../warningCard/WarningCard";
+import { toast } from "react-toastify";
 
 export default function ForumCard({
   userImg,
@@ -66,6 +68,12 @@ export default function ForumCard({
   const commentOpen = () => {
     setVisible(!visible);
   };
+
+  const deleteFormData = () => {
+    deleteForumChat(fullData).then(()=> {
+      toast.success('Post deleted successfully')
+    })
+  }
 
   return (
     <div className="">
@@ -159,6 +167,11 @@ export default function ForumCard({
               />
               {likes.length}
             </div>
+            <WarningCard 
+              message='Are you sure you want to delete this post?'
+              header='Confirmation'
+              acceptFunction={deleteFormData}
+            />
             {/* <div className="flex flex-col items-center justify-center">
             <img
               src={share}
