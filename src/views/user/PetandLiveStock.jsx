@@ -32,7 +32,7 @@ export default function PetandLiveStock() {
       setAllFarms(res);
       setLoading(false);
     });
-  }, [tab, reload]);
+  }, [reload, tab ]);
   return (
     <div className="lg:p-3">
       <div className="pets mt-5  mb-5 p-4 border bg-white rounded-lg">
@@ -90,20 +90,23 @@ export default function PetandLiveStock() {
               <p className="font-bold px-2">Add New Farm</p>
               <img src={addIcon} alt="" className="w-[40px]" />
             </Link>
-            {allFarms.map((res) => (
-              <FarmCard
-                petImg={res.picture}
-                name={res.farm_name}
-                location={res.location}
-                livestockNumber={res.no_of_livestock}
-                livestockType={res.livestock_type}
-                sex={res.sex}
-                age={res.age}
-                date={res.date}
-                farmId={res.farm_id}
-                key={res.id}
-              />
-            ))}
+            <div className="grid md:grid-cols-2 gap-2">
+              {allFarms.map((res) => (
+                <FarmCard
+                  petImg={res.picture}
+                  name={res.farm_name}
+                  location={res.location}
+                  livestockNumber={res.no_of_livestock}
+                  livestockType={res.livestock_type}
+                  sex={res.sex}
+                  age={res.age}
+                  date={res.date}
+                  farmId={res.farm_id}
+                  fullData={res}
+                  key={res.id}
+                />
+              ))}
+            </div>
           </>
         )}
       </div>

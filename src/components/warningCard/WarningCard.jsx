@@ -13,10 +13,10 @@ export default function WarningCard({ message, header, acceptFunction }) {
   };
 
   const accept = () => {
-    acceptFunction()
-    openModal()
-    setReload(!reload)
-  }
+    acceptFunction();
+    openModal();
+    setReload(!reload);
+  };
   return (
     <div>
       <Dialog

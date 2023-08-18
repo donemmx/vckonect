@@ -20,11 +20,11 @@ export default function PeLivestocktCard({
   fullData
 }) {
 
-  const [petData, setPetData] = useRecoilState(storeData)
+  const [store, setStore] = useRecoilState(storeData)
   const [action, setAction] = useRecoilState(actionState)
   const location = useNavigate()
   const editPet = () => {
-    setPetData(fullData)
+    setStore(fullData)
     setAction('edit')
     location('/add-pet')
   }

@@ -2,6 +2,13 @@ import moment from "moment";
 import editIcon from "../../assets/account/edit-icon.svg";
 import deleteIcon from "../../assets/icons/delete-icon.svg";
 import expandIcon from "../../assets/icons/expand-icon.svg";
+import { useRecoilState } from "recoil";
+import { storeData } from "../../atom/storeAtom";
+import { actionState } from "../../atom/actionAtom";
+import { toast } from "react-toastify";
+import WarningCard from "../warningCard/WarningCard";
+import { deleteFarm } from "../../utils/animalOwnerApiService";
+import { useNavigate } from "react-router-dom";
 
 export default function FarmCard({
   petImg,
@@ -12,15 +19,32 @@ export default function FarmCard({
   sex,
   name,
   farmId,
-  date
+  date,
+  fullData
 }) {
+  const [store, setStore] = useRecoilState(storeData)
+  const [action, setAction] = useRecoilState(actionState)
+  const navigate = useNavigate()
+  const editFarm = () => {
+    setStore(fullData)
+    setAction('edit')
+    navigate('/add-farm')
+  }
+
+  const deleteFarmData = () => {
+    deleteFarm(fullData).then(()=> {
+      toast.success('Farm deleted successfully')
+    }).catch((err)=> toast.error(err.detail))
+  }
+
+
   return (
     <>
       <div className="border rounded-lg p-5">
         <div className="flex justify-between flex-wrap gap-2">
           <div className="pet flex items-center gap-4">
-            <img  src={petImg} alt="" className="h-14 w-14 rounded-full" />
-            <div className=" flex flex-col font-bold text-xl">
+          <img src={petImg} alt=""  className="h-24 w-24 rounded-full" />
+          <div className=" flex flex-col font-bold text-2xl">
               {name}
               <small className=" font-light text-sm">{farmId}</small>
             </div>
@@ -32,18 +56,19 @@ export default function FarmCard({
             <img
               src={editIcon}
               alt=""
-              className=" p-2 mb-2 h-[35px] w-[35px] bg-white rounded-full border-[1px] border-[#EBEBEB] shadow"
+              className=" p-2 mb-2 h-[35px] w-[35px] bg-white rounded-full border-[1px] cursor-pointer border-[#EBEBEB] hover:border-green-400 hover:bg-green-100 transition-all ease-in-out"
+              onClick={editFarm}
             />
-            <img
-              src={deleteIcon}
-              alt=""
-              className=" p-2 mb-2 h-[35px] w-[35px] bg-white rounded-full border-[1px] border-[#EBEBEB] shadow"
+            <WarningCard 
+            message={`Are you sure you want to delete ${name}?`}
+            header='Confirmation'
+            acceptFunction={deleteFarmData}
             />
-            <img
+            {/* <img
               src={expandIcon}
               alt=""
               className=" p-2 mb-2 h-[35px] w-[35px] bg-white rounded-full border-[1px] border-[#EBEBEB] shadow"
-            />
+            /> */}
           </div>
         </div>
         <div className="py-4">

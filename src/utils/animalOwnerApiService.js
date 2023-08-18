@@ -12,6 +12,14 @@ const addFarm = (payload) => {
     .then((res) => res.data)
     .catch((err) => console.log(err));
 };
+const deleteFarm = (payload) => {
+  return axios
+    .post(
+      `${baseURl}/deleteFarm`, payload
+    )
+    .then((res) => res.data)
+    .catch((err) => console.log(err));
+};
 
 const getFarm = (payload) => {
   // const { userId, id } = payload;
@@ -109,6 +117,7 @@ const registerAnimalOwner3 = (payload) => {
 
 export  {
   addFarm,
+  deleteFarm,
   getOneFarm,
   getFarm,
   getPet,

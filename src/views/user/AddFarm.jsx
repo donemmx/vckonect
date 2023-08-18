@@ -5,16 +5,21 @@ import { Link } from "react-router-dom";
 import { addFarm } from "../../utils/animalOwnerApiService";
 import { toast } from "react-toastify";
 import { useFormik } from "formik";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { user } from "../../atom/userAtom";
 import { v4 } from "uuid";
 import { farm } from "../../validations/UserValidation";
+import { storeData } from "../../atom/storeAtom";
+import { actionState } from "../../atom/actionAtom";
 
 export default function AddFarm() {
   const userData = useRecoilValue(user);
   const [file, setFile] = useState(null);
   const [gender, setGender] = useState(null);
   const [livestock, setLivestock] = useState(null);
+  const [store, setStore] = useRecoilState(storeData);
+  const action = useRecoilValue(actionState);
+  const [picture, setPicture] = useState(null)
 
   const [fileDataURL, setFileDataURL] = useState(null);
 
@@ -56,8 +61,22 @@ export default function AddFarm() {
   const onSubmit = async (values) => {
     const formData = new FormData();
     const { farmName,workers, livestockNumber, ...others } = values;
-
-    const payload = {
+    let payload;
+    if (action && action === "edit") {
+     payload = {
+      user_id: store?.user_id,
+      farm_name: store?.farm_name,
+      picture:  file ?? store?.picture,
+      no_of_worker: workers,
+      sex: gender,
+      farm_id: store?.farm_id,
+      livestock_type:store?.livestock_type,
+      no_of_livestock: store?.no_of_livestock,
+      ...others,
+    };
+  }
+  else{
+    payload = {
       user_id: userData.id,
       farm_id: v4(),
       farm_name: farmName,
@@ -67,8 +86,8 @@ export default function AddFarm() {
       livestock_type:livestock,
       no_of_livestock: livestockNumber,
       ...others,
-      
     };
+  }
     console.log(payload);
     Object.entries(payload).forEach(([key, value]) => {
       formData.append(key, value);
@@ -87,20 +106,39 @@ export default function AddFarm() {
       .catch((err) => console.log(err));
   };
 
+  const initialValues =  {
+    farmName: "",
+    workers: "",
+    age: "",
+    location: "",
+    livestockNumber: ""
+  }
+
+  const loadedData = {
+    farmName: store?.farm_name,
+    workers: store?.no_of_worker,
+    age: store?.age,
+    location: store?.location,
+    livestockNumber: store?.no_of_livestock
+  };
+
 
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
-      initialValues: {
-        farmName: "",
-        workers: "",
-        age: "",
-        location: "",
-        livestockNumber: ""
-      },
+      initialValues: action === 'add' ?  initialValues : loadedData,
       validationSchema: farm,
       onSubmit,
     });
   const Genders = ["Male", "Female"];
+
+  useEffect(() => {
+    if (action && action == "edit") {
+      setGender(store?.sex);
+      setLivestock(store?.livestock_type);
+      setPicture(store?.picture)
+    }
+  }, []);
+
   return (
     <div className=" bg-white h-full pb-20 mb-10 rounded-md border-[1px] border-[#EBEBEB]">
       <Link
@@ -209,15 +247,15 @@ export default function AddFarm() {
             {errors.age && touched.age && (
               <p className="error">{errors.age}</p>
             )}
-            {fileDataURL !== null ? (
+            {fileDataURL !== null || picture !== null ? (
               <>
                 <img
-                  src={fileDataURL}
+                  src={fileDataURL ?? picture}
                   className="h-[200px] w-full object-cover border-[1px] rounded-md"
                 />
                 <div
                   className="underline cursor-pointer"
-                  onClick={() => setFileDataURL(null)}
+                  onClick={() => {setFileDataURL(null), setPicture(null)}}
                 >
                   Remove Image
                 </div>

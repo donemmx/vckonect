@@ -15,6 +15,7 @@ import { storeData } from "../../atom/storeAtom";
 export default function AddPet() {
   const userData = useRecoilValue(user);
   const [petStore, setPetStore] = useRecoilState(storeData);
+  const action = useRecoilValue(actionState);
   const [specie, setSpecie] = useState(null);
   const [gender, setGender] = useState(null);
   const [file, setFile] = useState(null);
@@ -47,7 +48,6 @@ export default function AddPet() {
     };
   }, [file]);
 
-  const action = useRecoilValue(actionState);
   const onSubmit = async (values) => {
     const formData = new FormData();
     const { petName, breed, age } = values;
