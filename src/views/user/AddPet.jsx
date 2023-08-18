@@ -121,7 +121,6 @@ export default function AddPet() {
     if (action && action == "edit") {
       setGender(petStore?.sex);
       setSpecie(petStore?.specie);
-      //  setFile(petStore.picture)
     }
   }, []);
 

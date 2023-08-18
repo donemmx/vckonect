@@ -45,19 +45,19 @@ export default function PeLivestocktCard({
             <img
               src={editIcon}
               alt=""
-              className=" p-2 mb-2 h-[35px] w-[35px] bg-white rounded-full border-[1px] border-[#EBEBEB]"
+              className=" p-2 mb-2 h-[35px] w-[35px] bg-white rounded-full border-[1px] cursor-pointer border-[#EBEBEB]"
               onClick={editPet}
             />
             <img
               src={deleteIcon}
               alt=""
-              className=" p-2 mb-2 h-[35px] w-[35px] bg-white rounded-full border-[1px] border-[#EBEBEB] "
+              className=" p-2 mb-2 h-[35px] w-[35px] bg-white rounded-full border-[1px] cursor-pointer border-[#EBEBEB] "
             />
-            <img
+            {/* <img
               src={expandIcon}
               alt=""
               className=" p-2 mb-2 h-[35px] w-[35px] bg-white rounded-full border-[1px] border-[#EBEBEB] "
-            />
+            /> */}
           </div>
         </div>
         <div className="py-4">
