@@ -33,6 +33,8 @@ const updateUser = yup.object().shape({
     lastName: yup.string().required("Required"),
     phone_number: yup.string().required("Required"),
     address: yup.string().required("Required"),
+    password: yup.string().min(5).max(25).matches(passwordRule, {message: "Please create a stronger password"}),
+    confirmPassword: yup.string().oneOf([yup.ref('password'), null], "Passwords must match")
 })
 
 
