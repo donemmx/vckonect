@@ -122,6 +122,7 @@ export default function Forum() {
           <ForumCard
             user={userIcon}
             name={res.user_name}
+            userImg={res.user_picture}
             position={res.user_role}
             content={res.content}
             forumImg={res.picture}

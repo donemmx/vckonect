@@ -187,7 +187,7 @@ export default function ForumCard({
           <div className="border rounded-lg p-5 my-4">
             <div className=" flex justify-between flex-wrap gap-2">
               <div className="flex items-center gap-4">
-                <img src={userImg} alt="" className="h-[50px]" />
+                <img src={userImg} alt="" className="h-[50px] w-[50px] object-cover rounded-full" />
                 <div className=" flex flex-col font-bold text-md">
                   {name}
                   <small className=" font-light text-sm">{position}</small>
@@ -278,7 +278,7 @@ export default function ForumCard({
             </div>
             <div className=" flex justify-between flex-wrap gap-2">
               <div className="flex items-center gap-4">
-                <img src={userImg} alt="" className="h-[50px]" />
+              <img src={userImg} alt="" className="h-[50px] w-[50px] object-cover rounded-full" />
                 <div className=" flex flex-col font-bold text-md">
                   {name}
                   <small className=" font-light text-sm">{position}</small>
