@@ -99,7 +99,6 @@ export default function ForumCard({
     }
   };
 
-
   return (
     <div className="">
       <Dialog
@@ -126,17 +125,208 @@ export default function ForumCard({
         </div>
       </Dialog>
 
-      {fullData.type === "shared" ? (
+      {fullData.status === "Approved" ? (
         <>
-          <div className="p-5 my-4">
-            <img src={fullData.user_picture} alt="" className="h-[50px]" />
-            <div className=" flex flex-col text-green-700 font-bold text-md">
-              {fullData.user_name}
-              <small className=" font-light text-[12px] italic">
-                {fullData.user_role}
-              </small>
-              <div className="font-light text-black">
-                {fullData.shared_comment}
+          {fullData.type === "shared" ? (
+            <>
+              <div className="p-5 my-4">
+                <img src={fullData.user_picture} alt="" className="h-[50px]" />
+                <div className=" flex flex-col text-green-700 font-bold text-md">
+                  {fullData.user_name}
+                  <small className=" font-light text-[12px] italic">
+                    {fullData.user_role}
+                  </small>
+                  <div className="font-light text-black">
+                    {fullData.shared_comment}
+                  </div>
+                </div>
+              </div>
+            </>
+          ) : (
+            ""
+          )}
+          <div className="border rounded-lg p-5 my-4">
+            <div className=" flex justify-between flex-wrap gap-2">
+              <div className="flex items-center gap-4">
+                <img src={userImg} alt="" className="h-[50px]" />
+                <div className=" flex flex-col font-bold text-md">
+                  {name}
+                  <small className=" font-light text-sm">{position}</small>
+                </div>
+              </div>
+              <div className="flex items-center gap-2 w-fit ml-auto">
+                <div className="text-[11px] bg-gray-100 flex items-center justify-center mr-auto lg:ml-auto w-[90px] p-2 border rounded-full">
+                  {moment(date).fromNow()}
+                </div>
+              </div>
+            </div>
+            {forumImg.length > 64 ? (
+              <div className=" h-[240px]">
+                <img
+                  src={forumImg}
+                  alt=""
+                  className=" object-cover w-full my-4 h-full"
+                />
+              </div>
+            ) : (
+              ""
+            )}
+            <div className="title font-bold text-lg pt-2">{title}</div>
+            <div className=" font-thin">{content}</div>
+            <div className="">
+              <div className=" text-[.82rem] flex items-center flex-wrap gap-7 justify-end mt-2">
+                {userData.id === fullData.user_id ? (
+                  <img
+                    src={editIcon}
+                    alt=""
+                    className=" p-2 mb-2 h-[35px] w-[35px] bg-white rounded-full border-[1px] cursor-pointer border-[#EBEBEB] hover:border-green-400 hover:bg-green-100 transition-all ease-in-out"
+                    onClick={editForum}
+                  />
+                ) : (
+                  ""
+                )}
+                <div
+                  className="flex gap-3 items-center justify-center cursor-pointer "
+                  onClick={commentOpen}
+                >
+                  <img
+                    src={commentsIcon}
+                    alt=""
+                    className=" p-2 mb-2 h-[35px] w-[35px] bg-white rounded-full border-[1px] border-[#EBEBEB] hover:border-green-400 hover:bg-green-100 transition-all ease-in-out"
+                  />
+                  {comments.length}
+                </div>
+                <div className="flex gap-3 items-center justify-center cursor-pointer">
+                  <img
+                    src={likeIcon}
+                    onClick={likeForum}
+                    alt=""
+                    className=" p-2 mb-2 h-[35px] w-[35px] bg-white rounded-full border-[1px] border-[#EBEBEB] 
+                hover:border-green-400 hover:bg-green-100 transition-all ease-in-out"
+                  />
+                  {likes.length}
+                </div>
+                <WarningCard
+                  message="Are you sure you want to delete this post?"
+                  header="Confirmation"
+                  acceptFunction={deleteFormData}
+                />
+                {/* <div className="flex flex-col items-center justify-center">
+            <img
+              src={share}
+              alt=""
+              className=" p-2 mb-2 h-[35px] w-[35px] bg-white rounded-full border-[1px] border-[#EBEBEB] shadow"
+            />
+          </div> */}
+                <div
+                  className="flex flex-col items-center justify-center cursor-pointer"
+                  onClick={shareForum}
+                >
+                  <img src={sendIcon} alt="" className=" p-2  mb-2  " />
+                </div>
+              </div>
+            </div>
+          </div>
+        </>
+      ) : fullData.user_id === userData.id && fullData.status === 'Not Approved' ? (
+        <>
+          {fullData.type === "shared" ? (
+            <>
+              <div className="p-5 my-4">
+                <img src={fullData.user_picture} alt="" className="h-[50px]" />
+                <div className=" flex flex-col text-green-700 font-bold text-md">
+                  {fullData.user_name}
+                  <small className=" font-light text-[12px] italic">
+                    {fullData.user_role}
+                  </small>
+                  <div className="font-light text-black">
+                    {fullData.shared_comment}
+                  </div>
+                </div>
+              </div>
+            </>
+          ) : (
+            ""
+          )}
+          <div className="border rounded-lg p-5 my-4">
+            <div className=" flex justify-between flex-wrap gap-2">
+              <div className="flex items-center gap-4">
+                <img src={userImg} alt="" className="h-[50px]" />
+                <div className=" flex flex-col font-bold text-md">
+                  {name}
+                  <small className=" font-light text-sm">{position}</small>
+                </div>
+              </div>
+              <div className="flex items-center gap-2 w-fit ml-auto">
+                <div className="text-[11px] bg-gray-100 flex items-center justify-center mr-auto lg:ml-auto w-[90px] p-2 border rounded-full">
+                  {moment(date).fromNow()}
+                </div>
+              </div>
+            </div>
+            {forumImg.length > 64 ? (
+              <div className=" h-[240px]">
+                <img
+                  src={forumImg}
+                  alt=""
+                  className=" object-cover w-full my-4 h-full"
+                />
+              </div>
+            ) : (
+              ""
+            )}
+            <div className="title font-bold text-lg pt-2">{title}</div>
+            <div className=" font-thin">{content}</div>
+            <div className="">
+              <div className=" text-[.82rem] flex items-center flex-wrap gap-7 justify-end mt-2">
+                {userData.id === fullData.user_id ? (
+                  <img
+                    src={editIcon}
+                    alt=""
+                    className=" p-2 mb-2 h-[35px] w-[35px] bg-white rounded-full border-[1px] cursor-pointer border-[#EBEBEB] hover:border-green-400 hover:bg-green-100 transition-all ease-in-out"
+                    onClick={editForum}
+                  />
+                ) : (
+                  ""
+                )}
+                <div
+                  className="flex gap-3 items-center justify-center cursor-pointer "
+                  onClick={commentOpen}
+                >
+                  <img
+                    src={commentsIcon}
+                    alt=""
+                    className=" p-2 mb-2 h-[35px] w-[35px] bg-white rounded-full border-[1px] border-[#EBEBEB] hover:border-green-400 hover:bg-green-100 transition-all ease-in-out"
+                  />
+                  {comments.length}
+                </div>
+                <div className="flex gap-3 items-center justify-center cursor-pointer">
+                  <img
+                    src={likeIcon}
+                    onClick={likeForum}
+                    alt=""
+                    className=" p-2 mb-2 h-[35px] w-[35px] bg-white rounded-full border-[1px] border-[#EBEBEB] 
+              hover:border-green-400 hover:bg-green-100 transition-all ease-in-out"
+                  />
+                  {likes.length}
+                </div>
+                <WarningCard
+                  message="Are you sure you want to delete this post?"
+                  header="Confirmation"
+                  acceptFunction={deleteFormData}
+                />
+                {/* <div className="flex flex-col items-center justify-center">
+          <img
+            src={share}
+            alt=""
+            className=" p-2 mb-2 h-[35px] w-[35px] bg-white rounded-full border-[1px] border-[#EBEBEB] shadow"
+          />
+        </div> */}
+                <div
+                  className="flex flex-col items-center justify-center cursor-pointer"
+                  onClick={shareForum}
+                >
+                  <img src={sendIcon} alt="" className=" p-2  mb-2  " />
+                </div>
               </div>
             </div>
           </div>
@@ -144,84 +334,6 @@ export default function ForumCard({
       ) : (
         ""
       )}
-      <div className="border rounded-lg p-5 my-4">
-        <div className=" flex justify-between flex-wrap gap-2">
-          <div className="flex items-center gap-4">
-            <img src={userImg} alt="" className="h-[50px]" />
-            <div className=" flex flex-col font-bold text-md">
-              {name}
-              <small className=" font-light text-sm">{position}</small>
-            </div>
-          </div>
-          <div className="flex items-center gap-2 w-fit ml-auto">
-            <div className="text-[11px] bg-gray-100 flex items-center justify-center mr-auto lg:ml-auto w-[90px] p-2 border rounded-full">
-              {moment(date).fromNow()}
-            </div>
-          </div>
-        </div>
-        {forumImg.length > 64 ? (
-          <div className=" h-[240px]">
-            <img
-              src={forumImg}
-              alt=""
-              className=" object-cover w-full my-4 h-full"
-            />
-          </div>
-        ) : (
-          ""
-        )}
-        <div className="title font-bold text-lg pt-2">{title}</div>
-        <div className=" font-thin">{content}</div>
-        <div className="">
-          <div className=" text-[.82rem] flex items-center flex-wrap gap-7 justify-end mt-2">
-           {userData.id === fullData.user_id ? <img
-              src={editIcon}
-              alt=""
-              className=" p-2 mb-2 h-[35px] w-[35px] bg-white rounded-full border-[1px] cursor-pointer border-[#EBEBEB] hover:border-green-400 hover:bg-green-100 transition-all ease-in-out"
-              onClick={editForum}
-            /> : ''}
-            <div
-              className="flex gap-3 items-center justify-center cursor-pointer "
-              onClick={commentOpen}
-            >
-              <img
-                src={commentsIcon}
-                alt=""
-                className=" p-2 mb-2 h-[35px] w-[35px] bg-white rounded-full border-[1px] border-[#EBEBEB] hover:border-green-400 hover:bg-green-100 transition-all ease-in-out"
-              />
-              {comments.length}
-            </div>
-            <div className="flex gap-3 items-center justify-center cursor-pointer">
-              <img
-                src={likeIcon}
-                onClick={likeForum}
-                alt=""
-                className=" p-2 mb-2 h-[35px] w-[35px] bg-white rounded-full border-[1px] border-[#EBEBEB] 
-                hover:border-green-400 hover:bg-green-100 transition-all ease-in-out"
-              />
-              {likes.length}
-            </div>
-            <WarningCard
-              message="Are you sure you want to delete this post?"
-              header="Confirmation"
-              acceptFunction={deleteFormData}
-            />
-            {/* <div className="flex flex-col items-center justify-center">
-            <img
-              src={share}
-              alt=""
-              className=" p-2 mb-2 h-[35px] w-[35px] bg-white rounded-full border-[1px] border-[#EBEBEB] shadow"
-            />
-          </div> */}
-            <div
-              className="flex flex-col items-center justify-center cursor-pointer"
-              onClick={shareForum}
-            >
-              <img src={sendIcon} alt="" className=" p-2  mb-2  " />
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   );
 }
