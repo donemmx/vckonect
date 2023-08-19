@@ -133,7 +133,7 @@ export default function Sidebar() {
           </div>
         </div>
       </div>
-      <div className="fixed w-full bg-white h-[10vh] px-5  flex items-center justify-between p-3  ">
+      <div className="lg:hidden fixed w-full bg-white h-[10vh] px-5  flex items-center justify-between p-3  ">
         <img src={logoShort} alt="" className="h-[23px]" />
         <div
           className="grouped__icons flex space-x-2 bg-white border p-1 border-gray-300 h-[40px] md:h-[45px] lg:h-[50px] cursor-pointer rounded-[16px]"
@@ -153,10 +153,11 @@ export default function Sidebar() {
         {open ? (
           <>
             <div className="fixed w-full left-0 top-0 h-[100vh]  z-[1000] lg:flex items-center pl-5 justify-center shadow-2xl shadow-slate-100  bg-white ">
-              <div className="flex flex-col bg-white items-center mt-[12vh] h-[80%] w-[90%] gap-3">
+              <div className="flex flex-col bg-white items-center mt-[12vh] h-[80%] w-[90%] md:w-[63%] md:mx-auto gap-3">
+                <div className=" left-5 md:left-44 absolute top-[3%] w-[90%] md:w-[63%] flex items-center justify-between">
                 <div
                   to="/admin-dashboard"
-                  className="logo h-[24px] left-5 absolute top-[3%] "
+                  className="logo h-[24px] "
                   onClick={openModal}
                 >
                   <img
@@ -165,7 +166,10 @@ export default function Sidebar() {
                     className=" w-[100%] h-[100%] object-contain"
                   />
                 </div>
-
+                <div className=""   onClick={openModal}>
+                  <i className="pi pi-times p-5 cursor-pointer shadow-xl border rounded-full"></i>
+                </div>
+                </div>
                 <NavLink
                   onClick={openModal}
                   to="/admin-dashboard"
@@ -245,7 +249,7 @@ export default function Sidebar() {
                     Logout
                   </small>
                 </div>
-                <div className="absolute flex items-center gap-3 bottom-10 left-5">
+                <div className="absolute flex items-center gap-3 bottom-10 left-5 md:left-44">
                   <div className="   h-[45px] w-[45px]">
                     <img
                       src={userData?.profile_picture}
