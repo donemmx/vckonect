@@ -23,10 +23,11 @@ import { LoginSocialGoogle, LoginSocialLinkedin } from "reactjs-social-login";
 export default function Login() {
   const location = useNavigate();
   const [data, setData] = useRecoilState(user);
-  const googleClientId = '905736705694-be5othcfreqgko6km4qce2sci8od92ki.apps.googleusercontent.com'
-  const linkedinClientId = '77c5cdjvez8wof'
-  const linkedinSecretId = 'jM6eGS3zA6HgKbKN'
-  const state='1234567890'
+  const googleClientId =
+    "905736705694-be5othcfreqgko6km4qce2sci8od92ki.apps.googleusercontent.com";
+  const linkedinClientId = "77c5cdjvez8wof";
+  const linkedinSecretId = "jM6eGS3zA6HgKbKN";
+  const state = "1234567890";
   const onSubmit = async (values) => {
     const payload = {
       ...values,
@@ -46,11 +47,12 @@ export default function Login() {
           // }
           // else{
           toast.success("Successfully logged in");
-          getUserById({id: res.id, role: res.role}).then((fullData)=> {
+          getUserById({ id: res.id, role: res.role }).then((fullData) => {
             setData({
-             ...fullData, ...res
-            })
-        })
+              ...fullData,
+              ...res,
+            });
+          });
           setData(res);
           // }
         } else {
@@ -60,17 +62,24 @@ export default function Login() {
       .catch((err) => console.log(err));
   };
 
-
-
-  const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
-    useFormik({
-      initialValues: {
-        email: "",
-        password: "",
-      },
-      validationSchema: loginUser,
-      onSubmit,
-    });
+  const {
+    values,
+    errors,
+    isValid,
+    isSubmitting,
+    touched,
+    handleBlur,
+    handleChange,
+    handleSubmit,
+  } = useFormik({
+    validateOnMount: true,
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    validationSchema: loginUser,
+    onSubmit,
+  });
   return (
     <div className="login flex justify-center items-center h-[100vh] lg:h-[120vh]">
       <div className=" w-[80%] lg:w-[30%] md:w-[50%]">
@@ -112,7 +121,14 @@ export default function Login() {
           >
             Forgot your password?
           </Link>
-          <button className="green__btn">Login</button>
+          <button className="green__btn" disabled={!isValid || isSubmitting}>
+            {isSubmitting ? (
+              <i className="pi pi-spin pi-spinner !text-[20px]"></i>
+            ) : (
+              ""
+            )}
+            Login
+          </button>
         </form>
         <div className=" flex items-center justify-center mt-5 gap-4">
           {/* <button onClick={linkedinLogin} className=" bg-none border-none">
@@ -129,22 +145,22 @@ export default function Login() {
               className="h-[35px] w-[35px] object-contain cursor-pointer"
             />
           </button> */}
-            <LoginSocialLinkedin
+          <LoginSocialLinkedin
             isOnlyGetToken
             client_id={linkedinClientId}
             state="1234567890"
             client_secret={linkedinSecretId}
-            redirect_uri='https://vetkonect.com/backend/public/api/linkedin/callback'
+            redirect_uri="https://vetkonect.com/backend/public/api/linkedin/callback"
             onResolve={({ data }) => {
-              linkedInCallback().then((res)=> {
+              linkedInCallback().then((res) => {
                 console.log(data);
-              })
+              });
             }}
             onReject={(err) => {
-              console.log(err)
+              console.log(err);
             }}
           >
-              <img
+            <img
               src={linkedIn}
               alt=""
               className="h-[35px] w-[35px] object-contain cursor-pointer"
@@ -153,16 +169,17 @@ export default function Login() {
           <LoginSocialGoogle
             isOnlyGetToken
             client_id={googleClientId}
-            redirect_uri={'https://vetkonect.com/backend/public/api/google/callback/'}
+            redirect_uri={
+              "https://vetkonect.com/backend/public/api/google/callback/"
+            }
             onResolve={({ data }) => {
               // setData(data)
-              googleCallback(data.access_token).then((res)=> {
+              googleCallback(data.access_token).then((res) => {
                 console.log(res);
-              })
-
+              });
             }}
             onReject={(err) => {
-              console.log(err)
+              console.log(err);
             }}
           >
             <img
@@ -171,7 +188,6 @@ export default function Login() {
               className="h-[35px] w-[35px] object-contain cursor-pointer"
             />
           </LoginSocialGoogle>
-        
         </div>
         <img src={or} alt="" className=" w-full object-cover" />
         <Link to="/signup" className="secondary__btn mt-[-30px]">
