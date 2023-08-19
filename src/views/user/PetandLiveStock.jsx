@@ -65,7 +65,7 @@ export default function PetandLiveStock() {
               <p className="font-bold px-2">Add New Pet</p>
               <img src={addIcon} alt="" className="w-[40px]" />
             </Link>
-            <div className=" flex flex-wrap gap-4 w-full mb-10">
+            <div className=" grid md:grid-cols-2 gap-4 w-full mb-10">
               {loading
                 ? [1, 2].map((data) => (
                     <div className="flex w-full mt-10" key={data}>
