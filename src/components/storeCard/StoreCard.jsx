@@ -84,7 +84,7 @@ export default function StoreCard({
           ) : (
             ""
           )}
-          <div className="availbility !top-5" >
+          <div className="availbility !top-4" >
             {availability === "1" ? (
               <div className=" flex items-center gap-2 text-[.8rem]">
                 <div className="available "></div>
