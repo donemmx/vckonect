@@ -1,6 +1,6 @@
+/* eslint-disable no-unused-vars */
 import editIcon from "../../assets/account/edit-icon.svg";
 import callIcon from "../../assets/icons/phone-icon.svg";
-import shareIcon from "../../assets/icons/share-icon.svg";
 import messageIcon from "../../assets/icons/message-icon.svg";
 import markerIcon from "../../assets/icons/location-icon.svg";
 import handIcon from "../../assets/account/hand-icon.svg";

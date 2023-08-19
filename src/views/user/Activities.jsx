@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useRecoilValue } from "recoil";
 import DashboardCard from "../../components/dashboardCard/DashboardCard";
 import { user } from "../../atom/userAtom";

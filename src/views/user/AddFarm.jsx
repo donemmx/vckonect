@@ -100,6 +100,7 @@ export default function AddFarm() {
           toast.error(res.detail);
         } else {
           toast.success("Farm added successfully");
+          setStore(null)
           window.history.back();
         }
       })

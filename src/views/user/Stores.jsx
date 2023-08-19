@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import addIcon from "../../assets/icons/add-icon.svg";
 import StoreCard from "../../components/storeCard/StoreCard";
