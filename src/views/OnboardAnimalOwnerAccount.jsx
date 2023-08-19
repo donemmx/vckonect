@@ -38,8 +38,9 @@ export default function OnboardAnimalOwnerAccount() {
   
   };
 
-  const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
+  const { values, errors, isValid, isSubmitting, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
+      validateOnMount: true,
       initialValues: {
         email: "",
         password: "",
@@ -120,7 +121,9 @@ export default function OnboardAnimalOwnerAccount() {
           {errors.confirmPassword && touched.confirmPassword && (
             <p className="error">{errors.confirmPassword}</p>
           )}
-          <button className="green__btn">Proceed</button>
+          <button className="green__btn" disabled={!isValid || isSubmitting}>
+              {isSubmitting?  <i className="pi pi-spin pi-spinner !text-[20px]"></i> : ''}
+              Proceed</button>
           <div className=" flex items-center justify-center gap-4">
             <img
               src={linkedIn}
