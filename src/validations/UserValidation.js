@@ -29,7 +29,6 @@ const vetUser = yup.object().shape({
 })
 
 const updateUser = yup.object().shape({
-    email: yup.string().required("Required"),
     firstName: yup.string().required("Required"),
     lastName: yup.string().required("Required"),
     phone_number: yup.string().required("Required"),

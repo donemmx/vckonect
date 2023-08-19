@@ -1,4 +1,3 @@
-import { MultiSelect } from "primereact/multiselect";
 import { InputText } from "primereact/inputtext";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -53,9 +52,8 @@ export default function AccountDetails() {
 
   const onSubmit = async (values) => {
     const formData = new FormData();
-    const { address, firstName, lastName, phone_number, email } = values;
+    const { address, firstName, lastName, phone_number } = values;
     let payload = {
-      email: email,
       phone_number: phone_number,
       first_name: firstName,
       last_name: lastName,
@@ -91,7 +89,6 @@ export default function AccountDetails() {
 
   const initialValue = {
     firstName: userData.first_name,
-    email: userData.email,
     lastName: userData.last_name,
     phone_number: userData.phone_number,
     address: userData.address,
@@ -139,19 +136,6 @@ export default function AccountDetails() {
             onSubmit={handleSubmit}
             className="form flex flex-col gap-3 pt-6"
           >
-            <span className="p-float-label">
-              <InputText
-                id="username"
-                name="email"
-                value={values.email}
-                onChange={handleChange}
-                onBlur={handleBlur}
-              />
-              <label htmlFor="username">Email Address (Required)</label>
-            </span>
-            {errors.email && touched.email && (
-              <p className="error">{errors.email}</p>
-            )}
             <span className="p-float-label">
               <InputText
                 id="address"
