@@ -228,26 +228,8 @@ export default function ForumCard({
             </div>
           </div>
         </>
-      ) : fullData.user_id === userData.id && fullData.status === 'Not Approved' ? (
+      ) : fullData.user_id === userData.id && fullData.status === 'Not Approved' && fullData.type !== 'shared' ? (
         <>
-          {fullData.type === "shared" ? (
-            <>
-              <div className="p-5 my-4">
-                <img src={fullData.user_picture} alt="" className="h-[50px]" />
-                <div className=" flex flex-col text-green-700 font-bold text-md">
-                  {fullData.user_name}
-                  <small className=" font-light text-[12px] italic">
-                    {fullData.user_role}
-                  </small>
-                  <div className="font-light text-black">
-                    {fullData.shared_comment}
-                  </div>
-                </div>
-              </div>
-            </>
-          ) : (
-            ""
-          )}
           <div className="border rounded-lg p-5 my-4">
             <div className=" flex justify-between flex-wrap gap-2">
               <div className="flex items-center gap-4">
@@ -288,45 +270,18 @@ export default function ForumCard({
                 ) : (
                   ""
                 )}
-                <div
-                  className="flex gap-3 items-center justify-center cursor-pointer "
-                  onClick={commentOpen}
-                >
-                  <img
-                    src={commentsIcon}
-                    alt=""
-                    className=" p-2 mb-2 h-[35px] w-[35px] bg-white rounded-full border-[1px] border-[#EBEBEB] hover:border-green-400 hover:bg-green-100 transition-all ease-in-out"
-                  />
-                  {comments.length}
-                </div>
-                <div className="flex gap-3 items-center justify-center cursor-pointer">
-                  <img
-                    src={likeIcon}
-                    onClick={likeForum}
-                    alt=""
-                    className=" p-2 mb-2 h-[35px] w-[35px] bg-white rounded-full border-[1px] border-[#EBEBEB] 
-              hover:border-green-400 hover:bg-green-100 transition-all ease-in-out"
-                  />
-                  {likes.length}
-                </div>
+           
                 <WarningCard
                   message="Are you sure you want to delete this post?"
                   header="Confirmation"
                   acceptFunction={deleteFormData}
                 />
-                {/* <div className="flex flex-col items-center justify-center">
-          <img
-            src={share}
-            alt=""
-            className=" p-2 mb-2 h-[35px] w-[35px] bg-white rounded-full border-[1px] border-[#EBEBEB] shadow"
-          />
-        </div> */}
-                <div
+                {/* <div
                   className="flex flex-col items-center justify-center cursor-pointer"
                   onClick={shareForum}
                 >
                   <img src={sendIcon} alt="" className=" p-2  mb-2  " />
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
