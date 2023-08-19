@@ -70,7 +70,7 @@ export default function AddStore() {
       payload = {
         user_role: store?.user_role,
         user_id: store?.user_id,
-        store_id: store?.store_id,
+        store_id: store?.id,
         availability: available,
         picture: file ?? store?.picture,
         ...others,

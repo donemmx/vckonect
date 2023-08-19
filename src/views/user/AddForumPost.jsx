@@ -12,12 +12,12 @@ import { actionState } from "../../atom/actionAtom";
 
 export default function AddForumPost() {
   const [fileDataURL, setFileDataURL] = useState(null);
-  const store = useRecoilValue(storeData);
-  const action = useRecoilValue(actionState);
-
-  const userData = useRecoilValue(user);
   const [file, setFile] = useState(null);
   const [picture, setPicture] = useState(null)
+  const store = useRecoilValue(storeData);
+  const action = useRecoilValue(actionState);
+  const userData = useRecoilValue(user);
+
 
   const getImage = (e) => {
     const fileData = e.target.files[0];
@@ -65,13 +65,13 @@ export default function AddForumPost() {
         role: userData.role,
         id: userData.id,
         picture: file ?? store?.picture,
-        forum_id: store?.forum_id,
+        forum_id: store?.id,
         ...values,
       };
     } else {
       payload = {
-        role: store?.role,
-        id: store?.id,
+        role: userData?.role,
+        id: userData?.id,
         picture: file,
         ...values,
     }

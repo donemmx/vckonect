@@ -6,6 +6,7 @@ import editIcon from "../../assets/account/edit-icon.svg";
 import sendIcon from "../../assets/icons/send-icon.svg";
 import { useRecoilState, useRecoilValue } from "recoil";
 import {
+  commentForumChat,
   deleteForumChat,
   likeForumChat,
   shareForumChat,
@@ -38,7 +39,18 @@ export default function ForumCard({
   const userData = useRecoilValue(user);
   const [userStore, setUserStore] = useRecoilState(storeData);
   const [comment, setComment] = useState([]);
+  const [action, setAction] = useRecoilState(actionState);
   const [visible, setVisible] = useState(false);
+  const [type, setType] = useState(null);
+  const location = useNavigate();
+
+  const checker = (route) => {
+    if (userData?.role === "Veternarian") {
+      location(`/vet-${route}`);
+    } else {
+      location(`/animal-owner-${route}`);
+    }
+  };
 
   const likeForum = async () => {
     const payload = {
@@ -60,42 +72,61 @@ export default function ForumCard({
       user_role: userData.role,
       owner_user_id: user_id,
       owner_user_role: user_role,
-      comment: "i am different",
+      comment: comment,
       title: title,
       content: content,
       shared_chat_id: id,
       picture: picture,
     };
     shareForumChat(payload).then((res) => {
-      console.log(res);
+      toast.success('Post reshare successful')
     });
-
-    console.log(payload);
   };
 
-  const commentOpen = () => {
+  const commentForum = () => {
+    const payload = {
+      forum_chat_id: fullData.id,
+      user_id: userData.id,
+      user_role: userData.role,
+      comment: comment,
+    };
+    commentForumChat(payload)
+      .then(() => {
+        toast.success("Comment added successfully");
+      })
+      .catch((err) => toast.error(err.detail));
+  };
+
+  const commentOpen = (commentType) => {
+    setType(commentType);
     setVisible(!visible);
   };
 
   const deleteFormData = () => {
-    deleteForumChat(fullData).then(() => {
-      toast.success("Post");
-    });
+    const { id, ...others } = fullData;
+    const payload = {
+      forum_chat_id: id,
+      user_id: userData?.id,
+      user_role: userData?.role,
+    };
+    deleteForumChat(payload)
+      .then(() => {
+        toast.success("Post deleted successfully");
+      })
+      .catch((err) => toast.error(err.detail));
   };
 
-  const [action, setAction] = useRecoilState(actionState);
-  const location = useNavigate();
   const editForum = () => {
     setUserStore(fullData);
     setAction("edit");
     checker("add-to-forum");
   };
 
-  const checker = (route) => {
-    if (userData?.role === "Veternarian") {
-      location(`/vet-${route}`);
+  const postComment = () => {
+    if (type && type == "comment") {
+      commentForum();
     } else {
-      location(`/animal-owner-${route}`);
+      shareForum();
     }
   };
 
@@ -118,9 +149,13 @@ export default function ForumCard({
               className="!border !border-gray-200 outline-none"
             ></textarea>
           </form>
-          <button className="green__btn mt-2">
-            {" "}
-            <i className="pi pi-send"></i>Submit
+          <button
+            className="green__btn mt-2"
+            disabled={comment.length === 0}
+            onClick={postComment}
+          >
+            <i className="pi pi-send"></i>
+            {type === "comment" ? " Add Comment " : "Share Post"}
           </button>
         </div>
       </Dialog>
@@ -187,7 +222,7 @@ export default function ForumCard({
                 )}
                 <div
                   className="flex gap-3 items-center justify-center cursor-pointer "
-                  onClick={commentOpen}
+                  onClick={() => commentOpen("comment")}
                 >
                   <img
                     src={commentsIcon}
@@ -228,7 +263,9 @@ export default function ForumCard({
             </div>
           </div>
         </>
-      ) : fullData.user_id === userData.id && fullData.status === 'Not Approved' && fullData.type !== 'shared' ? (
+      ) : fullData.user_id === userData.id &&
+        fullData.status === "Not Approved" &&
+        fullData.type !== "shared" ? (
         <>
           <div className="border rounded-lg p-5 my-4">
             <div className=" flex justify-between flex-wrap gap-2">
@@ -270,18 +307,18 @@ export default function ForumCard({
                 ) : (
                   ""
                 )}
-           
+
                 <WarningCard
                   message="Are you sure you want to delete this post?"
                   header="Confirmation"
                   acceptFunction={deleteFormData}
                 />
-                {/* <div
+                <div
                   className="flex flex-col items-center justify-center cursor-pointer"
-                  onClick={shareForum}
+                  onClick={() => commentOpen("share")}
                 >
                   <img src={sendIcon} alt="" className=" p-2  mb-2  " />
-                </div> */}
+                </div>
               </div>
             </div>
           </div>
