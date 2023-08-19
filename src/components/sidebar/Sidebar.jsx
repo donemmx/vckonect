@@ -20,7 +20,7 @@ export default function Sidebar() {
     console.log(userData);
   }, []);
   return (
-    <div className="fixed flex items-center justify-center z-50 bg-white w-[17vw] l-0 top-0 h-[100vh]">
+    <div className="fixed flex items-center justify-center shadow-2xl shadow-slate-100 z-50 bg-white w-[17vw] l-0 top-0 h-[100vh]">
       <div className="flex flex-col items-center mt-[12vh] h-[80%] w-[70%] gap-2">
         <Link to="/" className="logo h-[28px] absolute top-[5%] ">
           <img
