@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
 import addIcon from "../../assets/icons/add-icon.svg";
 import userIcon from "../../assets/icons/user-1.png";
