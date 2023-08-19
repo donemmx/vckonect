@@ -100,6 +100,7 @@ export default function AddStore() {
         } else {
           if (action && action === "edit") {
             toast.success("Store details edited successfully");
+            setStore(null)
           } else {
             toast.success("Store added successfully");
           }
@@ -124,19 +125,27 @@ export default function AddStore() {
     location: store?.location,
   };
 
-  const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
-    useFormik({
-      initialValues: action === "add" ? initialValues : loadedData,
-      validationSchema: storeValidation,
-      onSubmit,
-    });
+  const {
+    values,
+    errors,
+    isValid,
+    isSubmitting,
+    touched,
+    handleBlur,
+    handleChange,
+    handleSubmit,
+  } = useFormik({
+    validateOnMount: true,
+    initialValues: action === "add" ? initialValues : loadedData,
+    validationSchema: storeValidation,
+    onSubmit,
+  });
 
   useEffect(() => {
     if (action && action == "edit") {
-      if(store?.availability == 1){
+      if (store?.availability == 1) {
         setAvailability(true);
-      }
-      else{
+      } else {
         setAvailability(false);
       }
       setPicture(store?.picture);
@@ -224,15 +233,17 @@ export default function AddStore() {
                 onChange={() => setAvailability(!avialability)}
               />
             </div>
-            {fileDataURL !== null  || picture !== null ? (
+            {fileDataURL !== null || picture !== null ? (
               <>
                 <img
-                   src={fileDataURL ?? picture}
+                  src={fileDataURL ?? picture}
                   className="h-[200px] w-full object-cover border-[1px] rounded-md"
                 />
                 <div
                   className="underline cursor-pointer"
-                  onClick={() => {setFileDataURL(null), setPicture(null)}}
+                  onClick={() => {
+                    setFileDataURL(null), setPicture(null);
+                  }}
                 >
                   Remove Image
                 </div>
@@ -246,7 +257,12 @@ export default function AddStore() {
               />
             )}
 
-            <button type="submit" className="green__btn">
+            <button className="green__btn" disabled={!isValid || isSubmitting}>
+              {isSubmitting ? (
+                <i className="pi pi-spin pi-spinner !text-[20px]"></i>
+              ) : (
+                ""
+              )}
               Save
             </button>
           </div>
