@@ -132,7 +132,6 @@ const getAdminActivity = (payload) => {
 
 
 const updateAdminProfile = (payload) => {
-  // const { id, email, firstName, lastName, phone, location, password, newPassword, picture } = payload;
   return axios
     .post(
       `${baseURl}/registerVeterinarian`, payload
@@ -142,7 +141,6 @@ const updateAdminProfile = (payload) => {
 };
 
 const adminLogin = (payload) => {
-  // const { id, password } = payload;
   return axios
     .post(
       `${baseURl}/adminLogin`, payload
@@ -152,7 +150,6 @@ const adminLogin = (payload) => {
 };
 
 const approveForumChat = (payload) => {
-  // const { forumChatId, role, userId } = payload;
   return axios
     .post(
       `${baseURl}/approveForumChat`, payload
@@ -162,7 +159,6 @@ const approveForumChat = (payload) => {
 };
 
 const rejectForumChat = (payload) => {
-  // const { reason ,forumChatId, role, userId } = payload;
   return axios
     .post(
       `${baseURl}/rejectForumChat`, payload
