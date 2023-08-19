@@ -453,10 +453,14 @@ body {
   border-radius: 0px;
 }
 
-.active {
+.activeLink {
   border: 2px solid #52ce06;
   background: var(--white-color, #fff);
   box-shadow: 6px 13px 40px 0px rgba(27, 25, 86, 0.06);
+}
+
+.active {
+  background: rgb(239, 239, 239);
 }
 
 .menuSearch {

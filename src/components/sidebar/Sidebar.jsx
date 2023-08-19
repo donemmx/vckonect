@@ -7,7 +7,7 @@ import users from "../../assets/sidebar/users.svg";
 import subscription from "../../assets/sidebar/subscription.svg";
 import adsicon from "../../assets/sidebar/ads.svg";
 import activitiesicon from "../../assets/sidebar/activities.svg";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import logo from "../../assets/logo/vc-logo.svg";
 import { useRecoilValue } from "recoil";
 import { user } from "../../atom/userAtom";
@@ -22,22 +22,22 @@ export default function Sidebar() {
   return (
     <div className="fixed flex items-center justify-center shadow-2xl shadow-slate-100 z-50 bg-white w-[17vw] l-0 top-0 h-[100vh]">
       <div className="flex flex-col items-center mt-[12vh] h-[80%] w-[70%] gap-2">
-        <Link to="/" className="logo h-[28px] absolute top-[5%] ">
+        <NavLink to="/" className="logo h-[28px] absolute top-[5%] ">
           <img
             src={logo}
             alt=""
             className=" w-[100%] h-[100%] object-contain"
           />
-        </Link>
+        </NavLink>
 
-        <Link
+        <NavLink
           to="/admin-dashboard"
           className="flex items-center w-full  gap-4 cursor-pointer p-2 hover:bg-gray-100 rounded-full "
         >
           <img className="h-[25px]" src={dashicon} alt="" />
           <small className="text-[14px] leading-3 ">Dashboard</small>
-        </Link>
-        <Link
+        </NavLink>
+        <NavLink
           to="/user-features"
           className="flex items-center w-[100%]  gap-4 cursor-pointer  p-2 hover:bg-gray-100 rounded-full  "
         >
@@ -45,8 +45,8 @@ export default function Sidebar() {
           <small className="text-[14px] leading-3 text-center ">
             Users & Features
           </small>
-        </Link>
-        <Link
+        </NavLink>
+        <NavLink
           to="/forum-content"
           className=" flex items-center w-[100%]  gap-4  cursor-pointer p-2 hover:bg-gray-100 rounded-full  "
         >
@@ -54,8 +54,8 @@ export default function Sidebar() {
           <small className="text-[14px] leading-3 text-center ">
             Forum Contents
           </small>
-        </Link>
-        <Link
+        </NavLink>
+        <NavLink
           to="/subscriptions"
           className=" flex items-center w-[100%]  gap-4  cursor-pointer   p-2 hover:bg-gray-100 rounded-full  "
         >
@@ -63,8 +63,8 @@ export default function Sidebar() {
           <small className="text-[14px] leading-3 text-center ">
             Subscriptions
           </small>
-        </Link>
-        <Link
+        </NavLink>
+        <NavLink
           to="/admin-promotion"
           className=" flex items-center w-[100%]  gap-4  cursor-pointer p-2 hover:bg-gray-100 rounded-full  "
         >
@@ -72,8 +72,8 @@ export default function Sidebar() {
           <small className="text-[14px] leading-3  text-center">
             Promotion
           </small>
-        </Link>
-        <Link
+        </NavLink>
+        <NavLink
           to="/admin-activity"
           className="flex items-center w-[100%]  gap-4 cursor-pointer  p-2 hover:bg-gray-100 rounded-full  "
         >
@@ -81,8 +81,8 @@ export default function Sidebar() {
           <small className="text-[14px] leading-3  text-center">
             Activity History
           </small>
-        </Link>
-        <Link
+        </NavLink>
+        <NavLink
           to="/admin-account"
           className=" flex items-center w-[100%]  gap-4 cursor-pointer   p-2 hover:bg-gray-100 rounded-full  "
         >
@@ -90,7 +90,7 @@ export default function Sidebar() {
           <small className="text-[14px] leading-3  text-center">
             My Account
           </small>
-        </Link>
+        </NavLink>
         <Link className=" flex items-center w-[100%]  gap-4 cursor-pointer  p-2 hover:bg-gray-100 rounded-full  ">
           <img className="h-[25px]" src={logout} alt="" />
           <small className="text-[14px] leading-3  text-center">

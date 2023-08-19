@@ -25,7 +25,7 @@ export default function DashboardHome() {
           <div className="homeTab pt-0">
             <div
               className={`${
-                active == "vet" ? "active" : ""
+                active == "vet" ? "activeLink" : ""
               } tab__menu tab-left  cursor-pointer`}
               onClick={() => selectTab("vet")}
             >
@@ -39,7 +39,7 @@ export default function DashboardHome() {
             </div>
             <div
               className={`tab__menu tab-center   ${
-                active == "store" ? "active" : ""
+                active == "store" ? "activeLink" : ""
               } cursor-pointer`}
               onClick={() => selectTab("store")}
             >
@@ -57,7 +57,7 @@ export default function DashboardHome() {
             </div>
             <div
               className={`tab__menu tab-right ${
-                active == "clinic" ? "active" : ""
+                active == "clinic" ? "activeLink" : ""
               }   cursor-pointer`}
               onClick={() => selectTab("clinic")}
             >
