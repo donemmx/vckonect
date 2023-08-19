@@ -76,7 +76,7 @@ export default function Account() {
           <img
             src={userData.profile_picture}
             alt=""
-            className=" rounded-full border-[4px] border-green-400"
+            className=" rounded-full border-[4px] h-[150px] w-[150px] object-cover border-green-400"
           />
         ) : (
           <i className="pi pi-user !text-[40px] p-10 bg-white border-[4px] rounded-full border-green-400"></i>
