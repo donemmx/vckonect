@@ -34,14 +34,14 @@ export default function Sidebar() {
           to="/admin-dashboard"
           className="flex items-center w-[100%]  gap-4 cursor-pointer   p-2   "
         >
-          <img className="h-[30px]" src={dashicon} alt="" />
+          <img className="h-[25px]" src={dashicon} alt="" />
           <small className="text-[12px] leading-3 ">Dashboard</small>
         </Link>
         <Link
           to="/user-features"
           className="flex items-center w-[100%]  gap-4 cursor-pointer  p-2   "
         >
-          <img className="h-[30px]" src={users} alt="" />
+          <img className="h-[25px]" src={users} alt="" />
           <small className="text-[12px] leading-3 text-center ">
             Users & Features
           </small>
@@ -50,7 +50,7 @@ export default function Sidebar() {
           to="/forum-content"
           className=" flex items-center w-[100%]  gap-4  cursor-pointer p-2   "
         >
-          <img className="h-[30px]" src={chaticon} alt="" />
+          <img className="h-[25px]" src={chaticon} alt="" />
           <small className="text-[12px] leading-3 text-center ">
             Forum Contents
           </small>
@@ -59,7 +59,7 @@ export default function Sidebar() {
           to="/subscriptions"
           className=" flex items-center w-[100%]  gap-4  cursor-pointer   p-2   "
         >
-          <img className="h-[30px]" src={subscription} alt="" />
+          <img className="h-[25px]" src={subscription} alt="" />
           <small className="text-[12px] leading-3 text-center ">
             Subscriptions
           </small>
@@ -68,7 +68,7 @@ export default function Sidebar() {
           to="/admin-promotion"
           className=" flex items-center w-[100%]  gap-4  cursor-pointer p-2   "
         >
-          <img className="h-[30px]" src={adsicon} alt="" />
+          <img className="h-[25px]" src={adsicon} alt="" />
           <small className="text-[12px] leading-3  text-center">
             Promotion
           </small>
@@ -77,7 +77,7 @@ export default function Sidebar() {
           to="/admin-activity"
           className="flex items-center w-[100%]  gap-4 cursor-pointer  p-2   "
         >
-          <img className="h-[30px]" src={activitiesicon} alt="" />
+          <img className="h-[25px]" src={activitiesicon} alt="" />
           <small className="text-[12px] leading-3  text-center">
             Activity History
           </small>
@@ -86,13 +86,13 @@ export default function Sidebar() {
           to="/admin-account"
           className=" flex items-center w-[100%]  gap-4 cursor-pointer   p-2   "
         >
-          <img className="h-[30px]" src={accounticon} alt="" />
+          <img className="h-[25px]" src={accounticon} alt="" />
           <small className="text-[12px] leading-3  text-center">
             My Account
           </small>
         </Link>
         <Link className=" flex items-center w-[100%]  gap-4 cursor-pointer  p-2   ">
-          <img className="h-[30px]" src={logout} alt="" />
+          <img className="h-[25px]" src={logout} alt="" />
           <small className="text-[12px] leading-3  text-center">
             Logout
           </small>
