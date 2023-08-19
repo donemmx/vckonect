@@ -111,7 +111,7 @@ export default function Account() {
         </a>
         <div
           className="flex flex-col items-center justify-center"
-          onClick={() => setData(userData?.location, "Location")}
+          onClick={() => setData(userData?.address, "Location")}
         >
           <img
             src={markerIcon}
