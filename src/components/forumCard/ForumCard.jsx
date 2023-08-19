@@ -12,7 +12,6 @@ import {
   shareForumChat,
 } from "../../utils/userApiService";
 import { user } from "../../atom/userAtom";
-import { reloadStore } from "../../atom/reloadAtom";
 import { storeData } from "../../atom/storeAtom";
 import moment from "moment";
 import { useState } from "react";
@@ -37,7 +36,6 @@ export default function ForumCard({
 }) {
   const userData = useRecoilValue(user);
   const [userStore, setUserStore] = useRecoilState(storeData);
-  const [reload, setReload] = useRecoilState(reloadStore);
   const [comment, setComment] = useState([]);
   const [action, setAction] = useRecoilState(actionState);
   const [visible, setVisible] = useState(false);
@@ -112,7 +110,6 @@ export default function ForumCard({
     deleteForumChat(payload)
       .then(() => {
         toast.success("Post deleted successfully");
-        setReload(!reload)
       })
       .catch((err) => toast.error(err.detail));
   };

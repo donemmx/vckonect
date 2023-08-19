@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+/* eslint-disable no-unused-vars */
+import { useState } from "react";
 import { useRecoilState } from "recoil";
 import { reloadStore } from "../../atom/reloadAtom";
 import { Dialog } from "primereact/dialog";
