@@ -8,11 +8,13 @@ import { useNavigate } from "react-router-dom";
 import { getForumChat } from "../../utils/userApiService";
 import { storeData } from "../../atom/storeAtom";
 import { reloadStore } from "../../atom/reloadAtom";
+import Loading from "../../components/loading/Loading";
 
 export default function Forum() {
   const [tab, setTab] = useState("chat");
   const location = useNavigate();
   const [forumData, setForumData] = useState([]);
+  const [loading, setLoading] = useState(true);
   const userStore = useRecoilValue(storeData);
   const reload = useRecoilValue(reloadStore);
   const userData = useRecoilValue(user);
@@ -29,8 +31,10 @@ export default function Forum() {
   };
 
   useEffect(() => {
-    getForumChat().then((res) => setForumData(res));
-  }, [reload]);
+    getForumChat().then((res) => {
+      setLoading(false)
+      setForumData(res)});
+  }, [userStore?.like, reload]);
 
   return (
     <div>
@@ -97,7 +101,15 @@ export default function Forum() {
           </div>
         </div>
       </div>
-
+      <div className=" flex flex-wrap gap-4 w-full mb-10">
+        {loading
+          ? [1, 2].map((data) => (
+              <div className="w-full mt-10" key={data}>
+                <Loading />
+              </div>
+            ))
+          : ""}
+      </div>
     
       {forumData.map((res) => (
         <div className="" key={res.id}>
