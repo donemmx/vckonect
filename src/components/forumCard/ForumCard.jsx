@@ -1,9 +1,15 @@
 /* eslint-disable no-unused-vars */
 import commentsIcon from "../../assets/icons/comments-icon.svg";
 import likeIcon from "../../assets/icons/like-icon.svg";
+import editIcon from "../../assets/account/edit-icon.svg";
+
 import sendIcon from "../../assets/icons/send-icon.svg";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { deleteForumChat, likeForumChat, shareForumChat } from "../../utils/userApiService";
+import {
+  deleteForumChat,
+  likeForumChat,
+  shareForumChat,
+} from "../../utils/userApiService";
 import { user } from "../../atom/userAtom";
 import { reloadStore } from "../../atom/reloadAtom";
 import { storeData } from "../../atom/storeAtom";
@@ -13,6 +19,8 @@ import { useState } from "react";
 import { Dialog } from "primereact/dialog";
 import WarningCard from "../warningCard/WarningCard";
 import { toast } from "react-toastify";
+import { actionState } from "../../atom/actionAtom";
+import { useNavigate } from "react-router-dom";
 
 export default function ForumCard({
   userImg,
@@ -70,10 +78,27 @@ export default function ForumCard({
   };
 
   const deleteFormData = () => {
-    deleteForumChat(fullData).then(()=> {
-      toast.success('Post')
-    })
-  }
+    deleteForumChat(fullData).then(() => {
+      toast.success("Post");
+    });
+  };
+
+  const [action, setAction] = useRecoilState(actionState);
+  const location = useNavigate();
+  const editForum = () => {
+    setUserStore(fullData);
+    setAction("edit");
+    checker("add-to-forum");
+  };
+
+  const checker = (route) => {
+    if (userData?.role === "Veternarian") {
+      location(`/vet-${route}`);
+    } else {
+      location(`/animal-owner-${route}`);
+    }
+  };
+
 
   return (
     <div className="">
@@ -93,9 +118,11 @@ export default function ForumCard({
               cols={10}
               className="!border !border-gray-200 outline-none"
             ></textarea>
-
           </form>
-          <button className="green__btn mt-2"> <i className="pi pi-send"></i>Submit</button>
+          <button className="green__btn mt-2">
+            {" "}
+            <i className="pi pi-send"></i>Submit
+          </button>
         </div>
       </Dialog>
 
@@ -147,6 +174,12 @@ export default function ForumCard({
         <div className=" font-thin">{content}</div>
         <div className="">
           <div className=" text-[.82rem] flex items-center flex-wrap gap-7 justify-end mt-2">
+            <img
+              src={editIcon}
+              alt=""
+              className=" p-2 mb-2 h-[35px] w-[35px] bg-white rounded-full border-[1px] cursor-pointer border-[#EBEBEB] hover:border-green-400 hover:bg-green-100 transition-all ease-in-out"
+              onClick={editForum}
+            />
             <div
               className="flex gap-3 items-center justify-center cursor-pointer "
               onClick={commentOpen}
@@ -154,7 +187,7 @@ export default function ForumCard({
               <img
                 src={commentsIcon}
                 alt=""
-                className=" p-2 mb-2 h-[35px] w-[35px] bg-white rounded-full border-[1px] border-[#EBEBEB] shadow"
+                className=" p-2 mb-2 h-[35px] w-[35px] bg-white rounded-full border-[1px] border-[#EBEBEB] hover:border-green-400 hover:bg-green-100 transition-all ease-in-out"
               />
               {comments.length}
             </div>
@@ -163,13 +196,14 @@ export default function ForumCard({
                 src={likeIcon}
                 onClick={likeForum}
                 alt=""
-                className=" p-2 mb-2 h-[35px] w-[35px] bg-white rounded-full border-[1px] border-[#EBEBEB] shadow"
+                className=" p-2 mb-2 h-[35px] w-[35px] bg-white rounded-full border-[1px] border-[#EBEBEB] 
+                hover:border-green-400 hover:bg-green-100 transition-all ease-in-out"
               />
               {likes.length}
             </div>
-            <WarningCard 
-              message='Are you sure you want to delete this post?'
-              header='Confirmation'
+            <WarningCard
+              message="Are you sure you want to delete this post?"
+              header="Confirmation"
               acceptFunction={deleteFormData}
             />
             {/* <div className="flex flex-col items-center justify-center">

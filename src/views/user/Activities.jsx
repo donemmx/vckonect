@@ -32,7 +32,7 @@ export default function Activities() {
         </div>
 
           <div className="posts p-3 mt-5 grid gap-2">
-          {allActivities.map((res) => (
+          {allActivities?.map((res) => (
             <DashboardCard
               time={moment(res.date).fromNow()}
               title={res.title}

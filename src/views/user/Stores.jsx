@@ -54,7 +54,7 @@ export default function Stores() {
           : ""}
       </div>
       <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 items-center justify-center">
-        {allStores.map((res) => (
+        {allStores?.map((res) => (
           <StoreCard
             availability={res.availability}
             storeName={res.store_name}

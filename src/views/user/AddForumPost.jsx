@@ -2,17 +2,22 @@ import { InputText } from "primereact/inputtext";
 import { InputTextarea } from "primereact/inputtextarea";
 import { useEffect, useState } from "react";
 import { createForumChat } from "../../utils/userApiService";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { user } from "../../atom/userAtom";
 import { useFormik } from "formik";
 import { forumChat } from "../../validations/UserValidation";
 import { toast } from "react-toastify";
+import { storeData } from "../../atom/storeAtom";
+import { actionState } from "../../atom/actionAtom";
 
 export default function AddForumPost() {
   const [fileDataURL, setFileDataURL] = useState(null);
+  const store = useRecoilValue(storeData);
+  const action = useRecoilValue(actionState);
 
   const userData = useRecoilValue(user);
   const [file, setFile] = useState(null);
+  const [picture, setPicture] = useState(null)
 
   const getImage = (e) => {
     const fileData = e.target.files[0];
@@ -41,19 +46,39 @@ export default function AddForumPost() {
     };
   }, [file]);
 
+  const initialValues = {
+    title: "",
+    content: "",
+  };
+
+  const loadedData = {
+    title: store?.title,
+    content: store?.content,
+  };
+
   const onSubmit = async (values) => {
     const formData = new FormData();
+    let payload;
 
-    const payload = {
-      role: userData.role,
-      id: userData.id,
-      picture: file,
-      ...values,
-    };
-
-    Object.entries(payload).forEach(([key, value])=>{
+    if (action && action === "edit") {
+      payload = {
+        role: userData.role,
+        id: userData.id,
+        picture: file ?? store?.picture,
+        forum_id: store?.forum_id,
+        ...values,
+      };
+    } else {
+      payload = {
+        role: store?.role,
+        id: store?.id,
+        picture: file,
+        ...values,
+    }
+  }
+    Object.entries(payload).forEach(([key, value]) => {
       formData.append(key, value);
-     }) 
+    });
     await createForumChat(formData)
       .then(() => {
         toast.success("Post added successfully");
@@ -62,20 +87,30 @@ export default function AddForumPost() {
       .catch((err) => console.log(err));
   };
 
-  const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
-    useFormik({
-      initialValues: {
-        title: "",
-        content: "",
-      },
-      validationSchema: forumChat,
-      onSubmit,
-    });
+  const {
+    values,
+    errors,
+    isValid,
+    isSubmitting,
+    touched,
+    handleBlur,
+    handleChange,
+    handleSubmit,
+  } = useFormik({
+    validateOnMount: true,
+    initialValues: action === 'add' ?  initialValues : loadedData,
+    validationSchema: forumChat,
+    onSubmit,
+  });
 
+  useEffect(() => {
+    if (action && action == "edit") {
+      setPicture(store?.picture)
+    }
+  }, []);
   return (
     <div>
       <div className="pb-4">
-        {" "}
         <span className="underline">Forum Chat</span> / Add to Forum
       </div>
       <form
@@ -111,15 +146,15 @@ export default function AddForumPost() {
         {errors.content && touched.content && (
           <p className="error">{errors.content}</p>
         )}
-        {fileDataURL !== null ? (
+        {fileDataURL !== null || picture !== null  ? (
           <>
             <img
-              src={fileDataURL}
+              src={fileDataURL ?? picture}
               className="h-[200px] w-full object-cover border-[1px] rounded-md"
             />
             <div
               className="underline cursor-pointer"
-              onClick={() => setFileDataURL(null)}
+              onClick={() => {setFileDataURL(null), setPicture(null)}}
             >
               Remove Image
             </div>
@@ -132,7 +167,14 @@ export default function AddForumPost() {
             onChange={(e) => getImage(e)}
           />
         )}
-        <button className="green__btn">Submit</button>
+        <button className="green__btn" disabled={!isValid || isSubmitting}>
+          {isSubmitting ? (
+            <i className="pi pi-spin pi-spinner !text-[20px]"></i>
+          ) : (
+            ""
+          )}
+          Submit
+        </button>
       </form>
     </div>
   );

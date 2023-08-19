@@ -19,7 +19,7 @@ export default function Clients() {
   return (
     <div className="">
       <div className=" font-black text-2xl">My Clients</div>
-      {allClients.map((res) => (
+      {allClients?.map((res) => (
         <ClientCard key={res.id} user={user2} name="Dr. Amechi" />
       ))}
     </div>

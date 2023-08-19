@@ -90,7 +90,7 @@ export default function Dashboard() {
 
         {tab == "activity" ? (
           <div className="posts p-3 mt-5 grid gap-2">
-            {allActivities.map((res) => (
+            {allActivities?.map((res) => (
               <DashboardCard
                 time={moment(res.date).fromNow()}
                 title={res.title}
@@ -104,7 +104,7 @@ export default function Dashboard() {
         )}
         {tab == "forum" ? (
           <div className="posts p-3 mt-5 grid gap-2">
-            {forumData.map((res) => (
+            {forumData?.map((res) => (
               <DashboardCard
                 time={moment(res.date).fromNow()}
                 title={res.title}

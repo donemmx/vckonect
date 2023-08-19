@@ -75,7 +75,7 @@ export default function PetandLiveStock() {
                 : ""}
             </div>
             <div className="grid md:grid-cols-2 gap-2">
-              {allPets.map((res) => (
+              {allPets?.map((res) => (
                 <PeLivestocktCard
                   petImg={res.picture}
                   specie={res.specie}
@@ -101,7 +101,7 @@ export default function PetandLiveStock() {
               <img src={addIcon} alt="" className="w-[40px]" />
             </Link>
             <div className="grid md:grid-cols-2 gap-2">
-              {allFarms.map((res) => (
+              {allFarms?.map((res) => (
                 <FarmCard
                   petImg={res.picture}
                   name={res.farm_name}

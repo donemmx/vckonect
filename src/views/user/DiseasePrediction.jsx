@@ -102,7 +102,7 @@ export default function DiseasePrediction() {
               <p className="text-center text-[#555555] mt-5 mb-3 text-md">
                 Likely Symptoms
               </p>
-              {symptom.map((res) => (
+              {symptom?.map((res) => (
                 <p
                   className="text-center font-bold text-md text-[#1D2432] "
                   key={res}

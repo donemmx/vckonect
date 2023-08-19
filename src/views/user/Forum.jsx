@@ -111,7 +111,7 @@ export default function Forum() {
           : ""}
       </div>
     
-      {forumData.map((res) => (
+      {forumData?.map((res) => (
         <div className="" key={res.id}>
           <ForumCard
             user={userIcon}
