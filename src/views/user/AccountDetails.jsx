@@ -1,11 +1,15 @@
 import { MultiSelect } from "primereact/multiselect";
 import { InputText } from "primereact/inputtext";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import { user } from "../../atom/userAtom";
 
 export default function AccountDetails() {
   const [specialty, setSpecialty] = useState(null);
   const [open, setOpen] = useState(false);
+  const [userData, setUserData] = useRecoilState(user);
+  const location = useNavigate()
 
   const Specialties = [
     "Small Animal Medicine",
@@ -13,10 +17,20 @@ export default function AccountDetails() {
     "Ruminant medicine",
     "Wildlife medicine",
   ];
+
+
+  const checker = (route) => {
+    if (userData?.role === "Veternarian") {
+      location(`/vet-${route}`);
+    } else {
+      location(`/animal-owner-${route}`);
+    }
+  };
+
   return (
     <div className=" bg-white h-[140vh] mb-10 rounded-md border-[1px] border-[#EBEBEB]">
       <Link
-        to="/account"
+        onClick={() => checker("account")}
         className="flex items-center gap-3 text-[.75rem] lg:text-[.9rem] cursor-pointer ml-10 mt-10"
       >
         <i className="pi pi-angle-left p-1 lg:p-3 h-[25px] w-[25px] lg:h-[45px] lg:w-[45px] bg-white rounded-full"></i>

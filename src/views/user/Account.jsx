@@ -59,7 +59,7 @@ export default function Account() {
             Back
           </div>
           <Link
-            onClick={checker("account-details")}
+            onClick={() => checker("account-details")}
             className=" flex items-center gap-3 text-[.75rem] lg:text-[.9rem] cursor-pointer"
           >
             Edit
