@@ -24,13 +24,9 @@ export default function AdminLogin() {
         if (!res.code) {
             location("/admin-dashboard");
             toast.success("Successfully logged in");
-            getUserById({ id: res.id, role: res.role }).then((fullData) => {
               setData({
-                ...fullData,
                 ...res,
               });
-            });
-            setData(res);
           }
         else {
           toast.error(res.detail);
