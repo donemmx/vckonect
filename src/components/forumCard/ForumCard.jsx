@@ -174,12 +174,12 @@ export default function ForumCard({
         <div className=" font-thin">{content}</div>
         <div className="">
           <div className=" text-[.82rem] flex items-center flex-wrap gap-7 justify-end mt-2">
-            <img
+           {userData.id === fullData.user_id ? <img
               src={editIcon}
               alt=""
               className=" p-2 mb-2 h-[35px] w-[35px] bg-white rounded-full border-[1px] cursor-pointer border-[#EBEBEB] hover:border-green-400 hover:bg-green-100 transition-all ease-in-out"
               onClick={editForum}
-            />
+            /> : ''}
             <div
               className="flex gap-3 items-center justify-center cursor-pointer "
               onClick={commentOpen}

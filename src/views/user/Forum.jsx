@@ -2,19 +2,22 @@ import { useEffect, useState } from "react";
 import addIcon from "../../assets/icons/add-icon.svg";
 import userIcon from "../../assets/icons/user-1.png";
 import ForumCard from "../../components/forumCard/ForumCard";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { user } from "../../atom/userAtom";
 import { useNavigate } from "react-router-dom";
 import { getForumChat } from "../../utils/userApiService";
 import { storeData } from "../../atom/storeAtom";
 import { reloadStore } from "../../atom/reloadAtom";
 import Loading from "../../components/loading/Loading";
+import { actionState } from "../../atom/actionAtom";
 
 export default function Forum() {
   const [tab, setTab] = useState("chat");
   const location = useNavigate();
   const [forumData, setForumData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [action, setAction] = useRecoilState(actionState);
+
   const userStore = useRecoilValue(storeData);
   const reload = useRecoilValue(reloadStore);
   const userData = useRecoilValue(user);
@@ -23,6 +26,7 @@ export default function Forum() {
   };
 
   const checker = (route) => {
+    setAction("add")
     if (userData?.role === "Veternarian") {
       location(`/vet-${route}`);
     } else {
