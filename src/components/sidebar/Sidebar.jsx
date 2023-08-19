@@ -9,16 +9,26 @@ import adsicon from "../../assets/sidebar/ads.svg";
 import activitiesicon from "../../assets/sidebar/activities.svg";
 import { Link, NavLink } from "react-router-dom";
 import logo from "../../assets/logo/vc-logo.svg";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { user } from "../../atom/userAtom";
 import { useEffect } from "react";
+import { toast } from "react-toastify";
 
 export default function Sidebar() {
   const userData = useRecoilValue(user);
+  const [data, setData] = useRecoilState(user);
+  
+  
+  const logOut = () => {
+    setData(null);
+    toast.success("Successfully logged out");
+  };
 
   useEffect(() => {
     console.log(userData);
   }, []);
+
+  
   return (
     <div className="fixed flex items-center justify-center shadow-2xl shadow-slate-100 z-50 bg-white w-[17vw] l-0 top-0 h-[100vh]">
       <div className="flex flex-col items-center mt-[12vh] h-[80%] w-[70%] gap-2">
@@ -91,12 +101,12 @@ export default function Sidebar() {
             My Account
           </small>
         </NavLink>
-        <Link className=" flex items-center w-[100%]  gap-4 cursor-pointer  p-2 hover:bg-gray-100 rounded-full  ">
+        <div onClick={logOut} className=" flex items-center w-[100%]  gap-4 cursor-pointer  p-2 hover:bg-gray-100 rounded-full  ">
           <img className="h-[25px]" src={logout} alt="" />
           <small className="text-[14px] leading-3  text-center">
             Logout
           </small>
-        </Link>
+        </div>
         <div className="absolute flex items-center gap-3 bottom-10 l-0">
         <div className="   h-[50px] w-[50px]">
           <img

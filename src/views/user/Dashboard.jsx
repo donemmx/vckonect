@@ -13,13 +13,14 @@ import { useRecoilValue } from "recoil";
 import { user } from "../../atom/userAtom";
 import moment from "moment";
 import useRouteChecker from "../../hooks/RouteChecker";
+import AdminHeader from "../../components/header/AdminHeader";
 
 export default function Dashboard() {
   const [tab, setTab] = useState("activity");
   const userData = useRecoilValue(user);
 
   const [forumData, setForumData] = useState([]);
-  const [routeChecker] = useRouteChecker()
+  const [routeChecker] = useRouteChecker();
   const [loading, setLoading] = useState(true);
   const [allActivities, setAllActivities] = useState([]);
   const activeTab = (type) => {
@@ -30,10 +31,10 @@ export default function Dashboard() {
   }, []);
 
   const getRoute = (route) => {
-   const myRoute =  routeChecker(route)
+    const myRoute = routeChecker(route);
 
     console.log(myRoute);
-  }
+  };
 
   useEffect(() => {
     let payload = {
@@ -45,7 +46,6 @@ export default function Dashboard() {
       setLoading(false);
     });
   }, []);
-
 
   return (
     <div className="">
@@ -62,7 +62,7 @@ export default function Dashboard() {
           icon={arrow}
           title="Manage your store"
           subtitle="Join the poor of vendors on our platform to earn from sales."
-          onClick={()=> getRoute("store")}
+          onClick={() => getRoute("store")}
         />
         <AccountCard
           image={livestockIcon}
@@ -76,7 +76,7 @@ export default function Dashboard() {
           icon={arrow}
           title="Manage Your Promotions"
           subtitle="Promote your products by activating promotion subscription plan"
-          onClick={()=> getRoute("promotion")}
+          onClick={() => getRoute("promotion")}
         />
       </div>
       <div className="activity mt-5  mb-5 p-4 border bg-white rounded-lg">
