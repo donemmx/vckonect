@@ -86,7 +86,7 @@ export default function Account() {
           <img
             src={callIcon}
             alt=""
-            className=" p-2 mb-2 h-[40px] w-[40px] bg-white rounded-full border-[1px] border-[#828282] hover:border-green-400"
+            className=" p-2 mb-2 h-[40px] w-[40px] bg-white rounded-full border-[1px] border-[#828282] hover:border-green-400 hover:bg-green-100 cursor-pointer"
           />
           Call
         </a>
@@ -98,7 +98,7 @@ export default function Account() {
           <img
             src={messageIcon}
             alt=""
-            className=" p-2 mb-2 h-[40px] w-[40px] bg-white rounded-full border-[1px] border-[#828282] hover:border-green-400 "
+            className=" p-2 mb-2 h-[40px] w-[40px] bg-white rounded-full border-[1px] border-[#828282] hover:border-green-400 hover:bg-green-100 cursor-pointer"
           />
           Email
         </a>
@@ -109,7 +109,7 @@ export default function Account() {
           <img
             src={markerIcon}
             alt=""
-            className=" p-2 mb-2 h-[40px] w-[40px] bg-white rounded-full border-[1px] border-[#828282] hover:border-green-400"
+            className=" p-2 mb-2 h-[40px] w-[40px] bg-white rounded-full border-[1px] border-[#828282] hover:border-green-400 hover:bg-green-100 cursor-pointer"
           />
           Location
         </div>
