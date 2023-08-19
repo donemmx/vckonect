@@ -9,7 +9,7 @@ export default function AdminLayout() {
 
   return (
     <div>
-      {userData?.role === 'admin' ? (
+      {userData?.role === 'Admin' ? (
         <>
           <Header />
           <Sidebar />
