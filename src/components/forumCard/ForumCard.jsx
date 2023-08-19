@@ -256,7 +256,7 @@ export default function ForumCard({
           </div> */}
                 <div
                   className="flex flex-col items-center justify-center cursor-pointer"
-                  onClick={shareForum}
+                  onClick={() => commentOpen("share")}
                 >
                   <img src={sendIcon} alt="" className=" p-2  mb-2  " />
                 </div>
@@ -314,12 +314,6 @@ export default function ForumCard({
                   header="Confirmation"
                   acceptFunction={deleteFormData}
                 />
-                <div
-                  className="flex flex-col items-center justify-center cursor-pointer"
-                  onClick={() => commentOpen("share")}
-                >
-                  <img src={sendIcon} alt="" className=" p-2  mb-2  " />
-                </div>
               </div>
             </div>
           </div>
