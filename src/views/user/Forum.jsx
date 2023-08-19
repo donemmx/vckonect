@@ -39,8 +39,13 @@ export default function Forum() {
     getForumChat().then((res) => {
       setLoading(false)
       setForumData(res)});
-      console.log(reload);
-  }, [userStore?.like, reload]);
+  }, [userStore?.like]);
+
+  useEffect(() => {
+    getForumChat().then((res) => {
+      setLoading(false)
+      setForumData(res)});
+  }, [ reload]);
 
   return (
     <div>
