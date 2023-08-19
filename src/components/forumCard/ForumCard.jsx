@@ -77,7 +77,7 @@ export default function ForumCard({
       picture: picture,
     };
     shareForumChat(payload).then((res) => {
-      toast.success('Post reshare successful')
+      toast.success("Post reshare successful");
     });
   };
 
@@ -126,7 +126,7 @@ export default function ForumCard({
     } else {
       shareForum();
     }
-    setVisible(false)
+    setVisible(false);
   };
 
   return (
@@ -267,6 +267,10 @@ export default function ForumCard({
         fullData.type !== "shared" ? (
         <>
           <div className="border rounded-lg p-5 my-4">
+            <div className=" flex items-center gap-2 text-[.8rem] bg-red-200 p-3 rounded-full mb-2 w-fit px-8 ml-auto">
+              <div className="unavailable "></div>
+              Pending Approval
+            </div>
             <div className=" flex justify-between flex-wrap gap-2">
               <div className="flex items-center gap-4">
                 <img src={userImg} alt="" className="h-[50px]" />

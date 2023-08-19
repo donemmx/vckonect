@@ -12,6 +12,7 @@ import { reloadStore } from "../../atom/reloadAtom";
 import Loading from "../../components/loading/Loading";
 import { actionState } from "../../atom/actionAtom";
 
+
 export default function Forum() {
   const [tab, setTab] = useState("chat");
   const location = useNavigate();
@@ -25,7 +26,6 @@ export default function Forum() {
   const activeTab = (type) => {
     setTab(type);
   };
-
   const checker = (route) => {
     setAction("add")
     if (userData?.role === "Veternarian") {
@@ -39,6 +39,7 @@ export default function Forum() {
     getForumChat().then((res) => {
       setLoading(false)
       setForumData(res)});
+      console.log(reload);
   }, [userStore?.like, reload]);
 
   return (
