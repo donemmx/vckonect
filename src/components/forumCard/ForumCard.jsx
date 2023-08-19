@@ -15,7 +15,6 @@ import { user } from "../../atom/userAtom";
 import { reloadStore } from "../../atom/reloadAtom";
 import { storeData } from "../../atom/storeAtom";
 import moment from "moment";
-import { InputTextarea } from "primereact/inputtextarea";
 import { useState } from "react";
 import { Dialog } from "primereact/dialog";
 import WarningCard from "../warningCard/WarningCard";
@@ -38,6 +37,7 @@ export default function ForumCard({
 }) {
   const userData = useRecoilValue(user);
   const [userStore, setUserStore] = useRecoilState(storeData);
+  const [reload, setReload] = useRecoilState(reloadStore);
   const [comment, setComment] = useState([]);
   const [action, setAction] = useRecoilState(actionState);
   const [visible, setVisible] = useState(false);
@@ -112,6 +112,7 @@ export default function ForumCard({
     deleteForumChat(payload)
       .then(() => {
         toast.success("Post deleted successfully");
+        setReload(!reload)
       })
       .catch((err) => toast.error(err.detail));
   };
