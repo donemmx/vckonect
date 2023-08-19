@@ -128,19 +128,6 @@ export default function Forum() {
           />
         </div>
       ))}
-      {/* <ForumCard
-        user={user2}
-        name="Good Silron"
-        position="Veterinarian"
-        title="Incididunt ut labore et dolore magna aliquaLorem ipsum dolor sit amet"
-      />
-      <ForumCard
-        user={user3}
-        name="Grace Jonesse"
-        position="Veterinarian"
-        forumImg={forumImg2}
-        title="Consectetur adipiscing elit"
-      /> */}
     </div>
   );
 }
