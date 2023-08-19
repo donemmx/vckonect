@@ -1,9 +1,7 @@
 import { Navigate, Outlet } from "react-router-dom";
-import Header from "./header/Header";
 import Sidebar from "./sidebar/Sidebar";
 import { useRecoilValue } from "recoil";
 import { user } from "../atom/userAtom";
-import AdminHeader from "./header/AdminHeader";
 
 export default function AdminLayout() {
   let userData = useRecoilValue(user);

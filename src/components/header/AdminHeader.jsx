@@ -1,4 +1,3 @@
-import React from "react";
 import { useRecoilValue } from "recoil";
 import { user } from "../../atom/userAtom";
 
@@ -6,7 +5,7 @@ export default function AdminHeader() {
   const userData = useRecoilValue(user);
 
   return (
-    <div className=" fixed w-[calc(100vw-17vw)] h-[80px] flex items-center justify-end p-4 right-0 top-0">
+    <div className="hidden fixed w-[calc(100vw-17vw)] h-[80px] lg:flex items-center justify-end p-4 right-0 top-0">
     <div className=" flex flex-row-reverse items-center justify-end gap-3 ">
       <div className="   h-[50px] w-[50px]">
         <img
