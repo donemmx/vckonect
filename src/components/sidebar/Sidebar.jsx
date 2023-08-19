@@ -137,7 +137,7 @@ export default function Sidebar() {
         </div>
 
       </div>
-      <div className="fixed w-full bg-white h-[10vh]  flex items-center p-3  ">
+      <div className="fixed w-full bg-white h-[10vh]  flex items-center justify-between p-3  ">
         <img src={logoShort} alt="" className="h-[25px]" />
         <div
               className="grouped__icons flex space-x-2 bg-white border p-1 border-gray-300 h-[40px] md:h-[45px] lg:h-[50px] cursor-pointer rounded-[16px]"
