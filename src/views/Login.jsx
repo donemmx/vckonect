@@ -42,10 +42,6 @@ export default function Login() {
           } else {
             location("/admin-dashboard");
           }
-          // if(res.account_activation === null){
-          //   toast.error("Please activate your account");
-          // }
-          // else{
           toast.success("Successfully logged in");
           getUserById({ id: res.id, role: res.role }).then((fullData) => {
             setData({
@@ -131,20 +127,6 @@ export default function Login() {
           </button>
         </form>
         <div className=" flex items-center justify-center mt-5 gap-4">
-          {/* <button onClick={linkedinLogin} className=" bg-none border-none">
-            <img
-              src={linkedIn}
-              alt=""
-              className="h-[35px] w-[35px] object-contain cursor-pointer"
-            />
-          </button> */}
-          {/* <button onClick={googleLogin} className=" bg-none border-none">
-            <img
-              src={google}
-              alt=""
-              className="h-[35px] w-[35px] object-contain cursor-pointer"
-            />
-          </button> */}
           <LoginSocialLinkedin
             isOnlyGetToken
             client_id={linkedinClientId}

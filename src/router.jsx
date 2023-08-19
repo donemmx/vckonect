@@ -46,6 +46,7 @@ import VetLayout from "./components/VetLayout";
 import AnimalOwnerLayout from "./components/AnimalOwnerLayout";
 import DashboardHome from "./views/user/DashboardHome";
 import PetandLiveStock from "./views/user/PetandLiveStock";
+import AdminLogin from "./views/admin/AdminLogin";
 
 const router = createBrowserRouter([
     {
@@ -248,6 +249,7 @@ const router = createBrowserRouter([
                 path: '/admin-activity',
                 element: <AdminActivity />
             },
+           
         ]
     },
     {
@@ -257,6 +259,10 @@ const router = createBrowserRouter([
             {
                 path: '/login',
                 element: <Login/>
+            },
+            {
+                path: '/admin-login',
+                element: <AdminLogin />
             },
             {
                 path: '/forgot-password',
