@@ -11,9 +11,8 @@ export default function AdminLayout() {
     <div>
       {userData?.role === 'Admin' ? (
         <>
-          <Header />
           <Sidebar />
-          <div className="absolute left-[5.5vw] lg:left-[13vw] top-[25vh] lg:top-[15vh] w-[90%] lg:w-[80%]">
+          <div className="absolute left-[17vw] top-10 w-[90%] lg:w-[80%]">
             <Outlet />
           </div>
         </>

@@ -12,123 +12,97 @@ import casesIcon from "../../assets/sidebar/cases.svg";
 import adsicon from "../../assets/sidebar/ads.svg";
 import activitiesicon from "../../assets/sidebar/activities.svg";
 import { Link } from "react-router-dom";
+import logo from "../../assets/logo/vc-logo.svg";
+
 export default function Sidebar() {
   return (
-      <div className="fixed z-50   w-full lg:w-fit pr-14 lg:pr-0 top-[12vh] lg:top-[15vh] pb-10 left-8 h-[18vh] lg:h-[85vh] overflow-x-scroll lg:overflow-y-scroll no-scrollbar flex items-center lg:flex-col gap-2 justify-between">
+    <div className="fixed flex items-center justify-center z-50 bg-white w-[15%] l-0 top-0 h-[100vh]">
+      <div className="flex flex-col items-center mt-[10vh] h-[80%] gap-1">
+      <Link to="/" className="logo h-[28px] absolute top-[5%] ">
+            <img
+              src={logo}
+              alt=""
+              className=" w-[100%] h-[100%] object-contain"
+            />
+          </Link>
+
         <Link
-          to="/home"
-          className=" flex items-center flex-col gap-1 cursor-pointer justify-center bg-white w-[90px] px-6 h-[80px] p-2 rounded-[15px] border hover:border-[2px] hover:border-green-500"
-        >
-          <img className="h-[30px]" src={homeicon} alt="" />
-          <small className="text-[10px] leading-3 font-bold">Home</small>
-        </Link>
-        <Link
-          to="/dashboard"
-          className="flex items-center flex-col gap-1 cursor-pointer justify-center bg-white w-[90px] px-6 h-[80px] p-2 rounded-[15px] border hover:border-[2px] hover:border-green-500"
+          to="/admin-dashboard"
+          className="flex items-center w-[100%]  gap-4 cursor-pointer   p-2   "
         >
           <img className="h-[30px]" src={dashicon} alt="" />
-          <small className="text-[10px] leading-3 font-bold">Dashboard</small>
+          <small className="text-[12px] leading-3 font-bold">Dashboard</small>
         </Link>
         <Link
-          to="/cases"
-          className="flex items-center flex-col gap-1 cursor-pointer justify-center bg-white w-[90px] px-6 h-[80px] p-2 rounded-[15px] border hover:border-[2px] hover:border-green-500"
+          to="/user-features"
+          className="flex items-center w-[100%]  gap-4 cursor-pointer  p-2   "
         >
           <img className="h-[30px]" src={casesIcon} alt="" />
-          <small className="text-[10px] leading-3 text-center font-bold">
-            Cases
+          <small className="text-[12px] leading-3 text-center font-bold">
+            Users & Features
           </small>
         </Link>
         <Link
           to="/clinic"
-          className="flex items-center flex-col gap-1 cursor-pointer justify-center bg-white w-[90px] px-6 h-[80px] p-2 rounded-[15px] border hover:border-[2px] hover:border-green-500"
+          className=" flex items-center w-[100%]  gap-4  cursor-pointer p-2   "
         >
           <img className="h-[30px]" src={clinicIcon} alt="" />
-          <small className="text-[10px] leading-3 text-center font-bold">
-            Clinic
+          <small className="text-[12px] leading-3 text-center font-bold">
+            Forum Contents
           </small>
         </Link>
         <Link
-          to="/livestock"
-          className="flex items-center flex-col gap-1 cursor-pointer justify-center bg-white w-[90px] px-6 h-[80px] p-2 rounded-[15px] border hover:border-[2px] hover:border-green-500"
+          to="/subscriptions"
+          className=" flex items-center w-[100%]  gap-4  cursor-pointer   p-2   "
         >
           <img className="h-[30px]" src={livestockicon} alt="" />
-          <small className="text-[10px] leading-3 text-center font-bold">
-            Pets & Livestock
+          <small className="text-[12px] leading-3 text-center font-bold">
+            Subscriptions
           </small>
         </Link>
         <Link
-          to="/clients"
-          className="flex items-center flex-col gap-1 cursor-pointer justify-center bg-white w-[90px] px-6 h-[80px] p-2 rounded-[15px] border hover:border-[2px] hover:border-green-500"
+          to="/admin-promotion"
+          className=" flex items-center w-[100%]  gap-4  cursor-pointer p-2   "
         >
           <img className="h-[30px]" src={clienticon} alt="" />
-          <small className="text-[10px] leading-3 font-bold text-center">
-            Clients
+          <small className="text-[12px] leading-3 font-bold text-center">
+            Promotion
           </small>
         </Link>
         <Link
-          to="/stores"
-          className="flex items-center flex-col gap-1 cursor-pointer justify-center bg-white w-[90px] px-6 h-[80px] p-2 rounded-[15px] border hover:border-[2px] hover:border-green-500"
+          to="/admin-activity"
+          className="flex items-center w-[100%]  gap-4 cursor-pointer  p-2   "
         >
           <img className="h-[30px]" src={storeicon} alt="" />
-          <small className="text-[10px] leading-3 font-bold text-center">
-            Stores
+          <small className="text-[12px] leading-3 font-bold text-center">
+            Activity History
           </small>
         </Link>
         <Link
           to="/forum"
-          className="flex items-center flex-col gap-1 cursor-pointer justify-center bg-white w-[90px] px-6 h-[80px] p-2 rounded-[15px] border hover:border-[2px] hover:border-green-500"
+          className="flex items-center w-[100%]  gap-4 cursor-pointer   p-2   "
         >
           <img className="h-[30px]" src={chaticon} alt="" />
-          <small className="text-[10px] leading-3 font-bold text-center">
+          <small className="text-[12px] leading-3 font-bold text-center">
             Chat Forum
           </small>
         </Link>
         <Link
-          to="/feed-calculator"
-          className="flex items-center flex-col gap-1 cursor-pointer justify-center bg-white w-[90px] px-6 h-[80px] p-2 rounded-[15px] border hover:border-[2px] hover:border-green-500"
-        >
-          <img className="h-[30px]" src={feedicon} alt="" />
-          <small className="text-[10px] leading-3 font-bold text-center">
-            Feed Calculator
-          </small>
-        </Link>
-        <Link
-          to="/disease-prediction"
-          className="flex items-center flex-col gap-1 cursor-pointer justify-center bg-white w-[90px] px-6 h-[80px] p-2 rounded-[15px] border hover:border-[2px] hover:border-green-500"
-        >
-          <img src={diseaseicon} alt="" />
-          <small className="text-[10px] leading-3 font-bold text-center">
-            Disease Prediction
-          </small>
-        </Link>
-        <Link
-          to="/account"
-          className="flex items-center flex-col gap-1 cursor-pointer justify-center bg-white w-[90px] px-6 h-[80px] p-2 rounded-[15px] border hover:border-[2px] hover:border-green-500"
+          to="/admin-account"
+          className=" flex items-center w-[100%]  gap-4 cursor-pointer   p-2   "
         >
           <img className="h-[30px]" src={accounticon} alt="" />
-          <small className="text-[10px] leading-3 font-bold text-center">
-            Account
+          <small className="text-[12px] leading-3 font-bold text-center">
+            My Account
           </small>
         </Link>
-        <Link
-          to="/activities"
-          className="flex items-center flex-col gap-1 cursor-pointer justify-center bg-white w-[90px] px-6 h-[80px] p-2 rounded-[15px] border hover:border-[2px] hover:border-green-500"
-        >
-          <img className="h-[30px]" src={activitiesicon} alt="" />
-          <small className="text-[10px] leading-3 font-bold text-center">
-            Activities
-          </small>
-        </Link>
-        <Link
-          to="/ads-promotion"
-          className="flex items-center flex-col gap-1 cursor-pointer justify-center bg-white w-[90px] px-6 h-[80px] p-2 rounded-[15px] border hover:border-[2px] hover:border-green-500"
-        >
+        <Link className=" flex items-center w-[100%]  gap-4 cursor-pointer  p-2   ">
           <img className="h-[30px]" src={adsicon} alt="" />
-          <small className="text-[10px] leading-3 font-bold text-center">
-            Ads Promotion
+          <small className="text-[12px] leading-3 font-bold text-center">
+            Logout
           </small>
         </Link>
-        <div className="base"></div>
       </div>
+    </div>
   );
 }
