@@ -35,14 +35,14 @@ export default function Sidebar() {
           className="flex items-center w-[100%]  gap-4 cursor-pointer   p-2   "
         >
           <img className="h-[25px]" src={dashicon} alt="" />
-          <small className="text-[12px] leading-3 ">Dashboard</small>
+          <small className="text-[14px] leading-3 ">Dashboard</small>
         </Link>
         <Link
           to="/user-features"
           className="flex items-center w-[100%]  gap-4 cursor-pointer  p-2   "
         >
           <img className="h-[25px]" src={users} alt="" />
-          <small className="text-[12px] leading-3 text-center ">
+          <small className="text-[14px] leading-3 text-center ">
             Users & Features
           </small>
         </Link>
@@ -51,7 +51,7 @@ export default function Sidebar() {
           className=" flex items-center w-[100%]  gap-4  cursor-pointer p-2   "
         >
           <img className="h-[25px]" src={chaticon} alt="" />
-          <small className="text-[12px] leading-3 text-center ">
+          <small className="text-[14px] leading-3 text-center ">
             Forum Contents
           </small>
         </Link>
@@ -60,7 +60,7 @@ export default function Sidebar() {
           className=" flex items-center w-[100%]  gap-4  cursor-pointer   p-2   "
         >
           <img className="h-[25px]" src={subscription} alt="" />
-          <small className="text-[12px] leading-3 text-center ">
+          <small className="text-[14px] leading-3 text-center ">
             Subscriptions
           </small>
         </Link>
@@ -69,7 +69,7 @@ export default function Sidebar() {
           className=" flex items-center w-[100%]  gap-4  cursor-pointer p-2   "
         >
           <img className="h-[25px]" src={adsicon} alt="" />
-          <small className="text-[12px] leading-3  text-center">
+          <small className="text-[14px] leading-3  text-center">
             Promotion
           </small>
         </Link>
@@ -78,7 +78,7 @@ export default function Sidebar() {
           className="flex items-center w-[100%]  gap-4 cursor-pointer  p-2   "
         >
           <img className="h-[25px]" src={activitiesicon} alt="" />
-          <small className="text-[12px] leading-3  text-center">
+          <small className="text-[14px] leading-3  text-center">
             Activity History
           </small>
         </Link>
@@ -87,13 +87,13 @@ export default function Sidebar() {
           className=" flex items-center w-[100%]  gap-4 cursor-pointer   p-2   "
         >
           <img className="h-[25px]" src={accounticon} alt="" />
-          <small className="text-[12px] leading-3  text-center">
+          <small className="text-[14px] leading-3  text-center">
             My Account
           </small>
         </Link>
         <Link className=" flex items-center w-[100%]  gap-4 cursor-pointer  p-2   ">
           <img className="h-[25px]" src={logout} alt="" />
-          <small className="text-[12px] leading-3  text-center">
+          <small className="text-[14px] leading-3  text-center">
             Logout
           </small>
         </Link>
@@ -106,7 +106,7 @@ export default function Sidebar() {
           />
         </div>
         <div className="">
-          <div className="text-[12px] font-black">{userData?.first_name} {userData?.last_name}</div>
+          <div className="text-[14px] font-black">{userData?.first_name} {userData?.last_name}</div>
           <p className="text-[10px]">{userData?.email}</p>
         </div>
 
