@@ -44,7 +44,7 @@ export default function Stores() {
         <img src={addIcon} alt="" className="w-[40px]" />
       </button>
 
-      <div className=" flex gap-4 w-full mb-10">
+      <div className=" grid md:grid-col-2 lg:grid-cols-4 gap-4 w-full mb-10">
         {loading
           ? [1, 2, 3, 4].map((data) => (
               <div className="w-full mt-10" key={data}>

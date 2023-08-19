@@ -110,8 +110,9 @@ export default function AddPet() {
     age: petStore?.age,
   };
 
-  const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
+  const { values, errors, isValid, isSubmitting, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
+      validateOnMount: true,
       initialValues: action === 'add' ?  initialValues : loadedData,
       validationSchema: pet,
       onSubmit,
@@ -230,7 +231,9 @@ export default function AddPet() {
               />
             )}
 
-            <button className="green__btn" disabled={errors}>Save</button>
+            <button className="green__btn" disabled={!isValid || isSubmitting}>
+              {isSubmitting?  <i className="pi pi-spin pi-spinner !text-[20px]"></i> : ''}
+              Save</button>
           </form>
         </div>
       </div>

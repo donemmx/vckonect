@@ -9,6 +9,7 @@ import { user } from "../../atom/userAtom";
 import FarmCard from "../../components/livestockpetCard/Farmcard";
 import { actionState } from "../../atom/actionAtom";
 import { reloadStore } from "../../atom/reloadAtom";
+import LoadingTwo from "../../components/loading/LoadingTwo";
 
 export default function PetandLiveStock() {
   const userData = useRecoilValue(user);
@@ -32,7 +33,7 @@ export default function PetandLiveStock() {
       setAllFarms(res);
       setLoading(false);
     });
-  }, [reload, tab ]);
+  }, [reload, tab]);
   return (
     <div className="lg:p-3">
       <div className="pets mt-5  mb-5 p-4 border bg-white rounded-lg">
@@ -64,6 +65,15 @@ export default function PetandLiveStock() {
               <p className="font-bold px-2">Add New Pet</p>
               <img src={addIcon} alt="" className="w-[40px]" />
             </Link>
+            <div className=" flex flex-wrap gap-4 w-full mb-10">
+              {loading
+                ? [1, 2].map((data) => (
+                    <div className="flex w-full mt-10" key={data}>
+                      <LoadingTwo />
+                    </div>
+                  ))
+                : ""}
+            </div>
             <div className="grid md:grid-cols-2 gap-2">
               {allPets.map((res) => (
                 <PeLivestocktCard
