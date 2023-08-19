@@ -17,7 +17,6 @@ import { toast } from "react-toastify";
 import hamburger from "../../assets/icons/header-icons/hamburger-icon.svg";
 import userImg from "../../assets/icons/header-icons/user-icon.svg";
 
-
 export default function Sidebar() {
   const userData = useRecoilValue(user);
   const [data, setData] = useRecoilState(user);
@@ -29,11 +28,9 @@ export default function Sidebar() {
 
   const [open, setOpen] = useState(false);
 
-
   const openModal = () => {
     setOpen(!open);
   };
-
 
   useEffect(() => {
     console.log(userData);
@@ -135,25 +132,140 @@ export default function Sidebar() {
             </div>
           </div>
         </div>
-
       </div>
       <div className="fixed w-full bg-white h-[10vh]  flex items-center justify-between p-3  ">
         <img src={logoShort} alt="" className="h-[25px]" />
         <div
-              className="grouped__icons flex space-x-2 bg-white border p-1 border-gray-300 h-[40px] md:h-[45px] lg:h-[50px] cursor-pointer rounded-[16px]"
-              onClick={openModal}
-            >
-              <img
-                src={hamburger}
-                alt=""
-                className="w-[100%] h-[100%] object-contain"
-              />
-              <img
-                src={userImg}
-                alt=""
-                className="w-[100%] h-[100%] object-contain"
-              />
+          className="grouped__icons flex space-x-2 bg-white border p-1 border-gray-300 h-[40px] md:h-[45px] lg:h-[50px] cursor-pointer rounded-[16px]"
+          onClick={openModal}
+        >
+          <img
+            src={hamburger}
+            alt=""
+            className="w-[100%] h-[100%] object-contain"
+          />
+          <img
+            src={userImg}
+            alt=""
+            className="w-[100%] h-[100%] object-contain"
+          />
+        </div>
+        {open ? (
+          <>
+            <div className="fixed w-full left-0 top-0 h-[100vh]  z-[1000] lg:flex items-center pl-5 justify-center shadow-2xl shadow-slate-100  bg-white ">
+              <div className="flex flex-col bg-white items-center mt-[12vh] h-[80%] w-[90%] gap-3">
+                <div
+                  to="/admin-dashboard"
+                  className="logo h-[24px] left-5 absolute top-[3%] "
+                  onClick={openModal}
+                >
+                  <img
+                    src={logo}
+                    alt=""
+                    className=" w-[100%] h-[100%] object-contain"
+                  />
+                </div>
+
+                <NavLink
+                  onClick={openModal}
+                  to="/admin-dashboard"
+                  className="flex items-center w-full  gap-4 cursor-pointer p-2 hover:bg-gray-100 rounded-full "
+                >
+                  <img className="h-[27px]" src={dashicon} alt="" />
+                  <small className="text-[16px] leading-3 ">Dashboard</small>
+                </NavLink>
+                <NavLink
+                  onClick={openModal}
+                  to="/user-features"
+                  className="flex items-center w-[100%]  gap-4 cursor-pointer  p-2 hover:bg-gray-100 rounded-full  "
+                >
+                  <img className="h-[27px]" src={users} alt="" />
+                  <small className="text-[16px] leading-3 text-center ">
+                    Users & Features
+                  </small>
+                </NavLink>
+                <NavLink
+                  onClick={openModal}
+                  to="/forum-content"
+                  className=" flex items-center w-[100%]  gap-4  cursor-pointer p-2 hover:bg-gray-100 rounded-full  "
+                >
+                  <img className="h-[27px]" src={chaticon} alt="" />
+                  <small className="text-[16px] leading-3 text-center ">
+                    Forum Contents
+                  </small>
+                </NavLink>
+                <NavLink
+                  onClick={openModal}
+                  to="/subscriptions"
+                  className=" flex items-center w-[100%]  gap-4  cursor-pointer   p-2 hover:bg-gray-100 rounded-full  "
+                >
+                  <img className="h-[27px]" src={subscription} alt="" />
+                  <small className="text-[16px] leading-3 text-center ">
+                    Subscriptions
+                  </small>
+                </NavLink>
+                <NavLink
+                  onClick={openModal}
+                  to="/admin-promotion"
+                  className=" flex items-center w-[100%]  gap-4  cursor-pointer p-2 hover:bg-gray-100 rounded-full  "
+                >
+                  <img className="h-[27px]" src={adsicon} alt="" />
+                  <small className="text-[16px] leading-3  text-center">
+                    Promotion
+                  </small>
+                </NavLink>
+                <NavLink
+                  onClick={openModal}
+                  to="/admin-activity"
+                  className="flex items-center w-[100%]  gap-4 cursor-pointer  p-2 hover:bg-gray-100 rounded-full  "
+                >
+                  <img className="h-[27px]" src={activitiesicon} alt="" />
+                  <small className="text-[16px] leading-3  text-center">
+                    Activity History
+                  </small>
+                </NavLink>
+                <NavLink
+                  onClick={openModal}
+                  to="/admin-account"
+                  className=" flex items-center w-[100%]  gap-4 cursor-pointer   p-2 hover:bg-gray-100 rounded-full  "
+                >
+                  <img className="h-[27px]" src={accounticon} alt="" />
+                  <small className="text-[16px] leading-3  text-center">
+                    My Account
+                  </small>
+                </NavLink>
+                <div
+                  onClick={() => {
+                    logOut, openModal;
+                  }}
+                  className=" flex items-center w-[100%]  gap-4 cursor-pointer  p-2 hover:bg-gray-100 rounded-full  "
+                >
+                  <img className="h-[27px]" src={logout} alt="" />
+                  <small className="text-[16px] leading-3  text-center">
+                    Logout
+                  </small>
+                </div>
+                <div className="absolute flex items-center gap-3 bottom-10 left-5">
+                  <div className="   h-[45px] w-[45px]">
+                    <img
+                      src={userData?.profile_picture}
+                      alt=""
+                      className=" w-full h-full object-cover rounded-full "
+                    />
+                  </div>
+                  <div className="">
+                    <div className="text-[16px] font-black">
+                      {userData?.first_name} {userData?.last_name}
+                    </div>
+                    <p className="text-[10px]">{userData?.email}</p>
+                  </div>
+                </div>
+              </div>
             </div>
+          </>
+        ) : (
+          ""
+        )}
       </div>
     </div>
   );
