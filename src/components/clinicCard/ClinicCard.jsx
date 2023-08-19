@@ -6,7 +6,7 @@ import openIcon from "../../assets/bg/card-next-bg.svg";
 
 export default function ClinicCard() {
   return (
-    <div className=" adsCard mb-6">
+    <div className=" vetCard mb-6">
       <div className="group h-full w-full ">
         <div className="top clinicUser h-[65%] w-[250px]">
           <div className="availbility">

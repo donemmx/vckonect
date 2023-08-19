@@ -32,9 +32,9 @@ export default function DashboardHome() {
               <img
                 src={vet}
                 alt=""
-                className=" w-[20px] md:w-[35px] object-contain"
+                className="  w-[20px] md:w-[35px] object-contain"
               />
-              <p>Veterinarian</p>
+              <p className="hidden lg:block">Veterinarian</p>
               {active === "vet" ? <img src={verified} alt="" /> : ""}
             </div>
             <div
@@ -48,7 +48,7 @@ export default function DashboardHome() {
                 alt=""
                 className=" w-[20px] md:w-[35px] object-contain"
               />
-              <p>Vet Vendor & Store</p>
+              <p className="hidden lg:block">Vet Vendor & Store</p>
               {active === "store" ? (
                 <img src={verified} alt="" className=" h-[14px] md:h-[20px]" />
               ) : (
@@ -66,7 +66,7 @@ export default function DashboardHome() {
                 alt=""
                 className=" w-[20px] md:w-[35px] object-contain"
               />
-              <p>Vet Clinic</p>
+              <p className="hidden lg:block">Vet Clinic</p>
               {active === "clinic" ? (
                 <img src={verified} alt="" className=" h-[14px] md:h-[20px]" />
               ) : (
