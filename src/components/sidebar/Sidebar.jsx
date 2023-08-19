@@ -13,18 +13,26 @@ import adsicon from "../../assets/sidebar/ads.svg";
 import activitiesicon from "../../assets/sidebar/activities.svg";
 import { Link } from "react-router-dom";
 import logo from "../../assets/logo/vc-logo.svg";
+import { useRecoilValue } from "recoil";
+import { user } from "../../atom/userAtom";
+import { useEffect } from "react";
 
 export default function Sidebar() {
+  const userData = useRecoilValue(user);
+
+  useEffect(() => {
+    console.log(userData);
+  }, []);
   return (
-    <div className="fixed flex items-center justify-center z-50 bg-white w-[15%] l-0 top-0 h-[100vh]">
-      <div className="flex flex-col items-center mt-[10vh] h-[80%] gap-1">
-      <Link to="/" className="logo h-[28px] absolute top-[5%] ">
-            <img
-              src={logo}
-              alt=""
-              className=" w-[100%] h-[100%] object-contain"
-            />
-          </Link>
+    <div className="fixed flex items-center justify-center z-50 bg-white w-[17vw] l-0 top-0 h-[100vh]">
+      <div className="flex flex-col items-center mt-[12vh] h-[80%] gap-1">
+        <Link to="/" className="logo h-[28px] absolute top-[5%] ">
+          <img
+            src={logo}
+            alt=""
+            className=" w-[100%] h-[100%] object-contain"
+          />
+        </Link>
 
         <Link
           to="/admin-dashboard"
@@ -102,6 +110,20 @@ export default function Sidebar() {
             Logout
           </small>
         </Link>
+        <div className="absolute flex items-center gap-3 bottom-10 l-0">
+        <div className="   h-[50px] w-[50px]">
+          <img
+            src={userData?.profile_picture}
+            alt=""
+            className=" w-full h-full object-cover rounded-full "
+          />
+        </div>
+        <div className="">
+          <div className="text-[12px] font-black">{userData?.first_name} {userData?.last_name}</div>
+          <p className="text-[10px]">{userData?.email}</p>
+        </div>
+
+        </div>
       </div>
     </div>
   );
