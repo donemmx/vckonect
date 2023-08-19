@@ -52,16 +52,32 @@ export default function AccountDetails() {
 
   const onSubmit = async (values) => {
     const formData = new FormData();
-    const { address, firstName, lastName, phone_number } = values;
-    let payload = {
-      phone_number: phone_number,
-      first_name: firstName,
-      last_name: lastName,
-      address: address,
-      id: userData?.id,
-      role: userData?.role,
-      profile_picture: file ?? userData.profile_picture,
-    };
+    const { address, firstName, lastName, phone_number ,password, confirmPassword } = values;
+    let payload;
+    if (open) {
+      payload = {
+        phone_number: phone_number,
+        first_name: firstName,
+        last_name: lastName,
+        address: address,
+        id: userData?.id,
+        role: userData?.role,
+        password: password,
+        confirmPassword: confirmPassword,
+        profile_picture: file ?? userData.profile_picture,
+      };
+
+    } else {
+      payload = {
+        phone_number: phone_number,
+        first_name: firstName,
+        last_name: lastName,
+        address: address,
+        id: userData?.id,
+        role: userData?.role,
+        profile_picture: file ?? userData.profile_picture,
+      };
+    }
     Object.entries(payload).forEach(([key, value]) => {
       formData.append(key, value);
     });
@@ -92,6 +108,8 @@ export default function AccountDetails() {
     lastName: userData.last_name,
     phone_number: userData.phone_number,
     address: userData.address,
+    password: "",
+    confirmPassword: "",
   };
 
   const {
@@ -191,13 +209,33 @@ export default function AccountDetails() {
             {open ? (
               <>
                 <span className="p-float-label">
-                  <InputText id="username" />
-                  <label htmlFor="username">Password (Required): </label>
+                  <InputText
+                    id="username"
+                    name="password"
+                    value={values.password}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                  />
+                  <label htmlFor="username">New Password (Required): </label>
                 </span>
+                {errors.password && touched.password && (
+                  <p className="error">{errors.password}</p>
+                )}
                 <span className="p-float-label">
-                  <InputText id="username" />
-                  <label htmlFor="username">Change Password (Required): </label>
+                  <InputText
+                    id="username"
+                    name="confirmPassword"
+                    value={values.confirmPassword}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                  />
+                  <label htmlFor="username">
+                    Comfirm Password (Required):{" "}
+                  </label>
                 </span>
+                {errors.confirmPassword && touched.confirmPassword && (
+                  <p className="error">{errors.confirmPassword}</p>
+                )}
               </>
             ) : (
               ""
