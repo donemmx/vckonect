@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import searchIcon from "../../assets/sidebar/search-dash.svg";
 import storeIcon from "../../assets/sidebar/stores.svg";
 import livestockIcon from "../../assets/sidebar/livestock.svg";

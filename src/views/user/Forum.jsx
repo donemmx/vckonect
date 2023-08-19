@@ -23,6 +23,7 @@ export default function Forum() {
   const userStore = useRecoilValue(storeData);
   const reload = useRecoilValue(reloadStore);
   const userData = useRecoilValue(user);
+
   const activeTab = (type) => {
     setTab(type);
   };
@@ -39,13 +40,7 @@ export default function Forum() {
     getForumChat().then((res) => {
       setLoading(false)
       setForumData(res)});
-  }, [userStore?.like]);
-
-  useEffect(() => {
-    getForumChat().then((res) => {
-      setLoading(false)
-      setForumData(res)});
-  }, [ reload]);
+  }, [userStore?.like, reload]);
 
   return (
     <div>

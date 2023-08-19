@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import ClientCard from "../../components/clientCard/ClientCard";
 import user2 from "../../assets/icons/user-2.png";
 import { useEffect, useState } from "react";

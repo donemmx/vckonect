@@ -1,21 +1,17 @@
 import { useState } from "react";
 import deleteIcon from "../../assets/icons/delete-icon.svg";
 import { Dialog } from "primereact/dialog";
-import { reloadStore } from "../../atom/reloadAtom";
-import { useRecoilState } from "recoil";
 
 export default function WarningCard({ message, header, acceptFunction }) {
   const [visible, setVisible] = useState(false);
-  const [reload, setReload] = useRecoilState(reloadStore);
 
   const openModal = () => {
     setVisible(!visible);
   };
 
-  const accept = () => {
-    acceptFunction();
+  const accept = async () => {
     openModal();
-    setReload(!reload);
+     acceptFunction();
   };
   return (
     <div>

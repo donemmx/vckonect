@@ -2,7 +2,7 @@ import { InputText } from "primereact/inputtext";
 import { InputTextarea } from "primereact/inputtextarea";
 import { useEffect, useState } from "react";
 import { createForumChat } from "../../utils/userApiService";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilValue } from "recoil";
 import { user } from "../../atom/userAtom";
 import { useFormik } from "formik";
 import { forumChat } from "../../validations/UserValidation";

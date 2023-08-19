@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable no-unused-vars */
 import commentsIcon from "../../assets/icons/comments-icon.svg";
 import likeIcon from "../../assets/icons/like-icon.svg";
@@ -8,6 +9,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import {
   commentForumChat,
   deleteForumChat,
+  getForumChat,
   likeForumChat,
   shareForumChat,
 } from "../../utils/userApiService";
@@ -20,6 +22,7 @@ import WarningCard from "../warningCard/WarningCard";
 import { toast } from "react-toastify";
 import { actionState } from "../../atom/actionAtom";
 import { useNavigate } from "react-router-dom";
+import useUpadateReload from "../../hooks/UpdateRelaod";
 
 export default function ForumCard({
   userImg,
@@ -41,6 +44,7 @@ export default function ForumCard({
   const [visible, setVisible] = useState(false);
   const [type, setType] = useState(null);
   const location = useNavigate();
+  const [updateReload] = useUpadateReload();
 
   const checker = (route) => {
     if (userData?.role === "Veternarian") {
@@ -110,9 +114,10 @@ export default function ForumCard({
     deleteForumChat(payload)
       .then(() => {
         toast.success("Post deleted successfully");
+        updateReload()
       })
       .catch((err) => toast.error(err.detail));
-  };
+    };
 
   const editForum = () => {
     setUserStore(fullData);

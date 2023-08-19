@@ -13,6 +13,7 @@ import { storeData } from "../../atom/storeAtom";
 import editIcon from "../../assets/account/edit-icon.svg";
 import { actionState } from "../../atom/actionAtom";
 import { useNavigate } from "react-router-dom";
+import useUpadateReload from "../../hooks/UpdateRelaod";
 
 export default function StoreCard({
   availability,
@@ -26,6 +27,7 @@ export default function StoreCard({
   const userData = useRecoilValue(user);
   const [store, setStore] = useRecoilState(storeData);
   const [action, setAction] = useRecoilState(actionState);
+  const [updateReload] = useUpadateReload();
   const location = useNavigate()
 
   const editStore = () => {
@@ -46,6 +48,7 @@ export default function StoreCard({
     deleteStore({ store_id: store_id })
       .then((res) => {
         toast.success("Store deleted successfully");
+        updateReload()
       })
       .catch((err) => {
         toast.error(err.message);

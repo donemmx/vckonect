@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import moment from "moment";
 import editIcon from "../../assets/account/edit-icon.svg";
 import deleteIcon from "../../assets/icons/delete-icon.svg";
@@ -9,6 +10,7 @@ import { toast } from "react-toastify";
 import WarningCard from "../warningCard/WarningCard";
 import { deleteFarm } from "../../utils/animalOwnerApiService";
 import { useNavigate } from "react-router-dom";
+import useUpadateReload from "../../hooks/UpdateRelaod";
 
 export default function FarmCard({
   petImg,
@@ -20,31 +22,35 @@ export default function FarmCard({
   name,
   farmId,
   date,
-  fullData
+  fullData,
 }) {
-  const [store, setStore] = useRecoilState(storeData)
-  const [action, setAction] = useRecoilState(actionState)
-  const navigate = useNavigate()
+  const [store, setStore] = useRecoilState(storeData);
+  const [action, setAction] = useRecoilState(actionState);
+  const [updateReload] = useUpadateReload();
+  const navigate = useNavigate();
+
   const editFarm = () => {
-    setStore(fullData)
-    setAction('edit')
-    navigate('/add-farm')
-  }
+    setStore(fullData);
+    setAction("edit");
+    navigate("/add-farm");
+  };
 
   const deleteFarmData = () => {
-    deleteFarm(fullData).then(()=> {
-      toast.success('Farm deleted successfully')
-    }).catch((err)=> toast.error(err.detail))
-  }
-
+    deleteFarm(fullData)
+      .then(() => {
+        toast.success("Farm deleted successfully");
+        updateReload();
+      })
+      .catch((err) => toast.error(err.detail));
+  };
 
   return (
     <>
       <div className="border rounded-lg p-5">
         <div className="flex justify-between flex-wrap gap-2">
           <div className="pet flex items-center gap-4">
-          <img src={petImg} alt=""  className="h-24 w-24 rounded-full" />
-          <div className=" flex flex-col font-bold text-2xl">
+            <img src={petImg} alt="" className="h-24 w-24 rounded-full" />
+            <div className=" flex flex-col font-bold text-2xl">
               {name}
               <small className=" font-light text-sm">{farmId}</small>
             </div>
@@ -59,10 +65,10 @@ export default function FarmCard({
               className=" p-2 mb-2 h-[35px] w-[35px] bg-white rounded-full border-[1px] cursor-pointer border-[#EBEBEB] hover:border-green-400 hover:bg-green-100 transition-all ease-in-out"
               onClick={editFarm}
             />
-            <WarningCard 
-            message={`Are you sure you want to delete ${name}?`}
-            header='Confirmation'
-            acceptFunction={deleteFarmData}
+            <WarningCard
+              message={`Are you sure you want to delete ${name}?`}
+              header="Confirmation"
+              acceptFunction={deleteFarmData}
             />
             {/* <img
               src={expandIcon}

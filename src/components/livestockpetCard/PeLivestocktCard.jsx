@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import moment from "moment";
 import editIcon from "../../assets/account/edit-icon.svg";
 import { useRecoilState } from "recoil";
@@ -7,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import WarningCard from "../warningCard/WarningCard";
 import { deletePet } from "../../utils/animalOwnerApiService";
 import { toast } from "react-toastify";
+import useUpadateReload from "../../hooks/UpdateRelaod";
 
 export default function PeLivestocktCard({
   petImg,
@@ -22,6 +24,8 @@ export default function PeLivestocktCard({
 
   const [store, setStore] = useRecoilState(storeData)
   const [action, setAction] = useRecoilState(actionState)
+  const [updateReload] = useUpadateReload();
+
   const location = useNavigate()
   const editPet = () => {
     setStore(fullData)
@@ -32,6 +36,7 @@ export default function PeLivestocktCard({
   const deletePetData = () => {
     deletePet(fullData).then(()=> {
       toast.success('Pet deleted successfully')
+      updateReload()
     }).catch((err)=> toast.error(err.detail))
   }
 
