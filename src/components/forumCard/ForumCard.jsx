@@ -128,6 +128,8 @@ export default function ForumCard({
     } else {
       shareForum();
     }
+    setComment(null)
+    setVisible(false)
   };
 
   return (
