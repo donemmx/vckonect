@@ -21,7 +21,7 @@ export default function Sidebar() {
   }, []);
   return (
     <div className="fixed flex items-center justify-center z-50 bg-white w-[17vw] l-0 top-0 h-[100vh]">
-      <div className="flex flex-col items-center mt-[12vh] h-[80%] gap-2">
+      <div className="flex flex-col items-center mt-[12vh] h-[80%] w-[70%] gap-2">
         <Link to="/" className="logo h-[28px] absolute top-[5%] ">
           <img
             src={logo}
@@ -32,14 +32,14 @@ export default function Sidebar() {
 
         <Link
           to="/admin-dashboard"
-          className="flex items-center w-[100%]  gap-4 cursor-pointer   p-2   "
+          className="flex items-center w-full  gap-4 cursor-pointer p-2 hover:bg-gray-100 rounded-full "
         >
           <img className="h-[25px]" src={dashicon} alt="" />
           <small className="text-[14px] leading-3 ">Dashboard</small>
         </Link>
         <Link
           to="/user-features"
-          className="flex items-center w-[100%]  gap-4 cursor-pointer  p-2   "
+          className="flex items-center w-[100%]  gap-4 cursor-pointer  p-2 hover:bg-gray-100 rounded-full  "
         >
           <img className="h-[25px]" src={users} alt="" />
           <small className="text-[14px] leading-3 text-center ">
@@ -48,7 +48,7 @@ export default function Sidebar() {
         </Link>
         <Link
           to="/forum-content"
-          className=" flex items-center w-[100%]  gap-4  cursor-pointer p-2   "
+          className=" flex items-center w-[100%]  gap-4  cursor-pointer p-2 hover:bg-gray-100 rounded-full  "
         >
           <img className="h-[25px]" src={chaticon} alt="" />
           <small className="text-[14px] leading-3 text-center ">
@@ -57,7 +57,7 @@ export default function Sidebar() {
         </Link>
         <Link
           to="/subscriptions"
-          className=" flex items-center w-[100%]  gap-4  cursor-pointer   p-2   "
+          className=" flex items-center w-[100%]  gap-4  cursor-pointer   p-2 hover:bg-gray-100 rounded-full  "
         >
           <img className="h-[25px]" src={subscription} alt="" />
           <small className="text-[14px] leading-3 text-center ">
@@ -66,7 +66,7 @@ export default function Sidebar() {
         </Link>
         <Link
           to="/admin-promotion"
-          className=" flex items-center w-[100%]  gap-4  cursor-pointer p-2   "
+          className=" flex items-center w-[100%]  gap-4  cursor-pointer p-2 hover:bg-gray-100 rounded-full  "
         >
           <img className="h-[25px]" src={adsicon} alt="" />
           <small className="text-[14px] leading-3  text-center">
@@ -75,7 +75,7 @@ export default function Sidebar() {
         </Link>
         <Link
           to="/admin-activity"
-          className="flex items-center w-[100%]  gap-4 cursor-pointer  p-2   "
+          className="flex items-center w-[100%]  gap-4 cursor-pointer  p-2 hover:bg-gray-100 rounded-full  "
         >
           <img className="h-[25px]" src={activitiesicon} alt="" />
           <small className="text-[14px] leading-3  text-center">
@@ -84,14 +84,14 @@ export default function Sidebar() {
         </Link>
         <Link
           to="/admin-account"
-          className=" flex items-center w-[100%]  gap-4 cursor-pointer   p-2   "
+          className=" flex items-center w-[100%]  gap-4 cursor-pointer   p-2 hover:bg-gray-100 rounded-full  "
         >
           <img className="h-[25px]" src={accounticon} alt="" />
           <small className="text-[14px] leading-3  text-center">
             My Account
           </small>
         </Link>
-        <Link className=" flex items-center w-[100%]  gap-4 cursor-pointer  p-2   ">
+        <Link className=" flex items-center w-[100%]  gap-4 cursor-pointer  p-2 hover:bg-gray-100 rounded-full  ">
           <img className="h-[25px]" src={logout} alt="" />
           <small className="text-[14px] leading-3  text-center">
             Logout
