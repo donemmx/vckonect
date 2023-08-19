@@ -84,7 +84,7 @@ export default function StoreCard({
           ) : (
             ""
           )}
-          <div className="availbility">
+          <div className="availbility !top-5" >
             {availability === "1" ? (
               <div className=" flex items-center gap-2 text-[.8rem]">
                 <div className="available "></div>
@@ -96,15 +96,6 @@ export default function StoreCard({
                 Closed
               </div>
             )}
-          </div>
-          <div className="bottom flex items-center justify-between p-2 absolute bottom-2 w-full ">
-            {/* <div className="rating text-white text-sm flex items-center gap-2">
-              <img src={star} alt="" />
-              4.0 of 5
-            </div> */}
-            {/* <div className="verfied">
-              <img src={verified} alt="" />
-            </div> */}
           </div>
         </div>
         <div className="bottom bg-white p-2 rounded-b-[12px]">
