@@ -28,6 +28,14 @@ const vetUser = yup.object().shape({
     speciality: yup.string().required("Required"),
 })
 
+const updateUser = yup.object().shape({
+    email: yup.string().required("Required"),
+    firstName: yup.string().required("Required"),
+    lastName: yup.string().required("Required"),
+    phone_number: yup.string().required("Required"),
+    address: yup.string().required("Required"),
+})
+
 
 const loginUser =  yup.object().shape({
     email: yup.string().email("Please enter a valid email").required("Required"),
@@ -123,5 +131,6 @@ export {
     addPetCase,
     addFarmCase,
     verify,
+    updateUser,
     pet
 }

@@ -1,23 +1,47 @@
 import { MultiSelect } from "primereact/multiselect";
 import { InputText } from "primereact/inputtext";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { user } from "../../atom/userAtom";
+import { getUserById, updateUserProfile } from "../../utils/userApiService";
+import { toast } from "react-toastify";
+import { useFormik } from "formik";
+import { updateUser } from "../../validations/UserValidation";
 
 export default function AccountDetails() {
-  const [specialty, setSpecialty] = useState(null);
+  const [file, setFile] = useState(null);
   const [open, setOpen] = useState(false);
+  const [fileDataURL, setFileDataURL] = useState(null);
+  const [picture, setPicture] = useState(null);
   const [userData, setUserData] = useRecoilState(user);
-  const location = useNavigate()
+  const location = useNavigate();
+  const getImage = (e) => {
+    const fileData = e.target.files[0];
+    setFile(fileData);
+    console.log(fileData);
+  };
 
-  const Specialties = [
-    "Small Animal Medicine",
-    "Avian Medicine",
-    "Ruminant medicine",
-    "Wildlife medicine",
-  ];
-
+  useEffect(() => {
+    let fileReader,
+      isCancel = false;
+    if (file) {
+      fileReader = new FileReader();
+      fileReader.onload = (e) => {
+        const { result } = e.target;
+        if (result && !isCancel) {
+          setFileDataURL(result);
+        }
+      };
+      fileReader.readAsDataURL(file);
+    }
+    return () => {
+      isCancel = true;
+      if (fileReader && fileReader.readyState === 1) {
+        fileReader.abort();
+      }
+    };
+  }, [file]);
 
   const checker = (route) => {
     if (userData?.role === "Veternarian") {
@@ -26,6 +50,72 @@ export default function AccountDetails() {
       location(`/animal-owner-${route}`);
     }
   };
+
+  const onSubmit = async (values) => {
+    const formData = new FormData();
+    const { address, firstName, lastName, phone_number, email } = values;
+    let payload = {
+      email: email,
+      phone_number: phone_number,
+      first_name: firstName,
+      last_name: lastName,
+      address: address,
+      id: userData?.id,
+      role: userData?.role,
+      profile_picture: file ?? userData.profile_picture,
+    };
+    Object.entries(payload).forEach(([key, value]) => {
+      formData.append(key, value);
+    });
+
+    await updateUserProfile(formData)
+      .then((res) => {
+        if (!res.code) {
+          toast.success("User data updated");
+          const payload = {
+            id: userData?.id,
+            role: userData?.role,
+          };
+          getUserById(payload).then((fullData) => {
+            setUserData({
+              ...fullData,
+            });
+          });
+          window.history.back();
+        } else {
+          toast.error(res.detail);
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const initialValue = {
+    firstName: userData.first_name,
+    email: userData.email,
+    lastName: userData.last_name,
+    phone_number: userData.phone_number,
+    address: userData.address,
+  };
+
+  const {
+    values,
+    errors,
+    isValid,
+    isSubmitting,
+    touched,
+    handleBlur,
+    handleChange,
+    handleSubmit,
+  } = useFormik({
+    validateOnMount: true,
+    initialValues: initialValue,
+    validationSchema: updateUser,
+    onSubmit,
+  });
+
+  useEffect(() => {
+    setPicture(userData?.profile_picture);
+  }, []);
 
   return (
     <div className=" bg-white h-[140vh] mb-10 rounded-md border-[1px] border-[#EBEBEB]">
@@ -44,38 +134,77 @@ export default function AccountDetails() {
           <div className="pt-2 subtitle paragraph text-center">
             You can update your profile information by filling the field below
           </div>
-          <div className="form flex flex-col gap-3 pt-6">
+          <form
+            encType="multipart/form-data"
+            onSubmit={handleSubmit}
+            className="form flex flex-col gap-3 pt-6"
+          >
             <span className="p-float-label">
-              <InputText id="username" />
+              <InputText
+                id="username"
+                name="email"
+                value={values.email}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
               <label htmlFor="username">Email Address (Required)</label>
             </span>
+            {errors.email && touched.email && (
+              <p className="error">{errors.email}</p>
+            )}
             <span className="p-float-label">
-              <MultiSelect
-                value={specialty}
-                onChange={(e) => setSpecialty(e.value)}
-                options={Specialties}
-                placeholder="Select Specialty"
-                className="w-full md:w-20rem"
+              <InputText
+                id="address"
+                name="address"
+                value={values.address}
+                onChange={handleChange}
+                onBlur={handleBlur}
               />
-              <label htmlFor="livestock">Specialty (Required): </label>
+              <label htmlFor="livestock">Address (Required): </label>
             </span>
+            {errors.address && touched.address && (
+              <p className="error">{errors.address}</p>
+            )}
             <span className="p-float-label">
-              <InputText id="username" />
+              <InputText
+                id="username"
+                name="firstName"
+                value={values.firstName}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
               <label htmlFor="username">First Name (Required)</label>
             </span>
+            {errors.firstName && touched.firstName && (
+              <p className="error">{errors.firstName}</p>
+            )}
             <span className="p-float-label">
-              <InputText id="username" />
+              <InputText
+                id="username"
+                name="lastName"
+                value={values.lastName}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
               <label htmlFor="username">Last Name (Required): </label>
             </span>
+            {errors.lastName && touched.lastName && (
+              <p className="error">{errors.lastName}</p>
+            )}
             <span className="p-float-label">
-              <InputText id="username" />
+              <InputText
+                id="username"
+                name="phone_number"
+                value={values.phone_number}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
               <label htmlFor="username">Phone No. (Required): </label>
             </span>
-            <span className="p-float-label">
-              <InputText id="username" />
-              <label htmlFor="username">Address (Required): </label>
-            </span>
-            { open ?
+            {errors.phone_number && touched.phone_number && (
+              <p className="error">{errors.phone_number}</p>
+            )}
+            {open ? (
               <>
                 <span className="p-float-label">
                   <InputText id="username" />
@@ -86,16 +215,50 @@ export default function AccountDetails() {
                   <label htmlFor="username">Change Password (Required): </label>
                 </span>
               </>
-              : ''
-            }
+            ) : (
+              ""
+            )}
 
-           { !open ? <button className="green__btn" onClick={() => setOpen(!open)}>
-              Change Password
-            </button> : ''}
-            <button className="green__btn">
-              Save
+            {!open ? (
+              <button className="secondary__btn" onClick={() => setOpen(!open)}>
+                Change Password
+              </button>
+            ) : (
+              ""
+            )}
+
+            {fileDataURL !== null || picture !== null ? (
+              <>
+                <img
+                  src={fileDataURL ?? picture}
+                  className="h-[200px] w-full object-cover border-[1px] rounded-md"
+                />
+                <div
+                  className="underline cursor-pointer"
+                  onClick={() => {
+                    setFileDataURL(null), setPicture(null);
+                  }}
+                >
+                  Remove Image
+                </div>
+              </>
+            ) : (
+              <input
+                type="file"
+                id="image"
+                accept=".png, .jpg, .jpeg"
+                onChange={(e) => getImage(e)}
+              />
+            )}
+            <button className="green__btn" disabled={!isValid || isSubmitting}>
+              {isSubmitting ? (
+                <i className="pi pi-spin pi-spinner !text-[20px]"></i>
+              ) : (
+                ""
+              )}
+              Update Profile
             </button>
-          </div>
+          </form>
         </div>
       </div>
     </div>
