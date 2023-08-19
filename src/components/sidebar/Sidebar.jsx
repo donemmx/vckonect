@@ -12,8 +12,11 @@ import logo from "../../assets/logo/vc-logo.svg";
 import logoShort from "../../assets/logo/vc-short.svg";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { user } from "../../atom/userAtom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import hamburger from "../../assets/icons/header-icons/hamburger-icon.svg";
+import userImg from "../../assets/icons/header-icons/user-icon.svg";
+
 
 export default function Sidebar() {
   const userData = useRecoilValue(user);
@@ -23,6 +26,14 @@ export default function Sidebar() {
     setData(null);
     toast.success("Successfully logged out");
   };
+
+  const [open, setOpen] = useState(false);
+
+
+  const openModal = () => {
+    setOpen(!open);
+  };
+
 
   useEffect(() => {
     console.log(userData);
@@ -128,6 +139,21 @@ export default function Sidebar() {
       </div>
       <div className="fixed w-full bg-white h-[10vh]  flex items-center p-3  ">
         <img src={logoShort} alt="" className="h-[25px]" />
+        <div
+              className="grouped__icons flex space-x-2 bg-white border p-1 border-gray-300 h-[40px] md:h-[45px] lg:h-[50px] cursor-pointer rounded-[16px]"
+              onClick={openModal}
+            >
+              <img
+                src={hamburger}
+                alt=""
+                className="w-[100%] h-[100%] object-contain"
+              />
+              <img
+                src={userImg}
+                alt=""
+                className="w-[100%] h-[100%] object-contain"
+              />
+            </div>
       </div>
     </div>
   );
