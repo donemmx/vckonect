@@ -7,6 +7,7 @@ export default function AdminDashboardCard({
   rejcetButtonText,
   approveFunction,
   rejectFunction,
+  loading,
 }) {
   return (
     <div className=" bg-white flex items-center flex-col gap-2 lg:flex-row justify-between p-5 border rounded-lg">
@@ -31,9 +32,11 @@ export default function AdminDashboardCard({
         <div className="flex items-center gap-2">
           {approveButtonText ? (
             <button
-              className=" border rounded-full w-[100px] h-[30px] text-green-800 bg-green-50 border-green-400 text-xs"
+              className=" border flex items-center gap-2 justify-center rounded-full w-[100px] h-[30px] text-green-800 bg-green-50 border-green-400 text-xs"
               onClick={approveFunction}
+              disabled={loading}
             >
+              {loading ? <i className="pi pi-spin pi-spinner !text-sm"></i> : ""}
               {approveButtonText}
             </button>
           ) : (
@@ -41,10 +44,11 @@ export default function AdminDashboardCard({
           )}{" "}
           {rejcetButtonText ? (
             <button
-              className=" border rounded-full w-[100px] h-[30px] text-red-700 bg-red-50 border-red-400 text-xs"
+              className=" border flex items-center gap-2 justify-center rounded-full w-[100px] h-[30px] text-red-700 bg-red-50 border-red-400 text-xs"
               onClick={rejectFunction}
+              disabled={loading}
             >
-              {" "}
+              {loading ? <i className="pi pi-spin pi-spinner !text-sm"></i> : ""}
               {rejcetButtonText}{" "}
             </button>
           ) : (
