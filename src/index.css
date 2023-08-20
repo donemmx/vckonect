@@ -462,7 +462,12 @@ body {
 .active {
   background: rgb(239, 239, 239);
 }
+.activeTab {
+  border: solid 2px var(--border-green-500);
+  color: var(--text-green-700);
+  box-shadow: var(--shadow-green-100);
 
+}
 .menuSearch {
   display: grid;
   grid-template-columns: 8fr 3fr;

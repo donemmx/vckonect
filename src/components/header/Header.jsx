@@ -46,7 +46,7 @@ export default function Header({ bg }) {
           bg ? "bg-hero" : " bg-white"
         }  w-[100vw] h-[80px] flex justify-center items-center fixed z-[100] `}
       >
-        <div className="header flex items-center justify-between p-1 w-[90%] md:w-[85%] m-auto">
+        <div className="header flex items-center justify-between p-2 w-[90%] md:w-[85%] m-auto">
           <Link to="/" className="logo h-[25px] md:h-[30px] lg:h-[35px]">
             <img
               src={logo}
@@ -67,7 +67,7 @@ export default function Header({ bg }) {
           </div>
           <div className="header__user">
             <div
-              className="grouped__icons flex space-x-2 bg-white border p-1 border-gray-300 h-[40px] md:h-[45px] lg:h-[50px] cursor-pointer rounded-[16px]"
+              className="grouped__icons flex space-x-2 bg-white border p-2 border-gray-300 h-[40px] md:h-[45px] lg:h-[50px] cursor-pointer rounded-[16px]"
               onClick={openModal}
             >
               <img
