@@ -47,6 +47,7 @@ import AnimalOwnerLayout from "./components/AnimalOwnerLayout";
 import DashboardHome from "./views/user/DashboardHome";
 import PetandLiveStock from "./views/user/PetandLiveStock";
 import AdminLogin from "./views/admin/AdminLogin";
+import AdminContent from "./views/admin/AdminContent";
 
 const router = createBrowserRouter([
     {
@@ -240,6 +241,10 @@ const router = createBrowserRouter([
             {
                 path: '/admin-promotion',
                 element: <AdminPromotion />
+            },
+            {
+                path: '/forum-content',
+                element: <AdminContent />
             },
             {
                 path: '/admin-account',

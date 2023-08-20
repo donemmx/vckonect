@@ -7,9 +7,20 @@ import totalVet from "../../assets/sidebar/total-vet.svg";
 import storesIcon from "../../assets/sidebar/stores.svg";
 import clinicsIcon from "../../assets/sidebar/clinic-dash.svg";
 import petsIcon from "../../assets/sidebar/livestock.svg";
-import { adminGetAnimalOwner, adminGetClinic, adminGetFarm, adminGetPet, adminGetVeterinarian, usersCounter } from "../../utils/adminApiService";
+import {
+  adminGetAnimalOwner,
+  adminGetClinic,
+  adminGetFarm,
+  adminGetPet,
+  adminGetVeterinarian,
+  usersCounter,
+} from "../../utils/adminApiService";
 import { toast } from "react-toastify";
 import { getStore } from "../../utils/userApiService";
+import search from "../../assets/icons/search-icons/search-icon-white.svg";
+import AdminDashboardCard from "../../components/adminDashboardCard/adminDashboardCard";
+import moment from "moment";
+import { product } from "../../validations/UserValidation";
 
 export default function UserFeatures() {
   const [counter, setCounter] = useState();
@@ -19,37 +30,38 @@ export default function UserFeatures() {
   const [pet, setPet] = useState();
   const [farms, setFarms] = useState();
   const [vet, setVet] = useState();
-  const [tab, setTab] = useState("total users");
+  const [tab, setTab] = useState("animalOwner");
   const getUserCounter = async () => {
-    await usersCounter()
-      .then((res) => {
-        setCounter(res);
-      })
+    await usersCounter().then((res) => {
+      setCounter(res);
+    });
 
     await adminGetAnimalOwner().then((res) => {
       setAnimalOwner(res);
     });
 
-    await adminGetClinic().then((res)=> {
-      setClinic(res)
-    })
+    await adminGetClinic().then((res) => {
+      setClinic(res);
+    });
 
-    await getStore().then((res)=> {
-      setStores(res)
-    })
+    await getStore().then((res) => {
+      setStores(res);
+    });
 
-    await adminGetFarm().then((res)=> {
-      setFarms(res)
-    })
+    await adminGetFarm().then((res) => {
+      setFarms(res);
+    });
 
-    await adminGetPet().then((res)=> {
-      setPet(res)
-    })
-    await adminGetVeterinarian().then((res)=> {
-      setVet(res)
-    })
+    await adminGetPet().then((res) => {
+      setPet(res);
+    });
+    await adminGetVeterinarian().then((res) => {
+      setVet(res);
+    });
+  };
 
-
+  const activeTab = (type) => {
+    setTab(type);
   };
 
   useEffect(() => {
@@ -90,6 +102,157 @@ export default function UserFeatures() {
           text="Total Pets/Farms"
           icon={petsIcon}
         />
+      </div>
+      <div className="activity mt-5  mb-5 p-4 border bg-white rounded-lg">
+        <div className="flex items-center gap-6">
+          <h4
+            className={`text-[.85rem] lg:text-[1rem] cursor-pointer ${
+              tab === "animalOwner" ? "font-black" : ""
+            } `}
+            onClick={() => activeTab("animalOwner")}
+          >
+            Animal Owners
+          </h4>
+          <h4
+            className={`text-[.85rem] lg:text-[1rem] cursor-pointer ${
+              tab === "vet" ? "font-black" : ""
+            } `}
+            onClick={() => activeTab("vet")}
+          >
+            Vetenarians
+          </h4>
+          <h4
+            className={`text-[.85rem] lg:text-[1rem] cursor-pointer ${
+              tab === "store" ? "font-black" : ""
+            } `}
+            onClick={() => activeTab("store")}
+          >
+            Store
+          </h4>
+          <h4
+            className={`text-[.85rem] lg:text-[1rem] cursor-pointer ${
+              tab === "clinic" ? "font-black" : ""
+            } `}
+            onClick={() => activeTab("clinic")}
+          >
+            Clinic
+          </h4>
+          <h4
+            className={`text-[.85rem] lg:text-[1rem] cursor-pointer ${
+              tab === "pets" ? "font-black" : ""
+            } `}
+            onClick={() => activeTab("pets")}
+          >
+            Pets & Farms
+          </h4>
+          <h4
+            className={`text-[.85rem] lg:text-[1rem] cursor-pointer ${
+              tab === "product" ? "font-black" : ""
+            } `}
+            onClick={() => activeTab("product")}
+          >
+            Products
+          </h4>
+        </div>
+
+        <div className="search mt-[5vh] shadow-[0px_13px_40px_0px_rgba(27,25,86,0.06)]">
+          <div className="form__group flex space-x-2 items-center p-1 border-[#EBEBEB] border  bg-white rounded-[16px]">
+            <input
+              type="text"
+              placeholder="Search"
+              className=" outline-none px-2 w-full"
+            />
+            <div className="search__btn  bg-green-800 h-[45px] w-[200px] text-white  flex items-center gap-4 justify-center rounded-r-[16px]">
+              <img src={search} alt="" className=" h-[15px]" />
+              Search
+            </div>
+          </div>
+        </div>
+        {tab == "animalOwner" ? (
+          <div className="posts p-3 mt-5 grid gap-2">
+            {animalOwner?.map((res) =>
+              res.account_activation === "Activated" ? (
+                <AdminDashboardCard
+                  time={moment(res.date).utc().fromNow()}
+                  title={res.first_name + res.last_name}
+                  name={res.role}
+                  image={res.profile_picture}
+                  rejcetButtonText="Disable"
+                  key={res.id}
+                />
+              ) : (
+                <AdminDashboardCard
+                  time={moment(res.date).utc().fromNow()}
+                  title={res.first_name + res.last_name}
+                  name={res.role}
+                  image={res.profile_picture}
+                  approveButtonText="Enable"
+                  key={res.id}
+                />
+              )
+            )}
+          </div>
+        ) : tab == "vet" ? (
+          <div className="posts p-3 mt-5 grid gap-2">
+            {vet?.map((res) => (
+              <AdminDashboardCard
+                time={moment(res.date).utc().fromNow()}
+                title={res.title}
+                name={res.user_name}
+                key={res.id}
+              />
+            ))}
+          </div>
+        ) : tab == "store" ? (
+          <div className="posts p-3 mt-5 grid gap-2">
+            {stores?.map((res) => (
+              <AdminDashboardCard
+                time={moment(res.date).utc().fromNow()}
+                title={res.store_name}
+                name={res.location}
+                image={res.picture}
+                key={res.id}
+              />
+            ))}
+          </div>
+        ) : tab == "clinic" ? (
+          <div className="posts p-3 mt-5 grid gap-2">
+            {clinic?.map((res) => (
+              <AdminDashboardCard
+                time={moment(res.date).utc().fromNow()}
+                title={res.title}
+                name={res.user_name}
+                image={res.picture}
+                key={res.id}
+              />
+            ))}
+          </div>
+        ) : tab == "store" ? (
+          <div className="posts p-3 mt-5 grid gap-2">
+            {stores?.map((res) => (
+              <AdminDashboardCard
+                time={moment(res.date).utc().fromNow()}
+                title={res.title}
+                name={res.user_name}
+                image={res.picture}
+                key={res.id}
+              />
+            ))}
+          </div>
+        ) : tab == "product" ? (
+          <div className="posts p-3 mt-5 grid gap-2">
+            {product?.map((res) => (
+              <AdminDashboardCard
+                time={moment(res.date).utc().fromNow()}
+                title={res.title}
+                name={res.user_name}
+                key={res.id}
+              />
+            ))}
+          </div>
+        ) : (
+          ""
+        )}
       </div>
     </div>
   );

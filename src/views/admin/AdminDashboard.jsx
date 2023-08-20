@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
 import { toast } from "react-toastify";
-import AdminHeader from "../../components/header/AdminHeader";
 import { usersCounter } from "../../utils/adminApiService";
 import { useEffect, useState } from "react";
 import AdminCard from "../../components/adminCard/AdminCard";
@@ -22,6 +21,9 @@ export default function AdminDashboard() {
       .catch((err) => toast.error(err.detail));
   };
 
+  const activeTab = (type) => {
+    setTab(type);
+  };
 
   useEffect(() => {
     getUserCounter();
@@ -60,6 +62,52 @@ export default function AdminDashboard() {
           text="Active Users"
           icon={activeUser}
         />
+      </div>
+      <div className="activity mt-5  mb-5 p-4 border bg-white rounded-lg">
+        <div className="flex items-center gap-6">
+          <h2
+            className={` text-[1rem] lg:text-[1rem] cursor-pointer ${
+              tab === "users" ? "font-black" : ""
+            } `}
+            onClick={() => activeTab("users")}
+          >
+            Total Users
+          </h2>
+          <h4
+            className={`text-[1rem] lg:text-[1rem] cursor-pointer ${
+              tab === "animalOwner" ? "font-black" : ""
+            } `}
+            onClick={() => activeTab("animalOwner")}
+          >
+          Animal Owners
+          </h4>
+          <h4
+            className={`text-[1rem] lg:text-[1rem] cursor-pointer ${
+              tab === "totalVet" ? "font-black" : ""
+            } `}
+            onClick={() => activeTab("totalVet")}
+          >
+            Total Vetenarians
+          </h4>
+          <h4
+            className={`text-[1rem] lg:text-[1rem] cursor-pointer ${
+              tab === "verifiedVet" ? "font-black" : ""
+            } `}
+            onClick={() => activeTab("verifiedVet")}
+          >
+               Verified Vetenarians
+          </h4>
+          <h4
+            className={`text-[1rem] lg:text-[1rem] cursor-pointer ${
+              tab === "unverifiedVet" ? "font-black" : ""
+            } `}
+            onClick={() => activeTab("unverifiedVet")}
+          >
+              Unverified Vetenarians
+          </h4>
+        </div>
+
+  
       </div>
     </div>
   );
