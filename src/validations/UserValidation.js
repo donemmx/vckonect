@@ -22,6 +22,8 @@ const verify = yup.object().shape({
 const vetUser = yup.object().shape({
     firstName: yup.string().required("Required"),
     lastName: yup.string().required("Required"),
+    country: yup.string().required("Required"),
+    state: yup.string().required("Required"),
     phone_number: yup.string().required("Required"),
     address: yup.string().required("Required"),
     vetNumber: yup.string().required("Required"),

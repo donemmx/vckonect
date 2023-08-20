@@ -29,12 +29,14 @@ export default function OnboardVetPersonal() {
 
   const onSubmit = async (values) => {
 
-    const {firstName, lastName, vetNumber, ...others}  = values
+    const {firstName, lastName, vetNumber, country,state, ...others}  = values
     const payload = {
       stage: 2,
       email: regEmail,
       first_name: firstName,
       last_name: lastName,
+      country: country,
+      state: state,
       vet_number: vetNumber,
       ...others,
     };
@@ -58,6 +60,8 @@ export default function OnboardVetPersonal() {
         lastName: "",
         phone_number: "",
         address: "",
+        state: "",
+        country: "",
         speciality: "",
       },
       validationSchema: vetUser,
@@ -155,6 +159,32 @@ export default function OnboardVetPersonal() {
           </span>
           {errors.phone_number && touched.phone_number && (
             <p className="error">{errors.phone_number}</p>
+          )}
+          <span className="p-float-label">
+            <InputText
+              id="username"
+              name="phone_number"
+              value={values.country}
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />
+            <label htmlFor="username">Country</label>
+          </span>
+          {errors.country && touched.country && (
+            <p className="error">{errors.country}</p>
+          )}
+          <span className="p-float-label">
+            <InputText
+              id="username"
+              name="phone_number"
+              value={values.state}
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />
+            <label htmlFor="username">State</label>
+          </span>
+          {errors.state && touched.state && (
+            <p className="error">{errors.state}</p>
           )}
           <span className="p-float-label">
             <InputText
