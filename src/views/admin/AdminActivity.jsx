@@ -3,12 +3,17 @@ import { getAdminActivity } from "../../utils/adminApiService";
 import search from "../../assets/icons/search-icons/search-icon-white.svg";
 import moment from "moment";
 import AdminDashboardCard from "../../components/adminDashboardCard/AdminDashboardCard";
+import { useRecoilValue } from "recoil";
+import { user } from "../../atom/userAtom";
 
 export default function AdminActivity() {
   const [activities, setActivities] = useState();
-
+  const userData = useRecoilValue(user)
   const getUserCounter = async () => {
-    await getAdminActivity().then((res) => {
+    const payload = {
+      staff_id: userData.staff_id
+    }
+    await getAdminActivity(payload).then((res) => {
       setActivities(res);
     });
   };

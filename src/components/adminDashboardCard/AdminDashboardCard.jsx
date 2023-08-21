@@ -41,7 +41,7 @@ export default function AdminDashboardCard({
             </button>
           ) : (
             ""
-          )}{" "}
+          )}
           {rejcetButtonText ? (
             <button
               className=" border flex items-center gap-2 justify-center rounded-full w-[100px] h-[30px] text-red-700 bg-red-50 border-red-400 text-xs"
@@ -49,7 +49,7 @@ export default function AdminDashboardCard({
               disabled={loading}
             >
               {loading ? <i className="pi pi-spin pi-spinner !text-sm"></i> : ""}
-              {rejcetButtonText}{" "}
+              {rejcetButtonText}
             </button>
           ) : (
             ""
