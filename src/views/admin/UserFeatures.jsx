@@ -18,9 +18,9 @@ import {
 import { toast } from "react-toastify";
 import { getStore } from "../../utils/userApiService";
 import search from "../../assets/icons/search-icons/search-icon-white.svg";
-import AdminDashboardCard from "../../components/adminDashboardCard/adminDashboardCard";
 import moment from "moment";
 import { product } from "../../validations/UserValidation";
+import AdminDashboardCard from "../../components/adminDashboardCard/adminDashboardCard";
 
 export default function UserFeatures() {
   const [counter, setCounter] = useState();

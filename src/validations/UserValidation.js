@@ -39,11 +39,11 @@ const updateUser = yup.object().shape({
     confirmPassword: yup.string().oneOf([yup.ref('password'), null], "Passwords must match")
 })
 
-
 const loginUser =  yup.object().shape({
     email: yup.string().email("Please enter a valid email").required("Required"),
     password: yup.string().required("Required"),
 })
+
 const loginAdmin =  yup.object().shape({
     staff_id: yup.string().required("Required"),
     password: yup.string().required("Required"),
@@ -53,6 +53,7 @@ const forumChat = yup.object().shape({
     title: yup.string().required("Required"),
     content: yup.string().required("Required"),
 })
+
 const product = yup.object().shape({
     category: yup.string().required("Required"),
     description: yup.string().required("Required"),
