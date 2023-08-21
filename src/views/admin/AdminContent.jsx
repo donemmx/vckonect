@@ -18,7 +18,7 @@ import {
 import { toast } from "react-toastify";
 import { getForumChat, getStore } from "../../utils/userApiService";
 import search from "../../assets/icons/search-icons/search-icon-white.svg";
-import AdminDashboardCard from "../../components/adminDashboardCard/adminDashboardCard";
+import AdminDashboardCard from "../../components/adminDashboardCard/AdminDashboardCard";
 import moment from "moment";
 import { product } from "../../validations/UserValidation";
 
