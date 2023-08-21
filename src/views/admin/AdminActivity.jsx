@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { getAdminActivity } from "../../utils/adminApiService";
 import search from "../../assets/icons/search-icons/search-icon-white.svg";
 import moment from "moment";
-import AdminDashboardCard from "../../components/adminDashboardCard/adminDashboardCard";
+import AdminDashboardCard from "../../components/AdminDashboardCard/AdminDashboardCard";
 
 export default function AdminActivity() {
   const [activities, setActivities] = useState();
