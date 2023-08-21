@@ -20,7 +20,7 @@ import { getStore } from "../../utils/userApiService";
 import search from "../../assets/icons/search-icons/search-icon-white.svg";
 import moment from "moment";
 import { product } from "../../validations/UserValidation";
-import AdminDashboardCard from "../../components/AdminDashboardCard/AdminDashboardCard";
+import AdminDashboardCard from "../../components/adminDashboardCard/AdminDashboardCard";
 
 export default function UserFeatures() {
   const [counter, setCounter] = useState();
