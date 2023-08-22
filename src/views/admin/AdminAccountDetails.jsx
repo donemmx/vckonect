@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { user } from "../../atom/userAtom";
-import { getUserById } from "../../utils/userApiService";
 import { toast } from "react-toastify";
 import { useFormik } from "formik";
 import { updateUser } from "../../validations/UserValidation";
