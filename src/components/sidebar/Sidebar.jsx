@@ -49,20 +49,11 @@ export default function Sidebar() {
           </NavLink>
 
           <NavLink
-            to="/admin-dashboard"
-            className="flex items-center w-full  gap-4 cursor-pointer p-2 hover:bg-gray-100 rounded-full "
-          >
-            <img className="h-[25px]" src={dashicon} alt="" />
-            <small className="text-[14px] leading-3 ">Dashboard</small>
-          </NavLink>
-          <NavLink
             to="/user-features"
             className="flex items-center w-[100%]  gap-4 cursor-pointer  p-2 hover:bg-gray-100 rounded-full  "
           >
-            <img className="h-[25px]" src={users} alt="" />
-            <small className="text-[14px] leading-3 text-center ">
-              Users & Features
-            </small>
+             <img className="h-[25px]" src={dashicon} alt="" />
+            <small className="text-[14px] leading-3 ">Dashboard</small>
           </NavLink>
           <NavLink
             to="/forum-content"
@@ -172,21 +163,11 @@ export default function Sidebar() {
                 </div>
                 <NavLink
                   onClick={openModal}
-                  to="/admin-dashboard"
-                  className="flex items-center w-full  gap-4 cursor-pointer p-2 hover:bg-gray-100 rounded-full "
-                >
-                  <img className="h-[27px]" src={dashicon} alt="" />
-                  <small className="text-[16px] leading-3 ">Dashboard</small>
-                </NavLink>
-                <NavLink
-                  onClick={openModal}
                   to="/user-features"
                   className="flex items-center w-[100%]  gap-4 cursor-pointer  p-2 hover:bg-gray-100 rounded-full  "
                 >
-                  <img className="h-[27px]" src={users} alt="" />
-                  <small className="text-[16px] leading-3 text-center ">
-                    Users & Features
-                  </small>
+                  <img className="h-[27px]" src={dashicon} alt="" />
+                  <small className="text-[16px] leading-3 ">Dashboard</small>
                 </NavLink>
                 <NavLink
                   onClick={openModal}

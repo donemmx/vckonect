@@ -44,6 +44,8 @@ export default function AdminActivity() {
                 title={res.title}
                 name={res.user_name}
                 key={res.id}
+                rejcetButtonText={'Reject'}
+                approveButtonText={'Approve'}
               />
           )}
         </div>
