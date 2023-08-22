@@ -78,12 +78,21 @@ export default function UserFeatures() {
     setActive(type);
   };
 
-  const disableUserAccount = () => {
+  const disableUserAccount = (data) => {
+    console.log(data);
+    const payload = {
+      id: data.id,
+      role: data.role
+    }
     deactivateAccount(payload).then((res)=> {
       toast.success('User successfully deactivated')
     })
   }
-  const activateUserAccount = () => {
+  const activateUserAccount = (data) => {
+    const payload = {
+      id: data.id,
+      role: data.role
+    }
     activateAccount(payload).then((res)=> {
       toast.success('User successfully activated')
     })
@@ -204,7 +213,7 @@ export default function UserFeatures() {
                   image={res.profile_picture}
                   rejcetButtonText="Disable"
                   message="Are you sure to deactivate this account?"
-                  approveFunction={disableUserAccount}
+                  approveFunction={()=> disableUserAccount(res)}
                   key={res.id}
                 />
               ) : (
@@ -214,7 +223,7 @@ export default function UserFeatures() {
                   name={res.role}
                   image={res.profile_picture}
                   approveButtonText="Enable"
-                  approveFunction={activateUserAccount}
+                  approveFunction={() => activateUserAccount(res)}
                   message="Are you sure to activate this account?"
                   key={res.id}
                 />
