@@ -7,7 +7,7 @@ import users from "../../assets/sidebar/users.svg";
 import subscription from "../../assets/sidebar/subscription.svg";
 import adsicon from "../../assets/sidebar/ads.svg";
 import activitiesicon from "../../assets/sidebar/activities.svg";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import logo from "../../assets/logo/vc-logo.svg";
 import logoShort from "../../assets/logo/vc-short.svg";
 import { useRecoilState, useRecoilValue } from "recoil";
@@ -20,9 +20,10 @@ import userImg from "../../assets/icons/header-icons/user-icon.svg";
 export default function Sidebar() {
   const userData = useRecoilValue(user);
   const [data, setData] = useRecoilState(user);
-
+  const navigate = useNavigate()
   const logOut = () => {
     setData(null);
+    navigate('/admin-login')
     toast.success("Successfully logged out");
   };
 
