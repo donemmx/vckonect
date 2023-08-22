@@ -83,14 +83,8 @@ export default function AdminAccountDetails() {
         .then((res) => {
           if (!res.code) {
             toast.success("User data updated");
-            const payload = {
-              id: userData?.id,
-              role: userData?.role,
-            };
-            getUserById(payload).then((fullData) => {
               setUserData({
-                ...fullData,
-              });
+                ...res.data,
             });
             window.history.back();
           } else {
