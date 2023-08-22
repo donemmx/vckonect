@@ -49,7 +49,7 @@ export default function Sidebar() {
           </NavLink>
 
           <NavLink
-            to="/user-features"
+            to="/admin-dashboard"
             className="flex items-center w-[100%]  gap-4 cursor-pointer  p-2 hover:bg-gray-100 rounded-full  "
           >
              <img className="h-[25px]" src={dashicon} alt="" />
@@ -163,7 +163,7 @@ export default function Sidebar() {
                 </div>
                 <NavLink
                   onClick={openModal}
-                  to="/user-features"
+                  to="/admin-dashboard"
                   className="flex items-center w-[100%]  gap-4 cursor-pointer  p-2 hover:bg-gray-100 rounded-full  "
                 >
                   <img className="h-[27px]" src={dashicon} alt="" />

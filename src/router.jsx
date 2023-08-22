@@ -224,10 +224,6 @@ const router = createBrowserRouter([
         children: [
             {
                 path: '/admin-dashboard',
-                element: <AdminDashboard />
-            },
-            {
-                path: '/user-features',
                 element: <UserFeatures />
             },
             {
