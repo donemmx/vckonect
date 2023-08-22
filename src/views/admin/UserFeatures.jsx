@@ -12,6 +12,7 @@ import {
   adminGetClinic,
   adminGetFarm,
   adminGetPet,
+  adminGetProduct,
   adminGetVeterinarian,
   usersCounter,
 } from "../../utils/adminApiService";
@@ -26,6 +27,7 @@ export default function UserFeatures() {
   const [counter, setCounter] = useState();
   const [animalOwner, setAnimalOwner] = useState();
   const [stores, setStores] = useState();
+  const [product, setProduct] = useState();
   const [clinic, setClinic] = useState();
   const [pet, setPet] = useState();
   const [farms, setFarms] = useState();
@@ -58,6 +60,12 @@ export default function UserFeatures() {
     await adminGetVeterinarian().then((res) => {
       setVet(res);
     });
+ 
+    await adminGetProduct().then((res) => {
+      setProduct(res);
+    });
+
+
   };
 
   const activeTab = (type) => {
@@ -227,13 +235,13 @@ export default function UserFeatures() {
               />
             ))}
           </div>
-        ) : tab == "store" ? (
+        ) : tab == "pets" ? (
           <div className="posts p-3 mt-5 grid gap-2">
-            {stores?.map((res) => (
+            {pet?.map((res) => (
               <AdminDashboardCard
                 time={moment(res.date).utc().fromNow()}
-                title={res.title}
-                name={res.user_name}
+                title={res.pet_name}
+                name={res.pet_id}
                 image={res.picture}
                 key={res.id}
               />
