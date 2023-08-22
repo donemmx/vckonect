@@ -42,10 +42,8 @@ export default function AdminActivity() {
               <AdminDashboardCard
                 time={moment(res.date).utc().fromNow()}
                 title={res.title}
-                name={res.user_name}
+                name={res.detail}
                 key={res.id}
-                rejcetButtonText={'Reject'}
-                approveButtonText={'Approve'}
               />
           )}
         </div>
