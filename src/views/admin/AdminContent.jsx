@@ -2,8 +2,8 @@
 import { useEffect, useState } from "react";
 import AdminCard from "../../components/adminCard/AdminCard";
 import totalVet from "../../assets/sidebar/total-vet.svg";
-import totalComments from "../../assets/sidebar/recent-comment.svg";
-import totalLiked from "../../assets/sidebar/recent-liked.svg";
+import rejectedPost from "../../assets/sidebar/rejectedPost.svg";
+import approvedPost from "../../assets/sidebar/approvedPost.svg";
 import recentPublished from "../../assets/sidebar/recent-published-content.svg";
 import {
   adminGetAnimalOwner,
@@ -25,12 +25,16 @@ import { product } from "../../validations/UserValidation";
 export default function AdminContent() {
   const [animalOwner, setAnimalOwner] = useState();
   const [forum, setForum] = useState();
+  const [approved, setApproved] = useState();
+  const [rejected, setRejected] = useState();
   const [loading, setLoading] = useState(true);
   const [pet, setPet] = useState();
   const getUserCounter = async () => {
     await getForumChat().then((res) => {
       setForum(res);
       setLoading(false);
+      setApproved(()=> res.filter((data)=> data.status === 'Approved'))
+      setRejected(()=> res.filter((data)=> data.status === 'Not Approved'))
     });
   };
 
@@ -63,15 +67,15 @@ export default function AdminContent() {
           icon={recentPublished}
         />
         <AdminCard
-          number={forum?.animal_owner}
-          text="Total Liked"
-          icon={totalLiked}
+          number={approved?.length}
+          text="Approved Post"
+          icon={approvedPost}
         />
 
         <AdminCard
-          number={forum?.veterinarian}
-          text="Total Comment"
-          icon={totalComments}
+          number={rejected?.length}
+          text="Rejected Post"
+          icon={rejectedPost}
         />
       </div>
       <div className="activity mt-5  mb-5 p-4 border bg-white rounded-lg">
