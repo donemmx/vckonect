@@ -8,12 +8,14 @@ import storesIcon from "../../assets/sidebar/stores.svg";
 import clinicsIcon from "../../assets/sidebar/clinic-dash.svg";
 import petsIcon from "../../assets/sidebar/livestock.svg";
 import {
+  activateAccount,
   adminGetAnimalOwner,
   adminGetClinic,
   adminGetFarm,
   adminGetPet,
   adminGetProduct,
   adminGetVeterinarian,
+  deactivateAccount,
   usersCounter,
 } from "../../utils/adminApiService";
 import { toast } from "react-toastify";
@@ -75,6 +77,17 @@ export default function UserFeatures() {
   const activeMenu = (type) => {
     setActive(type);
   };
+
+  const disableUserAccount = () => {
+    deactivateAccount(payload).then((res)=> {
+      toast.success('User successfully deactivated')
+    })
+  }
+  const activateUserAccount = () => {
+    activateAccount(payload).then((res)=> {
+      toast.success('User successfully activated')
+    })
+  }
 
   useEffect(() => {
     getUserCounter();
@@ -191,6 +204,7 @@ export default function UserFeatures() {
                   image={res.profile_picture}
                   rejcetButtonText="Disable"
                   message="Are you sure to deactivate this account?"
+                  approveFunction={disableUserAccount}
                   key={res.id}
                 />
               ) : (
@@ -200,6 +214,7 @@ export default function UserFeatures() {
                   name={res.role}
                   image={res.profile_picture}
                   approveButtonText="Enable"
+                  approveFunction={activateUserAccount}
                   message="Are you sure to activate this account?"
                   key={res.id}
                 />
