@@ -101,7 +101,8 @@ export default function AdminContent() {
                 name={res.user_name}
                 rejcetButtonText="Reject"
                 loading={loading}
-                rejectFunction={() =>
+                message='Are you sure you want to reject this post'
+                approveFunction={() =>
                   rejectContent({
                     forum_chat_id: res.id,
                     user_id: res.user_id,
@@ -116,6 +117,7 @@ export default function AdminContent() {
                 title={res.title}
                 name={res.user_name}
                 approveButtonText="Approve"
+                message='Are you sure you want to accept this post'
                 loading={loading}
                 approveFunction={() =>
                   approveContent({
