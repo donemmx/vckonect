@@ -38,6 +38,7 @@ export default function AdminAccount() {
           <div className="flex items-center gap-3 text-[.75rem] lg:text-[.9rem] cursor-pointer">
           </div>
           <Link
+          to='/admin-account-details'
             className=" flex items-center gap-3 text-[.75rem] lg:text-[.9rem] cursor-pointer"
           >
             Edit

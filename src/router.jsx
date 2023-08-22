@@ -37,7 +37,6 @@ import AddCase from "./views/user/AddCase";
 import AdminLayout from "./components/AdminLayout";
 import AdminDashboard from "./views/admin/AdminDashboard";
 import UserFeatures from "./views/admin/UserFeatures";
-import AdminForum from "./views/admin/AdminForum";
 import Subscriptions from "./views/admin/Subscriptions";
 import AdminPromotion from "./views/admin/AdminPromotion";
 import AdminAccount from "./views/admin/AdminAccount";
@@ -48,6 +47,7 @@ import DashboardHome from "./views/user/DashboardHome";
 import PetandLiveStock from "./views/user/PetandLiveStock";
 import AdminLogin from "./views/admin/AdminLogin";
 import AdminContent from "./views/admin/AdminContent";
+import AdminAccountDetails from "./views/admin/AdminAccountDetails";
 
 const router = createBrowserRouter([
     {
@@ -227,10 +227,6 @@ const router = createBrowserRouter([
                 element: <UserFeatures />
             },
             {
-                path: '/admin-forum',
-                element: <AdminForum />
-            },
-            {
                 path: '/subscriptions',
                 element: <Subscriptions />
             },
@@ -245,6 +241,10 @@ const router = createBrowserRouter([
             {
                 path: '/admin-account',
                 element: <AdminAccount />
+            },
+            {
+                path: '/admin-account-details',
+                element: <AdminAccountDetails />
             },
             {
                 path: '/admin-activity',

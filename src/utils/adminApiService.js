@@ -134,7 +134,7 @@ const getAdminActivity = (payload) => {
 const updateAdminProfile = (payload) => {
   return axios
     .post(
-      `${baseURl}/registerVeterinarian`, payload
+      `${baseURl}/updateAdminProfile`, payload
     )
     .then((res) => res.data)
     .catch((err) => console.log(err));
