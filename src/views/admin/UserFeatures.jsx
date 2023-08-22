@@ -20,7 +20,7 @@ import { toast } from "react-toastify";
 import { getStore } from "../../utils/userApiService";
 import search from "../../assets/icons/search-icons/search-icon-white.svg";
 import moment from "moment";
-import { product } from "../../validations/UserValidation";
+import { farm, product } from "../../validations/UserValidation";
 import AdminDashboardCard from "../../components/adminDashboardCard/AdminDashboardCard";
 
 export default function UserFeatures() {
@@ -33,6 +33,8 @@ export default function UserFeatures() {
   const [farms, setFarms] = useState();
   const [vet, setVet] = useState();
   const [tab, setTab] = useState("animalOwner");
+  const [active, setActive] = useState("pet");
+
   const getUserCounter = async () => {
     await usersCounter().then((res) => {
       setCounter(res);
@@ -60,16 +62,18 @@ export default function UserFeatures() {
     await adminGetVeterinarian().then((res) => {
       setVet(res);
     });
- 
+
     await adminGetProduct().then((res) => {
       setProduct(res);
     });
-
-
   };
 
   const activeTab = (type) => {
     setTab(type);
+  };
+
+  const activeMenu = (type) => {
+    setActive(type);
   };
 
   useEffect(() => {
@@ -186,7 +190,7 @@ export default function UserFeatures() {
                   name={res.role}
                   image={res.profile_picture}
                   rejcetButtonText="Disable"
-                  message='Are you sure to deactivate this account?'
+                  message="Are you sure to deactivate this account?"
                   key={res.id}
                 />
               ) : (
@@ -196,7 +200,7 @@ export default function UserFeatures() {
                   name={res.role}
                   image={res.profile_picture}
                   approveButtonText="Enable"
-                  message='Are you sure to activate this account?'
+                  message="Are you sure to activate this account?"
                   key={res.id}
                 />
               )
@@ -238,17 +242,51 @@ export default function UserFeatures() {
             ))}
           </div>
         ) : tab == "pets" ? (
-          <div className="posts p-3 mt-5 grid gap-2">
-            {pet?.map((res) => (
-              <AdminDashboardCard
-                time={moment(res.date).utc().fromNow()}
-                title={res.pet_name}
-                name={res.pet_id}
-                image={res.picture}
-                key={res.id}
-              />
-            ))}
-          </div>
+          <>
+            <div className="flex items-center gap-4 mt-5 mx-4">
+              <h4
+                className={`text-[.85rem] lg:text-[1rem] cursor-pointer ${
+                  active === "pet" ? "font-black" : ""
+                } `}
+                onClick={() => activeMenu("pet")}
+              >
+                Pets
+              </h4>
+              <h4
+                className={`text-[.85rem] lg:text-[1rem] cursor-pointer ${
+                  active === "farm" ? "font-black" : ""
+                } `}
+                onClick={() => activeMenu("farm")}
+              >
+                Farms
+              </h4>
+            </div>
+            { active === 'pet' ?
+              <div className="posts p-3 mt-5 grid gap-2">
+                {pet?.map((res) => (
+                  <AdminDashboardCard
+                    time={moment(res.date).utc().fromNow()}
+                    title={res.pet_name}
+                    name={res.pet_id}
+                    image={res.picture}
+                    key={res.id}
+                  />
+                ))}
+              </div>
+              :
+              <div className="posts p-3 mt-5 grid gap-2">
+              {farms?.map((res) => (
+                <AdminDashboardCard
+                  time={moment(res.date).utc().fromNow()}
+                  title={res.farm_name}
+                  name={res.farm_id}
+                  image={res.picture}
+                  key={res.id}
+                />
+              ))}
+            </div>
+            }
+          </>
         ) : tab == "product" ? (
           <div className="posts p-3 mt-5 grid gap-2">
             {product?.map((res) => (

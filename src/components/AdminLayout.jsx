@@ -14,7 +14,7 @@ export default function AdminLayout() {
           <Sidebar />
           <AdminHeader />
 
-          <div className="flex w-[90%] mx-auto pt-[12vh] lg:pt-0 lg:absolute lg:left-[18vw] lg:top-20 lg:w-[calc(100vw-19vw)]">
+          <div className="flex w-[90%] mx-auto pt-[12vh] lg:pt-0 lg:absolute lg:top-20 lg:w-[calc(100vw-19vw)] lg:left-[18vw]">
             <Outlet />
           </div>
         </>
