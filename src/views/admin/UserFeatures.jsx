@@ -186,6 +186,7 @@ export default function UserFeatures() {
                   name={res.role}
                   image={res.profile_picture}
                   rejcetButtonText="Disable"
+                  message='Are you sure to deactivate this account?'
                   key={res.id}
                 />
               ) : (
@@ -195,6 +196,7 @@ export default function UserFeatures() {
                   name={res.role}
                   image={res.profile_picture}
                   approveButtonText="Enable"
+                  message='Are you sure to activate this account?'
                   key={res.id}
                 />
               )
