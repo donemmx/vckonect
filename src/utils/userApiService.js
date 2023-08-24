@@ -72,9 +72,9 @@ const addStore = (payload) => {
     .catch((err) => console.log(err));
 };
 
-const getStoreByFilter = (name, specialty) => {
+const getStoreByFilter = (payload) => {
   return axios
-    .get(`${baseURl}/getStoreByFilter?name=${name}&specialty=${specialty}`)
+    .post(`${baseURl}/getStoreByFilter`,payload)
     .then((res) => res.data)
     .catch((err) => console.log(err));
 };

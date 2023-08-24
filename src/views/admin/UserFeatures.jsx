@@ -19,8 +19,8 @@ import {
   usersCounter,
 } from "../../utils/adminApiService";
 import { toast } from "react-toastify";
-import { getStore } from "../../utils/userApiService";
-import search from "../../assets/icons/search-icons/search-icon-white.svg";
+import { getStore, getStoreByFilter } from "../../utils/userApiService";
+import searchIcon from "../../assets/icons/search-icons/search-icon-white.svg";
 import moment from "moment";
 import { farm, product } from "../../validations/UserValidation";
 import AdminDashboardCard from "../../components/adminDashboardCard/AdminDashboardCard";
@@ -36,6 +36,7 @@ export default function UserFeatures() {
   const [vet, setVet] = useState();
   const [tab, setTab] = useState("animalOwner");
   const [active, setActive] = useState("pet");
+  const [search, setSearch] = useState("");
 
   const getUserCounter = async () => {
     await usersCounter().then((res) => {
@@ -74,6 +75,44 @@ export default function UserFeatures() {
     setTab(type);
   };
 
+  const searchData = async () => {
+    switch (tab) {
+      case "animalOwner":
+        await adminGetAnimalOwner({name:search}).then((res) => {
+          setAnimalOwner(res);
+        });
+        break;
+      case "pets":
+        if (active === "pet") {
+          await adminGetPet({name:search}).then((res) => {
+            setPet(res);
+          });
+        } else {
+          await adminGetFarm({name:search}).then((res) => {
+            setFarms(res);
+          });
+        }
+        break;
+      case "vet":
+        await adminGetVeterinarian({name:search}).then((res) => {
+          setVet(res);
+        });
+        break;
+      case "store":
+        await getStoreByFilter({name:search}).then((res) => {
+          setStores(res);
+        });
+        break;
+      case "clinic":
+        await adminGetClinic({name:search}).then((res) => {
+          setClinic(res);
+        });
+        break;
+      default:
+        break;
+    }
+  };
+
   const activeMenu = (type) => {
     setActive(type);
   };
@@ -82,25 +121,27 @@ export default function UserFeatures() {
     console.log(data);
     const payload = {
       id: data.id,
-      role: data.role
-    }
-    deactivateAccount(payload).then((res)=> {
-      toast.success('User successfully deactivated')
-    })
-  }
+      role: data.role,
+    };
+    deactivateAccount(payload).then((res) => {
+      toast.success("User successfully deactivated");
+    });
+  };
   const activateUserAccount = (data) => {
     const payload = {
       id: data.id,
-      role: data.role
-    }
-    activateAccount(payload).then((res)=> {
-      toast.success('User successfully activated')
-    })
-  }
+      role: data.role,
+    };
+    activateAccount(payload).then((res) => {
+      toast.success("User successfully activated");
+    });
+  };
 
   useEffect(() => {
     getUserCounter();
-  }, []);
+  }, [(search.length === 0)]);
+
+  
 
   return (
     <div>
@@ -195,9 +236,14 @@ export default function UserFeatures() {
               type="text"
               placeholder="Search"
               className=" outline-none px-2 w-full"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
             />
-            <div className="search__btn  bg-green-800 h-[45px] w-[200px] text-white  flex items-center gap-4 justify-center rounded-r-[16px]">
-              <img src={search} alt="" className=" h-[15px]" />
+            <div
+              className="search__btn  bg-green-800 h-[45px] w-[200px] text-white  flex items-center gap-4 justify-center rounded-r-[16px]"
+              onClick={searchData}
+            >
+              <img src={searchIcon} alt="" className=" h-[15px]" />
               Search
             </div>
           </div>
@@ -213,7 +259,7 @@ export default function UserFeatures() {
                   image={res.profile_picture}
                   rejcetButtonText="Disable"
                   message="Are you sure to deactivate this account?"
-                  approveFunction={()=> disableUserAccount(res)}
+                  approveFunction={() => disableUserAccount(res)}
                   key={res.id}
                 />
               ) : (
@@ -285,7 +331,7 @@ export default function UserFeatures() {
                 Farms
               </h4>
             </div>
-            { active === 'pet' ?
+            {active === "pet" ? (
               <div className="posts p-3 mt-5 grid gap-2">
                 {pet?.map((res) => (
                   <AdminDashboardCard
@@ -297,19 +343,19 @@ export default function UserFeatures() {
                   />
                 ))}
               </div>
-              :
+            ) : (
               <div className="posts p-3 mt-5 grid gap-2">
-              {farms?.map((res) => (
-                <AdminDashboardCard
-                  time={moment(res.date).utc().fromNow()}
-                  title={res.farm_name}
-                  name={res.farm_id}
-                  image={res.picture}
-                  key={res.id}
-                />
-              ))}
-            </div>
-            }
+                {farms?.map((res) => (
+                  <AdminDashboardCard
+                    time={moment(res.date).utc().fromNow()}
+                    title={res.farm_name}
+                    name={res.farm_id}
+                    image={res.picture}
+                    key={res.id}
+                  />
+                ))}
+              </div>
+            )}
           </>
         ) : tab == "product" ? (
           <div className="posts p-3 mt-5 grid gap-2">
