@@ -17,7 +17,7 @@ import {
 } from "../../utils/adminApiService";
 import { toast } from "react-toastify";
 import { getForumChat, getForumChatByFilter, getStore } from "../../utils/userApiService";
-import search from "../../assets/icons/search-icons/search-icon-white.svg";
+import searchIcon from "../../assets/icons/search-icons/search-icon-white.svg";
 import AdminDashboardCard from "../../components/adminDashboardCard/AdminDashboardCard";
 import moment from "moment";
 import { product } from "../../validations/UserValidation";
@@ -97,7 +97,7 @@ export default function AdminContent() {
               onChange={(e) => setSearch(e.target.value)}
             />
             <button className="search__btn  bg-green-800 h-[45px] w-[200px] text-white  flex items-center gap-4 justify-center rounded-r-[16px]" onClick={searchData} disabled={search.length < 3}>
-              <img src={search} alt="" className=" h-[15px]" />
+              <img src={searchIcon} alt="" className=" h-[15px]" />
               Search
             </button>
           </div>
