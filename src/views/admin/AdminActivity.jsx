@@ -41,10 +41,12 @@ export default function AdminActivity() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
             />
-            <button className="search__btn  bg-green-800 h-[45px] w-[200px] text-white  flex items-center gap-4 justify-center rounded-r-[16px]">
+            <button className="search__btn  bg-green-800 h-[45px] w-[200px] text-white  flex items-center gap-4 justify-center rounded-r-[16px]" 
+             onClick={searchData}
+             disabled={search.length < 3}
+            >
               <img src={searchIcon} alt="" className=" h-[15px]" 
-              onClick={searchData}
-              disabled={search.length < 3}
+             
               />
               Search
             </button>
