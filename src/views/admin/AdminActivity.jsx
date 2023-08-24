@@ -21,7 +21,7 @@ export default function AdminActivity() {
   };
 
   const searchData = async () => {
-    await getAdminActivityByFilter().then((res)=> {
+    await getAdminActivityByFilter({name: search, staff_id: userData.staff_id}).then((res)=> {
       setActivities(res);
     })
   }
