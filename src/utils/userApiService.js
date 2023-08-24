@@ -230,7 +230,7 @@ const getForumChat = () => {
 
 const getForumChatByFilter = () => {
   return axios
-    .get(`${baseURl}/getForumChatByFilter`)
+    .post(`${baseURl}/getForumChatByFilter`)
     .then((res) => res.data)
     .catch((err) => console.log(err));
 };
