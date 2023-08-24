@@ -228,6 +228,13 @@ const getForumChat = () => {
     .catch((err) => console.log(err));
 };
 
+const getForumChatByFilter = () => {
+  return axios
+    .get(`${baseURl}/getForumChatByFilter`)
+    .then((res) => res.data)
+    .catch((err) => console.log(err));
+};
+
 
 // Subscription
 
@@ -413,5 +420,6 @@ export {
   getPromotionPlan,
   subscribePromotionPlan,
   getUserById,
-  shareForumChat
+  shareForumChat,
+  getForumChatByFilter
 };

@@ -16,7 +16,7 @@ import {
   usersCounter,
 } from "../../utils/adminApiService";
 import { toast } from "react-toastify";
-import { getForumChat, getStore } from "../../utils/userApiService";
+import { getForumChat, getForumChatByFilter, getStore } from "../../utils/userApiService";
 import search from "../../assets/icons/search-icons/search-icon-white.svg";
 import AdminDashboardCard from "../../components/adminDashboardCard/AdminDashboardCard";
 import moment from "moment";
@@ -29,6 +29,8 @@ export default function AdminContent() {
   const [rejected, setRejected] = useState();
   const [loading, setLoading] = useState(true);
   const [pet, setPet] = useState();
+  const [search, setSearch] = useState("");
+
   const getUserCounter = async () => {
     await getForumChat().then((res) => {
       setForum(res);
@@ -53,6 +55,12 @@ export default function AdminContent() {
       getUserCounter();
     });
   };
+
+  const searchData = async () => {
+    await getForumChatByFilter({name:search}).then((res) => {
+      setForum(res);
+    });
+  }
 
   useEffect(() => {
     getUserCounter();
@@ -85,11 +93,13 @@ export default function AdminContent() {
               type="text"
               placeholder="Search"
               className=" outline-none px-2 w-full"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
             />
-            <div className="search__btn  bg-green-800 h-[45px] w-[200px] text-white  flex items-center gap-4 justify-center rounded-r-[16px]">
+            <button className="search__btn  bg-green-800 h-[45px] w-[200px] text-white  flex items-center gap-4 justify-center rounded-r-[16px]" onClick={searchData} disabled={search.length < 3}>
               <img src={search} alt="" className=" h-[15px]" />
               Search
-            </div>
+            </button>
           </div>
         </div>
         <div className="posts p-3 mt-5 grid gap-2">

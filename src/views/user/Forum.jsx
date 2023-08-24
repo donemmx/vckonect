@@ -6,7 +6,7 @@ import ForumCard from "../../components/forumCard/ForumCard";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { user } from "../../atom/userAtom";
 import { useNavigate } from "react-router-dom";
-import { getForumChat } from "../../utils/userApiService";
+import { getForumChat, getForumChatByFilter } from "../../utils/userApiService";
 import { storeData } from "../../atom/storeAtom";
 import { reloadStore } from "../../atom/reloadAtom";
 import Loading from "../../components/loading/Loading";
@@ -19,6 +19,7 @@ export default function Forum() {
   const [forumData, setForumData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [action, setAction] = useRecoilState(actionState);
+  const [search, setSearch] = useState("");
 
   const userStore = useRecoilValue(storeData);
   const reload = useRecoilValue(reloadStore);
@@ -35,6 +36,12 @@ export default function Forum() {
       location(`/animal-owner-${route}`);
     }
   };
+
+  const searchData = async () => {
+    await getForumChatByFilter({name:search}).then((res) => {
+      setForumData(res);
+    });
+  }
 
   useEffect(() => {
     getForumChat().then((res) => {
@@ -77,10 +84,12 @@ export default function Forum() {
               type="text"
               placeholder="Type in your keyword here"
               className=" outline-none p-1 w-full border h-[45px] border-[#EBEBEB] rounded-l-full px-5"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
             />
-            <div className="search__btn bg-[#0b6614] h-[45px] w-[40%] text-sm  lg:text-md lg:w-[15%] flex items-center gap-2 text-white justify-center rounded-r-full">
+            <button className="search__btn bg-[#0b6614] h-[45px] w-[40%] text-sm  lg:text-md lg:w-[15%] flex items-center gap-2 text-white justify-center rounded-r-full"   onClick={searchData} disabled={search.length < 3}>
               <i className="pi pi-search"></i> Search
-            </div>
+            </button>
           </div>
         </div>
         <div className=" flex items-center flex-wrap gap-1 w-full lg:w-[70%] mt-3">

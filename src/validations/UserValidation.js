@@ -29,6 +29,31 @@ const vetUser = yup.object().shape({
     vetNumber: yup.string().required("Required"),
     speciality: yup.string().required("Required"),
 })
+const subscription = yup.object().shape({
+    title: yup.string().required("Required"),
+    currency: yup.string().required("Required"),
+    price: yup.string().required("Required"),
+    vat: yup.string().required("Required"),
+    date_option: yup.string().required("Required"),
+    duration: yup.string().required("Required"),
+    case: yup.string().required("Required"),
+    contact_info: yup.string().required("Required"),
+    direct_message: yup.string().required("Required"),
+    feed_calculator: yup.string().required("Required"),
+    disease_predictor: yup.string().required("Required"),
+    store: yup.string().required("Required"),
+    no_of_product: yup.string().required("Required"),
+    customer_support: yup.string().required("Required"),
+})
+const promotion = yup.object().shape({
+    title: yup.string().required("Required"),
+    currency: yup.string().required("Required"),
+    price: yup.string().required("Required"),
+    vat: yup.string().required("Required"),
+    date_option: yup.string().required("Required"),
+    duration: yup.string().required("Required"),
+    no_of_product: yup.string().required("Required"),
+})
 
 const updateUser = yup.object().shape({
     firstName: yup.string().required("Required"),
@@ -141,5 +166,7 @@ export {
     addFarmCase,
     verify,
     updateUser,
-    pet
+    pet,
+    subscription,
+    promotion
 }

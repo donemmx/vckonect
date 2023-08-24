@@ -103,6 +103,13 @@ const adminGetPromotion = (payload) => {
     .catch((err) => console.log(err));
 };
 
+const addSubscriptionPlan = (payload) => {
+  // const { name } = payload;
+  return axios
+    .post(`${baseURl}/addSubscriptionPlan`, payload)
+    .then((res) => res.data)
+    .catch((err) => console.log(err));
+};
 const adminGetSubscription = (payload) => {
   // const { name } = payload;
   return axios
@@ -177,6 +184,7 @@ export {
   adminGetSubscription,
   adminGetPromotion,
   getAdminActivity,
+  addSubscriptionPlan,
   usersCounter,
   rejectForumChat,
   approveForumChat,
