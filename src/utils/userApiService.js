@@ -228,9 +228,9 @@ const getForumChat = () => {
     .catch((err) => console.log(err));
 };
 
-const getForumChatByFilter = () => {
+const getForumChatByFilter = (payload) => {
   return axios
-    .post(`${baseURl}/getForumChatByFilter`)
+    .post(`${baseURl}/getForumChatByFilter`, payload)
     .then((res) => res.data)
     .catch((err) => console.log(err));
 };
