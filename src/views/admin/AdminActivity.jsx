@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { getAdminActivity } from "../../utils/adminApiService";
-import search from "../../assets/icons/search-icons/search-icon-white.svg";
+import { getAdminActivity, getAdminActivityByFilter } from "../../utils/adminApiService";
+import searchIcon from "../../assets/icons/search-icons/search-icon-white.svg";
 import moment from "moment";
 import AdminDashboardCard from "../../components/adminDashboardCard/AdminDashboardCard";
 import { useRecoilValue } from "recoil";
@@ -8,6 +8,8 @@ import { user } from "../../atom/userAtom";
 
 export default function AdminActivity() {
   const [activities, setActivities] = useState();
+  const [search, setSearch] = useState("");
+
   const userData = useRecoilValue(user)
   const getUserCounter = async () => {
     const payload = {
@@ -17,9 +19,15 @@ export default function AdminActivity() {
       setActivities(res);
     });
   };
+
+  const searchData = async () => {
+    await getAdminActivityByFilter().then((res)=> {
+      setActivities(res);
+    })
+  }
   useEffect(() => {
     getUserCounter();
-  }, []);
+  }, [(search.length < 3)]);
 
   return (
     <div className="w-full">
@@ -30,11 +38,16 @@ export default function AdminActivity() {
               type="text"
               placeholder="Search"
               className=" outline-none px-2 w-full"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
             />
-            <div className="search__btn  bg-green-800 h-[45px] w-[200px] text-white  flex items-center gap-4 justify-center rounded-r-[16px]">
-              <img src={search} alt="" className=" h-[15px]" />
+            <button className="search__btn  bg-green-800 h-[45px] w-[200px] text-white  flex items-center gap-4 justify-center rounded-r-[16px]">
+              <img src={searchIcon} alt="" className=" h-[15px]" 
+              onClick={searchData}
+              disabled={search.length < 3}
+              />
               Search
-            </div>
+            </button>
           </div>
         </div>
         <div className="posts p-3 mt-5 grid gap-2">

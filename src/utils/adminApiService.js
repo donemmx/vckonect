@@ -117,6 +117,13 @@ const adminGetSubscription = (payload) => {
     .then((res) => res.data)
     .catch((err) => console.log(err));
 };
+const getAdminActivityByFilter = (payload) => {
+  // const { name } = payload;
+  return axios
+    .post(`${baseURl}/getAdminActivityByFilter`, payload)
+    .then((res) => res.data)
+    .catch((err) => console.log(err));
+};
 
 
 const usersCounter = () => {
@@ -194,5 +201,6 @@ export {
   activatePromotion,
   deactivatePromotion,
   deactivateAccount,
-  verifyLicenseNumber
+  verifyLicenseNumber,
+  getAdminActivityByFilter
 };
