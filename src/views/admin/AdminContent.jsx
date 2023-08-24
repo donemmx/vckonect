@@ -64,7 +64,7 @@ export default function AdminContent() {
 
   useEffect(() => {
     getUserCounter();
-  }, []);
+  }, [(search.length < 3)]);
 
   return (
     <div>

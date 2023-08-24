@@ -139,7 +139,7 @@ export default function UserFeatures() {
 
   useEffect(() => {
     getUserCounter();
-  }, [(search.length === 0)]);
+  }, [(search.length < 3)]);
 
   
 
