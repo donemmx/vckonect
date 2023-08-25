@@ -12,6 +12,7 @@
   "dependencies": {
     "aos": "^2.3.4",
     "axios": "^1.4.0",
+    "currency-formatter-react": "^1.1.1",
     "deck.gl": "^8.9.22",
     "formik": "^2.4.3",
     "mapbox-gl": "^2.15.0",

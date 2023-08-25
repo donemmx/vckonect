@@ -37,8 +37,10 @@ export default function AdminPromotion() {
             <AdminDashboardCard
               time={moment(res.date).utc().fromNow()}
               title={res.title}
-              name={res.detail}
+              name={res.no_of_products}
               key={res.id}
+              price={res.price}
+              duration={res.duration}
             />
           ))}
         </div>
