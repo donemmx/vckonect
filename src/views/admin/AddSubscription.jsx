@@ -1,4 +1,4 @@
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { user } from "../../atom/userAtom";
 import {
   addSubscriptionPlan,
@@ -10,11 +10,14 @@ import { Dropdown } from "primereact/dropdown";
 import { toast } from "react-toastify";
 import { useFormik } from "formik";
 import { actionState } from "../../atom/actionAtom";
-import { promotion } from "../../validations/UserValidation";
+import { promotion, subscription } from "../../validations/UserValidation";
+import { storeData } from "../../atom/storeAtom";
 
 export default function AddSubscription() {
   const userData = useRecoilValue(user);
   const action = useRecoilValue(actionState);
+  const [store, setStore] = useRecoilState(storeData);
+
   const currencies = ["NGN", "USD", "GBP"];
 
   const onSubmit = async (values) => {
@@ -86,7 +89,7 @@ export default function AddSubscription() {
   const { values, isValid, isSubmitting, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
       initialValues: initialValues,
-      validationSchema: promotion,
+      validationSchema: subscription,
       onSubmit,
     });
 
@@ -127,24 +130,12 @@ export default function AddSubscription() {
               <p className="error">{errors.title}</p>
             )}
             <span className="p-float-label">
-              <InputText
-                id="username"
-                name="location"
-                value={values.location}
-                onChange={handleChange}
-                onBlur={handleBlur}
-              />
-              <label htmlFor="livestock">Location / Address (Required) :</label>
-            </span>
-            {errors.location && touched.location && (
-              <p className="error">{errors.location}</p>
-            )}
-            <span className="p-float-label">
               <Dropdown
                 name="currency"
-                onChange={handleChange}
                 value={values.currency}
                 options={currencies}
+                onChange={handleChange}
+                onBlur={handleBlur}
                 placeholder="Select Currency"
                 className="w-full md:w-20rem"
               />
@@ -157,14 +148,13 @@ export default function AddSubscription() {
             <span className="p-float-label">
               <InputText
                 id="username"
-                name="workers"
+                name="price"
                 value={values.price}
                 onChange={handleChange}
                 onBlur={handleBlur}
               />
               <label htmlFor="username">Price (Required) :</label>
             </span>
-
             {errors.price && touched.price && (
               <p className="error">{errors.price}</p>
             )}
@@ -183,18 +173,6 @@ export default function AddSubscription() {
             {errors.vat && touched.vat && (
               <p className="error">{errors.vat}</p>
             )}
-
-            {/* <span className="p-float-label">
-              <Dropdown
-                name="sex"
-                value={gender}
-                onChange={(e) => setGender(e.target.value)}
-                options={Genders}
-                placeholder="Select Sex"
-                className="w-full md:w-20rem"
-              />
-              <label htmlFor="username">Sex (Required) : </label>
-            </span> */}
 
             <span className="p-float-label">
               <InputText
