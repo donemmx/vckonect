@@ -36,9 +36,9 @@ export default function AddPromotion() {
     //       ...others,
     //     };
     //   }
-    //   else{
+  //   else{
     payload = {
-      id: userData.id,
+      id: userData.staff_id,
       permission_level: userData.permission_level,
       ...values,
     };

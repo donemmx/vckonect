@@ -36,7 +36,7 @@ export default function AddSubscription() {
     //   }
     //   else{
     payload = {
-      id: userData.id,
+      id: userData.staff_id,
       permission_level: userData.permission_level,
       ...values,
     };
