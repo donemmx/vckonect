@@ -47,7 +47,6 @@ const verifyLicenseNumber = (payload) => {
 // Get User
 
 const adminGetAnimalOwner = (payload) => {
-  // const { name } = payload;
   return axios
     .post(`${baseURl}/adminGetAnimalOwner`, payload)
     .then((res) => res.data)
@@ -55,7 +54,6 @@ const adminGetAnimalOwner = (payload) => {
 };
 
 const adminGetVeterinarian = (payload) => {
-  // const { name } = payload;
   return axios
     .post(`${baseURl}/adminGetVeterinarian`, payload)
     .then((res) => res.data)
@@ -63,16 +61,13 @@ const adminGetVeterinarian = (payload) => {
 };
 
 const adminGetClinic = (payload) => {
-  // const { name } = payload;
   return axios
     .post(`${baseURl}/adminGetClinic`, payload)
     .then((res) => res.data)
     .catch((err) => console.log(err));
 };
 
-
 const adminGetFarm = (payload) => {
-  // const { name } = payload;
   return axios
     .post(`${baseURl}/adminGetFarm`, payload)
     .then((res) => res.data)
@@ -80,7 +75,6 @@ const adminGetFarm = (payload) => {
 };
 
 const adminGetPet = (payload) => {
-  // const { name } = payload;
   return axios
     .post(`${baseURl}/adminGetPet`, payload)
     .then((res) => res.data)
@@ -88,7 +82,6 @@ const adminGetPet = (payload) => {
 };
 
 const adminGetProduct = (payload) => {
-  // const { name } = payload;
   return axios
     .post(`${baseURl}/adminGetProduct`, payload)
     .then((res) => res.data)
@@ -96,35 +89,37 @@ const adminGetProduct = (payload) => {
 };
 
 const adminGetPromotion = (payload) => {
-  // const { name } = payload;
   return axios
     .post(`${baseURl}/adminGetPromotion`, payload)
     .then((res) => res.data)
     .catch((err) => console.log(err));
 };
 
+const addPromotionPlan = (payload) => {
+  return axios
+    .post(`${baseURl}/addPromotionPlan`, payload)
+    .then((res) => res.data)
+    .catch((err) => console.log(err));
+};
+
 const addSubscriptionPlan = (payload) => {
-  // const { name } = payload;
   return axios
     .post(`${baseURl}/addSubscriptionPlan`, payload)
     .then((res) => res.data)
     .catch((err) => console.log(err));
 };
 const adminGetSubscription = (payload) => {
-  // const { name } = payload;
   return axios
     .post(`${baseURl}/adminGetSubscription`, payload)
     .then((res) => res.data)
     .catch((err) => console.log(err));
 };
 const getAdminActivityByFilter = (payload) => {
-  // const { name } = payload;
   return axios
     .post(`${baseURl}/getAdminActivityByFilter`, payload)
     .then((res) => res.data)
     .catch((err) => console.log(err));
 };
-
 
 const usersCounter = () => {
   return axios
@@ -144,39 +139,30 @@ const getAdminActivity = (payload) => {
 
 // Admin Auth
 
-
 const updateAdminProfile = (payload) => {
   return axios
-    .post(
-      `${baseURl}/updateAdminProfile`, payload
-    )
+    .post(`${baseURl}/updateAdminProfile`, payload)
     .then((res) => res.data)
     .catch((err) => console.log(err));
 };
 
 const adminLogin = (payload) => {
   return axios
-    .post(
-      `${baseURl}/adminLogin`, payload
-    )
+    .post(`${baseURl}/adminLogin`, payload)
     .then((res) => res.data)
     .catch((err) => console.log(err));
 };
 
 const approveForumChat = (payload) => {
   return axios
-    .post(
-      `${baseURl}/approveForumChat`, payload
-    )
+    .post(`${baseURl}/approveForumChat`, payload)
     .then((res) => res.data)
     .catch((err) => console.log(err));
 };
 
 const rejectForumChat = (payload) => {
   return axios
-    .post(
-      `${baseURl}/rejectForumChat`, payload
-    )
+    .post(`${baseURl}/rejectForumChat`, payload)
     .then((res) => res.data)
     .catch((err) => console.log(err));
 };
@@ -202,5 +188,6 @@ export {
   deactivatePromotion,
   deactivateAccount,
   verifyLicenseNumber,
-  getAdminActivityByFilter
+  getAdminActivityByFilter,
+  addPromotionPlan,
 };
