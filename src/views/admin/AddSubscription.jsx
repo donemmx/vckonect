@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useRecoilState, useRecoilValue } from "recoil";
 import { user } from "../../atom/userAtom";
 import {
@@ -10,7 +11,7 @@ import { Dropdown } from "primereact/dropdown";
 import { toast } from "react-toastify";
 import { useFormik } from "formik";
 import { actionState } from "../../atom/actionAtom";
-import { promotion, subscription } from "../../validations/UserValidation";
+import { subscription } from "../../validations/UserValidation";
 import { storeData } from "../../atom/storeAtom";
 
 export default function AddSubscription() {
