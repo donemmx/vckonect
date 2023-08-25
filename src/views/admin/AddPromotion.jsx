@@ -139,7 +139,7 @@ export default function AddPromotion() {
             <span className="p-float-label">
               <InputText
                 id="username"
-                name="workers"
+                name="price"
                 value={values.price}
                 onChange={handleChange}
                 onBlur={handleBlur}
