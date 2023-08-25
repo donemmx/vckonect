@@ -84,6 +84,7 @@ export default function AddPromotion() {
 
   const { values, isValid, isSubmitting, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
+      validateOnMount: true,
       initialValues: initialValues,
       validationSchema: promotion,
       onSubmit,

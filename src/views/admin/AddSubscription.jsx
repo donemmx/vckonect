@@ -104,6 +104,7 @@ export default function AddSubscription() {
     handleChange,
     handleSubmit,
   } = useFormik({
+    validateOnMount: true,
     initialValues: initialValues,
     validationSchema: subscription,
     onSubmit,
