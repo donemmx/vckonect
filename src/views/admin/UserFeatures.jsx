@@ -145,7 +145,7 @@ export default function UserFeatures() {
 
   return (
     <div className="w-full">
-      <div className="grid grid-cols-3 lg:grid-cols-6 gap-1 mt-5">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-1 mt-5">
         <AdminCard
           number={counter?.total_user}
           text="Total Users"
