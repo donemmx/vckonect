@@ -2,6 +2,7 @@
 import { useRecoilState, useRecoilValue } from "recoil";
 import { user } from "../../atom/userAtom";
 import {
+  addPromotionPlan,
   addSubscriptionPlan,
 } from "../../utils/adminApiService";
 import { useEffect } from "react";
@@ -47,7 +48,7 @@ export default function AddPromotion() {
       formData.append(key, value);
     });
 
-    addSubscriptionPlan(formData)
+    addPromotionPlan(formData)
       .then((res) => {
         console.log(res);
         if (res.code) {
