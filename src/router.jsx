@@ -35,7 +35,7 @@ import Clinic from "./views/user/Clinic";
 import AddClinic from "./views/user/AddClinic";
 import AddCase from "./views/user/AddCase";
 import AdminLayout from "./components/AdminLayout";
-import AdminDashboard from "./views/admin/AdminDashboard";
+import AddPromotion from "./views/admin/AddPromotion";
 import UserFeatures from "./views/admin/UserFeatures";
 import Subscriptions from "./views/admin/Subscriptions";
 import AdminPromotion from "./views/admin/AdminPromotion";
@@ -237,6 +237,10 @@ const router = createBrowserRouter([
       {
         path: "/admin-promotion",
         element: <AdminPromotion />,
+      },
+      {
+        path: "/add-promotion",
+        element: <AddPromotion />,
       },
       {
         path: "/forum-content",

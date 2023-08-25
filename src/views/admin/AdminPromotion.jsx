@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import { user } from "../../atom/userAtom";
@@ -25,7 +26,7 @@ export default function AdminPromotion() {
     <div className="w-full">
       <div className="activity mt-5  mb-5 p-4 border bg-white rounded-lg w-full">
         <Link
-          to="/add-subscription"
+          to="/add-promotion"
           className="border-[1px] hover:border-[#52CE06] cursor-pointer  flex items-center justify-between p-3 rounded-[18px] mt-10 mb-5"
         >
           <p className="font-bold px-2">Add New Promotions</p>
