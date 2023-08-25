@@ -71,11 +71,13 @@ export default function AddPromotion() {
   };
 
   //   const loadedData = {
-  //     farmName: store?.farm_name,
-  //     workers: store?.no_of_worker,
-  //     age: store?.age,
-  //     location: store?.location,
-  //     livestockNumber: store?.no_of_livestock
+  //    title: "",
+    // currency: "",
+    // price: "",
+    // vat: "",
+    // date_option: "",
+    // duration: "",
+    // no_of_product: "",
   //   };
 
   const { values, isValid, isSubmitting, errors, touched, handleBlur, handleChange, handleSubmit } =
