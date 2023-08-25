@@ -259,6 +259,11 @@ export default function AddSubscription() {
               className="green__btn"
               disabled={!isValid || isSubmitting}
             >
+              {isSubmitting ? (
+                <i className="pi pi-spin pi-spinner !text-[20px]"></i>
+              ) : (
+                ""
+              )}
               Save
             </button>
           </form>

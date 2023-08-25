@@ -204,6 +204,7 @@ export default function AddPromotion() {
             </span>
             {errors.no_of_product && touched.no_of_product && <p className="error">{errors.no_of_product}</p>}
             <button type="submit" className="green__btn" disabled={!isValid || isSubmitting}>
+            {isSubmitting?  <i className="pi pi-spin pi-spinner !text-[20px]"></i> : ''}
               Save
             </button>
           </form>
