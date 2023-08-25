@@ -159,7 +159,7 @@ export default function Sidebar() {
                   />
                 </div>
                 <div className=""   onClick={openModal}>
-                  <i className="pi pi-times p-5 cursor-pointer shadow-xl border rounded-full"></i>
+                  <i className="pi pi-times p-3 cursor-pointer shadow-xl border rounded-full"></i>
                 </div>
                 </div>
                 <NavLink

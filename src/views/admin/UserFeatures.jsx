@@ -145,7 +145,7 @@ export default function UserFeatures() {
 
   return (
     <div>
-      <div className="grid grid-cols-6 gap-2 mt-5">
+      <div className="grid grid-cols-3 lg:grid-cols-6 gap-1 mt-5">
         <AdminCard
           number={counter?.total_user}
           text="Total Users"
@@ -179,7 +179,7 @@ export default function UserFeatures() {
         />
       </div>
       <div className="activity mt-5  mb-5 p-4 border bg-white rounded-lg">
-        <div className="flex items-center gap-6">
+        <div className="flex  flex-wrap items-center gap-4">
           <h4
             className={`text-[.85rem] lg:text-[1rem] cursor-pointer ${
               tab === "animalOwner" ? "font-black" : ""
@@ -250,7 +250,7 @@ export default function UserFeatures() {
           </div>
         </div>
         {tab == "animalOwner" ? (
-          <div className="posts p-3 mt-5 grid gap-2">
+          <div className="posts lg:p-3 mt-5 grid gap-2">
             {animalOwner?.map((res) =>
               res.account_activation === "Activated" ? (
                 <AdminDashboardCard

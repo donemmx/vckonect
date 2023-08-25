@@ -30,7 +30,7 @@ export default function AdminDashboard() {
   }, []);
   return (
     <div>
-      <div className="grid grid-cols-6 gap-2 mt-5">
+      <div className="grid grid-cols-3 lg:grid-cols-6 gap-2 mt-5">
         <AdminCard
           number={counter?.total_user}
           text="Total Users"
@@ -64,7 +64,7 @@ export default function AdminDashboard() {
         />
       </div>
       <div className="activity mt-5  mb-5 p-4 border bg-white rounded-lg">
-        <div className="flex items-center gap-6">
+        <div className="flex  items-center gap-6">
           <h2
             className={` text-[1rem] lg:text-[1rem] cursor-pointer ${
               tab === "users" ? "font-black" : ""
