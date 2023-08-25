@@ -1,9 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { useRecoilState, useRecoilValue } from "recoil";
 import { user } from "../../atom/userAtom";
-import {
-  addSubscriptionPlan,
-} from "../../utils/adminApiService";
+import { addSubscriptionPlan } from "../../utils/adminApiService";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { InputText } from "primereact/inputtext";
@@ -79,20 +77,37 @@ export default function AddSubscription() {
     customer_support: "",
   };
 
-  //   const loadedData = {
-  //     farmName: store?.farm_name,
-  //     workers: store?.no_of_worker,
-  //     age: store?.age,
-  //     location: store?.location,
-  //     livestockNumber: store?.no_of_livestock
+  // const loadedData = {
+  // title: "",
+  // currency: "",
+  // price: "",
+  // vat: "",
+  // date_option: "",
+  // duration: "",
+  // case: "",
+  // contact_info: "",
+  // direct_message: "",
+  // feed_calculator: "",
+  // disease_predictor: "",
+  // store: "",
+  // no_of_product: "",
+  // customer_support: "",
   //   };
 
-  const { values, isValid, isSubmitting, errors, touched, handleBlur, handleChange, handleSubmit } =
-    useFormik({
-      initialValues: initialValues,
-      validationSchema: subscription,
-      onSubmit,
-    });
+  const {
+    values,
+    isValid,
+    isSubmitting,
+    errors,
+    touched,
+    handleBlur,
+    handleChange,
+    handleSubmit,
+  } = useFormik({
+    initialValues: initialValues,
+    validationSchema: subscription,
+    onSubmit,
+  });
 
   useEffect(() => {}, []);
   return (
@@ -171,9 +186,7 @@ export default function AddSubscription() {
               <label htmlFor="username">VAT (Required) :</label>
             </span>
 
-            {errors.vat && touched.vat && (
-              <p className="error">{errors.vat}</p>
-            )}
+            {errors.vat && touched.vat && <p className="error">{errors.vat}</p>}
 
             <span className="p-float-label">
               <InputText
@@ -185,7 +198,9 @@ export default function AddSubscription() {
               />
               <label htmlFor="username">Date Option (Required) : </label>
             </span>
-            {errors.date_option && touched.date_option && <p className="error">{errors.date_option}</p>}
+            {errors.date_option && touched.date_option && (
+              <p className="error">{errors.date_option}</p>
+            )}
             <span className="p-float-label">
               <InputText
                 id="username"
@@ -196,7 +211,9 @@ export default function AddSubscription() {
               />
               <label htmlFor="username">Duration (Required) : </label>
             </span>
-            {errors.duration && touched.duration && <p className="error">{errors.duration}</p>}
+            {errors.duration && touched.duration && (
+              <p className="error">{errors.duration}</p>
+            )}
             <span className="p-float-label">
               <InputText
                 id="username"
@@ -207,7 +224,9 @@ export default function AddSubscription() {
               />
               <label htmlFor="username">Case (Required) : </label>
             </span>
-            {errors.case && touched.case && <p className="error">{errors.case}</p>}
+            {errors.case && touched.case && (
+              <p className="error">{errors.case}</p>
+            )}
             <span className="p-float-label">
               <InputText
                 id="username"
@@ -218,7 +237,9 @@ export default function AddSubscription() {
               />
               <label htmlFor="username">No of Product (Required) : </label>
             </span>
-            {errors.no_of_product && touched.no_of_product && <p className="error">{errors.no_of_product}</p>}
+            {errors.no_of_product && touched.no_of_product && (
+              <p className="error">{errors.no_of_product}</p>
+            )}
             <span className="p-float-label">
               <InputText
                 id="username"
@@ -229,8 +250,14 @@ export default function AddSubscription() {
               />
               <label htmlFor="username">Store (Required) : </label>
             </span>
-            {errors.store && touched.store && <p className="error">{errors.store}</p>}
-            <button type="submit" className="green__btn" disabled={!isValid || isSubmitting}>
+            {errors.store && touched.store && (
+              <p className="error">{errors.store}</p>
+            )}
+            <button
+              type="submit"
+              className="green__btn"
+              disabled={!isValid || isSubmitting}
+            >
               Save
             </button>
           </form>
