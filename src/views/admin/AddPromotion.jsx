@@ -101,7 +101,7 @@ export default function AddPromotion() {
             Add New Promotion
           </h2>
           <div className="pt-2 subtitle paragraph text-center">
-            You can customize your subscription plans
+            You can customize your promotions
           </div>
           <form
             encType="multipart/form-data"
