@@ -68,7 +68,7 @@ export default function AdminContent() {
 
   return (
     <div>
-      <div className="grid grid-cols-6 gap-2 mt-5">
+      <div className="grid grid-cols-2 lg:grid-cols-6 gap-1 lg:gap-2 mt-5">
         <AdminCard
           number={forum?.length}
           text="Total Published"

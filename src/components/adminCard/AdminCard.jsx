@@ -5,7 +5,7 @@ export default function AdminCard({ icon, text, number }) {
         <div className="h-[25px] w-[25px] lg:h-[34px] lg:w-[34px]">
           <img src={icon} alt="" className=" h-full w-full object-cover" />
         </div>
-        <p className="text-[12px] lg:text-sm font-light pt-3 "> {text} </p>
+        <p className="text-[14px] lg:text-sm font-light pt-3 "> {text} </p>
       </div>
       <div className="font-black text-[30px] ">{number? number : 0}</div>
     </div>
