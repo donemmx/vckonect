@@ -54,7 +54,7 @@ export default function AddPromotion() {
         if (res.code) {
           toast.error(res.detail);
         } else {
-          toast.success("Farm added successfully");
+          toast.success("promotion added successfully");
           setStore(null);
           window.history.back();
         }

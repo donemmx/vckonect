@@ -52,7 +52,7 @@ export default function AddSubscription() {
         if (res.code) {
           toast.error(res.detail);
         } else {
-          toast.success("Farm added successfully");
+          toast.success("Subscription added successfully");
           setStore(null);
           window.history.back();
         }
