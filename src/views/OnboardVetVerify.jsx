@@ -116,7 +116,7 @@ export default function OnboardVetVerify() {
           </Link>
         </form>
 
-        <SubscriptionCard/>
+        {/* <SubscriptionCard/> */}
       </div>
     </div>
   );
