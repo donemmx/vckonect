@@ -101,6 +101,7 @@ const farm = yup.object().shape({
 
 const clinic = yup.object().shape({
     clinicName: yup.string().required("Required"),
+    license_number: yup.string().required("Required"),
     email: yup.string().required("Required"),
     phone: yup.string().required("Required"),
     location: yup.string().required("Required"),

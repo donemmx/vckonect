@@ -10,15 +10,12 @@ import { useFormik } from "formik";
 import { clinic } from "../../validations/UserValidation";
 import { InputText } from "primereact/inputtext";
 import { InputSwitch } from "primereact/inputswitch";
-import { v4 } from "uuid";
 
 export default function AddClinic() {
   const userData = useRecoilValue(user);
   const action = useRecoilValue(actionState);
   const [store, setStore] = useRecoilState(storeData);
   const [picture, setPicture] = useState(null);
-
-  const location = useNavigate();
 
   const [file, setFile] = useState(null);
   const [fileDataURL, setFileDataURL] = useState(null);
@@ -54,7 +51,7 @@ export default function AddClinic() {
   const onSubmit = async (values) => {
     const formData = new FormData();
     let available = 0;
-    const { clinicName, phone, ...others } = values;
+    const { clinicName, license_number, phone, ...others } = values;
     if (avialability) {
       available = 1;
     }
@@ -73,7 +70,7 @@ export default function AddClinic() {
       };
     } else {
       payload = {
-        license_number: userData.license_number,
+        license_number: license_number,
         user_id: userData.id,
         availability: available,
         clinic_speciality: '',
@@ -110,6 +107,7 @@ export default function AddClinic() {
     email: "",
     phone: "",
     location: "",
+    license_number: "",
   };
 
   const loadedData = {
@@ -117,6 +115,7 @@ export default function AddClinic() {
     email: store?.email,
     phone: store?.phone_number,
     location: store?.location,
+    license_number: store?.license_number,
   };
 
   const {
@@ -144,6 +143,7 @@ export default function AddClinic() {
       }
       setPicture(store?.picture );
     }
+   return  setPicture(null)
   }, []);
 
   return (
@@ -192,6 +192,19 @@ export default function AddClinic() {
             </span>
             {errors.email && touched.email && (
               <p className="error">{errors.email}</p>
+            )}
+            <span className="p-float-label">
+              <InputText
+                id="username"
+                name="license_number"
+                value={values.license_number}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+              <label htmlFor="livestock">License Number (Required) :</label>
+            </span>
+            {errors.license_number && touched.license_number && (
+              <p className="error">{errors.license_number}</p>
             )}
             <span className="p-float-label">
               <InputText
