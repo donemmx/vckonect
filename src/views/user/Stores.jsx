@@ -20,7 +20,7 @@ export default function Stores() {
   const [allStores, SetAllStores] = useState([]);
   const checker = (route) => {
     setAction("add")
-    if (userData?.role === "Veternarian") {
+    if (userData?.role === "Veterinarian") {
       location(`/vet-${route}`);
     } else {
       location(`/animal-owner-${route}`);

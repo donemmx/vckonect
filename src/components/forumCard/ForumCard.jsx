@@ -47,7 +47,7 @@ export default function ForumCard({
   const [updateReload] = useUpadateReload();
 
   const checker = (route) => {
-    if (userData?.role === "Veternarian") {
+    if (userData?.role === "Veterinarian") {
       location(`/vet-${route}`);
     } else {
       location(`/animal-owner-${route}`);

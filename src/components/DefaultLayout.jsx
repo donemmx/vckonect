@@ -8,7 +8,7 @@ export default function DefaultLayout() {
 
   return (
     <div>
-      {auth?.role === "Veternarian" || auth?.role === "Animal Owner" ? (
+      {auth?.role === "Veterinarian" || auth?.role === "Animal Owner" ? (
         <>
           <Header bg={true} />
           <Outlet />

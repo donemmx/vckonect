@@ -14,7 +14,7 @@ export default function GuestLayout() {
         </div>
       ) : (
         <>
-          {userData?.role === "Veternarian" ? (
+          {userData?.role === "Veterinarian" ? (
             <Navigate to="/vet-dashboard" />
           ) : "" || userData?.role === "Animal Owner" ? (
             <Navigate to="/animal-owner-dashboard" />

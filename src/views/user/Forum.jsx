@@ -30,7 +30,7 @@ export default function Forum() {
   };
   const checker = (route) => {
     setAction("add")
-    if (userData?.role === "Veternarian") {
+    if (userData?.role === "Veterinarian") {
       location(`/vet-${route}`);
     } else {
       location(`/animal-owner-${route}`);

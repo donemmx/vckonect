@@ -37,7 +37,7 @@ export default function StoreCard({
   };
 
   const checker = (route) => {
-    if (userData?.role === "Veternarian") {
+    if (userData?.role === "Veterinarian") {
       location(`/vet-${route}`);
     } else {
       location(`/animal-owner-${route}`);

@@ -6,7 +6,7 @@ export default function useRouteChecker() {
   const location = useNavigate();
   const userData = useRecoilValue(user);
   function routeChecker(route) {
-    if (userData?.role === "Veternarian") {
+    if (userData?.role === "Veterinarian") {
       location(`/vet-${route}`);
     } else {
       location(`/animal-owner-${route}`);
