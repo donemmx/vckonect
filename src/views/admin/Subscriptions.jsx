@@ -51,6 +51,8 @@ export default function Subscriptions() {
                   time={moment(res.date).utc().fromNow()}
                   title={res.title}
                   name={res.detail}
+                  price={res.price}
+                  duration={res.duration}
                   loading={loading}
                 />
               ))}
