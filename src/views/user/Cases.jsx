@@ -12,7 +12,7 @@ export default function Cases() {
           </h2>
         </div>
         <Link
-          to="/add-case"
+          to="/vet-add-case"
           className="border-[1px] hover:border-[#52CE06] cursor-pointer  flex items-center justify-between p-3 rounded-[18px] mt-10 mb-5"
         >
           <p className="font-bold px-2">Add New Case</p>
