@@ -94,6 +94,12 @@ const adminGetPromotion = (payload) => {
     .then((res) => res.data)
     .catch((err) => console.log(err));
 };
+const getPromotionPlan = (payload) => {
+  return axios
+    .post(`${baseURl}/getPromotionPlan`, payload)
+    .then((res) => res.data)
+    .catch((err) => console.log(err));
+};
 
 const addPromotionPlan = (payload) => {
   return axios
@@ -111,6 +117,12 @@ const addSubscriptionPlan = (payload) => {
 const adminGetSubscription = (payload) => {
   return axios
     .post(`${baseURl}/adminGetSubscription`, payload)
+    .then((res) => res.data)
+    .catch((err) => console.log(err));
+};
+const getSubscriptionPlan = (payload) => {
+  return axios
+    .post(`${baseURl}/getSubscriptionPlan`, payload)
     .then((res) => res.data)
     .catch((err) => console.log(err));
 };
@@ -190,4 +202,6 @@ export {
   verifyLicenseNumber,
   getAdminActivityByFilter,
   addPromotionPlan,
+  getSubscriptionPlan,
+  getPromotionPlan
 };
