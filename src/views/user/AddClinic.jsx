@@ -92,10 +92,10 @@ export default function AddClinic() {
           toast.error(res.detail);
         } else {
           if (action && action === "edit") {
-            toast.success("Store details edited successfully");
+            toast.success("Clinic details edited successfully");
             setStore(null);
           } else {
-            toast.success("Store added successfully");
+            toast.success("Clinic added successfully");
           }
 
           window.history.back();

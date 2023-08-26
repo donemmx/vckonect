@@ -7,7 +7,7 @@ const baseURl = "https://vetkonect.com/backend/public/api/web/v2";
 const addClinic = (payload) => {
   return axios
     .post(
-      `${baseURl}/addPet`, payload
+      `${baseURl}/addClinic`, payload
     )
     .then((res) => res.data)
     .catch((err) => console.log(err));
