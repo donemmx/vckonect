@@ -14,6 +14,7 @@ import { user } from "../../atom/userAtom";
 import moment from "moment";
 import useRouteChecker from "../../hooks/RouteChecker";
 import AdminHeader from "../../components/header/AdminHeader";
+import { getVeterinarianActivity } from "../../utils/vetApiService";
 
 export default function Dashboard() {
   const [tab, setTab] = useState("activity");
@@ -41,10 +42,18 @@ export default function Dashboard() {
       id: userData.id,
       role: userData.role,
     };
-    getAnimalOwnerActivity(payload).then((res) => {
-      setAllActivities(res);
-      setLoading(false);
-    });
+    if(userData.role === 'Animal Owner'){
+      getAnimalOwnerActivity(payload).then((res) => {
+        setAllActivities(res);
+        setLoading(false)
+      });
+    }
+    else {
+      getVeterinarianActivity(payload).then((res) => {
+        setAllActivities(res);
+        setLoading(false)
+      })
+    }
   }, []);
 
   return (
