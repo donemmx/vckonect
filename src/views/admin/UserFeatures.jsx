@@ -24,6 +24,7 @@ import searchIcon from "../../assets/icons/search-icons/search-icon-white.svg";
 import moment from "moment";
 import { farm, product } from "../../validations/UserValidation";
 import AdminDashboardCard from "../../components/adminDashboardCard/AdminDashboardCard";
+import AdminCardLoading from "../../components/loading/AdminCardLoading";
 
 export default function UserFeatures() {
   const [counter, setCounter] = useState();
@@ -85,7 +86,7 @@ export default function UserFeatures() {
   };
 
   const searchData = async () => {
-    setLoading(true)
+    setLoading(true);
     switch (tab) {
       case "animalOwner":
         await adminGetAnimalOwner({ name: search }).then((res) => {
@@ -156,7 +157,6 @@ export default function UserFeatures() {
   };
 
   useEffect(() => {
-    setLoading(true);
     getUserCounter();
   }, [search.length < 3]);
 
@@ -266,138 +266,147 @@ export default function UserFeatures() {
             </button>
           </div>
         </div>
-        {tab == "animalOwner" ? (
-          <div className="posts lg:p-3 mt-5 grid gap-2">
-            {animalOwner?.map((res) =>
-              res.account_activation === "Activated" ? (
-                <AdminDashboardCard
-                  key={res.id}
-                  time={moment(res.date).utc().fromNow()}
-                  title={res.first_name + res.last_name}
-                  name={res.role}
-                  image={res.profile_picture}
-                  rejcetButtonText="Disable"
-                  message="Are you sure to deactivate this account?"
-                  approveFunction={() => disableUserAccount(res)}
-                  loading={loading}
-
-                />
-              ) : (
-                <AdminDashboardCard
-                  key={res.id}
-                  time={moment(res.date).utc().fromNow()}
-                  title={res.first_name + res.last_name}
-                  name={res.role}
-                  image={res.profile_picture}
-                  approveButtonText="Enable"
-                  approveFunction={() => activateUserAccount(res)}
-                  message="Are you sure to activate this account?"
-                  loading={loading}
-
-                />
-              )
-            )}
-          </div>
-        ) : tab == "vet" ? (
-          <div className="posts p-3 mt-5 grid gap-2">
-            {vet?.map((res) => (
-              <AdminDashboardCard
-                key={res.id}
-                time={moment(res.date).utc().fromNow()}
-                title={res.title}
-                name={res.user_name}
-                loading={loading}
-              />
-            ))}
-          </div>
-        ) : tab == "store" ? (
-          <div className="posts p-3 mt-5 grid gap-2">
-            {stores?.map((res) => (
-              <AdminDashboardCard
-                key={res.id}
-                time={moment(res.date).utc().fromNow()}
-                title={res.store_name}
-                name={res.location}
-                image={res.picture}
-                loading={loading}
-              />
-            ))}
-          </div>
-        ) : tab == "clinic" ? (
-          <div className="posts p-3 mt-5 grid gap-2">
-            {clinic?.map((res) => (
-              <AdminDashboardCard
-                key={res.id}
-                time={moment(res.date).utc().fromNow()}
-                title={res.title}
-                name={res.user_name}
-                image={res.picture}
-                loading={loading}
-              />
-            ))}
-          </div>
-        ) : tab == "pets" ? (
+        {loading ? (
           <>
-            <div className="flex items-center gap-4 mt-5 mx-4">
-              <h4
-                className={`text-[.85rem] lg:text-[1rem] cursor-pointer ${
-                  active === "pet" ? "font-black" : ""
-                } `}
-                onClick={() => activeMenu("pet")}
-              >
-                Pets
-              </h4>
-              <h4
-                className={`text-[.85rem] lg:text-[1rem] cursor-pointer ${
-                  active === "farm" ? "font-black" : ""
-                } `}
-                onClick={() => activeMenu("farm")}
-              >
-                Farms
-              </h4>
-            </div>
-            {active === "pet" ? (
+          <AdminCardLoading />
+          <AdminCardLoading />
+          <AdminCardLoading />
+          <AdminCardLoading />
+          </>
+        ) : (
+          <>
+            {tab == "animalOwner" ? (
+              <div className="posts lg:p-3 mt-5 grid gap-2">
+                {animalOwner?.map((res) =>
+                  res.account_activation === "Activated" ? (
+                    <AdminDashboardCard
+                      key={res.id}
+                      time={moment(res.date).utc().fromNow()}
+                      title={res.first_name + res.last_name}
+                      name={res.role}
+                      image={res.profile_picture}
+                      rejcetButtonText="Disable"
+                      message="Are you sure to deactivate this account?"
+                      approveFunction={() => disableUserAccount(res)}
+                      loading={loading}
+                    />
+                  ) : (
+                    <AdminDashboardCard
+                      key={res.id}
+                      time={moment(res.date).utc().fromNow()}
+                      title={res.first_name + res.last_name}
+                      name={res.role}
+                      image={res.profile_picture}
+                      approveButtonText="Enable"
+                      approveFunction={() => activateUserAccount(res)}
+                      message="Are you sure to activate this account?"
+                      loading={loading}
+                    />
+                  )
+                )}
+              </div>
+            ) : tab == "vet" ? (
               <div className="posts p-3 mt-5 grid gap-2">
-                {pet?.map((res) => (
+                {vet?.map((res) => (
                   <AdminDashboardCard
                     key={res.id}
                     time={moment(res.date).utc().fromNow()}
-                    title={res.pet_name}
-                    name={res.pet_id}
+                    title={res.title}
+                    name={res.user_name}
+                    loading={loading}
+                  />
+                ))}
+              </div>
+            ) : tab == "store" ? (
+              <div className="posts p-3 mt-5 grid gap-2">
+                {stores?.map((res) => (
+                  <AdminDashboardCard
+                    key={res.id}
+                    time={moment(res.date).utc().fromNow()}
+                    title={res.store_name}
+                    name={res.location}
                     image={res.picture}
+                    loading={loading}
+                  />
+                ))}
+              </div>
+            ) : tab == "clinic" ? (
+              <div className="posts p-3 mt-5 grid gap-2">
+                {clinic?.map((res) => (
+                  <AdminDashboardCard
+                    key={res.id}
+                    time={moment(res.date).utc().fromNow()}
+                    title={res.title}
+                    name={res.user_name}
+                    image={res.picture}
+                    loading={loading}
+                  />
+                ))}
+              </div>
+            ) : tab == "pets" ? (
+              <>
+                <div className="flex items-center gap-4 mt-5 mx-4">
+                  <h4
+                    className={`text-[.85rem] lg:text-[1rem] cursor-pointer ${
+                      active === "pet" ? "font-black" : ""
+                    } `}
+                    onClick={() => activeMenu("pet")}
+                  >
+                    Pets
+                  </h4>
+                  <h4
+                    className={`text-[.85rem] lg:text-[1rem] cursor-pointer ${
+                      active === "farm" ? "font-black" : ""
+                    } `}
+                    onClick={() => activeMenu("farm")}
+                  >
+                    Farms
+                  </h4>
+                </div>
+                {active === "pet" ? (
+                  <div className="posts p-3 mt-5 grid gap-2">
+                    {pet?.map((res) => (
+                      <AdminDashboardCard
+                        key={res.id}
+                        time={moment(res.date).utc().fromNow()}
+                        title={res.pet_name}
+                        name={res.pet_id}
+                        image={res.picture}
+                        loading={loading}
+                      />
+                    ))}
+                  </div>
+                ) : (
+                  <div className="posts p-3 mt-5 grid gap-2">
+                    {farms?.map((res) => (
+                      <AdminDashboardCard
+                        key={res.id}
+                        time={moment(res.date).utc().fromNow()}
+                        title={res.farm_name}
+                        name={res.farm_id}
+                        image={res.picture}
+                        loading={loading}
+                      />
+                    ))}
+                  </div>
+                )}
+              </>
+            ) : tab == "product" ? (
+              <div className="posts p-3 mt-5 grid gap-2">
+                {product?.map((res) => (
+                  <AdminDashboardCard
+                    key={res.id}
+                    time={moment(res.date).utc().fromNow()}
+                    title={res.title}
+                    name={res.user_name}
                     loading={loading}
                   />
                 ))}
               </div>
             ) : (
-              <div className="posts p-3 mt-5 grid gap-2">
-                {farms?.map((res) => (
-                  <AdminDashboardCard
-                    key={res.id}
-                    time={moment(res.date).utc().fromNow()}
-                    title={res.farm_name}
-                    name={res.farm_id}
-                    image={res.picture}
-                    loading={loading}
-                  />
-                ))}
-              </div>
+              ""
             )}
           </>
-        ) : tab == "product" ? (
-          <div className="posts p-3 mt-5 grid gap-2">
-            {product?.map((res) => (
-              <AdminDashboardCard
-                key={res.id}
-                time={moment(res.date).utc().fromNow()}
-                title={res.title}
-                name={res.user_name}
-                loading={loading}
-              />
-            ))}
-          </div>
-        ) : (
-          ""
         )}
       </div>
     </div>

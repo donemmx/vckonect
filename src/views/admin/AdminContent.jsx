@@ -25,6 +25,7 @@ import searchIcon from "../../assets/icons/search-icons/search-icon-white.svg";
 import AdminDashboardCard from "../../components/adminDashboardCard/AdminDashboardCard";
 import moment from "moment";
 import { product } from "../../validations/UserValidation";
+import AdminCardLoading from "../../components/loading/AdminCardLoading";
 
 export default function AdminContent() {
   const [animalOwner, setAnimalOwner] = useState();
@@ -36,7 +37,7 @@ export default function AdminContent() {
   const [search, setSearch] = useState("");
 
   const getUserCounter = async () => {
-    setLoading(true)
+    setLoading(true);
     await getForumChat().then((res) => {
       setForum(res);
       setLoading(false);
@@ -71,7 +72,6 @@ export default function AdminContent() {
   };
 
   useEffect(() => {
-    setLoading(true)
     getUserCounter();
   }, [search.length < 3]);
 
@@ -115,45 +115,55 @@ export default function AdminContent() {
             </button>
           </div>
         </div>
-        <div className="posts p-3 mt-5 grid gap-2">
-          {forum?.map((res) =>
-            res.status === "Approved" ? (
-              <AdminDashboardCard
-                key={res.id}
-                time={moment(res.date).utc().fromNow()}
-                title={res.title}
-                name={res.user_name}
-                rejcetButtonText="Reject"
-                loading={loading}
-                message="Are you sure you want to reject this post"
-                approveFunction={() =>
-                  rejectContent({
-                    forum_chat_id: res.id,
-                    user_id: res.user_id,
-                    user_role: res.user_role,
-                  })
-                }
-              />
-            ) : (
-              <AdminDashboardCard
-                key={res.id}
-                time={moment(res.date).utc().fromNow()}
-                title={res.title}
-                name={res.user_name}
-                approveButtonText="Approve"
-                message="Are you sure you want to accept this post"
-                loading={loading}
-                approveFunction={() =>
-                  approveContent({
-                    forum_chat_id: res.id,
-                    user_id: res.user_id,
-                    user_role: res.user_role,
-                  })
-                }
-              />
-            )
-          )}
-        </div>
+        {loading ? (
+          <>
+            <AdminCardLoading />
+            <AdminCardLoading />
+            <AdminCardLoading />
+          </>
+        ) : (
+          <>
+            <div className="posts p-3 mt-5 grid gap-2">
+              {forum?.map((res) =>
+                res.status === "Approved" ? (
+                  <AdminDashboardCard
+                    key={res.id}
+                    time={moment(res.date).utc().fromNow()}
+                    title={res.title}
+                    name={res.user_name}
+                    rejcetButtonText="Reject"
+                    loading={loading}
+                    message="Are you sure you want to reject this post"
+                    approveFunction={() =>
+                      rejectContent({
+                        forum_chat_id: res.id,
+                        user_id: res.user_id,
+                        user_role: res.user_role,
+                      })
+                    }
+                  />
+                ) : (
+                  <AdminDashboardCard
+                    key={res.id}
+                    time={moment(res.date).utc().fromNow()}
+                    title={res.title}
+                    name={res.user_name}
+                    approveButtonText="Approve"
+                    message="Are you sure you want to accept this post"
+                    loading={loading}
+                    approveFunction={() =>
+                      approveContent({
+                        forum_chat_id: res.id,
+                        user_id: res.user_id,
+                        user_role: res.user_role,
+                      })
+                    }
+                  />
+                )
+              )}
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

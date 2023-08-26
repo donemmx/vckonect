@@ -7,6 +7,7 @@ import AdminDashboardCard from "../../components/adminDashboardCard/AdminDashboa
 import moment from "moment";
 import { Link } from "react-router-dom";
 import addIcon from "../../assets/icons/add-icon.svg";
+import AdminCardLoading from "../../components/loading/AdminCardLoading";
 
 export default function Subscriptions() {
   const [subscriptions, setSubscriptions] = useState();
@@ -23,7 +24,6 @@ export default function Subscriptions() {
   };
 
   useEffect(() => {
-    setLoading(true);
     getSubscriptions();
   }, []);
   return (
@@ -37,15 +37,21 @@ export default function Subscriptions() {
           <img src={addIcon} alt="" className="w-[40px]" />
         </Link>
         <div className="posts p-3 mt-5 grid gap-2">
-          {subscriptions?.map((res) => (
-            <AdminDashboardCard
-              key={res.id}
-              time={moment(res.date).utc().fromNow()}
-              title={res.title}
-              name={res.detail}
-              loading={loading}
-            />
-          ))}
+          {loading ? (
+            <AdminCardLoading />
+          ) : (
+            <>
+              {subscriptions?.map((res) => (
+                <AdminDashboardCard
+                  key={res.id}
+                  time={moment(res.date).utc().fromNow()}
+                  title={res.title}
+                  name={res.detail}
+                  loading={loading}
+                />
+              ))}
+            </>
+          )}
         </div>
       </div>
     </div>
