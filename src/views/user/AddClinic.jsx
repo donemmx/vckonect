@@ -61,7 +61,7 @@ export default function AddClinic() {
       payload = {
         license_number: store?.license_number,
         user_id: store?.user_id,
-        store_id: store?.id,
+        clinic_id: store?.id,
         clinic_speciality: "",
         availability: available,
         picture: file ?? store?.picture,
