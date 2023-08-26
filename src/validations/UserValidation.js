@@ -37,13 +37,8 @@ const subscription = yup.object().shape({
     date_option: yup.string().required("Required"),
     duration: yup.string().required("Required"),
     case: yup.string().required("Required"),
-    contact_info: yup.string().required("Required"),
-    direct_message: yup.string().required("Required"),
-    feed_calculator: yup.string().required("Required"),
-    disease_predictor: yup.string().required("Required"),
     store: yup.string().required("Required"),
     no_of_product: yup.string().required("Required"),
-    customer_support: yup.string().required("Required"),
 })
 const promotion = yup.object().shape({
     title: yup.string().required("Required"),

@@ -7,21 +7,33 @@ import AdminDashboardCard from "../../components/adminDashboardCard/AdminDashboa
 import moment from "moment";
 import { Link } from "react-router-dom";
 import addIcon from "../../assets/icons/add-icon.svg";
+import searchIcon from "../../assets/icons/search-icons/search-icon-white.svg";
 
 export default function AdminPromotion() {
   const [promotions, setPromotions] = useState();
   const userData = useRecoilValue(user);
+  const [search, setSearch] = useState("");
+  const [loading, setLoading] = useState(true);
 
   const getPromotions = async () => {
     const payload = {};
     await adminGetPromotion(payload).then((res) => {
       setPromotions(res);
+      setLoading(false);
+    });
+  };
+
+  const searchData = async () => {
+    setLoading(true);
+    await adminGetPromotion({ name: search }).then((res) => {
+      setPromotions(res);
+      setLoading(false);
     });
   };
 
   useEffect(() => {
     getPromotions();
-  }, []);
+  }, [search.length < 3]);
   return (
     <div className="w-full">
       <div className="activity mt-5  mb-5 p-4 border bg-white rounded-lg w-full">
@@ -33,6 +45,23 @@ export default function AdminPromotion() {
           <img src={addIcon} alt="" className="w-[40px]" />
         </Link>
         <div className="posts p-3 mt-5 grid gap-2">
+          <div className="form__group flex space-x-2 items-center p-1 border-[#EBEBEB] border  bg-white rounded-[16px]">
+            <input
+              type="text"
+              placeholder="Search"
+              className=" outline-none px-2 w-full"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+            <button
+              className="search__btn  bg-green-800 h-[45px] w-[200px] text-white  flex items-center gap-4 justify-center rounded-r-[16px]"
+              onClick={searchData}
+              disabled={search.length < 3}
+            >
+              <img src={searchIcon} alt="" className=" h-[15px]" />
+              Search
+            </button>
+          </div>
           {promotions?.map((res) => (
             <AdminDashboardCard
               time={moment(res.date).utc().fromNow()}
@@ -41,10 +70,11 @@ export default function AdminPromotion() {
               key={res.id}
               price={res.price}
               duration={res.duration}
+              loading={loading}
             />
           ))}
         </div>
       </div>
     </div>
-  )
+  );
 }

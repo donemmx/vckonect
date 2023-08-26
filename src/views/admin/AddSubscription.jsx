@@ -2,7 +2,7 @@
 import { useRecoilState, useRecoilValue } from "recoil";
 import { user } from "../../atom/userAtom";
 import { addSubscriptionPlan } from "../../utils/adminApiService";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { InputText } from "primereact/inputtext";
 import { Dropdown } from "primereact/dropdown";
@@ -11,12 +11,17 @@ import { useFormik } from "formik";
 import { actionState } from "../../atom/actionAtom";
 import { subscription } from "../../validations/UserValidation";
 import { storeData } from "../../atom/storeAtom";
+import { InputSwitch } from "primereact/inputswitch";
 
 export default function AddSubscription() {
   const userData = useRecoilValue(user);
   const action = useRecoilValue(actionState);
   const [store, setStore] = useRecoilState(storeData);
-
+  const [contact, setContact] = useState(false);
+  const [message, setMessage] = useState(false);
+  const [calculator, setCalculator] = useState(false);
+  const [predictor, setPredictor] = useState(false);
+  const [support, setSupport] = useState(false);
   const currencies = ["NGN", "USD", "GBP"];
 
   const onSubmit = async (values) => {
@@ -35,9 +40,46 @@ export default function AddSubscription() {
     //     };
     //   }
     //   else{
+    let contact_info;
+    let direct_message;
+    let feed_calculator;
+    let disease_predictor;
+    let customer_support;
+
+    if (contact) {
+      contact_info = "Yes";
+    } else {
+      contact_info = "No";
+    }
+    if (message) {
+      direct_message = "Yes";
+    } else {
+      direct_message = "No";
+    }
+    if (calculator) {
+      feed_calculator = "Yes";
+    } else {
+      feed_calculator = "No";
+    }
+    if (predictor) {
+      disease_predictor = "Yes";
+    } else {
+      disease_predictor = "No";
+    }
+    if (support) {
+      customer_support = "Yes";
+    } else {
+      customer_support = "No";
+    }
+
     payload = {
       id: userData.staff_id,
       permission_level: userData.permission_level,
+      contact_info: contact_info,
+      direct_message: direct_message,
+      feed_calculator: feed_calculator,
+      disease_predictor: disease_predictor,
+      customer_support: customer_support,
       ...values,
     };
     //   }
@@ -68,13 +110,8 @@ export default function AddSubscription() {
     date_option: "",
     duration: "",
     case: "",
-    contact_info: "",
-    direct_message: "",
-    feed_calculator: "",
-    disease_predictor: "",
     store: "",
     no_of_product: "",
-    customer_support: "",
   };
 
   // const loadedData = {
@@ -254,6 +291,42 @@ export default function AddSubscription() {
             {errors.store && touched.store && (
               <p className="error">{errors.store}</p>
             )}
+
+            <div className=" flex items-center justify-between p-2 h-[60px]">
+              Contact Info - {contact ? "Yes" : "No"}
+              <InputSwitch
+                checked={contact}
+                onChange={() => setContact(!contact)}
+              />
+            </div>
+            <div className=" flex items-center justify-between p-2 h-[60px]">
+              Direct Message - {message ? "Yes" : "No"}
+              <InputSwitch
+                checked={message}
+                onChange={() => setMessage(!message)}
+              />
+            </div>
+            <div className=" flex items-center justify-between p-2 h-[60px]">
+              Feed Calculator - {calculator ? "Yes" : "No"}
+              <InputSwitch
+                checked={calculator}
+                onChange={() => setCalculator(!calculator)}
+              />
+            </div>
+            <div className=" flex items-center justify-between p-2 h-[60px]">
+              Disease Predictor - {predictor ? "Yes" : "No"}
+              <InputSwitch
+                checked={predictor}
+                onChange={() => setPredictor(!predictor)}
+              />
+            </div>
+            <div className=" flex items-center justify-between p-2 h-[60px]">
+              Customer Support - {support ? "Yes" : "No"}
+              <InputSwitch
+                checked={support}
+                onChange={() => setSupport(!support)}
+              />
+            </div>
             <button
               type="submit"
               className="green__btn"
