@@ -35,7 +35,7 @@ export default function Login() {
     await login(payload)
       .then((res) => {
         if (!res.code) {
-          if (res.role === "Veternarian") {
+          if (res.role === "Veterinarian") {
             location("/vet-dashboard");
           } else if (res.role === "Animal Owner") {
             location("/animal-owner-dashboard");

@@ -9,7 +9,7 @@ export default function VetLayout() {
 
   return (
     <div>
-      {auth?.role === 'Veternarian' ? (
+      {auth?.role === 'Veterinarian' ? (
         <>
           <Header />
           <VetSidebar />
