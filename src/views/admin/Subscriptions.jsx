@@ -55,7 +55,8 @@ export default function Subscriptions() {
                   name={res.detail}
                   price={res.price}
                   duration={res.duration}
-                  
+                  deleteCard={true}
+                  edit={true}
                   loading={loading}
                 />
               ))}

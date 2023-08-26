@@ -73,13 +73,17 @@ export default function AdminPromotion() {
             <>
               {promotions?.map((res) => (
                 <AdminDashboardCard
-                  time={moment(res.date).utc().fromNow()}
+                  // time={moment(res.date).utc().fromNow()}
                   title={res.title}
                   name={res.no_of_products}
                   key={res.id}
                   price={res.price}
                   duration={res.duration}
                   loading={loading}
+                  deleteCard={true}
+                  rejcetButtonText={'Disable'}
+                  approveButtonText={'Activate'}
+                  edit={true}
                 />
               ))}
             </>

@@ -1,6 +1,9 @@
 import AdminWarningCard from "../AdminWarningCard/AdminWarningCard";
 import CurrencyFormatter from "currency-formatter-react";
 import AdminCardLoading from "../loading/AdminCardLoading";
+import editIcon from "../../assets/account/edit-icon.svg";
+import WarningCard from "../warningCard/WarningCard";
+
 export default function AdminDashboardCard({
   image,
   title,
@@ -13,13 +16,17 @@ export default function AdminDashboardCard({
   duration,
   price,
   loading,
+  edit,
+  deleteCard,
+  deleteFormDataFunction,
+  editFunction,
 }) {
   return (
     <>
       {loading ? (
         <AdminCardLoading />
       ) : (
-        <div className=" bg-white flex items-center flex-col gap-2 lg:flex-row justify-between p-5 border rounded-lg">
+        <div className=" bg-white grid grid-cols-[8fr_4fr] items-center flex-col gap-2 lg:flex-row justify-between p-5 border rounded-lg">
           <div className="flex items-center gap-4 w-full">
             {image && image.length > 64 ? (
               <div className=" h-[65px] w-[65px]">
@@ -53,7 +60,7 @@ export default function AdminDashboardCard({
               </div>
             </div>
           </div>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4 w-full">
             <AdminWarningCard
               approveButtonText={approveButtonText}
               rejcetButtonText={rejcetButtonText}
@@ -61,13 +68,38 @@ export default function AdminDashboardCard({
               message={message}
               loading={loading}
             />
-            {time ? (
-              <div className="text-[11px] bg-gray-100 flex text-center justify-center mr-auto lg:ml-auto p-2 w-[140px] px-4 border rounded-full">
-                {time}
-              </div>
-            ) : (
-              ""
-            )}
+            <>
+              {edit ? (
+                <img
+                  src={editIcon}
+                  alt=""
+                  className=" p-2 mb-2 h-[35px] w-[35px] bg-white rounded-full border-[1px] cursor-pointer border-[#EBEBEB] hover:border-green-400 hover:bg-green-100 transition-all ease-in-out"
+                  onClick={editFunction}
+                />
+              ) : (
+                ""
+              )}
+            </>
+            <>
+              {deleteCard ? (
+                <WarningCard
+                  message={message}
+                  header="Confirmation"
+                  acceptFunction={deleteFormDataFunction}
+                />
+              ) : (
+                ""
+              )}
+            </>
+            <>
+              {time ? (
+                <div className="text-[11px] bg-gray-100 flex text-center justify-center mr-auto lg:ml-auto p-2 w-[140px] px-4 border rounded-full">
+                  {time}
+                </div>
+              ) : (
+                ""
+              )}
+            </>
           </div>
         </div>
       )}
