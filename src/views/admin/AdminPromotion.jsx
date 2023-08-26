@@ -2,12 +2,13 @@
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import { user } from "../../atom/userAtom";
-import {  getPromotionPlan } from "../../utils/adminApiService";
+import { getPromotionPlan } from "../../utils/adminApiService";
 import AdminDashboardCard from "../../components/adminDashboardCard/AdminDashboardCard";
 import moment from "moment";
 import { Link } from "react-router-dom";
 import addIcon from "../../assets/icons/add-icon.svg";
 import searchIcon from "../../assets/icons/search-icons/search-icon-white.svg";
+import AdminCardLoading from "../../components/loading/AdminCardLoading";
 
 export default function AdminPromotion() {
   const [promotions, setPromotions] = useState();
@@ -62,17 +63,27 @@ export default function AdminPromotion() {
               Search
             </button>
           </div>
-          {promotions?.map((res) => (
-            <AdminDashboardCard
-              time={moment(res.date).utc().fromNow()}
-              title={res.title}
-              name={res.no_of_products}
-              key={res.id}
-              price={res.price}
-              duration={res.duration}
-              loading={loading}
-            />
-          ))}
+          {loading ? (
+            <>
+              <AdminCardLoading />
+              <AdminCardLoading />
+              <AdminCardLoading />
+            </>
+          ) : (
+            <>
+              {promotions?.map((res) => (
+                <AdminDashboardCard
+                  time={moment(res.date).utc().fromNow()}
+                  title={res.title}
+                  name={res.no_of_products}
+                  key={res.id}
+                  price={res.price}
+                  duration={res.duration}
+                  loading={loading}
+                />
+              ))}
+            </>
+          )}
         </div>
       </div>
     </div>

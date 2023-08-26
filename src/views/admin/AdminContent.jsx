@@ -116,11 +116,11 @@ export default function AdminContent() {
           </div>
         </div>
         {loading ? (
-          <>
+          <div className="grid gap-2">
             <AdminCardLoading />
             <AdminCardLoading />
             <AdminCardLoading />
-          </>
+          </div>
         ) : (
           <>
             <div className="posts p-3 mt-5 grid gap-2">

@@ -267,12 +267,12 @@ export default function UserFeatures() {
           </div>
         </div>
         {loading ? (
-          <>
+          <div className="grid gap-2">
           <AdminCardLoading />
           <AdminCardLoading />
           <AdminCardLoading />
           <AdminCardLoading />
-          </>
+          </div>
         ) : (
           <>
             {tab == "animalOwner" ? (

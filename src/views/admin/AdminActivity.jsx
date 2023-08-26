@@ -8,6 +8,7 @@ import moment from "moment";
 import AdminDashboardCard from "../../components/adminDashboardCard/AdminDashboardCard";
 import { useRecoilValue } from "recoil";
 import { user } from "../../atom/userAtom";
+import AdminCardLoading from "../../components/loading/AdminCardLoading";
 
 export default function AdminActivity() {
   const [activities, setActivities] = useState();
@@ -61,17 +62,27 @@ export default function AdminActivity() {
             </button>
           </div>
         </div>
-        <div className="posts p-3 mt-5 grid gap-2">
-          {activities?.map((res) => (
-            <AdminDashboardCard
-              time={moment(res.date).utc().fromNow()}
-              title={res.title}
-              name={res.detail}
-              key={res.id}
-              loading={loading}
-            />
-          ))}
-        </div>
+        {loading ? (
+          <div className="grid gap-2">
+            <AdminCardLoading />
+            <AdminCardLoading />
+            <AdminCardLoading />
+          </div>
+        ) : (
+          <>
+            <div className="posts p-3 mt-5 grid gap-2">
+              {activities?.map((res) => (
+                <AdminDashboardCard
+                  time={moment(res.date).utc().fromNow()}
+                  title={res.title}
+                  name={res.detail}
+                  key={res.id}
+                  loading={loading}
+                />
+              ))}
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
