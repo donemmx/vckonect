@@ -10,6 +10,7 @@ import { registration } from "../atom/registrationAtom";
 import { toast } from "react-toastify";
 import { verify } from "../validations/UserValidation";
 import { registerVeterinarian3 } from "../utils/vetApiService";
+import SubscriptionCard from "../components/subscriptionCard/SubscriptionCard";
 
 export default function OnboardVetVerify() {
   const regEmail = useRecoilValue(registration);
@@ -114,6 +115,8 @@ export default function OnboardVetVerify() {
             Back
           </Link>
         </form>
+
+        <SubscriptionCard/>
       </div>
     </div>
   );
