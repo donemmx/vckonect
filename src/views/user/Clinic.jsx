@@ -1,11 +1,14 @@
 import { Link } from "react-router-dom";
 import addIcon from "../../assets/icons/add-icon.svg";
 import ClinicCard from "../../components/clinicCard/ClinicCard";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { user } from "../../atom/userAtom";
+import { actionState } from "../../atom/actionAtom";
 
 export default function Clinic() {
   const userData = useRecoilValue(user);
+  const [action, setAction] = useRecoilState(actionState);
+
   return (
     <div>
       <div className=" font-black text-2xl">Clinic</div>
@@ -24,6 +27,7 @@ export default function Clinic() {
       )}
       <Link
         to="/vet-add-clinic"
+        onClick={() => setAction("add")}
         className="border-[1px] hover:border-[#52CE06] cursor-pointer  flex items-center justify-between p-3 rounded-[18px] mt-5 mb-5"
       >
         <p className="font-bold px-2">Add New Clinic</p>
