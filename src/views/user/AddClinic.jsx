@@ -26,7 +26,6 @@ export default function AddClinic() {
   const getImage = (e) => {
     const fileData = e.target.files[0];
     setFile(fileData);
-    console.log(fileData);
   };
 
   useEffect(() => {
@@ -87,7 +86,6 @@ export default function AddClinic() {
     });
     await addClinic(formData)
       .then((res) => {
-        console.log(res);
         if (res.code) {
           toast.error(res.detail);
         } else {
