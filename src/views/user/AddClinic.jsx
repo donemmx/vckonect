@@ -144,7 +144,6 @@ export default function AddClinic() {
       }
       setPicture(store?.picture);
     }
-    return setPicture(null);
   }, []);
 
   return (
