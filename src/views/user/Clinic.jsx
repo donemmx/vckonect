@@ -4,10 +4,24 @@ import ClinicCard from "../../components/clinicCard/ClinicCard";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { user } from "../../atom/userAtom";
 import { actionState } from "../../atom/actionAtom";
+import { useEffect, useState } from "react";
+import { getClinic } from "../../utils/vetApiService";
+import { reloadStore } from "../../atom/reloadAtom";
+import Loading from "../../components/loading/Loading";
 
 export default function Clinic() {
   const userData = useRecoilValue(user);
+  const reload = useRecoilValue(reloadStore);
   const [action, setAction] = useRecoilState(actionState);
+  const [loading, setLoading] = useState(true);
+  const [allClinics, SetAllClinics] = useState([]);
+
+  useEffect(() => {
+    getClinic({ user_id: userData?.id }).then((res) => {
+      SetAllClinics(res);
+      setLoading(false);
+    });
+  }, [reload]);
 
   return (
     <div>
@@ -33,11 +47,27 @@ export default function Clinic() {
         <p className="font-bold px-2">Add New Clinic</p>
         <img src={addIcon} alt="" className="w-[40px]" />
       </Link>
+      <div className=" grid md:grid-col-2 lg:grid-cols-4 gap-4 w-full mb-10">
+        {loading
+          ? [1, 2, 3, 4].map((data) => (
+              <div className="w-full mt-10" key={data}>
+                <Loading />
+              </div>
+            ))
+          : ""}
+      </div>
       <div className=" grid md:grid-cols-2 lg:grid-cols-4 gap-2">
-        <ClinicCard />
-        <ClinicCard />
-        <ClinicCard />
-        <ClinicCard />
+      {allClinics?.map((res) => (
+          <ClinicCard
+            availability={res.availability}
+            clinicNamee={res.clinic_name}
+            clinicLocation={res.location}
+            image={res.picture}
+            fullData={res}
+            clinic_id={res.id}
+            key={res.id}
+          />
+        ))}
       </div>
     </div>
   );
