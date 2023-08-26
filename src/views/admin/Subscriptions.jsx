@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import { user } from "../../atom/userAtom";
-import { adminGetSubscription } from "../../utils/adminApiService";
+import { getSubscriptionPlan } from "../../utils/adminApiService";
 import AdminDashboardCard from "../../components/adminDashboardCard/AdminDashboardCard";
 import moment from "moment";
 import { Link } from "react-router-dom";
@@ -14,7 +14,7 @@ export default function Subscriptions() {
 
   const getSubscriptions = async () => {
     const payload = {};
-    await adminGetSubscription(payload).then((res) => {
+    await getSubscriptionPlan(payload).then((res) => {
       setSubscriptions(res);
     });
   };

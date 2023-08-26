@@ -96,7 +96,7 @@ const adminGetPromotion = (payload) => {
 };
 const getPromotionPlan = (payload) => {
   return axios
-    .post(`${baseURl}/getPromotionPlan`, payload)
+    .get(`${baseURl}/getPromotionPlan`, payload)
     .then((res) => res.data)
     .catch((err) => console.log(err));
 };
@@ -122,7 +122,7 @@ const adminGetSubscription = (payload) => {
 };
 const getSubscriptionPlan = (payload) => {
   return axios
-    .post(`${baseURl}/getSubscriptionPlan`, payload)
+    .get(`${baseURl}/getSubscriptionPlan`, payload)
     .then((res) => res.data)
     .catch((err) => console.log(err));
 };

@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import { user } from "../../atom/userAtom";
-import { adminGetPromotion } from "../../utils/adminApiService";
+import {  getPromotionPlan } from "../../utils/adminApiService";
 import AdminDashboardCard from "../../components/adminDashboardCard/AdminDashboardCard";
 import moment from "moment";
 import { Link } from "react-router-dom";
@@ -17,7 +17,7 @@ export default function AdminPromotion() {
 
   const getPromotions = async () => {
     const payload = {};
-    await adminGetPromotion(payload).then((res) => {
+    await getPromotionPlan(payload).then((res) => {
       setPromotions(res);
       setLoading(false);
     });
@@ -25,7 +25,7 @@ export default function AdminPromotion() {
 
   const searchData = async () => {
     setLoading(true);
-    await adminGetPromotion({ name: search }).then((res) => {
+    await getPromotionPlan({ name: search }).then((res) => {
       setPromotions(res);
       setLoading(false);
     });
