@@ -175,7 +175,7 @@ export default function AddClinic() {
                 onChange={handleChange}
                 onBlur={handleBlur}
               />
-              <label htmlFor="username">Client Name (Required) :</label>
+              <label htmlFor="username">Clinic Name (Required) :</label>
             </span>
             {errors.clinicName && touched.clinicName && (
               <p className="error">{errors.clinicName}</p>
