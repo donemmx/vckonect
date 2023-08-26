@@ -5,18 +5,6 @@ const baseURl = "https://vetkonect.com/backend/public/api/web/v2";
 //   Pets
 
 const addClinic = (payload) => {
-  // const {
-  //   userId,
-  //   licenseNumber,
-  //   clinicName,
-  //   speciality,
-  //   email,
-  //   phone,
-  //   location,
-  //   availability,
-  //   picture,
-  //   clinicId,
-  // } = payload;
   return axios
     .post(
       `${baseURl}/addPet`, payload
@@ -26,7 +14,6 @@ const addClinic = (payload) => {
 };
 
 const getOneClinic = (payload) => {
-  // const { userId, id } = payload;
   return axios
     .post(`${baseURl}/getOneClinic`, payload)
     .then((res) => res.data)
@@ -34,7 +21,6 @@ const getOneClinic = (payload) => {
 };
 
 const getClinic = (payload) => {
-  // const { userId } = payload;
   return axios
     .post(`${baseURl}/getClinic`, payload)
     .then((res) => res.data)
@@ -42,7 +28,6 @@ const getClinic = (payload) => {
 };
 
 const deleteClinic = (payload) => {
-  // const { userId, id } = payload;
   return axios
     .post(`${baseURl}/deleteClinic`, payload)
     .then((res) => res.data)
@@ -52,32 +37,6 @@ const deleteClinic = (payload) => {
 // Cases
 
 const addCase = (payload) => {
-  // const {
-  //   userId,
-  //   role,
-  //   caseTitle,
-  //   clientName,
-  //   phone,
-  //   caseType,
-  //   petName,
-  //   petId,
-  //   specie,
-  //   breed,
-  //   age,
-  //   sex,
-  //   dateOfOccurence,
-  //   history,
-  //   clinicalSign,
-  //   tentativeDiagnoistic,
-  //   differentialDiagnosis,
-  //   diseaseDiagnostic,
-  //   labConfirm,
-  //   motality,
-  //   treatment,
-  //   address,
-  //   vetMobile,
-  //   caseId,
-  // } = payload;
   return axios
     .post(
       `${baseURl}/addCase`, payload
@@ -87,7 +46,6 @@ const addCase = (payload) => {
 };
 
 const getCase = (payload) => {
-  // const { userId } = payload;
   return axios
     .post(`${baseURl}/getCase`, payload)
     .then((res) => res.data)
@@ -95,7 +53,6 @@ const getCase = (payload) => {
 };
 
 const getOneCase = (payload) => {
-  // const { userId, id } = payload;
   return axios
     .post(`${baseURl}/getOneCase`, payload)
     .then((res) => res.data)
@@ -103,7 +60,6 @@ const getOneCase = (payload) => {
 };
 
 const deleteCase = (payload) => {
-  // const { userId, id } = payload;
   return axios
     .post(`${baseURl}/deleteCase`, payload)
     .then((res) => res.data)
@@ -113,7 +69,6 @@ const deleteCase = (payload) => {
 // Set Availabilty
 
 const setAvailabilty = (payload) => {
-  // const { availability, id } = payload;
   return axios
     .post(`${baseURl}/setAvailabilty`, payload)
     .then((res) => res.data)
@@ -122,7 +77,6 @@ const setAvailabilty = (payload) => {
 // Veterinarian Activity
 
 const getVeterinarianActivity = (payload) => {
-  // const { role, id } = payload;
   return axios
     .post(`${baseURl}/getVeterinarianActivity`, payload)
     .then((res) => res.data)
@@ -130,7 +84,6 @@ const getVeterinarianActivity = (payload) => {
 };
 
 const getVeterinarianByLocation = (payload) => {
-  // const { role, id } = payload;
   return axios
     .post(`${baseURl}/getVeterinarianByLocation`, payload)
     .then((res) => res.data)
@@ -138,7 +91,6 @@ const getVeterinarianByLocation = (payload) => {
 };
 
 const getVeterinarianByFilter = (payload) => {
-  // const { role, id } = payload;
   return axios
     .post(`${baseURl}/getVeterinarianByFilter`, payload)
     .then((res) => res.data)
@@ -148,7 +100,6 @@ const getVeterinarianByFilter = (payload) => {
 // Register Animal owner
 
 const registerVeterinarian1 = (payload) => {
-  // const { stage, email, password } = payload;
   return axios
     .post(
       `${baseURl}/registerVeterinarian`, payload
@@ -158,7 +109,6 @@ const registerVeterinarian1 = (payload) => {
 };
 
 const registerVeterinarian2 = (payload) => {
-  // const { stage, email, firstName, lastName, phone, address, vetNumber, speciality } = payload;
   return axios
     .post(
       `${baseURl}/registerVeterinarian`, payload
@@ -168,10 +118,18 @@ const registerVeterinarian2 = (payload) => {
 };
 
 const registerVeterinarian3 = (payload) => {
-  // const { stage, email, code } = payload;
   return axios
     .post(
       `${baseURl}/registerVeterinarian`, payload
+    )
+    .then((res) => res.data)
+    .catch((err) => console.log(err));
+};
+
+const vetPlan = (payload) => {
+  return axios
+    .post(
+      `${baseURl}/vetPlan`, payload
     )
     .then((res) => res.data)
     .catch((err) => console.log(err));
@@ -192,5 +150,6 @@ export {
   registerVeterinarian2,
   registerVeterinarian3,
   getVeterinarianByLocation,
-  getVeterinarianByFilter
+  getVeterinarianByFilter,
+  vetPlan
 };
