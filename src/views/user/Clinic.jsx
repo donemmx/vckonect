@@ -14,7 +14,7 @@ export default function Clinic() {
         <p className="font-bold px-2">Add New Clinic</p>
         <img src={addIcon} alt="" className="w-[40px]" />
       </Link>
-      <div className=" flex gap-2 flex-wrap items-center justify-center">
+      <div className=" grid md:grid-cols-2 lg:grid-cols-4 gap-2">
         <ClinicCard/>
         <ClinicCard/>
         <ClinicCard/>
