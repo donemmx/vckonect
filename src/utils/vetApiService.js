@@ -151,7 +151,7 @@ const registerVeterinarian1 = (payload) => {
   // const { stage, email, password } = payload;
   return axios
     .post(
-      `${baseURl}/registerAnimalOwner`, payload
+      `${baseURl}/registerVeterinarian`, payload
     )
     .then((res) => res.data)
     .catch((err) => console.log(err));
