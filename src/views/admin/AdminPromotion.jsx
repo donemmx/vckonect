@@ -9,6 +9,10 @@ import { Link } from "react-router-dom";
 import addIcon from "../../assets/icons/add-icon.svg";
 import searchIcon from "../../assets/icons/search-icons/search-icon-white.svg";
 import AdminCardLoading from "../../components/loading/AdminCardLoading";
+import AdminCard from "../../components/adminCard/AdminCard";
+import expiredPromotions from "../../assets/sidebar/expired-promotion.svg";
+import activePromotions from "../../assets/sidebar/active-promotion.svg";
+import totalPromotions from "../../assets/sidebar/total-promotion.svg";
 
 export default function AdminPromotion() {
   const [promotions, setPromotions] = useState();
@@ -37,6 +41,24 @@ export default function AdminPromotion() {
   }, [search.length < 3]);
   return (
     <div className="w-full">
+       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-1 lg:gap-2 mt-5">
+        <AdminCard
+          number={0}
+          text="Total Promotions"
+          icon={totalPromotions}
+        />
+        <AdminCard
+          number={0}
+          text="Active Promotions"
+          icon={activePromotions}
+        />
+
+        <AdminCard
+          number={0}
+          text="Expired Promotions"
+          icon={expiredPromotions}
+        />
+      </div>
       <div className="activity mt-5  mb-5 p-4 border bg-white rounded-lg w-full">
         <Link
           to="/add-promotion"
@@ -81,8 +103,8 @@ export default function AdminPromotion() {
                   duration={res.duration}
                   loading={loading}
                   deleteCard={true}
-                  rejcetButtonText={'Disable'}
-                  approveButtonText={'Activate'}
+                  rejcetButtonText={"Disable"}
+                  approveButtonText={"Activate"}
                   edit={true}
                 />
               ))}

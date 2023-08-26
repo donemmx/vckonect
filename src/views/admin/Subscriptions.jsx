@@ -8,6 +8,10 @@ import moment from "moment";
 import { Link } from "react-router-dom";
 import addIcon from "../../assets/icons/add-icon.svg";
 import AdminCardLoading from "../../components/loading/AdminCardLoading";
+import AdminCard from "../../components/adminCard/AdminCard";
+import totalSubscribers from "../../assets/sidebar/total-subscribers.svg";
+import activeSubscriber from "../../assets/sidebar/active-subscription.svg";
+import expiredSubscribers from "../../assets/sidebar/active-subscription.svg";
 
 export default function Subscriptions() {
   const [subscriptions, setSubscriptions] = useState();
@@ -28,6 +32,24 @@ export default function Subscriptions() {
   }, []);
   return (
     <div className="w-full">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-1 lg:gap-2 mt-5">
+        <AdminCard
+          number={0}
+          text="Total Subscribers"
+          icon={totalSubscribers}
+        />
+        <AdminCard
+          number={0}
+          text="Active Subscription"
+          icon={activeSubscriber}
+        />
+
+        <AdminCard
+          number={0}
+          text="Expired Subscription"
+          icon={expiredSubscribers}
+        />
+      </div>
       <div className="activity mt-5  mb-5 p-4 border bg-white rounded-lg w-full">
         <Link
           to="/add-subscription"
@@ -38,7 +60,7 @@ export default function Subscriptions() {
         </Link>
         <div className="posts p-3 mt-5 grid gap-2">
           {loading ? (
-           <div className="grid gap-2">
+            <div className="grid gap-2">
               <AdminCardLoading />
               <AdminCardLoading />
               <AdminCardLoading />
@@ -50,8 +72,8 @@ export default function Subscriptions() {
                   key={res.id}
                   // time={moment(res.date).utc().fromNow()}
                   title={res.title}
-                  approveButtonText='Activate'
-                  rejcetButtonText='Deactivate'
+                  approveButtonText="Activate"
+                  rejcetButtonText="Deactivate"
                   name={res.detail}
                   price={res.price}
                   duration={res.duration}
