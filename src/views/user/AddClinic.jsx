@@ -10,17 +10,19 @@ import { useFormik } from "formik";
 import { clinic } from "../../validations/UserValidation";
 import { InputText } from "primereact/inputtext";
 import { InputSwitch } from "primereact/inputswitch";
+import { MultiSelect } from "primereact/multiselect";
 
 export default function AddClinic() {
   const userData = useRecoilValue(user);
   const action = useRecoilValue(actionState);
   const [store, setStore] = useRecoilState(storeData);
   const [picture, setPicture] = useState(null);
+  const [speciality, setSpeciality] = useState([]);
 
   const [file, setFile] = useState(null);
   const [fileDataURL, setFileDataURL] = useState(null);
   const [avialability, setAvailability] = useState(false);
-
+  const specialities = ["Poultry", "Fish", "Pig", "Sheep"];
   const getImage = (e) => {
     const fileData = e.target.files[0];
     setFile(fileData);
@@ -61,7 +63,7 @@ export default function AddClinic() {
         license_number: store?.license_number,
         user_id: store?.user_id,
         store_id: store?.id,
-        clinic_speciality: '',
+        clinic_speciality: "",
         availability: available,
         picture: file ?? store?.picture,
         ...others,
@@ -73,7 +75,7 @@ export default function AddClinic() {
         license_number: license_number,
         user_id: userData.id,
         availability: available,
-        clinic_speciality: '',
+        clinic_speciality: "",
         picture: file,
         ...others,
         clinic_name: clinicName,
@@ -91,7 +93,7 @@ export default function AddClinic() {
         } else {
           if (action && action === "edit") {
             toast.success("Store details edited successfully");
-            setStore(null)
+            setStore(null);
           } else {
             toast.success("Store added successfully");
           }
@@ -107,6 +109,7 @@ export default function AddClinic() {
     email: "",
     phone: "",
     location: "",
+    clinic_speciality: "",
     license_number: "",
   };
 
@@ -115,6 +118,7 @@ export default function AddClinic() {
     email: store?.email,
     phone: store?.phone_number,
     location: store?.location,
+    clinic_speciality: store?.location,
     license_number: store?.license_number,
   };
 
@@ -141,14 +145,15 @@ export default function AddClinic() {
       } else {
         setAvailability(false);
       }
-      setPicture(store?.picture );
+      setPicture(store?.picture);
     }
-   return  setPicture(null)
+    return setPicture(null);
   }, []);
 
   return (
     <div className=" bg-white h-full pb-20 mb-10 rounded-md border-[1px] border-[#EBEBEB]">
-      <Link to='/vet-clinic'
+      <Link
+        to="/vet-clinic"
         className="flex items-center gap-3 text-[.75rem] lg:text-[.9rem] cursor-pointer ml-10 mt-10"
       >
         <i className="pi pi-angle-left p-1 lg:p-3 h-[25px] w-[25px] lg:h-[45px] lg:w-[45px] bg-white rounded-full"></i>
@@ -180,19 +185,7 @@ export default function AddClinic() {
             {errors.clinicName && touched.clinicName && (
               <p className="error">{errors.clinicName}</p>
             )}
-            <span className="p-float-label">
-              <InputText
-                id="username"
-                name="email"
-                value={values.email}
-                onChange={handleChange}
-                onBlur={handleBlur}
-              />
-              <label htmlFor="livestock">Email (Required) :</label>
-            </span>
-            {errors.email && touched.email && (
-              <p className="error">{errors.email}</p>
-            )}
+
             <span className="p-float-label">
               <InputText
                 id="username"
@@ -205,6 +198,31 @@ export default function AddClinic() {
             </span>
             {errors.license_number && touched.license_number && (
               <p className="error">{errors.license_number}</p>
+            )}
+
+            <span className="p-float-label">
+              <MultiSelect
+                value={speciality}
+                onChange={(e) => setSpeciality(e.target.value)}
+                options={specialities}
+                placeholder="Select Speciality"
+                className="w-full md:w-20rem"
+              />
+
+              <label htmlFor="username">Speciality (Required) : </label>
+            </span>
+            <span className="p-float-label">
+              <InputText
+                id="username"
+                name="email"
+                value={values.email}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+              <label htmlFor="livestock">Email (Required) :</label>
+            </span>
+            {errors.email && touched.email && (
+              <p className="error">{errors.email}</p>
             )}
             <span className="p-float-label">
               <InputText
