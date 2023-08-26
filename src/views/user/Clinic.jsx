@@ -10,7 +10,7 @@ export default function Clinic() {
       <small>Congratulations</small>
       <p>Your Clinic License Number (CLN) has been verified and Approved</p> 
     </div>
-    <Link to='/add-client' className="border-[1px] hover:border-[#52CE06] cursor-pointer  flex items-center justify-between p-3 rounded-[18px] mt-5 mb-5">
+    <Link to='/vet-add-clinic' className="border-[1px] hover:border-[#52CE06] cursor-pointer  flex items-center justify-between p-3 rounded-[18px] mt-5 mb-5">
         <p className="font-bold px-2">Add New Clinic</p>
         <img src={addIcon} alt="" className="w-[40px]" />
       </Link>
