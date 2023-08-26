@@ -38,7 +38,11 @@ export default function Subscriptions() {
         </Link>
         <div className="posts p-3 mt-5 grid gap-2">
           {loading ? (
-            <AdminCardLoading />
+            <>
+              <AdminCardLoading />
+              <AdminCardLoading />
+              <AdminCardLoading />
+            </>
           ) : (
             <>
               {subscriptions?.map((res) => (
