@@ -26,7 +26,7 @@ export default function AdminDashboardCard({
       {loading ? (
         <AdminCardLoading />
       ) : (
-        <div className=" bg-white grid grid-cols-[8fr_4fr] items-center flex-col gap-2 lg:flex-row justify-between p-5 border rounded-lg">
+        <div className=" bg-white grid md:grid-cols-[8fr_4fr] items-center flex-col gap-2 lg:flex-row justify-between p-5 border rounded-lg">
           <div className="flex items-center gap-4 w-full">
             {image && image.length > 64 ? (
               <div className=" h-[65px] w-[65px]">
