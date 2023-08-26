@@ -16,7 +16,11 @@ import {
   usersCounter,
 } from "../../utils/adminApiService";
 import { toast } from "react-toastify";
-import { getForumChat, getForumChatByFilter, getStore } from "../../utils/userApiService";
+import {
+  getForumChat,
+  getForumChatByFilter,
+  getStore,
+} from "../../utils/userApiService";
 import searchIcon from "../../assets/icons/search-icons/search-icon-white.svg";
 import AdminDashboardCard from "../../components/adminDashboardCard/AdminDashboardCard";
 import moment from "moment";
@@ -32,11 +36,12 @@ export default function AdminContent() {
   const [search, setSearch] = useState("");
 
   const getUserCounter = async () => {
+    setLoading(true)
     await getForumChat().then((res) => {
       setForum(res);
       setLoading(false);
-      setApproved(()=> res.filter((data)=> data.status === 'Approved'))
-      setRejected(()=> res.filter((data)=> data.status === 'Not Approved'))
+      setApproved(() => res.filter((data) => data.status === "Approved"));
+      setRejected(() => res.filter((data) => data.status === "Not Approved"));
     });
   };
 
@@ -44,27 +49,31 @@ export default function AdminContent() {
     setLoading(true);
     approveForumChat(payload).then((res) => {
       toast.success("Post Approved Successfully");
+      setLoading(false);
       getUserCounter();
-
     });
   };
   const rejectContent = (payload) => {
     setLoading(true);
     rejectForumChat(payload).then((res) => {
       toast.success("Post Rejected Successfully");
+      setLoading(false);
       getUserCounter();
     });
   };
 
   const searchData = async () => {
-    await getForumChatByFilter({name:search}).then((res) => {
+    setLoading(true);
+    await getForumChatByFilter({ name: search }).then((res) => {
       setForum(res);
+      setLoading(false);
     });
-  }
+  };
 
   useEffect(() => {
+    setLoading(true)
     getUserCounter();
-  }, [(search.length < 3)]);
+  }, [search.length < 3]);
 
   return (
     <div className="w-full">
@@ -96,7 +105,11 @@ export default function AdminContent() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
             />
-            <button className="search__btn  bg-green-800 h-[45px] w-[200px] text-white  flex items-center gap-4 justify-center rounded-r-[16px]" onClick={searchData} disabled={search.length < 3}>
+            <button
+              className="search__btn  bg-green-800 h-[45px] w-[200px] text-white  flex items-center gap-4 justify-center rounded-r-[16px]"
+              onClick={searchData}
+              disabled={search.length < 3}
+            >
               <img src={searchIcon} alt="" className=" h-[15px]" />
               Search
             </button>
@@ -106,12 +119,13 @@ export default function AdminContent() {
           {forum?.map((res) =>
             res.status === "Approved" ? (
               <AdminDashboardCard
+                key={res.id}
                 time={moment(res.date).utc().fromNow()}
                 title={res.title}
                 name={res.user_name}
                 rejcetButtonText="Reject"
                 loading={loading}
-                message='Are you sure you want to reject this post'
+                message="Are you sure you want to reject this post"
                 approveFunction={() =>
                   rejectContent({
                     forum_chat_id: res.id,
@@ -119,15 +133,15 @@ export default function AdminContent() {
                     user_role: res.user_role,
                   })
                 }
-                key={res.id}
               />
             ) : (
               <AdminDashboardCard
+                key={res.id}
                 time={moment(res.date).utc().fromNow()}
                 title={res.title}
                 name={res.user_name}
                 approveButtonText="Approve"
-                message='Are you sure you want to accept this post'
+                message="Are you sure you want to accept this post"
                 loading={loading}
                 approveFunction={() =>
                   approveContent({
@@ -136,7 +150,6 @@ export default function AdminContent() {
                     user_role: res.user_role,
                   })
                 }
-                key={res.id}
               />
             )
           )}

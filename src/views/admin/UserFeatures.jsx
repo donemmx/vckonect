@@ -37,37 +37,46 @@ export default function UserFeatures() {
   const [tab, setTab] = useState("animalOwner");
   const [active, setActive] = useState("pet");
   const [search, setSearch] = useState("");
+  const [loading, setLoading] = useState(true);
 
   const getUserCounter = async () => {
     await usersCounter().then((res) => {
       setCounter(res);
+      setLoading(false);
     });
 
     await adminGetAnimalOwner().then((res) => {
       setAnimalOwner(res);
+      setLoading(false);
     });
 
     await adminGetClinic().then((res) => {
       setClinic(res);
+      setLoading(false);
     });
 
     await getStore().then((res) => {
       setStores(res);
+      setLoading(false);
     });
 
     await adminGetFarm().then((res) => {
       setFarms(res);
+      setLoading(false);
     });
 
     await adminGetPet().then((res) => {
       setPet(res);
+      setLoading(false);
     });
     await adminGetVeterinarian().then((res) => {
       setVet(res);
+      setLoading(false);
     });
 
     await adminGetProduct().then((res) => {
       setProduct(res);
+      setLoading(false);
     });
   };
 
@@ -76,35 +85,42 @@ export default function UserFeatures() {
   };
 
   const searchData = async () => {
+    setLoading(true)
     switch (tab) {
       case "animalOwner":
-        await adminGetAnimalOwner({name:search}).then((res) => {
+        await adminGetAnimalOwner({ name: search }).then((res) => {
+          setLoading(false);
           setAnimalOwner(res);
         });
         break;
       case "pets":
         if (active === "pet") {
-          await adminGetPet({name:search}).then((res) => {
+          await adminGetPet({ name: search }).then((res) => {
+            setLoading(false);
             setPet(res);
           });
         } else {
-          await adminGetFarm({name:search}).then((res) => {
+          await adminGetFarm({ name: search }).then((res) => {
+            setLoading(false);
             setFarms(res);
           });
         }
         break;
       case "vet":
-        await adminGetVeterinarian({name:search}).then((res) => {
+        await adminGetVeterinarian({ name: search }).then((res) => {
+          setLoading(false);
           setVet(res);
         });
         break;
       case "store":
-        await getStoreByFilter({name:search}).then((res) => {
+        await getStoreByFilter({ name: search }).then((res) => {
+          setLoading(false);
           setStores(res);
         });
         break;
       case "clinic":
-        await adminGetClinic({name:search}).then((res) => {
+        await adminGetClinic({ name: search }).then((res) => {
+          setLoading(false);
           setClinic(res);
         });
         break;
@@ -118,6 +134,7 @@ export default function UserFeatures() {
   };
 
   const disableUserAccount = (data) => {
+    setLoading(true);
     console.log(data);
     const payload = {
       id: data.id,
@@ -128,6 +145,7 @@ export default function UserFeatures() {
     });
   };
   const activateUserAccount = (data) => {
+    setLoading(true);
     const payload = {
       id: data.id,
       role: data.role,
@@ -138,10 +156,9 @@ export default function UserFeatures() {
   };
 
   useEffect(() => {
+    setLoading(true);
     getUserCounter();
-  }, [(search.length < 3)]);
-
-  
+  }, [search.length < 3]);
 
   return (
     <div className="w-full">
@@ -254,6 +271,7 @@ export default function UserFeatures() {
             {animalOwner?.map((res) =>
               res.account_activation === "Activated" ? (
                 <AdminDashboardCard
+                  key={res.id}
                   time={moment(res.date).utc().fromNow()}
                   title={res.first_name + res.last_name}
                   name={res.role}
@@ -261,10 +279,12 @@ export default function UserFeatures() {
                   rejcetButtonText="Disable"
                   message="Are you sure to deactivate this account?"
                   approveFunction={() => disableUserAccount(res)}
-                  key={res.id}
+                  loading={loading}
+
                 />
               ) : (
                 <AdminDashboardCard
+                  key={res.id}
                   time={moment(res.date).utc().fromNow()}
                   title={res.first_name + res.last_name}
                   name={res.role}
@@ -272,7 +292,8 @@ export default function UserFeatures() {
                   approveButtonText="Enable"
                   approveFunction={() => activateUserAccount(res)}
                   message="Are you sure to activate this account?"
-                  key={res.id}
+                  loading={loading}
+
                 />
               )
             )}
@@ -281,10 +302,11 @@ export default function UserFeatures() {
           <div className="posts p-3 mt-5 grid gap-2">
             {vet?.map((res) => (
               <AdminDashboardCard
+                key={res.id}
                 time={moment(res.date).utc().fromNow()}
                 title={res.title}
                 name={res.user_name}
-                key={res.id}
+                loading={loading}
               />
             ))}
           </div>
@@ -292,11 +314,12 @@ export default function UserFeatures() {
           <div className="posts p-3 mt-5 grid gap-2">
             {stores?.map((res) => (
               <AdminDashboardCard
+                key={res.id}
                 time={moment(res.date).utc().fromNow()}
                 title={res.store_name}
                 name={res.location}
                 image={res.picture}
-                key={res.id}
+                loading={loading}
               />
             ))}
           </div>
@@ -304,11 +327,12 @@ export default function UserFeatures() {
           <div className="posts p-3 mt-5 grid gap-2">
             {clinic?.map((res) => (
               <AdminDashboardCard
+                key={res.id}
                 time={moment(res.date).utc().fromNow()}
                 title={res.title}
                 name={res.user_name}
                 image={res.picture}
-                key={res.id}
+                loading={loading}
               />
             ))}
           </div>
@@ -336,11 +360,12 @@ export default function UserFeatures() {
               <div className="posts p-3 mt-5 grid gap-2">
                 {pet?.map((res) => (
                   <AdminDashboardCard
+                    key={res.id}
                     time={moment(res.date).utc().fromNow()}
                     title={res.pet_name}
                     name={res.pet_id}
                     image={res.picture}
-                    key={res.id}
+                    loading={loading}
                   />
                 ))}
               </div>
@@ -348,11 +373,12 @@ export default function UserFeatures() {
               <div className="posts p-3 mt-5 grid gap-2">
                 {farms?.map((res) => (
                   <AdminDashboardCard
+                    key={res.id}
                     time={moment(res.date).utc().fromNow()}
                     title={res.farm_name}
                     name={res.farm_id}
                     image={res.picture}
-                    key={res.id}
+                    loading={loading}
                   />
                 ))}
               </div>
@@ -362,10 +388,11 @@ export default function UserFeatures() {
           <div className="posts p-3 mt-5 grid gap-2">
             {product?.map((res) => (
               <AdminDashboardCard
+                key={res.id}
                 time={moment(res.date).utc().fromNow()}
                 title={res.title}
                 name={res.user_name}
-                key={res.id}
+                loading={loading}
               />
             ))}
           </div>
