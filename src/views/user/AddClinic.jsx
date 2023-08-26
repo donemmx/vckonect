@@ -109,7 +109,6 @@ export default function AddClinic() {
     email: "",
     phone: "",
     location: "",
-    clinic_speciality: "",
     license_number: "",
   };
 
@@ -118,7 +117,7 @@ export default function AddClinic() {
     email: store?.email,
     phone: store?.phone_number,
     location: store?.location,
-    clinic_speciality: store?.location,
+    clinic_speciality: store?.clinic_speciality,
     license_number: store?.license_number,
   };
 
