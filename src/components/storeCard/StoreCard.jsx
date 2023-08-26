@@ -28,12 +28,12 @@ export default function StoreCard({
   const [store, setStore] = useRecoilState(storeData);
   const [action, setAction] = useRecoilState(actionState);
   const [updateReload] = useUpadateReload();
-  const location = useNavigate()
+  const location = useNavigate();
 
   const editStore = () => {
     setStore(fullData);
     setAction("edit");
-    checker("add-store")
+    checker("add-store");
   };
 
   const checker = (route) => {
@@ -44,17 +44,20 @@ export default function StoreCard({
     }
   };
 
+  const getContent = () => {
+    setStore(fullData);
+  };
+
   const deleteStoreById = () => {
     deleteStore({ store_id: store_id })
       .then((res) => {
         toast.success("Store deleted successfully");
-        updateReload()
+        updateReload();
       })
       .catch((err) => {
         toast.error(err.message);
       });
   };
-
 
   return (
     <div className=" vetCard mb-6">
@@ -84,7 +87,7 @@ export default function StoreCard({
           ) : (
             ""
           )}
-          <div className="availbility !top-4" >
+          <div className="availbility !top-4">
             {availability === "1" ? (
               <div className=" flex items-center gap-2 text-[.8rem]">
                 <div className="available "></div>
@@ -125,7 +128,12 @@ export default function StoreCard({
               />
             </div>
             <div className="message">
-              <button>
+              <button
+                onClick={() => {
+                  getContent,
+                  checker("store-details");
+                }}
+              >
                 <img src={openIcon} alt="" />
               </button>
             </div>

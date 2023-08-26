@@ -101,20 +101,6 @@ const deleteStore = (payload) => {
 };
 
 const addProduct = (payload) => {
-  // const {
-  //   role,
-  //   userId,
-  //   category,
-  //   description,
-  //   title,
-  //   id,
-  //   tags,
-  //   location,
-  //   images,
-  //   price,
-  //   availability,
-  //   unit,
-  // } = payload;
   return axios
     .post(
       `${baseURl}/addProduct`, payload
