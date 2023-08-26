@@ -70,9 +70,9 @@ export default function Account() {
         </div>
       </div>
       <div className="flex items-center justify-center mt-[-6vh]">
-        {userData.profile_picture.length > 64 ? (
+        {userData?.profile_picture && userData?.profile_picture.length > 64 ? (
           <img
-            src={userData.profile_picture}
+            src={userData?.profile_picture}
             alt=""
             className=" rounded-full border-[4px] h-[150px] w-[150px] object-cover border-green-400"
           />

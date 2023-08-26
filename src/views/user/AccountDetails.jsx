@@ -64,7 +64,7 @@ export default function AccountDetails() {
         role: userData?.role,
         password: password,
         confirmPassword: confirmPassword,
-        profile_picture: file ?? userData.profile_picture,
+        profile_picture: file ?? userData?.profile_picture,
       };
 
     } else {
@@ -75,7 +75,7 @@ export default function AccountDetails() {
         address: address,
         id: userData?.id,
         role: userData?.role,
-        profile_picture: file ?? userData.profile_picture,
+        profile_picture: file ?? userData?.profile_picture,
       };
     }
     Object.entries(payload).forEach(([key, value]) => {
