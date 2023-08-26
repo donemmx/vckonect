@@ -43,7 +43,7 @@ export default function OnboardVetPersonal() {
     await registerVeterinarian2(payload)
       .then((res) => {
         if (!res.code) {
-          location("/onboard-verify");
+          location("/onboard-vet-verify");
           toast.success(res.detail);
         } else {
           toast.error(res.detail);
@@ -52,8 +52,9 @@ export default function OnboardVetPersonal() {
       .catch((err) => console.log(err));
   };
 
-  const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
+  const { values, errors, isValid, isSubmitting, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
+      validateOnMount: true,
       initialValues: {
         vetNumber: "",
         firstName: "",
@@ -163,7 +164,7 @@ export default function OnboardVetPersonal() {
           <span className="p-float-label">
             <InputText
               id="username"
-              name="phone_number"
+              name="country"
               value={values.country}
               onChange={handleChange}
               onBlur={handleBlur}
@@ -176,7 +177,7 @@ export default function OnboardVetPersonal() {
           <span className="p-float-label">
             <InputText
               id="username"
-              name="phone_number"
+              name="state"
               value={values.state}
               onChange={handleChange}
               onBlur={handleBlur}
@@ -215,7 +216,12 @@ export default function OnboardVetPersonal() {
               Confirm that you agree to our terms and conditions at Vet Konect
             </label>
           </div>
-          <button className="green__btn">
+          <button className="green__btn"disabled={!isValid || isSubmitting}>
+            {isSubmitting ? (
+              <i className="pi pi-spin pi-spinner !text-[20px]"></i>
+            ) : (
+              ""
+            )}
             Proceed
           </button>
           <Link to="/onboard-vet-account" className="tertiary__btn">

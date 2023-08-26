@@ -49,6 +49,7 @@ import AdminLogin from "./views/admin/AdminLogin";
 import AdminContent from "./views/admin/AdminContent";
 import AdminAccountDetails from "./views/admin/AdminAccountDetails";
 import AddSubscription from "./views/admin/AddSubscription";
+import OnboardVetVerify from "./views/OnboardVetVerify";
 
 const router = createBrowserRouter([
   {
@@ -307,6 +308,10 @@ const router = createBrowserRouter([
       {
         path: "/onboard-vet-details",
         element: <OnboardVetPersonal />,
+      },
+      {
+        path: "/onboard-vet-verify",
+        element: <OnboardVetVerify />,
       },
       {
         path: "/onboard-verify",
