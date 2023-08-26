@@ -12,9 +12,18 @@ import { registration } from "../atom/registrationAtom";
 import { toast } from "react-toastify";
 import { useFormik } from "formik";
 import { vetUser } from "../validations/UserValidation";
+import { MultiSelect } from "primereact/multiselect";
 
 export default function OnboardVetPersonal() {
   const [ingredients, setIngredients] = useState([]);
+  const [speciality, setSpeciality] = useState([]);
+
+  const specialities = [
+    "Poultry" ,
+    "Fish",
+    "Pig",
+    "Sheep"
+ ];
   const onIngredientsChange = (e) => {
     let _ingredients = [...ingredients];
 
@@ -38,6 +47,7 @@ export default function OnboardVetPersonal() {
       country: country,
       state: state,
       vet_number: vetNumber,
+      speciality: speciality,
       ...others,
     };
     await registerVeterinarian2(payload)
@@ -63,7 +73,6 @@ export default function OnboardVetPersonal() {
         address: "",
         state: "",
         country: "",
-        speciality: "",
       },
       validationSchema: vetUser,
       onSubmit,
@@ -135,19 +144,17 @@ export default function OnboardVetPersonal() {
           {errors.lastName && touched.lastName && (
             <p className="error">{errors.lastName}</p>
           )}
-          <span className="p-float-label">
-            <InputText
-              id="username"
-              name="speciality"
-              value={values.speciality}
-              onChange={handleChange}
-              onBlur={handleBlur}
-            />
-            <label htmlFor="username">Specialty</label>
-          </span>
-          {errors.speciality && touched.speciality && (
-            <p className="error">{errors.speciality}</p>
-          )}
+            <span className="p-float-label">
+              <MultiSelect
+                value={speciality}
+                onChange={(e)=> setSpeciality(e.target.value)}
+                options={specialities}
+                placeholder="Select Speciality"
+                className="w-full md:w-20rem"
+              />
+
+              <label htmlFor="username">Speciality (Required) : </label>
+            </span>
           <span className="p-float-label">
             <InputText
               id="username"

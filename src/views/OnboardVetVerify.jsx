@@ -33,14 +33,23 @@ export default function OnboardVetVerify() {
       .catch((err) => console.log(err));
   };
 
-  const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
-    useFormik({
-      initialValues: {
-        activation_code: "",
-      },
-      validationSchema: verify,
-      onSubmit,
-    });
+  const {
+    values,
+    errors,
+    isValid,
+    isSubmitting,
+    touched,
+    handleBlur,
+    handleChange,
+    handleSubmit,
+  } = useFormik({
+    validateOnMount: true,
+    initialValues: {
+      activation_code: "",
+    },
+    validationSchema: verify,
+    onSubmit,
+  });
 
   return (
     <div className="login flex justify-center items-center h-[100vh] lg:h-[105vh]">
@@ -65,7 +74,10 @@ export default function OnboardVetVerify() {
             </div>
             <img src={arrow} alt="" />
 
-            <Link to='/' className="cursor-pointer step1 w-[40px] text-[12px] text-center">
+            <Link
+              to="/"
+              className="cursor-pointer step1 w-[40px] text-[12px] text-center"
+            >
               <img className="greenOverlay" src={verifyIcon} alt="" />
               <p className="text-green-800 font-bold">Verify Account </p>
             </Link>
@@ -90,7 +102,12 @@ export default function OnboardVetVerify() {
           <div className="pt-2 subtitle cursor-pointer paragraph underline text-center">
             Resend Code
           </div>
-          <button to="/verified" className="green__btn">
+          <button className="green__btn" disabled={!isValid || isSubmitting}>
+            {isSubmitting ? (
+              <i className="pi pi-spin pi-spinner !text-[20px]"></i>
+            ) : (
+              ""
+            )}
             Verify
           </button>
           <Link to="#" className="tertiary__btn">

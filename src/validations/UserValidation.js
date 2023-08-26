@@ -27,7 +27,6 @@ const vetUser = yup.object().shape({
     phone_number: yup.string().required("Required"),
     address: yup.string().required("Required"),
     vetNumber: yup.string().required("Required"),
-    speciality: yup.string().required("Required"),
 })
 const subscription = yup.object().shape({
     title: yup.string().required("Required"),
