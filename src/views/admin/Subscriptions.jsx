@@ -10,16 +10,20 @@ import addIcon from "../../assets/icons/add-icon.svg";
 
 export default function Subscriptions() {
   const [subscriptions, setSubscriptions] = useState();
+  const [loading, setLoading] = useState(true);
   const userData = useRecoilValue(user);
 
   const getSubscriptions = async () => {
+    setLoading(true);
     const payload = {};
     await getSubscriptionPlan(payload).then((res) => {
       setSubscriptions(res);
+      setLoading(false);
     });
   };
 
   useEffect(() => {
+    setLoading(true);
     getSubscriptions();
   }, []);
   return (
@@ -35,10 +39,11 @@ export default function Subscriptions() {
         <div className="posts p-3 mt-5 grid gap-2">
           {subscriptions?.map((res) => (
             <AdminDashboardCard
+              key={res.id}
               time={moment(res.date).utc().fromNow()}
               title={res.title}
               name={res.detail}
-              key={res.id}
+              loading={loading}
             />
           ))}
         </div>
