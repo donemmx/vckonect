@@ -61,9 +61,13 @@ export default function AdminDashboardCard({
               message={message}
               loading={loading}
             />
-            <div className="text-[11px] bg-gray-100 flex text-center justify-center mr-auto lg:ml-auto p-2 w-[140px] px-4 border rounded-full">
-              {time}
-            </div>
+            {time ? (
+              <div className="text-[11px] bg-gray-100 flex text-center justify-center mr-auto lg:ml-auto p-2 w-[140px] px-4 border rounded-full">
+                {time}
+              </div>
+            ) : (
+              ""
+            )}
           </div>
         </div>
       )}

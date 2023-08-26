@@ -48,11 +48,14 @@ export default function Subscriptions() {
               {subscriptions?.map((res) => (
                 <AdminDashboardCard
                   key={res.id}
-                  time={moment(res.date).utc().fromNow()}
+                  // time={moment(res.date).utc().fromNow()}
                   title={res.title}
+                  approveButtonText='Activate'
+                  rejcetButtonText='Deactivate'
                   name={res.detail}
                   price={res.price}
                   duration={res.duration}
+                  
                   loading={loading}
                 />
               ))}
