@@ -8,17 +8,17 @@ export default function Clinic() {
   const userData = useRecoilValue(user);
   return (
     <div>
-      <div className=" font-black text-2xl">Client</div>
+      <div className=" font-black text-2xl">Clinic</div>
       {userData?.vet_number_status === "Verified" ? (
         <div className="border border-[#52CE06] p-3 rounded-[18px] bg-[#F9FFF5] mt-6">
           <small>Congratulations</small>
-          <p>Your Clinic License Number (CLN) has been verified and Approved</p>
+          <p>Your Clinic License Number (CLN) has been Verified and Approved</p>
         </div>
       ) : (
         <div className="border text-red-700 bg-red-50 border-red-400  p-3 rounded-[18px] mt-6">
           <small>Pending Verification</small>
           <p>
-            Your Clinic License Number (CLN) has not been verified / Approved
+            Your Clinic License Number (CLN) has not been Verified / Approved
           </p>
         </div>
       )}
