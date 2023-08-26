@@ -28,7 +28,7 @@ export default function Stores() {
   };
 
   useEffect(() => {
-    getStore({ id: userData?.id }).then((res) => {
+    getStore({ id: userData?.id, role: userData?.role }).then((res) => {
       SetAllStores(res);
       setLoading(false);
     });

@@ -136,11 +136,11 @@ const router = createBrowserRouter([
         element: <AccountDetails />,
       },
       {
-        path: "/activities",
+        path: "/vet-activities",
         element: <Activities />,
       },
       {
-        path: "/promotion",
+        path: "/vet-promotion",
         element: <Promotion />,
       },
     ],

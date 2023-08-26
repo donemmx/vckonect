@@ -5,6 +5,7 @@ import { user } from "../../atom/userAtom";
 import { useEffect, useState } from "react";
 import { getAnimalOwnerActivity } from "../../utils/animalOwnerApiService";
 import moment from "moment";
+import { getVeterinarianActivity } from "../../utils/vetApiService";
 
 export default function Activities() {
 
@@ -17,10 +18,18 @@ export default function Activities() {
       id: userData?.id,
       role: userData?.role
     }
-    getAnimalOwnerActivity(payload).then((res) => {
-      setAllActivities(res);
-      setLoading(false)
-    });
+    if(userData.role === 'Animal Owner'){
+      getAnimalOwnerActivity(payload).then((res) => {
+        setAllActivities(res);
+        setLoading(false)
+      });
+    }
+    else {
+      getVeterinarianActivity(payload).then((res) => {
+        setAllActivities(res);
+        setLoading(false)
+      })
+    }
   }, []);
   return (
     <div className="">
