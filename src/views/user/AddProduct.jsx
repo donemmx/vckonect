@@ -10,13 +10,15 @@ import { product } from "../../validations/UserValidation";
 import { useFormik } from "formik";
 import { InputText } from "primereact/inputtext";
 import { InputSwitch } from "primereact/inputswitch";
+import { Chips } from "primereact/chips";
+
 
 export default function AddProduct() {
   const userData = useRecoilValue(user);
   const action = useRecoilValue(actionState);
   const [store, setStore] = useRecoilState(storeData);
   const [picture, setPicture] = useState(null);
-
+  const [tags, setTags] = useState([]);
   const location = useNavigate();
 
   const [file, setFile] = useState([]);
@@ -28,26 +30,26 @@ export default function AddProduct() {
     setFile(fileData);
     console.log(fileData);
   };
-  useEffect(() => {
-    let fileReader,
-      isCancel = false;
-    if (file) {
-      fileReader = new FileReader();
-      fileReader.onload = (e) => {
-        const { result } = e.target;
-        if (result && !isCancel) {
-          setFileDataURL(result);
-        }
-      };
-      fileReader.readAsDataURL(file);
-    }
-    return () => {
-      isCancel = true;
-      if (fileReader && fileReader.readyState === 1) {
-        fileReader.abort();
-      }
-    };
-  }, [file]);
+  // useEffect(() => {
+  //   let fileReader,
+  //     isCancel = false;
+  //   if (file) {
+  //     fileReader = new FileReader();
+  //     fileReader.onload = (e) => {
+  //       const { result } = e.target;
+  //       if (result && !isCancel) {
+  //         setFileDataURL(result);
+  //       }
+  //     };
+  //     fileReader.readAsDataURL(file);
+  //   }
+  //   return () => {
+  //     isCancel = true;
+  //     if (fileReader && fileReader.readyState === 1) {
+  //       fileReader.abort();
+  //     }
+  //   };
+  // }, [file]);
 
   const checker = (route) => {
     if (userData?.role === "Veterinarian") {
@@ -203,6 +205,15 @@ export default function AddProduct() {
               <p className="error">{errors.category}</p>
             )}
             <span className="p-float-label">
+              <Chips
+                id="username"
+                name="tags"
+                value={tags}
+                onChange={(e) => setTags(e.target.value)}
+              />
+              <label htmlFor="username">Tags (Required) :</label>
+            </span>
+            <span className="p-float-label">
               <InputText
                 id="username"
                 name="description"
@@ -215,6 +226,7 @@ export default function AddProduct() {
             {errors.description && touched.description && (
               <p className="error">{errors.description}</p>
             )}
+
             <span className="p-float-label">
               <InputText
                 id="username"

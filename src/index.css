@@ -538,6 +538,14 @@ textarea {
 
 }
 
+.p-chips {
+  width: 100%;
+}
+
+.p-chips .p-chips-multiple-container .p-chips-token{
+  font-size: .8rem;
+}
+
 @media screen and (max-width: 820px) {
   .base {
     position: fixed;
