@@ -32,6 +32,11 @@ export default function AddProduct() {
     console.log(fileData);
   };
 
+
+  const back = () => {
+    window.history.back()
+  }
+
   const categories = ["Poultry", "Fish", "Pig", "Sheep"];
 
   const checker = (route) => {
@@ -137,7 +142,7 @@ export default function AddProduct() {
   return (
     <div className=" bg-white h-full pb-20 mb-10 rounded-md border-[1px] border-[#EBEBEB]">
       <button
-        onClick={() => checker("stores")}
+        onClick={() => back()}
         className="flex items-center gap-3 text-[.75rem] lg:text-[.9rem] cursor-pointer ml-10 mt-10"
       >
         <i className="pi pi-angle-left p-1 lg:p-3 h-[25px] w-[25px] lg:h-[45px] lg:w-[45px] bg-white rounded-full"></i>

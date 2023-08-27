@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import callIcon from "../../assets/icons/phone-icon.svg";
 import markerIcon from "../../assets/icons/location-icon.svg";
 import handIcon from "../../assets/account/hand-icon.svg";
@@ -11,10 +11,12 @@ import { storeData } from "../../atom/storeAtom";
 import available from "../../assets/sidebar/available.svg";
 import notAvailable from "../../assets/sidebar/notAvailable.svg";
 import addIcon from "../../assets/icons/add-icon.svg";
+import { actionState } from "../../atom/actionAtom";
 
 export default function StoreDetails() {
   const userData = useRecoilValue(user);
   const storeInfo = useRecoilValue(storeData);
+  const [action, setAction] = useRecoilState(actionState);
   const [openDetail, setOpenDetail] = useState(null);
   const location = useNavigate();
 
@@ -31,6 +33,10 @@ export default function StoreDetails() {
       location(`/animal-owner-${route}`);
     }
   };
+
+  const setActionData = () => {
+    setAction('add')
+  }
 
   // useEffect(() => getUser, []);
 
@@ -155,7 +161,7 @@ export default function StoreDetails() {
             connect with this user
           </p>
           <button
-            onClick={() => checker("add-product")}
+            onClick={() => {setActionData(), checker("add-product")}}
             className="border-[1px] hover:border-[#52CE06] cursor-pointer  flex items-center justify-between p-3 rounded-[18px] mt-5 mb-5 w-full"
           >
             <p className="font-bold px-2">Add New Product</p>
