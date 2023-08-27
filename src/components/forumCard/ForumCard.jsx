@@ -114,10 +114,10 @@ export default function ForumCard({
     deleteForumChat(payload)
       .then(() => {
         toast.success("Post deleted successfully");
-        updateReload()
+        updateReload();
       })
       .catch((err) => toast.error(err.detail));
-    };
+  };
 
   const editForum = () => {
     setUserStore(fullData);
@@ -187,7 +187,11 @@ export default function ForumCard({
           <div className="border rounded-lg p-5 my-4">
             <div className=" flex justify-between flex-wrap gap-2">
               <div className="flex items-center gap-4">
-                <img src={userImg} alt="" className="h-[50px] w-[50px] object-cover rounded-full" />
+                <img
+                  src={userImg}
+                  alt=""
+                  className="h-[50px] w-[50px] object-cover rounded-full"
+                />
                 <div className=" flex flex-col font-bold text-md">
                   {name}
                   <small className=" font-light text-sm">{position}</small>
@@ -245,11 +249,16 @@ export default function ForumCard({
                   />
                   {likes.length}
                 </div>
-                <WarningCard
-                  message="Are you sure you want to delete this post?"
-                  header="Confirmation"
-                  acceptFunction={deleteFormData}
-                />
+                {userData.id === fullData.user_id ? (
+                  <WarningCard
+                    message="Are you sure you want to delete this post?"
+                    header="Confirmation"
+                    acceptFunction={deleteFormData}
+                  />
+                ) : (
+                  ""
+                )}
+
                 {/* <div className="flex flex-col items-center justify-center">
             <img
               src={share}
@@ -278,7 +287,11 @@ export default function ForumCard({
             </div>
             <div className=" flex justify-between flex-wrap gap-2">
               <div className="flex items-center gap-4">
-              <img src={userImg} alt="" className="h-[50px] w-[50px] object-cover rounded-full" />
+                <img
+                  src={userImg}
+                  alt=""
+                  className="h-[50px] w-[50px] object-cover rounded-full"
+                />
                 <div className=" flex flex-col font-bold text-md">
                   {name}
                   <small className=" font-light text-sm">{position}</small>
