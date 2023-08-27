@@ -80,7 +80,6 @@ const product = yup.object().shape({
     location: yup.string().required("Required"),
     price: yup.string().required("Required"),
     available_units: yup.string().required("Required"),
-    unit: yup.string().required("Required"),
 })
 
 const storeValidation = yup.object().shape({
