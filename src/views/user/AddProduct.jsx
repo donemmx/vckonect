@@ -11,7 +11,7 @@ import { useFormik } from "formik";
 import { InputText } from "primereact/inputtext";
 import { InputSwitch } from "primereact/inputswitch";
 import { Chips } from "primereact/chips";
-
+import { Dropdown } from "primereact/dropdown";
 
 export default function AddProduct() {
   const userData = useRecoilValue(user);
@@ -20,6 +20,7 @@ export default function AddProduct() {
   const [picture, setPicture] = useState(null);
   const [tags, setTags] = useState([]);
   const location = useNavigate();
+  const [category, setCateogry] = useState(null);
 
   const [file, setFile] = useState([]);
   const [fileDataURL, setFileDataURL] = useState(null);
@@ -30,6 +31,8 @@ export default function AddProduct() {
     setFile(fileData);
     console.log(fileData);
   };
+
+  const categories = ["Poultry", "Fish", "Pig", "Sheep"];
   // useEffect(() => {
   //   let fileReader,
   //     isCancel = false;
@@ -73,6 +76,7 @@ export default function AddProduct() {
         user_id: store?.user_id,
         store_id: store?.id,
         availability: available,
+        category: category,
         images: file ?? store?.picture,
         ...others,
         store_name: storeName,
@@ -83,6 +87,7 @@ export default function AddProduct() {
         user_role: userData.role,
         user_id: userData.id,
         availability: available,
+        category: category,
         images: file,
         ...others,
         store_name: storeName,
@@ -100,7 +105,7 @@ export default function AddProduct() {
         } else {
           if (action && action === "edit") {
             toast.success("Store details edited successfully");
-            setStore(null)
+            setStore(null);
           } else {
             toast.success("Store added successfully");
           }
@@ -113,7 +118,6 @@ export default function AddProduct() {
 
   const initialValues = {
     title: "",
-    category: "",
     description: "",
     location: "",
     price: "",
@@ -122,7 +126,6 @@ export default function AddProduct() {
 
   const loadedData = {
     title: store?.title,
-    category: store?.category,
     description: store?.description,
     location: store?.location,
     price: store?.price,
@@ -192,18 +195,16 @@ export default function AddProduct() {
               <p className="error">{errors.title}</p>
             )}
             <span className="p-float-label">
-              <InputText
-                id="username"
-                name="category"
-                value={values.category}
-                onChange={handleChange}
-                onBlur={handleBlur}
+              <Dropdown
+                value={category}
+                onChange={(e) => setCateogry(e.target.value)}
+                options={categories}
+                placeholder="Select Livestock"
+                className="w-full md:w-20rem"
               />
-              <label htmlFor="livestock">Category (Required) :</label>
+
+              <label htmlFor="username">Type of livestock (Required) : </label>
             </span>
-            {errors.category && touched.category && (
-              <p className="error">{errors.category}</p>
-            )}
             <span className="p-float-label">
               <Chips
                 id="username"

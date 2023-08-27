@@ -74,7 +74,6 @@ const forumChat = yup.object().shape({
 })
 
 const product = yup.object().shape({
-    category: yup.string().required("Required"),
     description: yup.string().required("Required"),
     title: yup.string().required("Required"),
     location: yup.string().required("Required"),
