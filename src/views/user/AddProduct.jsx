@@ -20,7 +20,7 @@ export default function AddProduct() {
   const [picture, setPicture] = useState(null);
   const [tags, setTags] = useState([]);
   const location = useNavigate();
-  const [category, setCateogry] = useState(null);
+  const [category, setCategory] = useState(null);
 
   const [file, setFile] = useState([]);
   const [fileDataURL, setFileDataURL] = useState(null);
@@ -71,21 +71,21 @@ export default function AddProduct() {
     let payload;
     if (action && action === "edit") {
       payload = {
-        user_role: store?.user_role,
+        user_role: userData?.role,
         user_id: store?.user_id,
         store_id: store?.id,
         availability: available,
         category: category,
-        images: file,
+        images: [file],
         ...values,
       };
     } else {
       payload = {
-        user_role: userData.role,
-        user_id: userData.id,
+        user_role: userData?.role,
+        user_id: userData?.id,
         availability: available,
         category: category,
-        images: file,
+        images: [file],
         ...values,
       };
     }
@@ -192,7 +192,7 @@ export default function AddProduct() {
             <span className="p-float-label">
               <Dropdown
                 value={category}
-                onChange={(e) => setCateogry(e.target.value)}
+                onChange={(e) => setCategory(e.target.value)}
                 options={categories}
                 placeholder="Select Category"
                 className="w-full md:w-20rem"
