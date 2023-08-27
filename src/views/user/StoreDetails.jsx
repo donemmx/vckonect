@@ -12,7 +12,6 @@ import available from "../../assets/sidebar/available.svg";
 import notAvailable from "../../assets/sidebar/notAvailable.svg";
 import addIcon from "../../assets/icons/add-icon.svg";
 
-
 export default function StoreDetails() {
   const userData = useRecoilValue(user);
   const storeInfo = useRecoilValue(storeData);
@@ -113,7 +112,7 @@ export default function StoreDetails() {
         )}
       </small>
       {openDetail ? (
-        <div className="user  flex flex-col justify-center items-center w-[65%] lg:w-[20%] mx-auto mt-[15vh]">
+        <div className="user  flex flex-col justify-center items-center w-[65%] lg:w-[20%] mx-auto mt-[10vh]">
           <h4 className=" font-bold pt-3">Users’ {openDetail[1]}</h4>
           <p className="text-sm text-center text-[#666666]">{openDetail[0]}</p>
           <CopyToClipboard
@@ -139,6 +138,13 @@ export default function StoreDetails() {
             </div>
           </CopyToClipboard>
           <p className="text-xs mt-4">Click to copy</p>
+          <button
+            onClick={() => checker("add-product")}
+            className="border-[1px] hover:border-[#52CE06] cursor-pointer  flex items-center justify-between p-3 rounded-[18px] mt-5 mb-5 w-full"
+          >
+            <p className="font-bold px-2">Add New Product</p>
+            <img src={addIcon} alt="" className="w-[40px]" />
+          </button>
         </div>
       ) : (
         <div className="user  flex flex-col justify-center items-center w-[65%] lg:w-[20%] mx-auto mt-[10vh]">
@@ -149,12 +155,12 @@ export default function StoreDetails() {
             connect with this user
           </p>
           <button
-        onClick={() => checker("add-product")}
-        className="border-[1px] hover:border-[#52CE06] cursor-pointer  flex items-center justify-between p-3 rounded-[18px] mt-5 mb-5 w-full"
-      >
-        <p className="font-bold px-2">Add New Product</p>
-        <img src={addIcon} alt="" className="w-[40px]" />
-      </button>
+            onClick={() => checker("add-product")}
+            className="border-[1px] hover:border-[#52CE06] cursor-pointer  flex items-center justify-between p-3 rounded-[18px] mt-5 mb-5 w-full"
+          >
+            <p className="font-bold px-2">Add New Product</p>
+            <img src={addIcon} alt="" className="w-[40px]" />
+          </button>
         </div>
       )}
     </div>
