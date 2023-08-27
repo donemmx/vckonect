@@ -65,7 +65,6 @@ export default function AddProduct() {
   const onSubmit = async (values) => {
     const formData = new FormData();
     let available = 0;
-    const { storeName, phone, ...others } = values;
     if (avialability) {
       available = 1;
     }
@@ -77,10 +76,8 @@ export default function AddProduct() {
         store_id: store?.id,
         availability: available,
         category: category,
-        images: file ?? store?.picture,
-        ...others,
-        store_name: storeName,
-        phone_number: phone,
+        images: file,
+        ...values,
       };
     } else {
       payload = {
@@ -89,9 +86,7 @@ export default function AddProduct() {
         availability: available,
         category: category,
         images: file,
-        ...others,
-        store_name: storeName,
-        phone_number: phone,
+        ...values,
       };
     }
     Object.entries(payload).forEach(([key, value]) => {
@@ -199,7 +194,7 @@ export default function AddProduct() {
                 value={category}
                 onChange={(e) => setCateogry(e.target.value)}
                 options={categories}
-                placeholder="Select Livestock"
+                placeholder="Select Category"
                 className="w-full md:w-20rem"
               />
 
@@ -249,6 +244,19 @@ export default function AddProduct() {
               />
             </div>
 
+            <span className="p-float-label">
+              <InputText
+                id="username"
+                name="price"
+                value={values.price}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+              <label htmlFor="username">Price (Required) : </label>
+            </span>
+            {errors.price && touched.price && (
+              <p className="error">{errors.price}</p>
+            )}
             <span className="p-float-label">
               <InputText
                 id="username"
