@@ -50,6 +50,7 @@ import AdminContent from "./views/admin/AdminContent";
 import AdminAccountDetails from "./views/admin/AdminAccountDetails";
 import AddSubscription from "./views/admin/AddSubscription";
 import OnboardVetVerify from "./views/OnboardVetVerify";
+import AddProduct from "./views/user/AddProduct";
 
 const router = createBrowserRouter([
   {
@@ -106,6 +107,10 @@ const router = createBrowserRouter([
       {
         path: "/vet-store-details",
         element: <StoreDetails />,
+      },
+      {
+        path: "/vet-add-product",
+        element: <AddProduct />,
       },
       {
         path: "/vet-add-store",
@@ -180,6 +185,10 @@ const router = createBrowserRouter([
       {
         path: "/animal-owner-store-details",
         element: <StoreDetails />,
+      },
+      {
+        path: "/animal-owner-add-product",
+        element: <AddProduct />,
       },
       {
         path: "/animal-owner-add-store",

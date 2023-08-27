@@ -37,6 +37,7 @@ export default function StoreCard({
   };
 
   const checker = (route) => {
+    setStore(fullData);
     if (userData?.role === "Veterinarian") {
       location(`/vet-${route}`);
     } else {
@@ -130,7 +131,6 @@ export default function StoreCard({
             <div className="message">
               <button
                 onClick={() => {
-                  getContent,
                   checker("store-details");
                 }}
               >
