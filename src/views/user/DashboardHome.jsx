@@ -14,10 +14,16 @@ import ClinicCard from "../../components/clinicCard/ClinicCard";
 
 export default function DashboardHome() {
   const [active, setActive] = useState("vet");
+  const [stores, setStores] = useState()
+  const [clinics, setClinics] = useState()
 
   const selectTab = (value) => {
     setActive(value);
   };
+
+  const getData = async () => {
+    await getClinc
+  }
   return (
     <>
       <div className=" flex ">

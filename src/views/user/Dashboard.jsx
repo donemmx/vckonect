@@ -2,6 +2,7 @@
 import searchIcon from "../../assets/sidebar/search-dash.svg";
 import storeIcon from "../../assets/sidebar/stores.svg";
 import livestockIcon from "../../assets/sidebar/livestock.svg";
+import cases from "../../assets/sidebar/cases.svg";
 import adsIcon from "../../assets/sidebar/ads.svg";
 import arrow from "../../assets/sidebar/gray-arrow.svg";
 import AccountCard from "../../components/accountCard/AccountCard";
@@ -73,6 +74,7 @@ export default function Dashboard() {
           subtitle="Join the poor of vendors on our platform to earn from sales."
           onClick={() => getRoute("store")}
         />
+       {userData?.role === 'Animal Owner' ?
         <AccountCard
           image={livestockIcon}
           icon={arrow}
@@ -80,6 +82,15 @@ export default function Dashboard() {
           subtitle="Manage your pet and livestock farm on our platform to access high quality vet care"
           link={"/livestock"}
         />
+        :
+        <AccountCard
+          image={cases}
+          icon={arrow}
+          title="Manage Your Cases"
+          subtitle="Manage your cases on our platform to access high quality vet care"
+          link={"/vet-cases"}
+        />
+       }
         <AccountCard
           image={adsIcon}
           icon={arrow}
