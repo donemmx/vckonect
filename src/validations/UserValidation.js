@@ -77,10 +77,9 @@ const product = yup.object().shape({
     category: yup.string().required("Required"),
     description: yup.string().required("Required"),
     title: yup.string().required("Required"),
-    tags: yup.string().required("Required"),
     location: yup.string().required("Required"),
     price: yup.string().required("Required"),
-    availability: yup.string().required("Required"),
+    available_units: yup.string().required("Required"),
     unit: yup.string().required("Required"),
 })
 
