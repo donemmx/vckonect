@@ -16,6 +16,7 @@ import moment from "moment";
 import useRouteChecker from "../../hooks/RouteChecker";
 import AdminHeader from "../../components/header/AdminHeader";
 import { getVeterinarianActivity } from "../../utils/vetApiService";
+import { useNavigate } from "react-router-dom";
 
 export default function Dashboard() {
   const [tab, setTab] = useState("activity");
@@ -25,6 +26,7 @@ export default function Dashboard() {
   const [routeChecker] = useRouteChecker();
   const [loading, setLoading] = useState(true);
   const [allActivities, setAllActivities] = useState([]);
+  const location = useNavigate()
   const activeTab = (type) => {
     setTab(type);
   };
@@ -57,6 +59,11 @@ export default function Dashboard() {
     }
   }, []);
 
+  useEffect(()=> {
+    if(userData?.subscription === null || userData?.subscription === 'Expired'){
+      location("/vet-subscription");
+    }
+  }, [])
   return (
     <div className="">
       <div className="form grid grid-cols-1 md:grid-cols-2 gap-3 pt-6">

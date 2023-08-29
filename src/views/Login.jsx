@@ -35,14 +35,6 @@ export default function Login() {
     await login(payload)
       .then((res) => {
         if (!res.code) {
-          if (res.role === "Veterinarian") {
-            location("/vet-dashboard");
-          } else if (res.role === "Animal Owner") {
-            location("/animal-owner-dashboard");
-          } else {
-            location("/admin-dashboard");
-          }
-          toast.success("Successfully logged in");
           getUserById({ id: res.id, role: res.role }).then((fullData) => {
             setData({
               ...fullData,
@@ -50,7 +42,14 @@ export default function Login() {
             });
           });
           setData(res);
-          // }
+          if (res.role === "Veterinarian") {
+            location("/vet-dashboard");
+          }  else if (res.role === "Animal Owner") {
+            location("/animal-owner-dashboard");
+          } else {
+            location("/admin-dashboard");
+          }
+          toast.success("Successfully logged in");
         } else {
           toast.error(res.detail);
         }

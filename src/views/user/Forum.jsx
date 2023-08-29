@@ -49,6 +49,12 @@ export default function Forum() {
       setForumData(res)});
   }, [userStore?.like, reload]);
 
+  useEffect(()=> {
+    if(userData?.subscription === null || userData?.subscription === 'Expired'){
+      location("/vet-subscription");
+    }
+  }, [])
+  
   return (
     <div>
       <button

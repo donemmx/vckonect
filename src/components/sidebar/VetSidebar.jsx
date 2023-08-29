@@ -11,9 +11,7 @@ import casesIcon from "../../assets/sidebar/cases.svg";
 import adsicon from "../../assets/sidebar/ads.svg";
 import activitiesicon from "../../assets/sidebar/activities.svg";
 import { Link } from "react-router-dom";
-import { useState } from "react";
 export default function VetSidebar() {
-    const [active, setActive] = useState('home')
 
   return (
       <div className="fixed z-50   w-full lg:w-fit pr-14 lg:pr-0 top-[12vh] lg:top-[15vh] pb-10 left-8 h-[18vh] lg:h-[85vh] overflow-x-scroll lg:overflow-y-scroll no-scrollbar flex items-center lg:flex-col gap-2 justify-between">

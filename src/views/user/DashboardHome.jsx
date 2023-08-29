@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Vetcard from "../../components/vetCard/Vetcard";
 import vetClinic from "../../assets/tab-icon/vet-clinic-tab.svg";
 import vetStore from "../../assets/tab-icon/vet-store-tab.svg";
@@ -11,19 +11,45 @@ import mapView from "../../assets/menu-search/map-view.svg";
 import listView from "../../assets/menu-search/list-view.svg";
 import StoreCard from "../../components/storeCard/StoreCard";
 import ClinicCard from "../../components/clinicCard/ClinicCard";
+import {
+  getClinicByFilter,
+  getStoreByFilter,
+} from "../../utils/userApiService";
+import { getVeterinarianByFilter } from "../../utils/vetApiService";
 
 export default function DashboardHome() {
   const [active, setActive] = useState("vet");
-  const [stores, setStores] = useState()
-  const [clinics, setClinics] = useState()
+  const [stores, setStores] = useState([]);
+  const [clinics, setClinics] = useState([]);
+  const [vets, setVets] = useState([]);
 
   const selectTab = (value) => {
     setActive(value);
+    if (value == "clinic") {
+      getClinicData();
+    } else if (value == "store") {
+      getStoreData();
+    } else {
+      getVetsData();
+    }
   };
 
-  const getData = async () => {
-    await getClinc
-  }
+  const getClinicData = async () => {
+    await getClinicByFilter().then((res) => {
+      setClinics(res);
+    });
+  };
+  const getStoreData = async () => {
+    await getStoreByFilter({name: ''}).then((res) => {
+      setStores(res);
+    });
+  };
+  const getVetsData = async () => {
+    await getVeterinarianByFilter().then((res) => {
+      setVets(res);
+    });
+  };
+
   return (
     <>
       <div className=" flex ">
@@ -118,14 +144,23 @@ export default function DashboardHome() {
           </div>
 
           <div className=" pt-12 gap-6  pb-10 grid md:grid-cols-2  lg:grid-cols-4 w-full">
-            {active == "vet"
-              ? [1, 2, 3, 4, 5, 6, 7].map((res) => <Vetcard key={res} />)
-              : ""}
+            {active == "vet" ? vets.map((res) => <Vetcard key={res} />) : ""}
             {active == "store"
-              ? [1, 2, 3, 4, 5, 6, 7,8].map((res) => <StoreCard key={res} />)
+              ? stores.map((res) => (
+                  <StoreCard
+                    availability={res.availability}
+                    storeName={res.store_name}
+                    storeLocation={res.location}
+                    storePhone={res.phone_number}
+                    image={res.picture}
+                    fullData={res}
+                    store_id={res.id}
+                    key={res.id}
+                  />
+                ))
               : ""}
             {active == "clinic"
-              ? [1, 2, 3, 4, 5, 6, 7,8].map((res) => <ClinicCard key={res} />)
+              ? clinics.map((res) => <ClinicCard key={res} />)
               : ""}
           </div>
         </div>

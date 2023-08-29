@@ -365,6 +365,15 @@ const subscribePromotionPlan = async (payload) => {
     .catch((err) => console.log(err));
 };
 
+const getPromotion = async (payload) => {
+  return await axios
+    .post(
+      `${baseURl}/getPromotion`, payload
+    )
+    .then((res) => res.data)
+    .catch((err) => console.log(err));
+};
+
 
 
 export {
@@ -407,5 +416,6 @@ export {
   subscribePromotionPlan,
   getUserById,
   shareForumChat,
-  getForumChatByFilter
+  getForumChatByFilter,
+  getPromotion
 };

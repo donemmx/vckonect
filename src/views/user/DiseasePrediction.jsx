@@ -5,8 +5,13 @@ import {
   diseasePredictor,
   getLivestockDiseases,
 } from "../../utils/userApiService";
+import { useRecoilValue } from "recoil";
+import { user } from "../../atom/userAtom";
+import { useNavigate } from "react-router-dom";
 
 export default function DiseasePrediction() {
+  const userData = useRecoilValue(user)
+  const location = useNavigate()
   const [livestock, setLivestock] = useState(null);
   const [symptom, setSymptom] = useState(null);
   const [disease, setDisease] = useState(null);
@@ -40,6 +45,12 @@ export default function DiseasePrediction() {
       });
     }
   }, [livestock]);
+
+  useEffect(()=> {
+    if(userData?.subscription === null || userData?.subscription === 'Expired'){
+      location("/vet-subscription");
+    }
+  }, [])
   return (
     <div className="mt-14 lg:mt-4">
       <div className="flex justify-center items-center">

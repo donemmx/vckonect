@@ -1,16 +1,23 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PromoCard from "../../components/promoCard/PromoCard";
 import { Dropdown } from "primereact/dropdown";
 import { InputText } from "primereact/inputtext";
 import { InputSwitch } from "primereact/inputswitch";
 import { Checkbox } from "primereact/checkbox";
+import { getPromotion, getPromotionPlan } from "../../utils/userApiService";
+import { useRecoilValue } from "recoil";
+import { user } from "../../atom/userAtom";
+import CurrencyFormatter from "currency-formatter-react";
+
 
 export default function Promotion() {
+  const userData = useRecoilValue(user);
   const [specialty, setSpecialty] = useState(null);
   const [file, setFile] = useState(null);
   const [plan, setPlan] = useState("weekly");
   const [avialability, setAvailability] = useState(false);
   const [agree, setAgree] = useState(false);
+  const [allPromotion, setAllPromotions] = useState([]);
   function handleChange(e) {
     console.log(e.target.files);
     setFile(URL.createObjectURL(e.target.files[0]));
@@ -26,6 +33,15 @@ export default function Promotion() {
     setAgree(!agree);
   };
 
+  useEffect(() => {
+    getPromotionPlan().then((res) => {
+      setAllPromotions(res);
+      setPlan(res[0].title)
+    });
+
+    console.log(allPromotion);
+  }, []);
+
   return (
     <div className=" flex flex-wrap gap-6">
       <div className="activity mt-5  mb-5 p-5 lg:p-10 border bg-white rounded-lg w-full lg:w-[58%]">
@@ -34,24 +50,24 @@ export default function Promotion() {
             Ads Promotions
           </h2>
         </div>
-        <div className="flex items-center justify-center gap-2 text-[.8rem] bg-[#F1FFF4] border border-[#B3FFC4] rounded p-3 mt-4 mb-4 ">
+        {/* <div className="flex items-center justify-center gap-2 text-[.8rem] bg-[#F1FFF4] border border-[#B3FFC4] rounded p-3 mt-4 mb-4 ">
           <div className="available "></div>
           Active - ( Till Jun 20, 2023)
-        </div>
-        <div className="promo flex flex-wrap gap-4">
+        </div> */}
+        {/* <div className="promo flex flex-wrap gap-4"> */}
+        {/* <PromoCard available={true} />
           <PromoCard available={true} />
           <PromoCard available={true} />
-          <PromoCard available={true} />
-          <PromoCard available={true} />
-        </div>
-        <div className="flex items-center justify-center gap-2 text-[.8rem] bg-[#FFE7E7] border border-[#FF9999] rounded p-3 mt-4 mb-4 ">
+          <PromoCard available={true} /> */}
+        {/* </div> */}
+        {/* <div className="flex items-center justify-center gap-2 text-[.8rem] bg-[#FFE7E7] border border-[#FF9999] rounded p-3 mt-4 mb-4 ">
           <div className="unavailable "></div>
           Expired - (On Jan 30, 2023) (Renew Ads Promotion)
-        </div>
-        <div className="promo flex flex-wrap gap-4">
+        </div> */}
+        {/* <div className="promo flex flex-wrap gap-4">
           <PromoCard />
           <PromoCard />
-        </div>
+        </div> */}
       </div>
       <div className="activity mt-5  mb-5 p-5 lg:p-10 border bg-white rounded-lg w-full lg:w-[38%]">
         <div className="flex items-center gap-6">
@@ -151,73 +167,56 @@ export default function Promotion() {
                   Konect
                 </label>
               </div>
+
               <div className="group flex flex-wrap gap-2">
                 <div className="left w-full lg:w-[40%] border p-4 rounded-lg">
-                  <div className="text-center">Free Trial Plan</div>
-                  <div className="mt-3">
-                    <div
-                      className={
-                        plan === "weekly"
-                          ? "bg-gray-100 p-2 border rounded-full text-center font-bold text-sm cursor-pointer"
-                          : "p-2 rounded-full text-center cursor-pointer text-sm"
-                      }
-                      onClick={() => setPlan("weekly")}
-                    >
-                      Weekly Plan
+                  <div className="text-center">asdas</div>
+                  {allPromotion.map((res) => (
+                    <div className="mt-3" key={res.id}>
+                      <div
+                        className={
+                          plan === res.title
+                            ? "bg-gray-100 p-2 border rounded-full text-center font-bold text-sm cursor-pointer"
+                            : "p-2 rounded-full text-center cursor-pointer text-sm"
+                        }
+                        onClick={() => setPlan(res.title)}
+                      >
+                        {res.title}
+                      </div>
                     </div>
-                    <div
-                      className={
-                        plan === "monthly"
-                          ? "bg-gray-100 p-2 border rounded-full text-center font-bold  text-sm cursor-pointer"
-                          : "p-2 rounded-full text-center cursor-pointer text-sm"
-                      }
-                      onClick={() => setPlan("monthly")}
-                    >
-                      Monthly Plan
-                    </div>
-                    <div
-                      className={
-                        plan === "yearly"
-                          ? "bg-gray-100 p-2 border rounded-full text-center font-bold  text-sm cursor-pointer"
-                          : "p-2 rounded-full text-center cursor-pointer text-sm"
-                      }
-                      onClick={() => setPlan("yearly")}
-                    >
-                      Yearly Plan
-                    </div>
-                  </div>
+                  ))}
                 </div>
                 <div className="right w-full lg:w-[56%] border rounded-lg">
-                  <div className="p-4 ">
-                    <div className="font-black text-center">
-                      Weekly (7 Days)
+                  {allPromotion.map((res) => (
+                    <div key={res.id}>
+                      {plan === res.title ? (
+                        <div className="p-4 ">
+                          <div className="font-black text-center">
+                          {res.duration}
+                          </div>
+                          <div className="text-center">{res.no_of_products}</div>
+                          <div className="text-center mt-2">
+                            <small>Pricing</small>
+                            <small> (VAT Inclusive)</small>
+                            <h2 className="font-black text-3xl">
+                              {res.price}
+                            </h2>
+                          </div>
+                        </div>
+                      ) : (
+                        ""
+                      )}
                     </div>
-                    <div className="text-center">(3 Products Max)</div>
-                    <div className=" flex items-center justify-between mt-3">
-                      <div className="number p-3 border h-[40px] w-[40px] rounded-lg flex items-center justify-center">
-                        1
-                      </div>
-                      <div className="number p-3 border h-[40px] w-[40px] bg-gray-100 rounded-lg flex items-center justify-center">
-                        2
-                      </div>
-                      <div className="number p-3 border h-[40px] w-[40px] rounded-lg flex items-center justify-center">
-                        3
-                      </div>
-                      <div className="number p-3 border h-[40px] w-[40px] rounded-lg flex items-center justify-center">
-                        4
-                      </div>
-                    </div>
-                    <div className="text-center mt-2">
-                      <small>Pricing</small>
-                      <small> (VAT Inclusive)</small>
-                      <p className=""> $0.99 x 2 = 2.00</p>
-                      <h2 className="font-black text-3xl"> $2.00 </h2>
-                    </div>
+                  ))}
+                  <div className="p-4 bg-green-800 text-center text-white text-sm font-bold rounded-b-lg">
+                    {" "}
+                    SELECT PLAN
                   </div>
-                  <div className="p-4 bg-green-800 text-center text-white text-sm font-bold rounded-b-lg"> SELECT PLAN</div>
                 </div>
               </div>
-              <button className="green__btn" disabled>Promote Product</button>
+              <button className="green__btn" disabled>
+                Promote Product
+              </button>
             </div>
           </div>
         </div>

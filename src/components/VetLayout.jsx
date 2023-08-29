@@ -6,10 +6,9 @@ import { user } from "../atom/userAtom";
 
 export default function VetLayout() {
   let auth = useRecoilValue(user);
-
   return (
     <div>
-      {auth?.role === 'Veterinarian' ? (
+      {auth?.role === "Veterinarian" ? (
         <>
           <Header />
           <VetSidebar />
@@ -17,7 +16,7 @@ export default function VetLayout() {
             <Outlet />
           </div>
         </>
-      ) : (
+      )  : (
         <Navigate to="/login" />
       )}
     </div>

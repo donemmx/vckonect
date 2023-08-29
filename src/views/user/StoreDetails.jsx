@@ -35,8 +35,8 @@ export default function StoreDetails() {
   };
 
   const setActionData = () => {
-    setAction('add')
-  }
+    setAction("add");
+  };
 
   // useEffect(() => getUser, []);
 
@@ -144,13 +144,17 @@ export default function StoreDetails() {
             </div>
           </CopyToClipboard>
           <p className="text-xs mt-4">Click to copy</p>
-          <button
-            onClick={() => checker("add-product")}
-            className="border-[1px] hover:border-[#52CE06] cursor-pointer  flex items-center justify-between p-3 rounded-[18px] mt-5 mb-5 w-full"
-          >
-            <p className="font-bold px-2">Add New Product</p>
-            <img src={addIcon} alt="" className="w-[40px]" />
-          </button>
+          {userData?.id === storeInfo?.user_id ? (
+            <button
+              onClick={() => checker("add-product")}
+              className="border-[1px] hover:border-[#52CE06] cursor-pointer  flex items-center justify-between p-3 rounded-[18px] mt-5 mb-5 w-full"
+            >
+              <p className="font-bold px-2">Add New Product</p>
+              <img src={addIcon} alt="" className="w-[40px]" />
+            </button>
+          ) : (
+            ""
+          )}
         </div>
       ) : (
         <div className="user  flex flex-col justify-center items-center w-[65%] lg:w-[20%] mx-auto mt-[10vh]">
@@ -160,13 +164,17 @@ export default function StoreDetails() {
             Kindly click any of your choice from the icon button above to
             connect with this user
           </p>
-          <button
-            onClick={() => {setActionData(), checker("add-product")}}
-            className="border-[1px] hover:border-[#52CE06] cursor-pointer  flex items-center justify-between p-3 rounded-[18px] mt-5 mb-5 w-full"
-          >
-            <p className="font-bold px-2">Add New Product</p>
-            <img src={addIcon} alt="" className="w-[40px]" />
-          </button>
+          {userData?.id === storeInfo?.user_id ? (
+            <button
+              onClick={() => checker("add-product")}
+              className="border-[1px] hover:border-[#52CE06] cursor-pointer  flex items-center justify-between p-3 rounded-[18px] mt-5 mb-5 w-full"
+            >
+              <p className="font-bold px-2">Add New Product</p>
+              <img src={addIcon} alt="" className="w-[40px]" />
+            </button>
+          ) : (
+            ""
+          )}
         </div>
       )}
     </div>

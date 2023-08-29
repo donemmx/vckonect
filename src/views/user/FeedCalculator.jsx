@@ -1,12 +1,18 @@
 import { Dropdown } from "primereact/dropdown";
 import { InputText } from "primereact/inputtext";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { feedCalculator } from "../../utils/userApiService";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Button } from "primereact/button";
+import { useRecoilValue } from "recoil";
+import { user } from "../../atom/userAtom";
+import { useNavigate } from "react-router-dom";
 
 export default function FeedCalculator() {
+  const userData = useRecoilValue(user)
+  const location = useNavigate()
+
   const [livestock, setlivestock] = useState(null);
   // const [fishSize, setFishSize] = useState(null);
   const [noOfFish, setNoOfFish] = useState(null);
@@ -93,6 +99,12 @@ const format = (data) => {
         <Button icon="pi pi-refresh" rounded raised onClick={restart}/>
     </div>
 );
+
+useEffect(()=> {
+  if(userData.subscription === null || userData.subscription === 'Expired'){
+    location("/vet-subscription");
+  }
+}, [])
 
   return (
     <div className="mt-14 lg:mt-4">

@@ -3,10 +3,29 @@ import chat from "../../assets/icons/chat-icon.svg";
 import message from "../../assets/icons/message-icon.svg";
 import location from "../../assets/icons/marker-icon.svg";
 import openIcon from "../../assets/bg/card-next-bg.svg";
-import star from "../../assets/vetcard/star-icon.svg";
 import verified from "../../assets/vetcard/verified-icon.svg";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { user } from "../../atom/userAtom";
+import { storeData } from "../../atom/storeAtom";
+import { actionState } from "../../atom/actionAtom";
 
-export default function Vetcard() {
+export default function Vetcard({ fullData, isVerified, name, address }) {
+
+  const userData = useRecoilValue(user);
+  const [store, setStore] = useRecoilState(storeData);
+  const [action, setAction] = useRecoilState(actionState);
+
+
+  const checker = (route) => {
+    setStore(fullData);
+    if (userData?.role === "Veterinarian") {
+      location(`/vet-${route}`);
+    } else {
+      location(`/animal-owner-${route}`);
+    }
+  };
+
+
   return (
     <div className=" vetCard mb-6">
       <div className="group h-full w-full ">
@@ -18,22 +37,22 @@ export default function Vetcard() {
             </div>
           </div>
           <div className="bottom flex items-center justify-between p-2 absolute bottom-2 w-full ">
-          <div className="rating text-white text-sm flex items-center gap-2">
-            <img src={star} alt="" />
-              4.5 of 5
-          </div>
-          <div className="verfied">
-            <img src={verified} alt="" />
-          </div>
+            <div className="rating text-white text-sm flex items-center gap-2">
+              {/* <img src={star} alt="" />
+              4.5 of 5 */}
+            </div>
+            <div className="verfied">
+              {isVerified ? <img src={verified} alt="" /> : ""}
+            </div>
           </div>
         </div>
         <div className="bottom bg-white p-2 rounded-b-[12px]">
           <div className="name font-black sm:text-[.85rem] md:text-[1.2rem]">
-            Dr. Orji Hyacinth C
+            {name}
           </div>
           <div className="location flex text-sm items-center gap-2">
             <img src={location} alt="" className=" h-5" />
-            Delta, Nigeria
+            {address}
           </div>
           <div className="buttons pt-1 flex justify-between items-center mt-3">
             <div className="group flex items-center gap-3  ">
@@ -54,7 +73,11 @@ export default function Vetcard() {
               />
             </div>
             <div className="message">
-              <button>
+              <button
+               onClick={() => {
+                checker("details");
+              }}
+              >
                 <img src={openIcon} alt="" />
               </button>
             </div>
