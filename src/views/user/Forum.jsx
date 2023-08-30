@@ -182,7 +182,7 @@ export default function Forum() {
       ) : (
         <>
           <div className="grid grid-cols-2 gap-2">
-            <div className="grid">
+            <div className="flex flex-col gap-2">
             {allmessages?.map((res) => (
               <DirectMessageCard data={res} key={res.id} />
             ))}
