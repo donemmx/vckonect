@@ -17,6 +17,7 @@ import Loading from "../../components/loading/Loading";
 import { actionState } from "../../atom/actionAtom";
 import emptyMessage from "../../assets/icons/empty-message.svg";
 import { toast } from "react-toastify";
+import DirectMessageCard from "../../components/directMessageCard/DirectMessageCard";
 
 export default function Forum() {
   const [tab, setTab] = useState("chat");
@@ -26,7 +27,7 @@ export default function Forum() {
   const [action, setAction] = useRecoilState(actionState);
   const [search, setSearch] = useState("");
   const [selectedMessage, setSelectedMessage] = useState(null);
-  const [allmessages, setAllMessages] = useState(null);
+  const [allmessages, setAllMessages] = useState([]);
 
   const userStore = useRecoilValue(storeData);
   const reload = useRecoilValue(reloadStore);
@@ -181,7 +182,11 @@ export default function Forum() {
       ) : (
         <>
           <div className="grid grid-cols-2 gap-2">
-            <div className="border"></div>
+            <div className="grid">
+            {allmessages?.map((res) => (
+              <DirectMessageCard data={res} key={res.id} />
+            ))}
+            </div>
             <div className="">
               {selectedMessage ? (
                 <></>

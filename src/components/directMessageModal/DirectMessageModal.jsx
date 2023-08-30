@@ -29,7 +29,7 @@ export default function DirectMessageModal({ fullData }) {
   const accept = () => {
     setLoading(true);
     const payload = {
-      type: "Message",
+      type: "message",
       sender_id: userData?.id,
       sender_role: userData?.role,
       receiver_id: fullData?.id,
