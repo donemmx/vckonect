@@ -1,7 +1,7 @@
 export default function DirectMessageCard({data}) {
   return (
     <div>
-        <div className="flex rounded border">
+        <div className="flex rounded border p-4">
             <div className="h-[40px] w-[40px">
                 <img src={data?.profile_picture} alt="" className="w-full h-full object-cover rounded-full" />
             </div>
