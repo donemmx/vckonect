@@ -1,7 +1,7 @@
 import { Dialog } from "primereact/dialog";
 import chat from "../../assets/icons/chat-icon.svg";
 import { useState } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { reloadStore } from "../../atom/reloadAtom";
 import { directMessage, getUserById } from "../../utils/userApiService";
 import { user } from "../../atom/userAtom";
@@ -13,7 +13,7 @@ export default function DirectMessageModal({ acceptFunction, fullData }) {
   const [file, setFile] = useState(null);
   const [visible, setVisible] = useState(false);
   const [reload, setReload] = useRecoilState(reloadStore);
-  const userData = useRecoilState(user);
+  const userData = useRecoilValue(user);
   const openModal = () => {
     setVisible(!visible);
     const payload = {
