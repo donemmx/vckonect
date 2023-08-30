@@ -9,6 +9,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import {
   commentForumChat,
   deleteForumChat,
+  deleteForumChatComment,
   getForumChat,
   likeForumChat,
   shareForumChat,
@@ -109,7 +110,11 @@ export default function ForumCard({
     setVisible(!visible);
   };
 
-  const deleteForumCommentData = () => {};
+  const deleteForumCommentData = () => {
+    deleteForumChatComment().then((res)=> {
+      toast.success('Comment deleted successfully')
+    })
+  };
 
   const deleteFormData = () => {
     const { id, ...others } = fullData;
