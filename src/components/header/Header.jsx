@@ -112,7 +112,7 @@ export default function Header({ bg }) {
                 <i className="pi pi-bell p-overlay-badge p-3 bg-gray-50 rounded-full border" >
                 <Badge value={notification?.length} severity="danger" className="w-[20px] h-[20px] !flex !justify-center !items-center !rounded-full !text-[10px]"></Badge>
                 </i>
-                <div className="w-[48px] h-[48px] ">
+                <div className="w-[48px] h-[48px] "  onClick={openModal}>
                   <img src={userData?.profile_picture} alt="" className="w-full h-full object-cover rounded-full" />
                 </div>
               </div>
@@ -138,6 +138,29 @@ export default function Header({ bg }) {
               <img src={language} alt="" className="h-4" />
               Language Option
             </div>
+            <div className="group text-[15px] text-gray-600 p-2 flex items-center gap-3  hover:bg-gray-300 rounded-md cursor-pointer">
+              <img src={support} alt="" className="h-4" />
+              Customer Support
+            </div>
+          </div>
+        </div>
+      ) : (
+        ""
+      )}
+          {open && userData ? (
+        <div
+          className="modal w-[220px] h-[16vh] z-[100] bg-white fixed top-[9%] right-[8%] rounded-md shadow-sm"
+          data-aos="fade"
+        >
+          <div className="modal__body flex  flex-col gap-2 p-4">
+            <button
+              onClick={logOut}
+              className="group text-[15px] text-gray-600 p-2 flex items-center gap-3 hover:bg-gray-300 rounded-md cursor-pointer"
+            >
+              <img src={userPic} alt="" className="h-4" />
+              Log out
+            </button>
+
             <div className="group text-[15px] text-gray-600 p-2 flex items-center gap-3  hover:bg-gray-300 rounded-md cursor-pointer">
               <img src={support} alt="" className="h-4" />
               Customer Support
