@@ -12,6 +12,7 @@ export default function DirectMessageModal({ fullData }) {
   const [userInfo, setUserInfo] = useState(null);
   const [file, setFile] = useState(null);
   const [visible, setVisible] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [reload, setReload] = useRecoilState(reloadStore);
   const userData = useRecoilValue(user);
   const openModal = () => {
@@ -26,6 +27,7 @@ export default function DirectMessageModal({ fullData }) {
   };
 
   const accept = () => {
+    setLoading(true);
     const payload = {
       type: "Message",
       sender_id: userData?.id,
@@ -38,12 +40,14 @@ export default function DirectMessageModal({ fullData }) {
     directMessage(payload).then(() => {
       toast.success("Message sent successfully");
       openModal();
+      setLoading(false);
     });
     setReload(!reload);
   };
 
   const getFile = (e) => {
     const formData = new FormData();
+    setLoading(true);
 
     setFile(e.target.files[0]);
     const type = e.target.files[0].type.split("/")[0];
@@ -62,6 +66,7 @@ export default function DirectMessageModal({ fullData }) {
 
     directMessage(formData).then(() => {
       toast.success("File uploaded successfully");
+      setLoading(false);
       openModal();
     });
   };
@@ -138,7 +143,8 @@ export default function DirectMessageModal({ fullData }) {
             onClick={accept}
             disabled={comment.length === 0}
           >
-            <i className="pi pi-send"></i>Submit
+           {loading ? <i className="pi pi-spin pi-spinner"></i> : <i className="pi pi-send"></i> }
+            Submit
           </button>
         </div>
       </Dialog>

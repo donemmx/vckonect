@@ -34,12 +34,14 @@ export default function CommentModal({ header, acceptFunction }) {
               name="content"
               value={comment}
               onChange={(e) => setComment(e.target.value)}
-              rows={10}
-              cols={10}
-              className="!border !border-gray-200 outline-none"
+              rows={5}
+              cols={5}
+              className="!border !h-[160px] !border-gray-200 outline-none"
             ></textarea>
           </form>
-          <button className="green__btn mt-2" onClick={accept}>
+          <button 
+         className="bg-green-800 p-2 w-full mt-2 rounded text-white flex items-center justify-center gap-4"
+          onClick={accept}>
             <i className="pi pi-send"></i>Submit
           </button>
         </div>
