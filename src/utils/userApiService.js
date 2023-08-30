@@ -48,16 +48,12 @@ const getClient = (payload) => {
 };
 
 const googleCallback = (token) => {
-  const data = axios
-    .get(`${publicBaseURl}/google/callback?token=${token}`)
-  return  data
+  const data = axios.get(`${publicBaseURl}/google/callback?token=${token}`);
+  return data;
 };
 
-
-
 const linkedInCallback = () => {
-  return axios
-    .get(`${publicBaseURl}/linkedin/callback`)
+  return axios.get(`${publicBaseURl}/linkedin/callback`);
 };
 
 // Store
@@ -65,16 +61,14 @@ const addStore = (payload) => {
   // const { role, userId, phone, email, id, location, picture, availability } =
   //   payload;
   return axios
-    .post(
-      `${baseURl}/addStore`, payload
-    )
+    .post(`${baseURl}/addStore`, payload)
     .then((res) => res.data)
     .catch((err) => console.log(err));
 };
 
 const getStoreByFilter = (payload) => {
   return axios
-    .post(`${baseURl}/getStoreByFilter`,payload)
+    .post(`${baseURl}/getStoreByFilter`, payload)
     .then((res) => res.data)
     .catch((err) => console.log(err));
 };
@@ -102,9 +96,7 @@ const deleteStore = (payload) => {
 
 const addProduct = (payload) => {
   return axios
-    .post(
-      `${baseURl}/addProduct`, payload
-    )
+    .post(`${baseURl}/addProduct`, payload)
     .then((res) => res.data)
     .catch((err) => console.log(err));
 };
@@ -130,9 +122,7 @@ const getOneForumChat = (id) => {
 const deleteresponseForumChat = (payload) => {
   // const { role, id, commentId, responseId } = payload;
   return axios
-    .post(
-      `${baseURl}/deleteresponseForumChat`, payload
-    )
+    .post(`${baseURl}/deleteresponseForumChat`, payload)
     .then((res) => res.data)
     .catch((err) => console.log(err));
 };
@@ -140,9 +130,7 @@ const deleteresponseForumChat = (payload) => {
 const replyForumChatComment = (payload) => {
   // const { role, id, commentId, response, responseId } = payload;
   return axios
-    .post(
-      `${baseURl}/replyForumChatComment`, payload
-    )
+    .post(`${baseURl}/replyForumChatComment`, payload)
     .then((res) => res.data)
     .catch((err) => console.log(err));
 };
@@ -150,9 +138,7 @@ const replyForumChatComment = (payload) => {
 const deleteForumChat = (payload) => {
   // const { role, id, forumChatId } = payload;
   return axios
-    .post(
-      `${baseURl}/deleteForumChat`, payload
-    )
+    .post(`${baseURl}/deleteForumChat`, payload)
     .then((res) => res.data)
     .catch((err) => console.log(err));
 };
@@ -160,9 +146,7 @@ const deleteForumChat = (payload) => {
 const deleteForumChatComment = (payload) => {
   // const { role, id, forumChatId, commentId } = payload;
   return axios
-    .post(
-      `${baseURl}/deleteForumChatComment`, payload
-    )
+    .post(`${baseURl}/deleteForumChatComment`, payload)
     .then((res) => res.data)
     .catch((err) => console.log(err));
 };
@@ -170,9 +154,7 @@ const deleteForumChatComment = (payload) => {
 const commentForumChat = (payload) => {
   // const { role, id, forumChatId, comment } = payload;
   return axios
-    .post(
-      `${baseURl}/commentForumChat`, payload
-    )
+    .post(`${baseURl}/commentForumChat`, payload)
     .then((res) => res.data)
     .catch((err) => console.log(err));
 };
@@ -180,9 +162,7 @@ const commentForumChat = (payload) => {
 const likeForumChat = (payload) => {
   // const { role, id, forumChatId } = payload;
   return axios
-    .post(
-      `${baseURl}/likeForumChat`, payload
-    )
+    .post(`${baseURl}/likeForumChat`, payload)
     .then((res) => res.data)
     .catch((err) => console.log(err));
 };
@@ -190,9 +170,7 @@ const likeForumChat = (payload) => {
 const shareForumChat = (payload) => {
   // const { role, id, forumChatId } = payload;
   return axios
-    .post(
-      `${baseURl}/shareForumChat`, payload
-    )
+    .post(`${baseURl}/shareForumChat`, payload)
     .then((res) => res.data)
     .catch((err) => console.log(err));
 };
@@ -200,9 +178,7 @@ const shareForumChat = (payload) => {
 const createForumChat = (payload) => {
   // const { role, id, title, content, picture } = payload;
   return axios
-    .post(
-      `${baseURl}/createForumChat`, payload
-    )
+    .post(`${baseURl}/createForumChat`, payload)
     .then((res) => res.data)
     .catch((err) => console.log(err));
 };
@@ -220,7 +196,6 @@ const getForumChatByFilter = (payload) => {
     .then((res) => res.data)
     .catch((err) => console.log(err));
 };
-
 
 // Subscription
 
@@ -250,20 +225,8 @@ const getDirectMessage = (payload) => {
 };
 
 const directMessage = (payload) => {
-  // const {
-  //   role,
-  //   id,
-  //   type,
-  //   senderId,
-  //   senderRole,
-  //   receiverId,
-  //   receiverRole,
-  //   content,
-  // } = payload;
   return axios
-    .post(
-      `${baseURl}/directMessage`, payload
-    )
+    .post(`${baseURl}/directMessage`, payload)
     .then((res) => res.data)
     .catch((err) => console.log(err));
 };
@@ -291,29 +254,22 @@ const getNotification = (payload) => {
 const addClient = (payload) => {
   // const { userId, role, moduleType, clientId } = payload;
   return axios
-    .post(
-      `${baseURl}/addClient`, payload
-    )
+    .post(`${baseURl}/addClient`, payload)
     .then((res) => res.data)
     .catch((err) => console.log(err));
 };
 
-
 const deleteClient = (payload) => {
   // const { userId, id, clientId } = payload;
   return axios
-    .post(
-      `${baseURl}/deleteClient`, payload
-    )
+    .post(`${baseURl}/deleteClient`, payload)
     .then((res) => res.data)
     .catch((err) => console.log(err));
 };
 const getLivestockDiseases = async (payload) => {
   // const { userId, id, clientId } = payload;
   return await axios
-    .post(
-      `${baseURl}/getLivestockDiseases`, payload
-    )
+    .post(`${baseURl}/getLivestockDiseases`, payload)
     .then((res) => res.data)
     .catch((err) => console.log(err));
 };
@@ -321,60 +277,45 @@ const getLivestockDiseases = async (payload) => {
 const diseasePredictor = async (payload) => {
   // const { userId, id, clientId } = payload;
   return await axios
-    .post(
-      `${baseURl}/diseasePredictor`, payload
-    )
+    .post(`${baseURl}/diseasePredictor`, payload)
     .then((res) => res.data)
     .catch((err) => console.log(err));
 };
 
-
 const feedCalculator = async (payload) => {
   return await axios
-    .post(
-      `${baseURl}/feedCalculator`, payload
-    )
+    .post(`${baseURl}/feedCalculator`, payload)
     .then((res) => res.data)
     .catch((err) => console.log(err));
 };
 
 const getUserById = async (payload) => {
   return await axios
-    .post(
-      `${baseURl}/getUserById`, payload
-    )
+    .post(`${baseURl}/getUserById`, payload)
     .then((res) => res.data)
     .catch((err) => console.log(err));
 };
 
 const getPromotionPlan = async () => {
   return await axios
-    .get(
-      `${baseURl}/getPromotionPlan`
-    )
+    .get(`${baseURl}/getPromotionPlan`)
     .then((res) => res.data)
     .catch((err) => console.log(err));
 };
 
 const subscribePromotionPlan = async (payload) => {
   return await axios
-    .post(
-      `${baseURl}/subscribePromotionPlan`, payload
-    )
+    .post(`${baseURl}/subscribePromotionPlan`, payload)
     .then((res) => res.data)
     .catch((err) => console.log(err));
 };
 
 const getPromotion = async (payload) => {
   return await axios
-    .post(
-      `${baseURl}/getPromotion`, payload
-    )
+    .post(`${baseURl}/getPromotion`, payload)
     .then((res) => res.data)
     .catch((err) => console.log(err));
 };
-
-
 
 export {
   login,
@@ -417,5 +358,5 @@ export {
   getUserById,
   shareForumChat,
   getForumChatByFilter,
-  getPromotion
+  getPromotion,
 };
