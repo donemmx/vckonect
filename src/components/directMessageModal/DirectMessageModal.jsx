@@ -7,7 +7,7 @@ import { directMessage, getUserById } from "../../utils/userApiService";
 import { user } from "../../atom/userAtom";
 import { toast } from "react-toastify";
 
-export default function DirectMessageModal({ acceptFunction, fullData }) {
+export default function DirectMessageModal({ fullData }) {
   const [comment, setComment] = useState([]);
   const [userInfo, setUserInfo] = useState(null);
   const [file, setFile] = useState(null);
@@ -26,8 +26,19 @@ export default function DirectMessageModal({ acceptFunction, fullData }) {
   };
 
   const accept = () => {
-    acceptFunction();
-    openModal();
+    const payload = {
+        type: 'Message',
+        sender_id: userData?.id,
+        sender_role: userData?.role,
+        receiver_id: fullData?.id,
+        receiver_role: fullData?.role,
+        content: comment
+      };
+  
+      directMessage(payload).then(()=> {
+          toast.success('Message sent successfully')
+          openModal()
+     })
     setReload(!reload);
   };
 
