@@ -6,12 +6,16 @@ import ForumCard from "../../components/forumCard/ForumCard";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { user } from "../../atom/userAtom";
 import { useNavigate } from "react-router-dom";
-import { getDirectMessage, getForumChat, getForumChatByFilter } from "../../utils/userApiService";
+import {
+  getDirectMessage,
+  getForumChat,
+  getForumChatByFilter,
+} from "../../utils/userApiService";
 import { storeData } from "../../atom/storeAtom";
 import { reloadStore } from "../../atom/reloadAtom";
 import Loading from "../../components/loading/Loading";
 import { actionState } from "../../atom/actionAtom";
-import emptyMessage from '../../assets/icons/empty-message.svg'
+import emptyMessage from "../../assets/icons/empty-message.svg";
 import { toast } from "react-toastify";
 
 export default function Forum() {
@@ -22,7 +26,7 @@ export default function Forum() {
   const [action, setAction] = useRecoilState(actionState);
   const [search, setSearch] = useState("");
   const [selectedMessage, setSelectedMessage] = useState(null);
- const [allmessages, setAllMessages] = useState(null)
+  const [allmessages, setAllMessages] = useState(null);
 
   const userStore = useRecoilValue(storeData);
   const reload = useRecoilValue(reloadStore);
@@ -41,10 +45,10 @@ export default function Forum() {
   };
 
   const getAllMessages = () => {
-    getDirectMessage({id: userData?.id, role: userData?.role}).then((res)=> {
-        setAllMessages(res)
-    })
-  }
+    getDirectMessage({ id: userData?.id, role: userData?.role }).then((res) => {
+      setAllMessages(res);
+    });
+  };
 
   const searchData = async () => {
     await getForumChatByFilter({ name: search }).then((res) => {
@@ -56,7 +60,7 @@ export default function Forum() {
     getForumChat().then((res) => {
       setLoading(false);
       setForumData(res);
-      getAllMessages()
+      getAllMessages();
     });
   }, [userStore?.like, reload]);
 
@@ -98,24 +102,28 @@ export default function Forum() {
             Direct Messaging
           </h4>
         </div>
-        <div className="search pt-5">
-          <div className="form__group flex items-center justify-between p-2 bg-white  rounded-full">
-            <input
-              type="text"
-              placeholder="Type in your keyword here"
-              className=" outline-none p-1 w-full border h-[45px] border-[#EBEBEB] rounded-l-full px-5"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-            />
-            <button
-              className="search__btn bg-[#0b6614] h-[45px] w-[40%] text-sm  lg:text-md lg:w-[15%] flex items-center gap-2 text-white justify-center rounded-r-full"
-              onClick={searchData}
-              disabled={search.length < 3}
-            >
-              <i className="pi pi-search"></i> Search
-            </button>
+        {tab === "chat" ? (
+          <div className="search pt-5">
+            <div className="form__group flex items-center justify-between p-2 bg-white  rounded-full">
+              <input
+                type="text"
+                placeholder="Type in your keyword here"
+                className=" outline-none p-1 w-full border h-[45px] border-[#EBEBEB] rounded-l-full px-5"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+              />
+              <button
+                className="search__btn bg-[#0b6614] h-[45px] w-[40%] text-sm  lg:text-md lg:w-[15%] flex items-center gap-2 text-white justify-center rounded-r-full"
+                onClick={searchData}
+                disabled={search.length < 3}
+              >
+                <i className="pi pi-search"></i> Search
+              </button>
+            </div>
           </div>
-        </div>
+        ) : (
+          ""
+        )}
         {/* <div className=" flex items-center flex-wrap gap-1 w-full lg:w-[70%] mt-3">
           <div className="text-[11px] bg-white flex items-center justify-center mr-auto lg:ml-auto w-[90px] p-2 border rounded-full">
             Dogs
@@ -174,14 +182,21 @@ export default function Forum() {
         <>
           <div className="grid grid-cols-2 gap-2">
             <div className="border"></div>
-            <div className="">{selectedMessage ? <></> : 
-            <>
-              <div className="border p-5 flex flex-col items-center gap-3 justify-center">
-                <img src={emptyMessage} alt="" />
-                <div className="font-bold">No Details</div>
-                <small className="w-[50%] text-center">Click on any of the messages displayed at your left side to view message details.</small>
-              </div>
-            </>}
+            <div className="">
+              {selectedMessage ? (
+                <></>
+              ) : (
+                <>
+                  <div className="border p-5 flex flex-col items-center gap-3 justify-center">
+                    <img src={emptyMessage} alt="" />
+                    <div className="font-bold">No Details</div>
+                    <small className="w-[50%] text-center">
+                      Click on any of the messages displayed at your left side
+                      to view message details.
+                    </small>
+                  </div>
+                </>
+              )}
             </div>
           </div>
         </>

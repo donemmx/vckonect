@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
 import phone from "../../assets/icons/phone-icon.svg";
-import chat from "../../assets/icons/chat-icon.svg";
 import message from "../../assets/icons/message-icon.svg";
 import location from "../../assets/icons/marker-icon.svg";
 import openIcon from "../../assets/bg/card-next-bg.svg";
@@ -14,6 +13,7 @@ import editIcon from "../../assets/account/edit-icon.svg";
 import { actionState } from "../../atom/actionAtom";
 import { useNavigate } from "react-router-dom";
 import useUpadateReload from "../../hooks/UpdateRelaod";
+import DirectMessageModal from "../directMessageModal/DirectMessageModal";
 
 export default function StoreCard({
   availability,
@@ -117,11 +117,7 @@ export default function StoreCard({
                 className=" p-2 h-[35px] bg-white w-[35px] object-contain rounded-full shadow-md cursor-pointer"
                 alt=""
               />
-              <img
-                src={chat}
-                alt=""
-                className=" p-2 h-[35px] bg-white w-[35px] object-contain rounded-full shadow-md cursor-pointer"
-              />
+              <DirectMessageModal fullData={fullData} />
               <img
                 src={message}
                 alt=""
