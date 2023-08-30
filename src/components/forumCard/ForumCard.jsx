@@ -101,6 +101,7 @@ export default function ForumCard({
     commentForumChat(payload)
       .then(() => {
         toast.success("Comment added successfully");
+        updateReload();
       })
       .catch((err) => toast.error(err.detail));
   };
@@ -119,6 +120,7 @@ export default function ForumCard({
     }
     deleteForumChatComment(payload).then((res)=> {
       toast.success('Comment deleted successfully')
+      updateReload();
     })
   };
 
