@@ -20,7 +20,7 @@ export default function Promotion() {
               to="/animal-owner-subscription"
               className="border-[1px] hover:border-[#52CE06] cursor-pointer  flex items-center justify-between p-3 rounded-[18px] mt-10 mb-5"
             >
-              <p className="font-bold px-2">Add New Subscription</p>
+              <p className="font-bold px-2">Add New Promotion</p>
               <img src={addIcon} alt="" className="w-[40px]" />
             </Link>
         {/* <div className="flex items-center justify-center gap-2 text-[.8rem] bg-[#F1FFF4] border border-[#B3FFC4] rounded p-3 mt-4 mb-4 ">

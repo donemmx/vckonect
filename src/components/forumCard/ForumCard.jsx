@@ -42,6 +42,7 @@ export default function ForumCard({
   const [comment, setComment] = useState([]);
   const [action, setAction] = useRecoilState(actionState);
   const [visible, setVisible] = useState(false);
+  const [showComments, setShowComments] = useState(false);
   const [type, setType] = useState(null);
   const location = useNavigate();
   const [updateReload] = useUpadateReload();
@@ -64,6 +65,10 @@ export default function ForumCard({
       const count = Math.random(userData.id).toFixed(2);
       setUserStore({ like: count });
     });
+  };
+
+  const toggleCommentShow = () => {
+    setShowComments(!showComments);
   };
 
   const shareForum = () => {
@@ -198,6 +203,10 @@ export default function ForumCard({
                 </div>
               </div>
               <div className="flex items-center gap-2 w-fit ml-auto">
+                <i
+                  className={showComments ? 'pi pi-window-maximize p-2 rounded cursor-pointer bg-green-100 text-green-500 transition-all ease-in-out' : 'pi pi-window-maximize p-2 bg-gray-100 rounded cursor-pointer'}
+                  onClick={toggleCommentShow}
+                ></i>
                 <div className="text-[11px] bg-gray-100 flex items-center justify-center mr-auto lg:ml-auto w-[90px] p-2 border rounded-full">
                   {moment(date).fromNow()}
                 </div>
@@ -249,6 +258,7 @@ export default function ForumCard({
                   />
                   {likes.length}
                 </div>
+
                 {userData.id === fullData.user_id ? (
                   <WarningCard
                     message="Are you sure you want to delete this post?"
@@ -273,6 +283,31 @@ export default function ForumCard({
                   <img src={sendIcon} alt="" className=" p-2  mb-2  " />
                 </div>
               </div>
+              { showComments ?
+                <div className="flex flex-col gap-2">
+                  {comments.map((res) => (
+                    <div key={res.id} className="bg-gray-100 p-3 rounded">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                          <img
+                            src={res.user_picture}
+                            alt=""
+                            className="w-[30px] h-[30px] rounded-full"
+                          />
+                          <p className="text-sm font-bold"> {res.user_name}</p>
+                          <small className="bg-green-100 p-1 text-[10px] text-green-600">
+                            {res.user_role}
+                          </small>
+                        </div>
+                        <p className="text-xs p-1 bg-gray-100 rounded-full">
+                          {moment(res.date).utc().fromNow()}
+                        </p>
+                      </div>
+                      <div className="p-2 text-sm ">{res.comment}</div>
+                    </div>
+                  ))}
+                </div> : ''
+              }
             </div>
           </div>
         </>
