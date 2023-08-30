@@ -192,7 +192,7 @@ export default function Forum() {
                 <></>
               ) : (
                 <>
-                  <div className="border p-5 flex flex-col items-center gap-3 justify-center">
+                  <div className="border p-5 h-full flex flex-col items-center gap-3 justify-center">
                     <img src={emptyMessage} alt="" />
                     <div className="font-bold">No Details</div>
                     <small className="w-[50%] text-center">
