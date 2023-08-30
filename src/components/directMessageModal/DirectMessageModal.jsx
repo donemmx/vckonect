@@ -31,7 +31,7 @@ export default function DirectMessageModal({ acceptFunction, fullData }) {
     setReload(!reload);
   };
 
-  const getFile = async (e) => {
+  const getFile =  (e) => {
     const formData = new FormData();
 
     setFile(e.target.files[0]);
@@ -42,14 +42,14 @@ export default function DirectMessageModal({ acceptFunction, fullData }) {
       sender_role: userData?.role,
       receiver_id: fullData?.id,
       receiver_role: fullData?.role,
-      content: file
+      content: e.target.files[0]
     };
 
     Object.entries(payload).forEach(([key, value]) => {
         formData.append(key, value);
       });
 
-   await directMessage(formData).then(()=> {
+    directMessage(formData).then(()=> {
         toast.success('File uploaded successfully')
         openModal()
    })
