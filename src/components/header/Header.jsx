@@ -112,7 +112,7 @@ export default function Header({ bg }) {
                 <i className="pi pi-bell p-overlay-badge p-3 bg-gray-50 rounded-full border" >
                 <Badge value={notification?.length} severity="danger" className="w-[20px] h-[20px] !flex !justify-center !items-center !rounded-full !text-[10px]"></Badge>
                 </i>
-                <div className="w-[50px] h-[50px] ">
+                <div className="w-[48px] h-[48px] ">
                   <img src={userData?.profile_picture} alt="" className="w-full h-full object-cover rounded-full" />
                 </div>
               </div>
