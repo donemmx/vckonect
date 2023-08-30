@@ -6,12 +6,13 @@ import ForumCard from "../../components/forumCard/ForumCard";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { user } from "../../atom/userAtom";
 import { useNavigate } from "react-router-dom";
-import { getForumChat, getForumChatByFilter } from "../../utils/userApiService";
+import { getDirectMessage, getForumChat, getForumChatByFilter } from "../../utils/userApiService";
 import { storeData } from "../../atom/storeAtom";
 import { reloadStore } from "../../atom/reloadAtom";
 import Loading from "../../components/loading/Loading";
 import { actionState } from "../../atom/actionAtom";
-
+import emptyMessage from '../../assets/icons/empty-message.svg'
+import { toast } from "react-toastify";
 
 export default function Forum() {
   const [tab, setTab] = useState("chat");
@@ -20,6 +21,8 @@ export default function Forum() {
   const [loading, setLoading] = useState(true);
   const [action, setAction] = useRecoilState(actionState);
   const [search, setSearch] = useState("");
+  const [selectedMessage, setSelectedMessage] = useState(null);
+ const [allmessages, setAllMessages] = useState(null)
 
   const userStore = useRecoilValue(storeData);
   const reload = useRecoilValue(reloadStore);
@@ -29,7 +32,7 @@ export default function Forum() {
     setTab(type);
   };
   const checker = (route) => {
-    setAction("add")
+    setAction("add");
     if (userData?.role === "Veterinarian") {
       location(`/vet-${route}`);
     } else {
@@ -37,24 +40,35 @@ export default function Forum() {
     }
   };
 
+  const getAllMessages = () => {
+    getDirectMessage({id: userData?.id, role: userData?.role}).then((res)=> {
+        setAllMessages(res)
+    })
+  }
+
   const searchData = async () => {
-    await getForumChatByFilter({name:search}).then((res) => {
+    await getForumChatByFilter({ name: search }).then((res) => {
       setForumData(res);
     });
-  }
+  };
 
   useEffect(() => {
     getForumChat().then((res) => {
-      setLoading(false)
-      setForumData(res)});
+      setLoading(false);
+      setForumData(res);
+      getAllMessages()
+    });
   }, [userStore?.like, reload]);
 
-  useEffect(()=> {
-    if(userData?.subscription === null || userData?.subscription === 'Expired'){
+  useEffect(() => {
+    if (
+      userData?.subscription === null ||
+      userData?.subscription === "Expired"
+    ) {
       location("/vet-subscription");
     }
-  }, [])
-  
+  }, []);
+
   return (
     <div>
       <button
@@ -93,12 +107,16 @@ export default function Forum() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
             />
-            <button className="search__btn bg-[#0b6614] h-[45px] w-[40%] text-sm  lg:text-md lg:w-[15%] flex items-center gap-2 text-white justify-center rounded-r-full"   onClick={searchData} disabled={search.length < 3}>
+            <button
+              className="search__btn bg-[#0b6614] h-[45px] w-[40%] text-sm  lg:text-md lg:w-[15%] flex items-center gap-2 text-white justify-center rounded-r-full"
+              onClick={searchData}
+              disabled={search.length < 3}
+            >
               <i className="pi pi-search"></i> Search
             </button>
           </div>
         </div>
-        <div className=" flex items-center flex-wrap gap-1 w-full lg:w-[70%] mt-3">
+        {/* <div className=" flex items-center flex-wrap gap-1 w-full lg:w-[70%] mt-3">
           <div className="text-[11px] bg-white flex items-center justify-center mr-auto lg:ml-auto w-[90px] p-2 border rounded-full">
             Dogs
           </div>
@@ -120,7 +138,7 @@ export default function Forum() {
           <div className="text-[11px] bg-white flex items-center justify-center mr-auto lg:ml-auto w-[90px] p-2 border rounded-full">
             Fish Feeding
           </div>
-        </div>
+        </div> */}
       </div>
       <div className=" flex flex-wrap gap-4 w-full mb-10">
         {loading
@@ -131,25 +149,43 @@ export default function Forum() {
             ))
           : ""}
       </div>
-    
-      {forumData?.map((res) => (
-        <div className="" key={res.id}>
-          <ForumCard
-            user={userIcon}
-            name={res.user_name}
-            userImg={res.user_picture}
-            position={res.user_role}
-            content={res.content}
-            forumImg={res.picture}
-            title={res.title}
-            comments={res.comments}
-            likes={res.likes}
-            forumChatId={res.id}
-            date={res.date}
-            fullData={res}
-          />
-        </div>
-      ))}
+      {tab === "chat" ? (
+        <>
+          {forumData?.map((res) => (
+            <div className="" key={res.id}>
+              <ForumCard
+                user={userIcon}
+                name={res.user_name}
+                userImg={res.user_picture}
+                position={res.user_role}
+                content={res.content}
+                forumImg={res.picture}
+                title={res.title}
+                comments={res.comments}
+                likes={res.likes}
+                forumChatId={res.id}
+                date={res.date}
+                fullData={res}
+              />
+            </div>
+          ))}
+        </>
+      ) : (
+        <>
+          <div className="grid grid-cols-2 gap-2">
+            <div className="border"></div>
+            <div className="">{selectedMessage ? <></> : 
+            <>
+              <div className="border p-5 flex flex-col items-center gap-3 justify-center">
+                <img src={emptyMessage} alt="" />
+                <div className="font-bold">No Details</div>
+                <small className="w-[50%] text-center">Click on any of the messages displayed at your left side to view message details.</small>
+              </div>
+            </>}
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 }
