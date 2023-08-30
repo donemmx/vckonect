@@ -125,6 +125,7 @@ export default function DirectMessageModal({ acceptFunction, fullData }) {
           <button
             className="bg-green-800 p-3 w-full mt-2 rounded text-white flex items-center justify-center gap-4"
             onClick={accept}
+            disabled={comment.length === 0}
           >
             <i className="pi pi-send"></i>Submit
           </button>
