@@ -209,7 +209,6 @@ const getSubscriptionPlan = () => {
 // Messaging
 
 const viewDirectMessage = (payload) => {
-  // const { role, id } = payload;
   return axios
     .post(`${baseURl}/viewDirectMessage`, payload)
     .then((res) => res.data)
@@ -217,7 +216,6 @@ const viewDirectMessage = (payload) => {
 };
 
 const getDirectMessage = (payload) => {
-  // const { role, id } = payload;
   return axios
     .post(`${baseURl}/getDirectMessage`, payload)
     .then((res) => res.data)
