@@ -109,6 +109,8 @@ export default function ForumCard({
     setVisible(!visible);
   };
 
+  const deleteForumCommentData = () => {};
+
   const deleteFormData = () => {
     const { id, ...others } = fullData;
     const payload = {
@@ -204,7 +206,11 @@ export default function ForumCard({
               </div>
               <div className="flex items-center gap-2 w-fit ml-auto">
                 <i
-                  className={showComments ? 'pi pi-window-maximize p-2 rounded cursor-pointer bg-green-100 text-green-500 transition-all ease-in-out' : 'pi pi-window-maximize p-2 bg-gray-100 rounded cursor-pointer'}
+                  className={
+                    showComments
+                      ? "pi pi-window-maximize p-2 rounded cursor-pointer bg-green-100 text-green-500 transition-all ease-in-out"
+                      : "pi pi-window-maximize p-2 bg-gray-100 rounded cursor-pointer"
+                  }
                   onClick={toggleCommentShow}
                 ></i>
                 <div className="text-[11px] bg-gray-100 flex items-center justify-center mr-auto lg:ml-auto w-[90px] p-2 border rounded-full">
@@ -283,7 +289,7 @@ export default function ForumCard({
                   <img src={sendIcon} alt="" className=" p-2  mb-2  " />
                 </div>
               </div>
-              { showComments ?
+              {showComments ? (
                 <div className="flex flex-col gap-2">
                   {comments.map((res) => (
                     <div key={res.id} className="bg-gray-100 p-3 rounded">
@@ -299,15 +305,31 @@ export default function ForumCard({
                             {res.user_role}
                           </small>
                         </div>
-                        <p className="text-xs p-1 bg-gray-100 rounded-full">
-                          {moment(res.date).utc().fromNow()}
-                        </p>
+                        <div className="flex items-center justify-center gap-2">
+                          {userData.id === res.user_id ? (
+                            <WarningCard
+                              message="Are you sure you want to delete this comment?"
+                              header="Confirmation"
+                              acceptFunction={deleteForumCommentData}
+                            />
+                          ) : (
+                            <div className="flex gap-3 hover:bg-green-100 cursor-pointer items-center justify-center rounded-full  p-1.5 px-3 bg-gray-50 text-gray-600 border hover:text-green-600">
+                              <i className="pi pi-comments flex !text-sm "></i>
+                              <p className="text-xs "> reply </p>
+                            </div>
+                          )}
+                          <p className="text-xs p-1 bg-gray-100 rounded-full">
+                            {moment(res.date).utc().fromNow()}
+                          </p>
+                        </div>
                       </div>
                       <div className="p-2 text-sm ">{res.comment}</div>
                     </div>
                   ))}
-                </div> : ''
-              }
+                </div>
+              ) : (
+                ""
+              )}
             </div>
           </div>
         </>
