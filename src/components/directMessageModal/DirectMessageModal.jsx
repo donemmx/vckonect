@@ -9,8 +9,8 @@ import { toast } from "react-toastify";
 
 export default function DirectMessageModal({ acceptFunction, fullData }) {
   const [comment, setComment] = useState([]);
-  const [userInfo, setUserInfo] = useState();
-  const [file, setFile] = useState();
+  const [userInfo, setUserInfo] = useState(null);
+  const [file, setFile] = useState(null);
   const [visible, setVisible] = useState(false);
   const [reload, setReload] = useRecoilState(reloadStore);
   const userData = useRecoilState(user);
@@ -71,7 +71,7 @@ export default function DirectMessageModal({ acceptFunction, fullData }) {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <img
-              src={userInfo?.profile_picture}
+              src={ userInfo?.profile_picture}
               alt=""
               className="h-[40px] w-[40px] rounded-full border-2 border-green-700"
             />
