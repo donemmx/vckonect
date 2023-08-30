@@ -52,6 +52,7 @@ import AddSubscription from "./views/admin/AddSubscription";
 import OnboardVetVerify from "./views/OnboardVetVerify";
 import AddProduct from "./views/user/AddProduct";
 import OnboardSubscription from "./views/OnboardSubscription";
+import SubscribeToPlan from "./views/user/SubscribeToPlan";
 
 const router = createBrowserRouter([
   {
@@ -150,6 +151,10 @@ const router = createBrowserRouter([
         element: <Activities />,
       },
       {
+        path: "/vet-subscription",
+        element: <SubscribeToPlan />,
+      },
+      {
         path: "/vet-promotion",
         element: <Promotion />,
       },
@@ -228,6 +233,10 @@ const router = createBrowserRouter([
       {
         path: "/animal-owner-activities",
         element: <Activities />,
+      },
+      {
+        path: "/animal-owner-subscription",
+        element: <SubscribeToPlan />,
       },
       {
         path: "/animal-owner-promotion",
