@@ -3,7 +3,7 @@ import { Badge } from "primereact/badge";
 
 export default function DirectMessageCard({data}) {
   return (
-    <div className="flex gap-2 rounded border items-center justify-between p-5 bg-white cursor-pointer hover:border-green-500 hover:border-2 transition-all delay-100 ease-in-out">
+    <div className="flex gap-2  border items-center justify-between p-5 bg-white cursor-pointer hover:border-green-500 hover:border-2 transition-all ease-in-out hover:bg-green-50 rounded">
         <div className="flex gap-2 ">
             <div className="h-[40px] w-[40px]">
                 <img src={data?.profile_picture} alt="" className="w-full h-full object-cover rounded-full" />
