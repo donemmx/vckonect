@@ -110,8 +110,14 @@ export default function ForumCard({
     setVisible(!visible);
   };
 
-  const deleteForumCommentData = () => {
-    deleteForumChatComment().then((res)=> {
+  const deleteForumCommentData = (data) => {
+    const payload ={
+      forum_chat_id: data.forum_chat_id,
+      user_id: userData?.id,
+      user_role: userData?.role,
+      comment_id: data.id
+    }
+    deleteForumChatComment(payload).then((res)=> {
       toast.success('Comment deleted successfully')
     })
   };
@@ -315,7 +321,7 @@ export default function ForumCard({
                             <WarningCard
                               message="Are you sure you want to delete this comment?"
                               header="Confirmation"
-                              acceptFunction={deleteForumCommentData}
+                              acceptFunction={() => deleteForumCommentData(res)}
                             />
                           ) : (
                             <div className="flex gap-3 hover:bg-green-100 cursor-pointer items-center justify-center rounded-full  p-1.5 px-3 bg-gray-50 text-gray-600 border hover:text-green-600">
