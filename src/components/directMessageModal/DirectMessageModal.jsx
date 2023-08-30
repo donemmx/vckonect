@@ -27,22 +27,22 @@ export default function DirectMessageModal({ fullData }) {
 
   const accept = () => {
     const payload = {
-        type: 'Message',
-        sender_id: userData?.id,
-        sender_role: userData?.role,
-        receiver_id: fullData?.id,
-        receiver_role: fullData?.role,
-        content: comment
-      };
-  
-      directMessage(payload).then(()=> {
-          toast.success('Message sent successfully')
-          openModal()
-     })
+      type: "Message",
+      sender_id: userData?.id,
+      sender_role: userData?.role,
+      receiver_id: fullData?.id,
+      receiver_role: fullData?.role,
+      content: comment,
+    };
+
+    directMessage(payload).then(() => {
+      toast.success("Message sent successfully");
+      openModal();
+    });
     setReload(!reload);
   };
 
-  const getFile =  (e) => {
+  const getFile = (e) => {
     const formData = new FormData();
 
     setFile(e.target.files[0]);
@@ -53,17 +53,17 @@ export default function DirectMessageModal({ fullData }) {
       sender_role: userData?.role,
       receiver_id: fullData?.id,
       receiver_role: fullData?.role,
-      content: e.target.files[0]
+      content: e.target.files[0],
     };
 
     Object.entries(payload).forEach(([key, value]) => {
-        formData.append(key, value);
-      });
+      formData.append(key, value);
+    });
 
-    directMessage(formData).then(()=> {
-        toast.success('File uploaded successfully')
-        openModal()
-   })
+    directMessage(formData).then(() => {
+      toast.success("File uploaded successfully");
+      openModal();
+    });
   };
 
   return (
@@ -82,7 +82,7 @@ export default function DirectMessageModal({ fullData }) {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <img
-              src={ userInfo?.profile_picture}
+              src={userInfo?.profile_picture}
               alt=""
               className="h-[40px] w-[40px] rounded-full border-2 border-green-700"
             />
