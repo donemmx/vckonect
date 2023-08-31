@@ -43,7 +43,7 @@ export default function DirectMessageCard({ data }) {
         <div className="time text-xs p-1 px-3 rounded-full bg-gray-200 w-fit ">
           {moment(data?.message[0].date).fromNow()}
         </div>
-        <Badge value={data?.counter} severity={"danger"}></Badge>
+        {data.counter > 0 ? <Badge value={data?.counter} severity={"danger"}></Badge> : ''}
       </div>
     </div>
   );
