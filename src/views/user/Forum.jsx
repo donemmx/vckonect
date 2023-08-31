@@ -7,6 +7,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { user } from "../../atom/userAtom";
 import { useNavigate } from "react-router-dom";
 import {
+  directMessage,
   getDirectMessage,
   getForumChat,
   getForumChatByFilter,
@@ -30,9 +31,11 @@ export default function Forum() {
   const [search, setSearch] = useState("");
   const [selectedMessage, setSelectedMessage] = useState(null);
   const [allmessages, setAllMessages] = useState([]);
+  const [file, setFile] = useState(null);
+  const [comment, setComment] = useState([]);
+  const [reload, setReload] = useRecoilState(reloadStore);
 
   const userStore = useRecoilValue(storeData);
-  const reload = useRecoilValue(reloadStore);
   const userData = useRecoilValue(user);
 
   const activeTab = (type) => {
@@ -59,6 +62,49 @@ export default function Forum() {
     });
   };
 
+  const accept = () => {
+    setLoading(true);
+    const payload = {
+      type: "message",
+      sender_id: userData?.id,
+      sender_role: userData?.role,
+      receiver_id: messageData[0]?.user_id,
+      receiver_role: messageData[0]?.role,
+      content: comment,
+    };
+
+    directMessage(payload).then(() => {
+      toast.success("Message sent successfully");
+      setLoading(false);
+    });
+    setReload(!reload);
+  };
+
+  const getFile = (e) => {
+    const formData = new FormData();
+    setLoading(true);
+
+    setFile(e.target.files[0]);
+    const type = e.target.files[0].type.split("/")[0];
+    const payload = {
+      type: type,
+      sender_id: userData?.id,
+      sender_role: userData?.role,
+      receiver_id: messageData[0]?.user_id,
+      receiver_role: messageData[0]?.role,
+      content: e.target.files[0],
+    };
+
+    Object.entries(payload).forEach(([key, value]) => {
+      formData.append(key, value);
+    });
+
+    directMessage(formData).then(() => {
+      toast.success("File uploaded successfully");
+      setLoading(false);
+    });
+  };
+
   useEffect(() => {
     getForumChat().then((res) => {
       setLoading(false);
@@ -73,7 +119,6 @@ export default function Forum() {
       userData?.subscription === "Expired"
     ) {
       location("/vet-subscription");
-     
     }
   }, []);
 
@@ -163,54 +208,134 @@ export default function Forum() {
         <>
           <div className="grid md:grid-cols-2 gap-2">
             <div className="flex flex-col gap-2">
-              {allmessages?.map((res) => (
-                <DirectMessageCard data={res} key={res.id} />
-              ))}
+              {allmessages?.map((res) =>
+                res.id !== userData.id ? (
+                  <DirectMessageCard data={res} key={res.id} />
+                ) : (
+                  ""
+                )
+              )}
             </div>
             <div className="">
               {messageData[0] ? (
                 <>
-                    <div className="border p-5" >
-                      <div className="">
-                        <div className="flex gap-2 ">
-                          <div className="h-[40px] w-[40px]">
-                            <img
-                              src={messageData[0]?.profile_picture}  
-                              alt=""
-                              className="w-full h-full object-cover rounded-full"
-                            />
-                          </div>
-                          <div className="">
-                            <div className="name text-sm font-bold">
-                              {messageData[0]?.first_name} {messageData[0]?.last_name}
-                            </div>
-                            <small className="font-light text-xs">
-                              {messageData[0]?.role}
-                            </small>
-                          </div>
+                  <div className="border p-4 bg-white rounded">
+                    <div className="">
+                      <div className="flex gap-2 ">
+                        <div className="h-[40px] w-[40px]">
+                          <img
+                            src={messageData[0]?.profile_picture}
+                            alt=""
+                            className="w-full h-full object-cover rounded-full"
+                          />
                         </div>
-                        {messageData[0]?.message?.map((res)=> (
+                        <div className="">
+                          <div className="name text-sm font-bold">
+                            {messageData[0]?.first_name}{" "}
+                            {messageData[0]?.last_name}
+                          </div>
+                          <small className="font-light text-xs">
+                            {messageData[0]?.role}
+                          </small>
+                        </div>
+                      </div>
+                      {messageData[0]?.message?.map((res) => (
                         <div className="" key={res.id}>
                           {res.type == "message" ? (
                             <div className="">
-                              <p className="text-sm p-4">{res.content}</p>
+                              <p className="text-sm p-2">{res.content}</p>
                             </div>
                           ) : res.type == "video" ? (
                             <div className="w-full h-[20vh]">
-                              <video src={res.content} className="w-full h-full object-cover"></video>
+                              <video
+                                src={res.content}
+                                className="w-full h-full object-cover"
+                              ></video>
                             </div>
                           ) : res.type == "image" ? (
                             <div className=" w-full h-[20vh]">
-                              <img src={res.content} alt="" className="w-full h-full object-cover"/>
+                              <img
+                                src={res.content}
+                                alt=""
+                                className="w-full h-full object-cover"
+                              />
                             </div>
                           ) : (
                             ""
                           )}
                         </div>
-                        ))
-}
+                      ))}
+                    </div>
+                  </div>
+                  <div className=" bg-white mt-4 rounded-md  p-5">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <img
+                          src={userData?.profile_picture}
+                          alt=""
+                          className="h-[40px] w-[40px] rounded-full border-2 border-green-700"
+                        />
+                        <div className=" flex flex-col ">
+                          <div className="text-sm">
+                            {userData?.first_name + " " + userData?.last_name}
+                          </div>
+                          <small className=" font-light text-[11px]">
+                            {userData?.role}
+                          </small>
+                        </div>
+                      </div>
+                      <div className="p-2 border w-fit rounded-full bg-white ">
+                        <label htmlFor="file-input">
+                          <svg
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M18 10V15C18 16.5913 17.3679 18.1174 16.2426 19.2426C15.1174 20.3679 13.5913 21 12 21C10.4087 21 8.88258 20.3679 7.75736 19.2426C6.63214 18.1174 6 16.5913 6 15V7C6 5.93913 6.42143 4.92172 7.17157 4.17157C7.92172 3.42143 8.93913 3 10 3V3C11.0609 3 12.0783 3.42143 12.8284 4.17157C13.5786 4.92172 14 5.93913 14 7V15C14 15.5304 13.7893 16.0391 13.4142 16.4142C13.0391 16.7893 12.5304 17 12 17C11.4696 17 10.9609 16.7893 10.5858 16.4142C10.2107 16.0391 10 15.5304 10 15V7"
+                              stroke="#1D2432"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
+                          </svg>
+                        </label>
+                        <input
+                          id="file-input"
+                          type="file"
+                          accept="audio/*,video/*,image/*"
+                          className="hidden"
+                          onChange={(e) => getFile(e)}
+                        />
                       </div>
                     </div>
+                    <div className="">
+                      <form className="pt-3">
+                        <label htmlFor="username"></label>
+                        <textarea
+                          name="content"
+                          value={comment}
+                          onChange={(e) => setComment(e.target.value)}
+                          rows={5}
+                          cols={5}
+                          className="!border !h-[160px] !border-gray-200 outline-none"
+                        ></textarea>
+                      </form>
+                      <button
+                        className="bg-green-800 p-3 w-full mt-2 rounded text-white flex items-center justify-center gap-4"
+                        onClick={accept}
+                        disabled={comment.length === 0}
+                      >
+                        {loading ? (
+                          <i className="pi pi-spin pi-spinner"></i>
+                        ) : (
+                          <i className="pi pi-send"></i>
+                        )}
+                        Submit
+                      </button>
+                    </div>
+                  </div>
                 </>
               ) : (
                 <>
