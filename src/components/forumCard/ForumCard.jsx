@@ -24,6 +24,7 @@ import { toast } from "react-toastify";
 import { actionState } from "../../atom/actionAtom";
 import { useNavigate } from "react-router-dom";
 import useUpadateReload from "../../hooks/UpdateRelaod";
+import ReplyCommentModal from "../replyCommentModal/ReplyCommentModal";
 
 export default function ForumCard({
   userImg,
@@ -112,16 +113,16 @@ export default function ForumCard({
   };
 
   const deleteForumCommentData = (data) => {
-    const payload ={
+    const payload = {
       forum_chat_id: data.forum_chat_id,
       user_id: userData?.id,
       user_role: userData?.role,
-      comment_id: data.id
-    }
-    deleteForumChatComment(payload).then((res)=> {
-      toast.success('Comment deleted successfully')
+      comment_id: data.id,
+    };
+    deleteForumChatComment(payload).then((res) => {
+      toast.success("Comment deleted successfully");
       updateReload();
-    })
+    });
   };
 
   const deleteFormData = () => {
@@ -189,7 +190,7 @@ export default function ForumCard({
           {fullData.type === "shared" ? (
             <>
               <div className="p-5 my-4">
-                <img src={fullData.user_picture} alt="" className="h-[50px]" />
+                <img src={fullData.user_picture} alt="" className="h-[50px] w-[50px] rounded-full" />
                 <div className=" flex flex-col text-green-700 font-bold text-md">
                   {fullData.user_name}
                   <small className=" font-light text-[12px] italic">
@@ -306,8 +307,8 @@ export default function ForumCard({
                 <div className="flex flex-col gap-2">
                   {comments.map((res) => (
                     <div key={res.id} className="bg-gray-100 p-3 rounded">
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-3">
+                      <div className="flex flex-wrap items-center justify-between">
+                        <div className="flex flex-wrap items-center gap-3">
                           <img
                             src={res.user_picture}
                             alt=""
@@ -326,10 +327,7 @@ export default function ForumCard({
                               acceptFunction={() => deleteForumCommentData(res)}
                             />
                           ) : (
-                            <div className="flex gap-3 hover:bg-green-100 cursor-pointer items-center justify-center rounded-full  p-1.5 px-3 bg-gray-50 text-gray-600 border hover:text-green-600">
-                              <i className="pi pi-comments flex !text-sm "></i>
-                              <p className="text-xs "> reply </p>
-                            </div>
+                            <ReplyCommentModal fulldata={res} />
                           )}
                           <p className="text-xs p-1 bg-gray-100 rounded-full">
                             {moment(res.date).utc().fromNow()}
@@ -337,6 +335,9 @@ export default function ForumCard({
                         </div>
                       </div>
                       <div className="p-2 text-sm ">{res.comment}</div>
+                      <div className="">
+                        
+                      </div>
                     </div>
                   ))}
                 </div>

@@ -18,6 +18,7 @@ import { actionState } from "../../atom/actionAtom";
 import emptyMessage from "../../assets/icons/empty-message.svg";
 import { toast } from "react-toastify";
 import DirectMessageCard from "../../components/directMessageCard/DirectMessageCard";
+import { message } from "../../atom/messageAtom";
 
 export default function Forum() {
   const [tab, setTab] = useState("chat");
@@ -25,6 +26,7 @@ export default function Forum() {
   const [forumData, setForumData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [action, setAction] = useRecoilState(actionState);
+  const messageData = useRecoilState(message);
   const [search, setSearch] = useState("");
   const [selectedMessage, setSelectedMessage] = useState(null);
   const [allmessages, setAllMessages] = useState([]);
@@ -181,15 +183,37 @@ export default function Forum() {
         </>
       ) : (
         <>
-          <div className="grid grid-cols-2 gap-2">
+          <div className="grid md:grid-cols-2 gap-2">
             <div className="flex flex-col gap-2">
-            {allmessages?.map((res) => (
-              <DirectMessageCard data={res} key={res.id} />
-            ))}
+              {allmessages?.map((res) => (
+                <DirectMessageCard data={res} key={res.id} />
+              ))}
             </div>
             <div className="">
-              {selectedMessage ? (
-                <></>
+              {messageData ? (
+                <>
+                  <div className="border p-5 h-full">
+                    <div className="">
+                      <div className="flex gap-2 ">
+                        <div className="h-[40px] w-[40px]">
+                          <img
+                            src={messageData?.profile_picture}
+                            alt=""
+                            className="w-full h-full object-cover rounded-full"
+                          />
+                        </div>
+                        <div className="">
+                          <div className="name text-sm font-bold">
+                            {messageData?.first_name} {messageData?.last_name}
+                          </div>
+                          <small className="font-light text-xs">
+                            {messageData?.role}
+                          </small>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </>
               ) : (
                 <>
                   <div className="border p-5 h-full flex flex-col items-center gap-3 justify-center">
