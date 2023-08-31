@@ -76,6 +76,7 @@ export default function Forum() {
     directMessage(payload).then(() => {
       toast.success("Message sent successfully");
       setLoading(false);
+      setComment('')
     });
     setReload(!reload);
   };
