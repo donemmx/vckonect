@@ -9,6 +9,6 @@ const {persistAtom} = recoilPersist({
 
 export const message = atom({
     key: 'message',
-    default: [],
+    default: {},
     effects_UNSTABLE: [persistAtom]
 })

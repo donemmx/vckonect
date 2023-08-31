@@ -73,6 +73,7 @@ export default function Forum() {
       userData?.subscription === "Expired"
     ) {
       location("/vet-subscription");
+     
     }
   }, []);
 
@@ -127,29 +128,6 @@ export default function Forum() {
         ) : (
           ""
         )}
-        {/* <div className=" flex items-center flex-wrap gap-1 w-full lg:w-[70%] mt-3">
-          <div className="text-[11px] bg-white flex items-center justify-center mr-auto lg:ml-auto w-[90px] p-2 border rounded-full">
-            Dogs
-          </div>
-          <div className="text-[11px] bg-white flex items-center justify-center mr-auto lg:ml-auto w-[90px] p-2 border rounded-full">
-            Poultry
-          </div>
-          <div className="text-[11px] bg-white flex items-center justify-center mr-auto lg:ml-auto w-[90px] p-2 border rounded-full">
-            Vet Clinics
-          </div>
-          <div className="text-[11px] bg-white flex items-center justify-center mr-auto lg:ml-auto w-[90px] p-2 border rounded-full">
-            Vet Store
-          </div>
-          <div className="text-[11px] bg-white flex items-center justify-center mr-auto lg:ml-auto w-[90px] p-2 border rounded-full">
-            Vaccination
-          </div>
-          <div className="text-[11px] bg-white flex items-center justify-center mr-auto lg:ml-auto w-[120px] p-2 border rounded-full">
-            Dog Treatment
-          </div>
-          <div className="text-[11px] bg-white flex items-center justify-center mr-auto lg:ml-auto w-[90px] p-2 border rounded-full">
-            Fish Feeding
-          </div>
-        </div> */}
       </div>
       <div className=" flex flex-wrap gap-4 w-full mb-10">
         {loading
@@ -190,29 +168,49 @@ export default function Forum() {
               ))}
             </div>
             <div className="">
-              {messageData ? (
+              {messageData[0] ? (
                 <>
-                  <div className="border p-5 h-full">
-                    <div className="">
-                      <div className="flex gap-2 ">
-                        <div className="h-[40px] w-[40px]">
-                          <img
-                            src={messageData?.profile_picture}
-                            alt=""
-                            className="w-full h-full object-cover rounded-full"
-                          />
-                        </div>
-                        <div className="">
-                          <div className="name text-sm font-bold">
-                            {messageData?.first_name} {messageData?.last_name}
+                    <div className="border p-5" >
+                      <div className="">
+                        <div className="flex gap-2 ">
+                          <div className="h-[40px] w-[40px]">
+                            <img
+                              src={messageData[0]?.profile_picture}  
+                              alt=""
+                              className="w-full h-full object-cover rounded-full"
+                            />
                           </div>
-                          <small className="font-light text-xs">
-                            {messageData?.role}
-                          </small>
+                          <div className="">
+                            <div className="name text-sm font-bold">
+                              {messageData[0]?.first_name} {messageData[0]?.last_name}
+                            </div>
+                            <small className="font-light text-xs">
+                              {messageData[0]?.role}
+                            </small>
+                          </div>
                         </div>
+                        {messageData[0]?.message?.map((res)=> (
+                        <div className="" key={res.id}>
+                          {res.type == "message" ? (
+                            <div className="">
+                              <p className="text-sm p-4">{res.content}</p>
+                            </div>
+                          ) : res.type == "video" ? (
+                            <div className="w-full h-[20vh]">
+                              <video src={res.content} className="w-full h-full object-cover"></video>
+                            </div>
+                          ) : res.type == "image" ? (
+                            <div className=" w-full h-[20vh]">
+                              <img src={res.content} alt="" className="w-full h-full object-cover"/>
+                            </div>
+                          ) : (
+                            ""
+                          )}
+                        </div>
+                        ))
+}
                       </div>
                     </div>
-                  </div>
                 </>
               ) : (
                 <>
