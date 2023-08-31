@@ -63,12 +63,17 @@ export default function DirectMessageModal({ fullData }) {
     Object.entries(payload).forEach(([key, value]) => {
       formData.append(key, value);
     });
-
-    directMessage(formData).then(() => {
-      toast.success("File uploaded successfully");
-      setLoading(false);
-      openModal();
-    });
+    const maxFileSize = 5000 * 1000; // 5Kb
+    const myfile = event.target.files[0];
+    console.log(myfile.size);
+    if (file.size > maxFileSize) {
+      toast.error("Failed to attach file. The set limit is 5mb");
+    } else {
+      directMessage(formData).then(() => {
+        toast.success("File uploaded successfully");
+        setLoading(false);
+      });
+    }
   };
 
   return (
@@ -143,7 +148,11 @@ export default function DirectMessageModal({ fullData }) {
             onClick={accept}
             disabled={comment.length === 0}
           >
-           {loading ? <i className="pi pi-spin pi-spinner"></i> : <i className="pi pi-send"></i> }
+            {loading ? (
+              <i className="pi pi-spin pi-spinner"></i>
+            ) : (
+              <i className="pi pi-send"></i>
+            )}
             Submit
           </button>
         </div>
