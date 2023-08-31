@@ -76,6 +76,8 @@ export default function DirectMessageModal({ fullData }) {
     }
   };
 
+  
+
   return (
     <div>
       <img

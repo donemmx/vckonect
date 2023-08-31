@@ -130,6 +130,18 @@ export default function Forum() {
     }
   }, []);
 
+  useEffect(()=> {
+    Pusher.logToConsole = true
+    var pusher = new Pusher('c38d7afddec65408e4cd', {
+      cluster: 'mt1'
+    });
+
+    var channel = pusher.subscribe('chatbox');
+    channel.bind('DirectMessage', function(data) {
+      alert(JSON.stringify(data));
+    });
+  })
+
   return (
     <div>
       <button
