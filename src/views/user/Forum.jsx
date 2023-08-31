@@ -68,7 +68,7 @@ export default function Forum() {
       type: "message",
       sender_id: userData?.id,
       sender_role: userData?.role,
-      receiver_id: messageData[0]?.user_id,
+      receiver_id: messageData[0]?.id,
       receiver_role: messageData[0]?.role,
       content: comment,
     };
@@ -90,7 +90,7 @@ export default function Forum() {
       type: type,
       sender_id: userData?.id,
       sender_role: userData?.role,
-      receiver_id: messageData[0]?.user_id,
+      receiver_id: messageData[0]?.id,
       receiver_role: messageData[0]?.role,
       content: e.target.files[0],
     };
