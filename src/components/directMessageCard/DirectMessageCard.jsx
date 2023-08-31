@@ -11,13 +11,10 @@ export default function DirectMessageCard({ data }) {
   const [reload, setReload] = useRecoilState(reloadStore);
 
   const viewMessage = (fullData) => {
-    const payload = {
-      id: fullData?.id,
-      role: fullData?.role,
-    };
+
     setMessageData(data);
     setReload(!reload);
-    viewDirectMessage(payload).then(() => {});
+    viewDirectMessage(fullData).then(() => {});
   };
   return (
     <div
