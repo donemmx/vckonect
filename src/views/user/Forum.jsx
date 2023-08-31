@@ -264,10 +264,11 @@ export default function Forum() {
                               <p className="text-sm p-2">{res.content}</p>
                             </div>
                           ) : res.type == "video" ? (
-                            <div className="w-full h-[20vh]">
+                            <div className="w-full aspect-video">
                               <video
                                 src={res.content}
-                                className="w-full h-full object-cover"
+                                controls
+                                className="w-full h-full object-cover aspect-video"
                               ></video>
                             </div>
                           ) : res.type == "image" ? (
