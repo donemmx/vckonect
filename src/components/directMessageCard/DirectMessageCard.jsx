@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import moment from "moment";
 import { Badge } from "primereact/badge";
 import { message } from "../../atom/messageAtom";
