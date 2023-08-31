@@ -19,7 +19,7 @@ export default function DirectMessageCard({ data }) {
   };
   return (
     <div
-      className="flex gap-2  border items-center justify-between p-5 bg-white cursor-pointer hover:border-green-500 hover:border-2 transition-all ease-in-out hover:bg-green-50 rounded"
+      className="flex flex-wrap gap-2  border items-center justify-between p-5 bg-white cursor-pointer hover:border-green-500 hover:border-2 transition-all ease-in-out hover:bg-green-50 rounded"
       onClick={() => viewMessage(data)}
     >
       <div className="flex gap-2 ">
