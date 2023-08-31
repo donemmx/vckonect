@@ -30,9 +30,9 @@ export default function DirectMessageModal({ fullData }) {
     setLoading(true);
     const payload = {
       type: "message",
-      sender_id: userData?.user_id,
+      sender_id: userData?.id,
       sender_role: userData?.role,
-      receiver_id: fullData?.id,
+      receiver_id: fullData?.user_id,
       receiver_role: fullData?.role,
       content: comment,
     };
@@ -55,7 +55,7 @@ export default function DirectMessageModal({ fullData }) {
       type: type,
       sender_id: userData?.id,
       sender_role: userData?.role,
-      receiver_id: fullData?.id,
+      receiver_id: fullData?.user_id,
       receiver_role: fullData?.role,
       content: e.target.files[0],
     };
