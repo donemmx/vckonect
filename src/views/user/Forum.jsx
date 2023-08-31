@@ -76,14 +76,14 @@ export default function Forum() {
     directMessage(payload).then(() => {
       toast.success("Message sent successfully");
       setLoading(false);
-      setComment('')
+      setComment("");
     });
     setReload(!reload);
   };
 
   const getFile = (e) => {
     const formData = new FormData();
-    setLoading(true);
+    // setLoading(true);
 
     setFile(e.target.files[0]);
     const type = e.target.files[0].type.split("/")[0];
@@ -99,11 +99,18 @@ export default function Forum() {
     Object.entries(payload).forEach(([key, value]) => {
       formData.append(key, value);
     });
+    const maxFileSize = 5000 * 1000; // 5Kb
+    const myfile = event.target.files[0];
+    console.log(myfile.size);
+    if (file.size > maxFileSize) {
+      toast.error("Failed to attach file. The set limit is 5mb");
+    } else {
+      directMessage(formData).then(() => {
+        toast.success("File uploaded successfully");
+        setLoading(false);
+      });
+    }
 
-    directMessage(formData).then(() => {
-      toast.success("File uploaded successfully");
-      setLoading(false);
-    });
   };
 
   useEffect(() => {
@@ -246,8 +253,7 @@ export default function Forum() {
                             <div className="">
                               {res.sender_id === userData.id ? (
                                 <div className="name text-sm font-bold">
-                                  {userData?.first_name}{" "}
-                                  {userData?.last_name}
+                                  {userData?.first_name} {userData?.last_name}
                                 </div>
                               ) : (
                                 <div className="name text-sm font-bold">
