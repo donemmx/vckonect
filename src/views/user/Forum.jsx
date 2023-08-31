@@ -219,28 +219,33 @@ export default function Forum() {
             <div className="">
               {messageData[0] ? (
                 <>
-                  <div className="border p-4 bg-white rounded">
-                    <div className="">
-                      <div className="flex gap-2 ">
-                        <div className="h-[40px] w-[40px]">
-                          <img
-                            src={messageData[0]?.profile_picture}
-                            alt=""
-                            className="w-full h-full object-cover rounded-full"
-                          />
-                        </div>
-                        <div className="">
-                          <div className="name text-sm font-bold">
-                            {messageData[0]?.first_name}{" "}
-                            {messageData[0]?.last_name}
-                          </div>
-                          <small className="font-light text-xs">
-                            {messageData[0]?.role}
-                          </small>
-                        </div>
-                      </div>
+                  <div className="">
+                    <div className="flex flex-col gap-2">
                       {messageData[0]?.message?.map((res) => (
-                        <div className="" key={res.id}>
+                        <div className="border p-4 bg-white rounded" key={res.id}>
+                          <div className="flex gap-2  ">
+                            <div className="h-[40px] w-[40px]">
+                             {res.sender_id === userData.id ? <img
+                                src={userData?.profile_picture}
+                                alt=""
+                                className="w-full h-full object-cover rounded-full"
+                              /> :
+                              <img
+                                src={messageData[0]?.profile_picture}
+                                alt=""
+                                className="w-full h-full object-cover rounded-full"
+                              />}
+                            </div>
+                            <div className="">
+                              <div className="name text-sm font-bold">
+                                {messageData[0]?.first_name}{" "}
+                                {messageData[0]?.last_name}
+                              </div>
+                              <small className="font-light text-xs">
+                                {messageData[0]?.role}
+                              </small>
+                            </div>
+                          </div>
                           {res.type == "message" ? (
                             <div className="">
                               <p className="text-sm p-2">{res.content}</p>
