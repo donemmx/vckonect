@@ -21,7 +21,7 @@ export default function Clients() {
     <div className="">
       <div className=" font-black text-2xl">My Clients</div>
       {allClients?.map((res) => (
-        <ClientCard key={res.id} user={user2} name="Dr. Amechi" />
+        <ClientCard key={res.id} data={res} />
       ))}
     </div>
   );

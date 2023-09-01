@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
 import phone from "../../assets/icons/phone-icon.svg";
 import message from "../../assets/icons/message-icon.svg";
-import location from "../../assets/icons/marker-icon.svg";
 import openIcon from "../../assets/bg/card-next-bg.svg";
 import { addClient, deleteStore } from "../../utils/userApiService";
 import { toast } from "react-toastify";
