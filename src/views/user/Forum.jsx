@@ -133,16 +133,6 @@ export default function Forum() {
     }
   }, []);
 
-  // useEffect(()=> {
-  //   var pusher = new Pusher('c38d7afddec65408e4cd', {
-  //     cluster: 'mt1'
-  //   });
-
-  //   var channel = pusher.subscribe('chatbox');
-  //   channel.bind('App\\Events\\DirectMessage', function(data) {
-  //       setMessageData(message.message.push(...data))
-  //   });
-  // }, [])
 
   return (
     <div>

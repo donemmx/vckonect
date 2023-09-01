@@ -7,7 +7,7 @@ import arrow from "../assets/icons/create-account/onboard/arrow-account-next.svg
 import { Checkbox } from "primereact/checkbox";
 import { useState } from "react";
 import { registerVeterinarian2 } from "../utils/vetApiService";
-import {  useRecoilValue } from "recoil";
+import {  useRecoilState, useRecoilValue } from "recoil";
 import { registration } from "../atom/registrationAtom";
 import { toast } from "react-toastify";
 import { useFormik } from "formik";
@@ -33,7 +33,7 @@ export default function OnboardVetPersonal() {
     setIngredients(_ingredients);
   };
 
-  const regEmail = useRecoilValue(registration);
+  const [regEmail, setRegEmail] = useRecoilState(registration);
   const location = useNavigate();
 
   const onSubmit = async (values) => {
@@ -53,6 +53,7 @@ export default function OnboardVetPersonal() {
     await registerVeterinarian2(payload)
       .then((res) => {
         if (!res.code) {
+          setRegEmail(payload)
           location("/onboard-vet-verify");
           toast.success(res.detail);
         } else {

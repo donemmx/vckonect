@@ -21,11 +21,12 @@ const resetPin = yup.object().shape({
     pin_code: yup.string().required("Required")
 })
 
+
 const userTwo = yup.object().shape({
     firstName: yup.string().required("Required"),
     lastName: yup.string().required("Required"),
     phone_number: yup.string().required("Required"),
-    address: yup.string().required("Required")
+    address: yup.string().required("Required"),
 })
 
 const verify = yup.object().shape({

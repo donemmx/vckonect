@@ -10,5 +10,16 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
+    <script language="javascript">
+      document.addEventListener("DOMContentLoaded", function (event) {
+        var pusher = new Pusher("c38d7afddec65408e4cd", {
+          cluster: "mt1",
+        });
+        var channel = pusher.subscribe("chatbox");
+        channel.bind("App\\Events\\DirectMessage", function (data) {
+          setMessageData(message.message.push(...data));
+        });
+      });
+    </script>
   </body>
 </html>

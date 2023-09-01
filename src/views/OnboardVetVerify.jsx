@@ -11,6 +11,7 @@ import { toast } from "react-toastify";
 import { verify } from "../validations/UserValidation";
 import { registerVeterinarian3 } from "../utils/vetApiService";
 import SubscriptionCard from "../components/subscriptionCard/SubscriptionCard";
+import { OtpResend } from "../utils/userApiService";
 
 export default function OnboardVetVerify() {
   const regEmail = useRecoilValue(registration);
@@ -19,7 +20,7 @@ export default function OnboardVetVerify() {
   const onSubmit = async (values) => {
     const payload = {
       stage: 3,
-      email: regEmail,
+      email: regEmail?.email,
       ...values,
     };
     await registerVeterinarian3(payload)
@@ -34,6 +35,18 @@ export default function OnboardVetVerify() {
       .catch((err) => console.log(err));
   };
 
+  const resendUserOtp = async () => {
+    await OtpResend(regEmail.email)
+    .then((res) => {
+
+      if (!res.code) {
+        toast.success('OTP resent to your email');
+      } else {
+        toast.error(res.detail);
+      }
+    })
+    .catch((err) => console.log(err));
+  }
   const {
     values,
     errors,
@@ -100,7 +113,7 @@ export default function OnboardVetVerify() {
           {errors.activation_code && touched.activation_code && (
             <p className="error">{errors.activation_code}</p>
           )}
-          <div className="pt-2 subtitle cursor-pointer paragraph underline text-center">
+          <div className="pt-2 subtitle cursor-pointer paragraph underline text-center" onClick={resendUserOtp}>
             Resend Code
           </div>
           <button className="green__btn" disabled={!isValid || isSubmitting}>

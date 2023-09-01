@@ -8,8 +8,9 @@ import { useRecoilValue } from "recoil";
 import { useFormik } from "formik";
 import { registration } from "../atom/registrationAtom";
 import { toast } from "react-toastify";
-import { registerAnimalOwner3 } from "../utils/animalOwnerApiService";
+import { registerAnimalOwner2, registerAnimalOwner3 } from "../utils/animalOwnerApiService";
 import { verify } from "../validations/UserValidation";
+import { OtpResend } from "../utils/userApiService";
 
 export default function OnboardVerify() {
   const regEmail = useRecoilValue(registration);
@@ -18,7 +19,7 @@ export default function OnboardVerify() {
   const onSubmit = async (values) => {
     const payload = {
       stage: 3,
-      email: regEmail,
+      email: regEmail.email,
       ...values,
     };
     await registerAnimalOwner3(payload)
@@ -33,14 +34,28 @@ export default function OnboardVerify() {
       .catch((err) => console.log(err));
   };
 
-  const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
+  const { values,isValid, isSubmitting, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
+      validateOnMount: true,
       initialValues: {
         activation_code: "",
       },
       validationSchema: verify,
       onSubmit,
     });
+
+    const resendUserOtp = async () => {
+      await OtpResend(regEmail.email)
+      .then((res) => {
+
+        if (!res.code) {
+          toast.success('OTP resent to your email');
+        } else {
+          toast.error(res.detail);
+        }
+      })
+      .catch((err) => console.log(err));
+    }
 
   return (
     <div className="login flex justify-center items-center h-[100vh] lg:h-[105vh]">
@@ -87,13 +102,16 @@ export default function OnboardVerify() {
           {errors.activation_code && touched.activation_code && (
             <p className="error">{errors.activation_code}</p>
           )}
-          <div className="pt-2 subtitle cursor-pointer paragraph underline text-center">
+          <div className="pt-2 subtitle cursor-pointer paragraph underline text-center" onClick={resendUserOtp}>
             Resend Code
           </div>
-          <button to="/verified" className="green__btn">
+          <button className="green__btn"
+          disabled={!isValid || isSubmitting}>
+          {isSubmitting?  <i className="pi pi-spin pi-spinner !text-[20px]"></i> : ''}
             Verify
           </button>
           <Link to="#" className="tertiary__btn">
+          
             Back
           </Link>
         </form>

@@ -10,23 +10,14 @@ import { useState } from "react";
 import { useFormik } from "formik";
 import { userTwo } from "../validations/UserValidation";
 import { registerAnimalOwner2 } from "../utils/animalOwnerApiService";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { registration } from "../atom/registrationAtom";
 import { toast } from "react-toastify";
 
 export default function OnboardAnimalOwnerPersonal() {
-  const [ingredients, setIngredients] = useState([]);
-  const regEmail = useRecoilValue(registration);
+  const [accept, setAccept] = useState(false);
+  const [regEmail, setRegEmail] = useRecoilState(registration);
   const location = useNavigate();
-
-  const onIngredientsChange = (e) => {
-    let _ingredients = [...ingredients];
-
-    if (e.checked) _ingredients.push(e.value);
-    else _ingredients.splice(_ingredients.indexOf(e.value), 1);
-
-    setIngredients(_ingredients);
-  };
 
   const onSubmit = async (values) => {
     const {firstName, lastName, ...others}  = values
@@ -42,6 +33,7 @@ export default function OnboardAnimalOwnerPersonal() {
       .then((res) => {
         console.log(res.code === 200);
         if (!res.code) {
+          setRegEmail(payload)
           location("/onboard-verify");
           toast.success(res.detail);
         } else {
@@ -51,8 +43,9 @@ export default function OnboardAnimalOwnerPersonal() {
       .catch((err) => console.log(err));
   };
 
-  const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
+  const { values, isValid, isSubmitting, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
+      validateOnMount: true,
       initialValues: {
         firstName: "",
         lastName: "",
@@ -151,9 +144,9 @@ export default function OnboardAnimalOwnerPersonal() {
               inputId="ingredient1"
               name="pizza"
               className="ml-3"
-              value="Cheese"
-              onChange={onIngredientsChange}
-              checked={ingredients.includes("Cheese")}
+              value={accept}
+              onChange={(e)=> setAccept(!accept)}
+              checked={accept}
             />
             <label
               htmlFor="ingredient1"
@@ -162,7 +155,10 @@ export default function OnboardAnimalOwnerPersonal() {
               Confirm that you agree to our terms and conditions at Vet Konect
             </label>
           </div>
-          <button className="green__btn">Proceed</button>
+          <button className="green__btn"
+           disabled={!isValid || isSubmitting}>
+           {isSubmitting?  <i className="pi pi-spin pi-spinner !text-[20px]"></i> : ''}
+          Proceed</button>
           <Link to="/onboard-animal-owner-account" className="tertiary__btn">
             Back
           </Link>
