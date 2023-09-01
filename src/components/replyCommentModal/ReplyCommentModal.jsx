@@ -1,16 +1,16 @@
 import { Dialog } from "primereact/dialog";
 import { useState } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilValue } from "recoil";
 import { replyForumChatComment } from "../../utils/userApiService";
 import { toast } from "react-toastify";
 import { user } from "../../atom/userAtom";
-import { reloadStore } from "../../atom/reloadAtom";
+import useUpadateReload from "../../hooks/UpdateRelaod";
 
 export default function ReplyCommentModal({ fulldata }) {
   const [visible, setVisible] = useState(false);
-  const [reload, setReload] = useRecoilState(reloadStore);
   const [comment, setComment] = useState([]);
   const userData = useRecoilValue(user);
+  const [updateReload] = useUpadateReload();
 
   const openModal = () => {
     setVisible(!visible);
@@ -24,10 +24,10 @@ export default function ReplyCommentModal({ fulldata }) {
       response: comment,
     };
     replyForumChatComment(payload).then(() => {
+      updateReload();
       toast.success("Message sent succesfully");
     });
     openModal();
-    setReload(!reload);
   };
   return (
     <div>
@@ -57,7 +57,10 @@ export default function ReplyCommentModal({ fulldata }) {
         </div>
       </Dialog>
 
-      <div className="flex gap-3 hover:bg-green-100 cursor-pointer items-center justify-center rounded-full  p-1.5 px-3 bg-gray-50 text-gray-600 border hover:text-green-600" onClick={openModal}>
+      <div
+        className="flex gap-3 hover:bg-green-100 cursor-pointer items-center justify-center rounded-full  p-1.5 px-3 bg-gray-50 text-gray-600 border hover:text-green-600"
+        onClick={openModal}
+      >
         <i className="pi pi-comments flex !text-sm "></i>
         <p className="text-xs "> reply </p>
       </div>

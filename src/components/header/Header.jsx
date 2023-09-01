@@ -26,6 +26,7 @@ export default function Header({ bg }) {
 
   const logOut = () => {
     setData(null);
+    localStorage.clear()
     toast.success("Successfully logged out");
   };
 

@@ -127,7 +127,6 @@ const getOneForumChat = (id) => {
 };
 
 const deleteresponseForumChat = (payload) => {
-  // const { role, id, commentId, responseId } = payload;
   return axios
     .post(`${baseURl}/deleteresponseForumChat`, payload)
     .then((res) => res.data)

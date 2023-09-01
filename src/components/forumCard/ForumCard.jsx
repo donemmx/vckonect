@@ -10,6 +10,7 @@ import {
   commentForumChat,
   deleteForumChat,
   deleteForumChatComment,
+  deleteresponseForumChat,
   getForumChat,
   likeForumChat,
   shareForumChat,
@@ -89,6 +90,7 @@ export default function ForumCard({
     };
     shareForumChat(payload).then((res) => {
       toast.success("Post reshare successful");
+      updateReload()
     });
   };
 
@@ -121,6 +123,19 @@ export default function ForumCard({
     };
     deleteForumChatComment(payload).then((res) => {
       toast.success("Comment deleted successfully");
+      updateReload();
+    });
+  };
+
+  const deleteForumResponseData = (data) => {
+    const payload = {
+      user_id: userData?.id,
+      user_role: userData?.role,
+      comment_id: data.forum_chat_comment_id,
+      response_id: data.id
+    };
+    deleteresponseForumChat(payload).then((res) => {
+      toast.success("Response deleted successfully");
       updateReload();
     });
   };
@@ -190,7 +205,11 @@ export default function ForumCard({
           {fullData.type === "shared" ? (
             <>
               <div className="p-5 my-4">
-                <img src={fullData.user_picture} alt="" className="h-[50px] w-[50px] rounded-full" />
+                <img
+                  src={fullData.user_picture}
+                  alt=""
+                  className="h-[50px] w-[50px] rounded-full"
+                />
                 <div className=" flex flex-col text-green-700 font-bold text-md">
                   {fullData.user_name}
                   <small className=" font-light text-[12px] italic">
@@ -306,39 +325,82 @@ export default function ForumCard({
               {showComments ? (
                 <div className="flex flex-col gap-2">
                   {comments.map((res) => (
-                    <div key={res.id} className="bg-gray-100 p-3 rounded">
-                      <div className="flex flex-wrap items-center justify-between">
-                        <div className="flex flex-wrap items-center gap-3">
-                          <img
-                            src={res.user_picture}
-                            alt=""
-                            className="w-[30px] h-[30px] rounded-full"
-                          />
-                          <p className="text-sm font-bold"> {res.user_name}</p>
-                          <small className="bg-green-100 p-1 text-[10px] text-green-600">
-                            {res.user_role}
-                          </small>
-                        </div>
-                        <div className="flex items-center justify-center gap-2">
-                          {userData.id === res.user_id ? (
-                            <WarningCard
-                              message="Are you sure you want to delete this comment?"
-                              header="Confirmation"
-                              acceptFunction={() => deleteForumCommentData(res)}
+                    <>
+                      <div key={res.id} className="bg-gray-100 p-3 rounded">
+                        <div className="flex flex-wrap items-center justify-between">
+                          <div className="flex flex-wrap items-center gap-3">
+                            <img
+                              src={res.user_picture}
+                              alt=""
+                              className="w-[30px] h-[30px] rounded-full"
                             />
-                          ) : (
-                            <ReplyCommentModal fulldata={res} />
-                          )}
-                          <p className="text-xs p-1 bg-gray-100 rounded-full">
-                            {moment(res.date).utc().fromNow()}
-                          </p>
+                            <p className="text-sm font-bold">
+                              {" "}
+                              {res.user_name}
+                            </p>
+                            <small className="bg-green-100 p-1 text-[10px] text-green-600">
+                              {res.user_role}
+                            </small>
+                          </div>
+                          <div className="flex items-center justify-center gap-2">
+                            {userData.id === res.user_id ? (
+                              <WarningCard
+                                message="Are you sure you want to delete this comment?"
+                                header="Confirmation"
+                                acceptFunction={() =>
+                                  deleteForumCommentData(res)
+                                }
+                              />
+                            ) : (
+                              <ReplyCommentModal fulldata={res} />
+                            )}
+                            <p className="text-xs p-1 bg-gray-100 rounded-full">
+                              {moment(res.date).utc().fromNow()}
+                            </p>
+                          </div>
                         </div>
+                        <div className="p-2 text-sm ">{res.comment}</div>
+                        <div className=""></div>
                       </div>
-                      <div className="p-2 text-sm ">{res.comment}</div>
-                      <div className="">
-                        
+                      {res.response.map((response)=> (
+                        <div key={response.id} className="bg-gray-100 p-3 ml-10 rounded">
+                        <div className="flex flex-wrap items-center justify-between">
+                          <div className="flex flex-wrap items-center gap-3">
+                            <img
+                              src={response.profile_picture}
+                              alt=""
+                              className="w-[30px] h-[30px] rounded-full"
+                            />
+                            <p className="text-sm font-bold">
+                              {" "}
+                              {response.first_name + ' ' + response.last_name}
+                            </p>
+                            <small className="bg-green-100 p-1 text-[10px] text-green-600">
+                              {response.user_role}
+                            </small>
+                          </div>
+                          <div className="flex items-center justify-center gap-2">
+                            {userData.id === response.user_id ? (
+                              <WarningCard
+                                message="Are you sure you want to delete this comment?"
+                                header="Confirmation"
+                                acceptFunction={() =>
+                                  deleteForumResponseData(response)
+                                }
+                              />
+                            ) : (
+                            <></>
+                            )}
+                            <p className="text-xs p-1 bg-gray-100 rounded-full">
+                              {moment(response.date).utc().fromNow()}
+                            </p>
+                          </div>
+                        </div>
+                        <div className="p-2 text-sm ">{response.response}</div>
+                        <div className=""></div>
                       </div>
-                    </div>
+                      ))}
+                    </>
                   ))}
                 </div>
               ) : (
