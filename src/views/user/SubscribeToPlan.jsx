@@ -16,24 +16,17 @@ export default function SubscribeToPlan() {
   }, []);
   return (
     <div className="">
-      <div className="activity mt-5  mb-5 p-5 lg:p-10 border bg-white rounded-lg w-full lg:w-full">
-        <div className="flex items-center gap-6">
-          <h2 className="text-[1rem] lg:text-[1.3rem] cursor-pointer font-black">
-            Subscription  Plans
-          </h2>
-          
-        </div>
-        <div className="group flex flex-col justify-center items-center  flex-wrap gap-2 mt-10">
-        <div className="left w-full lg:w-[56%] border p-4 rounded-lg">
-          {/* <div className="text-center text-[1.1rem] font-black">Select a Subscription Plan</div> */}
+      <div className="activity mt-5  lg:p-3  bg-white rounded-lg w-full lg:w-full">
+        <div className="group flex flex-col justify-center items-center  flex-wrap gap-2 ">
+        <div className="left w-full lg:w-[100%] p-2 rounded-lg">
           <div className="flex items-center justify-center ">
           {allPromotion.map((res) => (
-            <div className="mt-3 " key={res.id}>
+            <div className="mt-1 " key={res.id}>
               <div
                 className={
                   plan === res.title
-                    ? "bg-gray-100 p-2  border rounded-full text-center font-bold text-[16px] cursor-pointer"
-                    : "p-2 rounded-full text-center cursor-pointer text-[16px]"
+                    ? "bg-gray-100 p-2  border rounded-full text-center font-bold text-[14px] cursor-pointer"
+                    : "p-2 rounded-full text-center cursor-pointer text-[14px]"
                 }
                 onClick={() => setPlan(res.title)}
               >
