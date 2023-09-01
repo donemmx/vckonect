@@ -19,6 +19,13 @@ const resetPassword = (payload) => {
     .catch((err) => console.log(err));
 };
 
+const confirmResetPasswordCode = (payload) => {
+  return axios
+    .post(`${baseURl}/confirmResetPasswordCode`, payload)
+    .then((res) => res.data)
+    .catch((err) => console.log(err));
+};
+
 const changePassword = (payload) => {
   return axios
     .post(`${baseURl}/changePassword`, payload)
@@ -357,4 +364,5 @@ export {
   shareForumChat,
   getForumChatByFilter,
   getPromotion,
+  confirmResetPasswordCode
 };

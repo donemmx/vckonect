@@ -8,6 +8,19 @@ const userOne = yup.object().shape({
     confirmPassword: yup.string().oneOf([yup.ref('password'), null], "Passwords must match").required("Required")
 })
 
+const userResetPassword = yup.object().shape({
+    password: yup.string().min(5).max(25).matches(passwordRule, {message: "Please create a stronger password"}).required("Required"),
+    confirmPassword: yup.string().oneOf([yup.ref('password'), null], "Passwords must match").required("Required")
+})
+
+const resetUser = yup.object().shape({
+    email: yup.string().email("Please enter a valid email").required("Required")
+})
+
+const resetPin = yup.object().shape({
+    pin_code: yup.string().required("Required")
+})
+
 const userTwo = yup.object().shape({
     firstName: yup.string().required("Required"),
     lastName: yup.string().required("Required"),
@@ -157,5 +170,8 @@ export {
     updateUser,
     pet,
     subscription,
-    promotion
+    promotion,
+    resetUser,
+    resetPin,
+    userResetPassword
 }

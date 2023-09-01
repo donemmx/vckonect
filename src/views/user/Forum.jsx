@@ -27,7 +27,7 @@ export default function Forum() {
   const [forumData, setForumData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [action, setAction] = useRecoilState(actionState);
-  const messageData = useRecoilState(message);
+  const [messageData, setMessageData] = useRecoilState(message);
   const [search, setSearch] = useState("");
   const [selectedMessage, setSelectedMessage] = useState(null);
   const [allmessages, setAllMessages] = useState([]);
@@ -37,6 +37,8 @@ export default function Forum() {
 
   const userStore = useRecoilValue(storeData);
   const userData = useRecoilValue(user);
+
+  const [messageStore, setMessageStore] = useState()
 
   const activeTab = (type) => {
     setTab(type);
@@ -68,17 +70,18 @@ export default function Forum() {
       type: "message",
       sender_id: userData?.id,
       sender_role: userData?.role,
-      receiver_id: messageData[0]?.id,
-      receiver_role: messageData[0]?.role,
+      receiver_id: messageData?.id,
+      receiver_role: messageData?.role,
       content: comment,
     };
 
-    directMessage(payload).then(() => {
-      toast.success("Message sent successfully");
-      setLoading(false);
-      setComment("");
-    });
-    setReload(!reload);
+    // directMessage(payload).then(() => {
+    //   toast.success("Message sent successfully");
+    //   setLoading(false);
+    //   setComment("");
+    // });
+
+    setMessageData()
   };
 
   const getFile = (e) => {
@@ -91,8 +94,8 @@ export default function Forum() {
       type: type,
       sender_id: userData?.id,
       sender_role: userData?.role,
-      receiver_id: messageData[0]?.id,
-      receiver_role: messageData[0]?.role,
+      receiver_id: messageData?.id,
+      receiver_role: messageData?.role,
       content: e.target.files[0],
     };
 
@@ -130,17 +133,16 @@ export default function Forum() {
     }
   }, []);
 
-  useEffect(()=> {
-    Pusher.logToConsole = true
-    var pusher = new Pusher('c38d7afddec65408e4cd', {
-      cluster: 'mt1'
-    });
+  // useEffect(()=> {
+  //   var pusher = new Pusher('c38d7afddec65408e4cd', {
+  //     cluster: 'mt1'
+  //   });
 
-    var channel = pusher.subscribe('chatbox');
-    channel.bind('DirectMessage', function(data) {
-      alert(JSON.stringify(data));
-    });
-  })
+  //   var channel = pusher.subscribe('chatbox');
+  //   channel.bind('App\\Events\\DirectMessage', function(data) {
+  //       setMessageData(message.message.push(...data))
+  //   });
+  // }, [])
 
   return (
     <div>
@@ -237,11 +239,11 @@ export default function Forum() {
               )}
             </div>
             <div className="">
-              {messageData[0] ? (
+              {messageData ? (
                 <>
                   <div className="">
                     <div className="flex flex-col gap-2">
-                      {messageData[0]?.message?.map((res) => (
+                      {messageData?.message?.map((res) => (
                         <div
                           className="border p-4 bg-white rounded"
                           key={res.id}
@@ -256,7 +258,7 @@ export default function Forum() {
                                 />
                               ) : (
                                 <img
-                                  src={messageData[0]?.profile_picture}
+                                  src={messageData?.profile_picture}
                                   alt=""
                                   className="w-full h-full object-cover rounded-full"
                                 />
@@ -269,12 +271,12 @@ export default function Forum() {
                                 </div>
                               ) : (
                                 <div className="name text-sm font-bold">
-                                  {messageData[0]?.first_name}{" "}
-                                  {messageData[0]?.last_name}
+                                  {messageData?.first_name}{" "}
+                                  {messageData?.last_name}
                                 </div>
                               )}
                               <small className="font-light text-xs">
-                                {messageData[0]?.role}
+                                {messageData?.role}
                               </small>
                             </div>
                           </div>
