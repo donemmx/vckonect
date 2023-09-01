@@ -14,9 +14,9 @@ export default function ResetPassword() {
   const onSubmit = async (values) => {
     const {confirmPassword , ...others} = values
     const payload = {
-      email: 1,
-      db_table: 1,
-      id: 1,
+      email: userData?.email,
+      db_table: userData?.db_table,
+      id: userData?.id,
       new_password: confirmPassword
     };
     await changePassword(payload)
