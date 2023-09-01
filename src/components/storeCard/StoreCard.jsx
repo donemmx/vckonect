@@ -3,7 +3,7 @@ import phone from "../../assets/icons/phone-icon.svg";
 import message from "../../assets/icons/message-icon.svg";
 import location from "../../assets/icons/marker-icon.svg";
 import openIcon from "../../assets/bg/card-next-bg.svg";
-import { deleteStore } from "../../utils/userApiService";
+import { addClient, deleteStore } from "../../utils/userApiService";
 import { toast } from "react-toastify";
 import WarningCard from "../warningCard/WarningCard";
 import { useRecoilState, useRecoilValue } from "recoil";
@@ -42,6 +42,19 @@ export default function StoreCard({
       location(`/vet-${route}`);
     } else {
       location(`/animal-owner-${route}`);
+    }
+  };
+
+  const addClientData = () => {
+    if(fullData.user_id !== userData.id){
+      const payload = {
+        user_id: fullData.user_id,
+        role: fullData.role,
+        module_type: "Store",
+        client_id: userData?.id,
+      };
+      console.log(payload);
+      addClient(payload).then();
     }
   };
 
@@ -127,7 +140,7 @@ export default function StoreCard({
             <div className="message">
               <button
                 onClick={() => {
-                  checker("store-details");
+                  checker("store-details"), addClientData();
                 }}
               >
                 <img src={openIcon} alt="" />

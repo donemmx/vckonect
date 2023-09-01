@@ -14,8 +14,8 @@ import addIcon from "../../assets/icons/add-icon.svg";
 import { actionState } from "../../atom/actionAtom";
 
 export default function StoreDetails() {
-  const userData = useRecoilValue(user);
-  const storeInfo = useRecoilValue(storeData);
+  const [userData, setUserData] = useRecoilState(user);
+  const [storeInfo, setStoreInfo] = useRecoilState(storeData);
   const [action, setAction] = useRecoilState(actionState);
   const [openDetail, setOpenDetail] = useState(null);
   const location = useNavigate();
@@ -37,6 +37,10 @@ export default function StoreDetails() {
   const setActionData = () => {
     setAction("add");
   };
+
+  const resetStore = () => {
+    setStoreInfo(null)
+  }
 
   // useEffect(() => getUser, []);
 
@@ -166,7 +170,7 @@ export default function StoreDetails() {
           </p>
           {userData?.id === storeInfo?.user_id ? (
             <button
-              onClick={() => checker("add-product")}
+              onClick={() => {checker("add-product"), resetStore()}}
               className="border-[1px] hover:border-[#52CE06] cursor-pointer  flex items-center justify-between p-3 rounded-[18px] mt-5 mb-5 w-full"
             >
               <p className="font-bold px-2">Add New Product</p>
