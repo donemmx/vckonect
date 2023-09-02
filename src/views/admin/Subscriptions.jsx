@@ -2,7 +2,10 @@
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import { user } from "../../atom/userAtom";
-import { getSubscriptionPlan } from "../../utils/adminApiService";
+import {
+  deleteSubscriptionPlan,
+  getSubscriptionPlan,
+} from "../../utils/adminApiService";
 import AdminDashboardCard from "../../components/adminDashboardCard/AdminDashboardCard";
 import moment from "moment";
 import { Link } from "react-router-dom";
@@ -12,6 +15,7 @@ import AdminCard from "../../components/adminCard/AdminCard";
 import totalSubscribers from "../../assets/sidebar/total-subscribers.svg";
 import activeSubscriber from "../../assets/sidebar/active-subscription.svg";
 import expiredSubscribers from "../../assets/sidebar/active-subscription.svg";
+import { toast } from "react-toastify";
 
 export default function Subscriptions() {
   const [subscriptions, setSubscriptions] = useState();
@@ -24,6 +28,18 @@ export default function Subscriptions() {
     await getSubscriptionPlan(payload).then((res) => {
       setSubscriptions(res);
       setLoading(false);
+    });
+  };
+
+  const deleteSubscription = (data) => {
+    setLoading(true);
+    const payload = {
+      plan_id: data.plan_id,
+    };
+    deleteSubscriptionPlan(payload).then((res) => {
+      toast.success("Subscription plan deleted successfully");
+      setLoading(false);
+      getSubscriptions()
     });
   };
 
@@ -72,9 +88,8 @@ export default function Subscriptions() {
                   key={res.id}
                   // time={moment(res.date).utc().fromNow()}
                   title={res.title}
-                  approveButtonText="Activate"
-                  rejcetButtonText="Deactivate"
                   name={res.detail}
+                  approveFunction={() => deleteSubscription(res)}
                   price={res.price}
                   duration={res.duration}
                   deleteCard={true}
