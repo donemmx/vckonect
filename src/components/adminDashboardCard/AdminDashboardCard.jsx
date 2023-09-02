@@ -21,6 +21,7 @@ export default function AdminDashboardCard({
   deleteCard,
   deleteFormDataFunction,
   editFunction,
+  freeText
 }) {
   return (
     <>
@@ -59,6 +60,13 @@ export default function AdminDashboardCard({
                       thousandSeparator={true}
                       currency={price.slice(0, 3)}
                     />
+                  </div>
+                ) : (
+                  ""
+                )}
+                {freeText ? (
+                  <div className=" text-[26px] font-black">
+                    {freeText}
                   </div>
                 ) : (
                   ""

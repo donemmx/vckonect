@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { user } from "../../atom/userAtom";
 import {
+  adminGetSubscription,
   adminGetSubscriptionPlan,
   deleteSubscriptionPlan,
   getSubscriptionPlan,
@@ -22,8 +23,10 @@ import { actionState } from "../../atom/actionAtom";
 
 export default function Subscriptions() {
   const [subscriptions, setSubscriptions] = useState();
+  const [userSubscription, setUserSubscription] = useState([]);
   const [loading, setLoading] = useState(true);
   const userData = useRecoilValue(user);
+  const [tab, setTab] = useState("all");
   const [store, setStore] = useRecoilState(storeData);
   const [action, setAction] = useRecoilState(actionState);
   const location = useNavigate();
@@ -34,6 +37,12 @@ export default function Subscriptions() {
     await adminGetSubscriptionPlan(payload).then((res) => {
       setSubscriptions(res);
       setLoading(false);
+    });
+  };
+
+  const getmySubscriptions = () => {
+    adminGetSubscription({ name: null }).then((res) => {
+      setUserSubscription(res);
     });
   };
 
@@ -59,17 +68,18 @@ export default function Subscriptions() {
 
   useEffect(() => {
     getSubscriptions();
+    getmySubscriptions();
   }, []);
   return (
     <div className="w-full">
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-1 lg:gap-2 mt-5">
         <AdminCard
-          number={0}
+          number={userSubscription?.Freenium?.length}
           text="Total Subscribers"
           icon={totalSubscribers}
         />
         <AdminCard
-          number={0}
+          number={userSubscription?.Freenium?.length}
           text="Active Subscription"
           icon={activeSubscriber}
         />
@@ -89,6 +99,24 @@ export default function Subscriptions() {
           <img src={addIcon} alt="" className="w-[40px]" />
         </Link>
         <div className="posts p-3 mt-5 grid gap-2">
+          <div className="flex  items-center gap-6">
+            <h2
+              className={` text-[1rem] lg:text-[1rem] cursor-pointer ${
+                tab === "all" ? "font-black" : ""
+              } `}
+              onClick={() => setTab("all")}
+            >
+              Subscribers
+            </h2>
+            <h2
+              className={` text-[1rem] lg:text-[1rem] cursor-pointer ${
+                tab === "subscription" ? "font-black" : ""
+              } `}
+              onClick={() => setTab("subscription")}
+            >
+              Subscription
+            </h2>
+          </div>
           {loading ? (
             <div className="grid gap-2">
               <AdminCardLoading />
@@ -97,26 +125,44 @@ export default function Subscriptions() {
             </div>
           ) : (
             <>
-              {subscriptions?.map((res) => (
-                <AdminDashboardCard
-                  key={res.id}
-                  time={moment(res.date).utc().fromNow()}
-                  title={res.subscription_title}
-                  name={res.detail}
-                  message="Are you sure you want to delete this plan?"
-                  price={res.currency + res.price}
-                  duration={`${res.subscription_title} (${res.duration} ${res.date_option})`}
-                  deleteCard={true}
-                  edit={true}
-                  loading={loading}
-                  approveFunction={() =>
-                    deleteMySubscription({
-                      plan_id: res.subscription_id,
-                    })
-                  }
-                  editFunction={() => editSubscription(res)}
-                />
-              ))}
+              {tab === "all" ? (
+                 <>
+                 {userSubscription?.Freenium?.map((res) => (
+                   <AdminDashboardCard
+                   key={res.id}
+                   time={moment(res.date).utc().fromNow()}
+                   title={res.first_name + res.last_name}
+                   name={res.role}
+                   image={res.profile_picture}
+                   loading={loading}
+                   freeText={res.plan}
+                 />
+                 ))}
+               </>
+              ) : (
+                <>
+                  {subscriptions?.map((res) => (
+                    <AdminDashboardCard
+                      key={res.id}
+                      time={moment(res.date).utc().fromNow()}
+                      title={res.subscription_title}
+                      name={res.detail}
+                      message="Are you sure you want to delete this plan?"
+                      price={res.currency + res.price}
+                      duration={`${res.subscription_title} (${res.duration} ${res.date_option})`}
+                      deleteCard={true}
+                      edit={true}
+                      loading={loading}
+                      approveFunction={() =>
+                        deleteMySubscription({
+                          plan_id: res.subscription_id,
+                        })
+                      }
+                      editFunction={() => editSubscription(res)}
+                    />
+                  ))}
+                </>
+              )}
             </>
           )}
         </div>
