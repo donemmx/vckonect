@@ -90,9 +90,9 @@ export default function SubscriptionCard({ data, selectedPlan }) {
   };
 
   const selectPlan = (data) => {
-    setLoading(true);
     setSelected(data);
     if (Number(data.price.slice(3)) === 0) {
+      setLoading(true);
       subscribeUserToPlan(data);
     } else {
       openModal()
