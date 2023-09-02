@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import Vetcard from "../../components/vetCard/Vetcard";
 import vetClinic from "../../assets/tab-icon/vet-clinic-tab.svg";
 import vetStore from "../../assets/tab-icon/vet-store-tab.svg";

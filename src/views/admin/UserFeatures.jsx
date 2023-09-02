@@ -143,6 +143,8 @@ export default function UserFeatures() {
     };
     deactivateAccount(payload).then((res) => {
       toast.success("User successfully deactivated");
+      setLoading(false);
+      getUserCounter()
     });
   };
   const activateUserAccount = (data) => {
@@ -153,6 +155,8 @@ export default function UserFeatures() {
     };
     activateAccount(payload).then((res) => {
       toast.success("User successfully activated");
+      setLoading(false);
+      getUserCounter()
     });
   };
 
