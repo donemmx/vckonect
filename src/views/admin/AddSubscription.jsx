@@ -27,61 +27,54 @@ export default function AddSubscription() {
   const onSubmit = async (values) => {
     const formData = new FormData();
     let payload;
-    //     if (action && action === "edit") {
-    //      payload = {
-    //       user_id: user?.user_id,
-    //       farm_name: user?.farm_name,
-    //       no_of_worker: workers,
-    //       sex: gender,
-    //       farm_id: store?.farm_id,
-    //       livestock_type:store?.livestock_type,
-    //       no_of_livestock: store?.no_of_livestock,
-    //       ...others,
-    //     };
-    //   }
-    //   else{
-    let contact_info;
-    let direct_message;
-    let feed_calculator;
-    let disease_predictor;
-    let customer_support;
+    if (action && action === "edit") {
+      payload = {
+        ...store,
+      };
+    } else {
+      let contact_info;
+      let direct_message;
+      let feed_calculator;
+      let disease_predictor;
+      let customer_support;
 
-    if (contact) {
-      contact_info = "Yes";
-    } else {
-      contact_info = "No";
-    }
-    if (message) {
-      direct_message = "Yes";
-    } else {
-      direct_message = "No";
-    }
-    if (calculator) {
-      feed_calculator = "Yes";
-    } else {
-      feed_calculator = "No";
-    }
-    if (predictor) {
-      disease_predictor = "Yes";
-    } else {
-      disease_predictor = "No";
-    }
-    if (support) {
-      customer_support = "Yes";
-    } else {
-      customer_support = "No";
-    }
+      if (contact) {
+        contact_info = "Yes";
+      } else {
+        contact_info = "No";
+      }
+      if (message) {
+        direct_message = "Yes";
+      } else {
+        direct_message = "No";
+      }
+      if (calculator) {
+        feed_calculator = "Yes";
+      } else {
+        feed_calculator = "No";
+      }
+      if (predictor) {
+        disease_predictor = "Yes";
+      } else {
+        disease_predictor = "No";
+      }
+      if (support) {
+        customer_support = "Yes";
+      } else {
+        customer_support = "No";
+      }
 
-    payload = {
-      id: userData.staff_id,
-      permission_level: userData.permission_level,
-      contact_info: contact_info,
-      direct_message: direct_message,
-      feed_calculator: feed_calculator,
-      disease_predictor: disease_predictor,
-      customer_support: customer_support,
-      ...values,
-    };
+      payload = {
+        id: userData.staff_id,
+        permission_level: userData.permission_level,
+        contact_info: contact_info,
+        direct_message: direct_message,
+        feed_calculator: feed_calculator,
+        disease_predictor: disease_predictor,
+        customer_support: customer_support,
+        ...values,
+      };
+    }
     //   }
     console.log(payload);
     Object.entries(payload).forEach(([key, value]) => {
@@ -114,22 +107,17 @@ export default function AddSubscription() {
     no_of_product: "",
   };
 
-  // const loadedData = {
-  // title: "",
-  // currency: "",
-  // price: "",
-  // vat: "",
-  // date_option: "",
-  // duration: "",
-  // case: "",
-  // contact_info: "",
-  // direct_message: "",
-  // feed_calculator: "",
-  // disease_predictor: "",
-  // store: "",
-  // no_of_product: "",
-  // customer_support: "",
-  //   };
+  const loadedData = {
+    title: store.title,
+    currency: store.price.slice(0,3),
+    price: store.price.slice(3),
+    vat: store.vat,
+    date_option: store.date_option,
+    duration: store.duration,
+    case: store.case,
+    store: store.store,
+    no_of_product: store.no_of_product,
+    };
 
   const {
     values,
@@ -142,7 +130,7 @@ export default function AddSubscription() {
     handleSubmit,
   } = useFormik({
     validateOnMount: true,
-    initialValues: initialValues,
+    initialValues:  action === 'add' ?  initialValues : loadedData,
     validationSchema: subscription,
     onSubmit,
   });

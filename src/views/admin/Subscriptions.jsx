@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { user } from "../../atom/userAtom";
 import {
   deleteSubscriptionPlan,
@@ -8,7 +8,7 @@ import {
 } from "../../utils/adminApiService";
 import AdminDashboardCard from "../../components/adminDashboardCard/AdminDashboardCard";
 import moment from "moment";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import addIcon from "../../assets/icons/add-icon.svg";
 import AdminCardLoading from "../../components/loading/AdminCardLoading";
 import AdminCard from "../../components/adminCard/AdminCard";
@@ -16,11 +16,16 @@ import totalSubscribers from "../../assets/sidebar/total-subscribers.svg";
 import activeSubscriber from "../../assets/sidebar/active-subscription.svg";
 import expiredSubscribers from "../../assets/sidebar/active-subscription.svg";
 import { toast } from "react-toastify";
+import { storeData } from "../../atom/storeAtom";
+import { actionState } from "../../atom/actionAtom";
 
 export default function Subscriptions() {
   const [subscriptions, setSubscriptions] = useState();
   const [loading, setLoading] = useState(true);
   const userData = useRecoilValue(user);
+  const [store, setStore] = useRecoilState(storeData);
+  const [action, setAction] = useRecoilState(actionState);
+  const location = useNavigate();
 
   const getSubscriptions = async () => {
     setLoading(true);
@@ -42,6 +47,13 @@ export default function Subscriptions() {
       getSubscriptions()
     });
   };
+
+  const editSubscription = (data) => {
+    setStore(data);
+    setAction("edit");
+    location('/add-subscription')
+  };
+
 
   useEffect(() => {
     getSubscriptions();
@@ -90,6 +102,7 @@ export default function Subscriptions() {
                   title={res.title}
                   name={res.detail}
                   approveFunction={() => deleteSubscription(res)}
+                  editFunction={() => editSubscription(res)}
                   message='Are you sure you want to delete this plan?'
                   price={res.price}
                   duration={res.duration}
