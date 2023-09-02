@@ -25,7 +25,7 @@ export default function AddPromotion() {
     let payload;
         if (action && action === "edit") {
          payload = {
-          id: userData.staff_id,
+          staff_id: userData.staff_id,
           permission_level: userData.permission_level,
           promotion_id: store.promotion_id,
           ...values,
@@ -33,7 +33,7 @@ export default function AddPromotion() {
       }
     else{
     payload = {
-      id: userData.staff_id,
+      staff_id: userData.staff_id,
       permission_level: userData.permission_level,
       ...values,
     };
