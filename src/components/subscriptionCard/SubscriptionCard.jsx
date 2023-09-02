@@ -1,8 +1,67 @@
 import cancelled from "../../assets/sidebar/cancel.svg";
 import approved from "../../assets/sidebar/verified.svg";
 import CurrencyFormatter from "currency-formatter-react";
+import { useRecoilValue } from "recoil";
+import ReactDOM from "react-dom";
+import { user } from "../../atom/userAtom";
+import React, { useState } from "react";
+
 
 export default function SubscriptionCard({ data, selectedPlan }) {
+  const [selected, setSelected] = useState("");
+  const [loading, setLoading] = useState(false);
+  const PayPalButton = window.paypal.Buttons.driver("react", {
+    React,
+    ReactDOM,
+  });
+  const userData = useRecoilValue(user);
+
+  const createOrder = (data, actions) => {
+    let amount = 0;
+
+    return actions.order.create({
+      purchase_units: [
+        {
+          amount: {
+            value: amount,
+          },
+        },
+      ],
+    });
+  };
+
+  const onApprove = (data, actions) => {
+    return actions.order.capture();
+  };
+
+  function PaypalSubmit() {
+    if (selectedPlan) {
+      return (
+        <PayPalButton
+          createOrder={(data, actions) => createOrder(data, actions)}
+          onApprove={(data, actions) => onApprove(data, actions)}
+        />
+      );
+    } else {
+      return (
+        <button
+          className="p-6 cursor-pointer bg-green-800 text-center text-white text-sm font-bold rounded-b-lg disabled"
+          type="submit"
+          disabled
+        >
+          Pay with Paypal
+        </button>
+      );
+    }
+  }
+
+  const selectPlan = (data) => {
+    setSelected(data)
+    if(Number(data.price.slice(3)) === 0){
+      
+    } 
+  }
+
   return (
     <>
       {selectedPlan === data.title ? (
@@ -110,9 +169,13 @@ export default function SubscriptionCard({ data, selectedPlan }) {
                   <p className=" text-[12px]">{data?.customer_support}</p>
                 </div>
               </div>
-              <div className="p-6 cursor-pointer absolute bottom-0 w-full left-0 bg-green-800 text-center text-white text-sm font-bold rounded-b-lg">
+              <button className="p-6 cursor-pointer absolute bottom-0 w-full left-0 bg-green-800 text-center text-white text-sm font-bold rounded-b-lg flex items-center justify-center gap-4" disabled={loading} onClick={()=> selectPlan(data)}>
+                {
+                  loading ? 
+                  <i className="pi pi-spinner pi-spin"></i> : ''
+                }
                 SELECT PLAN
-              </div>
+              </button>
             </div>
           </div>
         </div>

@@ -1,60 +1,14 @@
 import SubscriptionCard from "../components/subscriptionCard/SubscriptionCard";
 import React, { useEffect, useState } from "react";
 import { getSubscriptionPlan } from "../utils/userApiService";
-import { useRecoilValue } from "recoil";
-import { user } from "../atom/userAtom";
-import ReactDOM from "react-dom";
+
 
 export default function OnboardVetSubscribe() {
   const [allSubscriptions, setAllSubscriptions] = useState([]);
   const [plan, setPlan] = useState();
-  const [selectedPlan, setSelectedPlan] = useState("");
-  const PayPalButton = window.paypal.Buttons.driver("react", {
-    React,
-    ReactDOM,
-  });
 
-  const userData = useRecoilValue(user);
 
-  const createOrder = (data, actions) => {
-    let amount = 0;
-
-    return actions.order.create({
-      purchase_units: [
-        {
-          amount: {
-            value: amount,
-          },
-        },
-      ],
-    });
-  };
-
-  const onApprove = (data, actions) => {
-    return actions.order.capture();
-  };
-
-  function PaypalSubmit() {
-    if (selectedPlan) {
-      return (
-        <PayPalButton
-          createOrder={(data, actions) => createOrder(data, actions)}
-          onApprove={(data, actions) => onApprove(data, actions)}
-        />
-      );
-    } else {
-      return (
-        <button
-          className="p-6 cursor-pointer bg-green-800 text-center text-white text-sm font-bold rounded-b-lg disabled"
-          type="submit"
-          disabled
-        >
-          Pay with Paypal
-        </button>
-      );
-    }
-  }
-
+  
   useEffect(() => {
     getSubscriptionPlan().then((res) => {
       setAllSubscriptions(res);
