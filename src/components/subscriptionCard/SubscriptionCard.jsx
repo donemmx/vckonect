@@ -10,6 +10,7 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { getUserById } from "../../utils/userApiService";
 import { Dialog } from "primereact/dialog";
+import { PaystackButton } from "react-paystack";
 const PayPalButton = window.paypal.Buttons.driver("react", { React, ReactDOM });
 
 export default function SubscriptionCard({ data, selectedPlan }) {
@@ -19,6 +20,7 @@ export default function SubscriptionCard({ data, selectedPlan }) {
   const [paymentChannel, setPaymentChannel] = useState();
   const [visible, setVisible] = useState(false);
 
+  const publicKey = "pk_test_b151276bd6786f5c094f1c35d7ee0008f073fb2d";
   const navigate = useNavigate();
 
   const [userData, setUserData] = useRecoilState(user);
@@ -28,7 +30,7 @@ export default function SubscriptionCard({ data, selectedPlan }) {
       purchase_units: [
         {
           amount: {
-            value: selected.price.slice(3),
+            value: selected?.price?.slice(3),
           },
         },
       ],
@@ -49,6 +51,21 @@ export default function SubscriptionCard({ data, selectedPlan }) {
       />
     );
   }
+
+  const componentProps = {
+    email: userData?.email,
+    amount: selected?.price?.slice(3),
+    metadata: {
+      name: `${userData?.first_name} ${userData?.last_name}`,
+      phone: `${userData?.phone_number}`,
+    },
+    publicKey,
+    text: "Pay Now",
+    onSuccess: () => {
+      getUserData();
+    },
+    onClose: () => alert("Wait! Don't leave :("),
+  };
 
   const openModal = () => {
     setVisible(!visible);
@@ -95,7 +112,7 @@ export default function SubscriptionCard({ data, selectedPlan }) {
       setLoading(true);
       subscribeUserToPlan(data);
     } else {
-      openModal()
+      openModal();
     }
   };
 
@@ -215,7 +232,9 @@ export default function SubscriptionCard({ data, selectedPlan }) {
               <button
                 className="p-6 cursor-pointer absolute bottom-0 w-full left-0 bg-green-800 text-center text-white text-sm font-bold rounded-b-lg flex items-center justify-center gap-4"
                 disabled={loading}
-                onClick={() => {selectPlan(data)}}
+                onClick={() => {
+                  selectPlan(data);
+                }}
               >
                 {loading ? <i className="pi pi-spinner pi-spin"></i> : ""}
                 SELECT PLAN
