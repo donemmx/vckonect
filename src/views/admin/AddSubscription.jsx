@@ -116,7 +116,7 @@ export default function AddSubscription() {
     duration: store.duration,
     case: store.case,
     store: store.store,
-    no_of_product: store.no_of_product,
+    no_of_product: store.no_of_products,
     };
 
   const {
