@@ -27,7 +27,7 @@ export default function OnboardVetSubscribe() {
       </div>
       <div className="left w-full lg:w-[100%] p-2 rounded-lg">
         <div className="flex bg-white w-fit flex-wrap mx-auto p-3 shadow rounded-2xl items-center justify-center ">
-          {allSubscriptions.map((res) => (
+          {allSubscriptions?.map((res) => (
             <div className="mt-1 " key={res.id}>
               <div
                 className={
@@ -44,7 +44,7 @@ export default function OnboardVetSubscribe() {
         </div>
       </div>
       <div className="flex items-center w-[100%] gap-3 flex-wrap py-10 mx-auto">
-        {allSubscriptions.map((res) => (
+        {allSubscriptions?.map((res) => (
           <SubscriptionCard data={res} selectedPlan={plan} key={res.id} />
         ))}
       </div>
