@@ -2,7 +2,11 @@
 import { useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { user } from "../../atom/userAtom";
-import { adminGetPromotionPlan, deleteUserPromotionPlan, getPromotionPlan } from "../../utils/adminApiService";
+import {
+  adminGetPromotionPlan,
+  deleteUserPromotionPlan,
+  getPromotionPlan,
+} from "../../utils/adminApiService";
 import AdminDashboardCard from "../../components/adminDashboardCard/AdminDashboardCard";
 import moment from "moment";
 import { Link, useNavigate } from "react-router-dom";
@@ -24,9 +28,8 @@ export default function AdminPromotion() {
   const [loading, setLoading] = useState(true);
   const [store, setStore] = useRecoilState(storeData);
   const [action, setAction] = useRecoilState(actionState);
-  
-  const location = useNavigate() 
 
+  const location = useNavigate();
 
   const getPromotions = async () => {
     const payload = {};
@@ -44,7 +47,6 @@ export default function AdminPromotion() {
     });
   };
 
-
   const deletePromotion = (data) => {
     setLoading(true);
     const payload = {
@@ -53,29 +55,28 @@ export default function AdminPromotion() {
     deleteUserPromotionPlan(payload).then((res) => {
       toast.success("Promotion deleted successfully");
       setLoading(false);
-      getPromotions()
+      getPromotions();
     });
   };
 
   const editPromotion = (data) => {
     setStore(data);
     setAction("edit");
-    location('/add-promotion')
+    location("/add-promotion");
   };
 
   const addPromotion = () => {
     setAction("add");
-    location('/add-promotion')
-  }
+    location("/add-promotion");
+  };
 
   useEffect(() => {
     getPromotions();
   }, [search.length < 3]);
 
-
   return (
     <div className="w-full">
-       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-1 lg:gap-2 mt-5">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-1 lg:gap-2 mt-5">
         <AdminCard
           number={promotions?.length}
           text="Total Promotions"
@@ -129,13 +130,15 @@ export default function AdminPromotion() {
             <>
               {promotions?.map((res) => (
                 <AdminDashboardCard
-                  title={res.promotion_title + ' ' + 'plan'}
-                  name={`(${res.no_of_products} Product(s) Max)`}
                   key={res.id}
-                  price={ res.currency+res.price}
-                  // approveFunction={deletePromotion(res)}
+                  title={res.promotion_title + " " + "plan"}
+                  name={`(${res.no_of_products} Product(s) Max)`}
+                  // approveFunction={(res) => {
+                  // }}
                   editFunction={() => editPromotion(res)}
                   duration={`${res.promotion_title} (${res.duration} ${res.date_option})`}
+                  price={res.currency + res.price}
+                  message='Are you sure you want to delete this subscription?'
                   loading={loading}
                   deleteCard={true}
                   time={moment(res.date).utc().fromNow()}
