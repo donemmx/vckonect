@@ -65,6 +65,7 @@ export default function AddProduct() {
         user_id: store?.user_id,
         store_id: store?.id,
         availability: available,
+        tags: tags,
         category: category,
         images: file,
         ...values,
@@ -75,6 +76,7 @@ export default function AddProduct() {
         user_role: userData?.role,
         store_id: store?.id,
         availability: available,
+        tags: tags,
         category: category,
         images: file,
         ...values,
@@ -90,10 +92,10 @@ export default function AddProduct() {
           toast.error(res.detail);
         } else {
           if (action && action === "edit") {
-            toast.success("Store details edited successfully");
+            toast.success("Product details edited successfully");
             setStore(null);
           } else {
-            toast.success("Store added successfully");
+            toast.success("Product added successfully");
           }
 
           window.history.back();
