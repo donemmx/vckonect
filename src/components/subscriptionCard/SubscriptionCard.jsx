@@ -1,22 +1,24 @@
 import cancelled from "../../assets/sidebar/cancel.svg";
 import approved from "../../assets/sidebar/verified.svg";
 import CurrencyFormatter from "currency-formatter-react";
-import { useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import ReactDOM from "react-dom";
 import { user } from "../../atom/userAtom";
 import React, { useState } from "react";
 import { vetPlan } from "../../utils/vetApiService";
 import { toast } from "react-toastify";
-
+import { useNavigate } from "react-router-dom";
+import { getUserById } from "../../utils/userApiService";
 
 export default function SubscriptionCard({ data, selectedPlan }) {
   const [selected, setSelected] = useState("");
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
   const PayPalButton = window.paypal.Buttons.driver("react", {
     React,
     ReactDOM,
   });
-  const userData = useRecoilValue(user);
+  const [userData, setUserData] = useRecoilState(user);
 
   const createOrder = (data, actions) => {
     let amount = 0;
@@ -57,35 +59,46 @@ export default function SubscriptionCard({ data, selectedPlan }) {
     }
   }
 
-  const subscribeUserToPlan = async () => {
-    const payload = {
-      id: selected.id,
-      role: 'Veterinarian',
-      title: selected.title,
-      subscription_id: selected.subscription_id,
-      price: selected.price,
-      no_of_products: selected.no_of_products,
-      store: selected.store,
-      case: selected.case,
-      plan_id: selected.id
-    }
+  const getUserData = async () => {
+   await getUserById({ id: userData.id, role: userData.role }).then((response) => {
+      setUserData(response)
+    });
+  };
 
-   await vetPlan(payload).then(()=> {
-      toast.success('Subscription successful')
-    }).catch((err)=> {
-      toast.error(err.message)
-    })
-  }
+  const subscribeUserToPlan = async (data) => {
+    const payload = {
+      id: userData?.id,
+      role: userData?.role,
+      title: data.title,
+      subscription_id: data.subscription_id,
+      price: data.price,
+      no_of_products: data.no_of_products,
+      store: data.store,
+      case: data.case,
+      plan_id: data.id,
+    };
+
+    await vetPlan(payload)
+      .then(() => {
+        toast.success("Subscription successful");
+        setLoading(false);
+        getUserData()
+        navigate("/vet-dashboard");
+      })
+      .catch((err) => {
+        toast.error(err.message);
+      });
+  };
 
   const selectPlan = (data) => {
-    setSelected(data)
-    if(Number(data.price.slice(3)) === 0){
-      subscribeUserToPlan()
-    } 
-    else{
-      
+    setLoading(true);
+    setSelected(data);
+    if (Number(data.price.slice(3)) === 0) {
+      subscribeUserToPlan(data);
+    } else {
+      console.log('opening popup');
     }
-  }
+  };
 
   return (
     <>
@@ -194,11 +207,12 @@ export default function SubscriptionCard({ data, selectedPlan }) {
                   <p className=" text-[12px]">{data?.customer_support}</p>
                 </div>
               </div>
-              <button className="p-6 cursor-pointer absolute bottom-0 w-full left-0 bg-green-800 text-center text-white text-sm font-bold rounded-b-lg flex items-center justify-center gap-4" disabled={loading} onClick={()=> selectPlan(data)}>
-                {
-                  loading ? 
-                  <i className="pi pi-spinner pi-spin"></i> : ''
-                }
+              <button
+                className="p-6 cursor-pointer absolute bottom-0 w-full left-0 bg-green-800 text-center text-white text-sm font-bold rounded-b-lg flex items-center justify-center gap-4"
+                disabled={loading}
+                onClick={() => selectPlan(data)}
+              >
+                {loading ? <i className="pi pi-spinner pi-spin"></i> : ""}
                 SELECT PLAN
               </button>
             </div>
