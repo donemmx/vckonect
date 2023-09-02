@@ -73,7 +73,7 @@ export default function SubscriptionCard({ data, selectedPlan }) {
       phone: `${userData?.phone_number}`,
     },
     publicKey,
-    text: "Pay Now",
+    text: "Paystack",
     onSuccess: () => {
       setVisible(!visible);
       subscribeUserToPlan(selected);
@@ -125,7 +125,6 @@ export default function SubscriptionCard({ data, selectedPlan }) {
   useEffect(() => {
     if (userData.subscription === "Active") {
       navigate("/vet-dashboard");
-      console.log(selected);
     }
   }, [success]);
 
@@ -266,18 +265,11 @@ export default function SubscriptionCard({ data, selectedPlan }) {
                     >
                       Paypal
                     </div>
-                    <div
-                      className="p-12 rounded-lg border cursor-pointer hover:bg-[var(--primary)] hover:text-white"
-                      onClick={() => setPaymentChannel("paystack")}
-                    >
-                      Paystack
-                    </div>
+                    <PaystackButton className="p-12 rounded-lg border cursor-pointer hover:bg-[var(--primary)] hover:text-white" {...componentProps} />
                   </div>
                 ) : paymentChannel === "paypal" ? (
                   <PaypalSubmit />
-                ) : paymentChannel === "paystack" ? (
-                  <PaystackButton {...componentProps} />
-                ) : (
+                )  : (
                   ""
                 )}
               </div>

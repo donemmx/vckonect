@@ -6,7 +6,6 @@ import ReactDOM from "react-dom";
 import CurrencyFormatter from "currency-formatter-react";
 import { Dialog } from "primereact/dialog";
 import { PaystackButton } from "react-paystack";
-import { useNavigate } from "react-router-dom";
 
 const PayPalButton = window.paypal.Buttons.driver("react", { React, ReactDOM });
 
@@ -20,7 +19,6 @@ export default function SubscribeToPlan() {
   const userData = useRecoilValue(user);
   const [amount, setAmount] = useState(0);
 
-  const navigate = useNavigate();
 
   const createOrder = (data, actions) => {
     return actions.order.create({
@@ -35,7 +33,7 @@ export default function SubscribeToPlan() {
   };
 
   const onApprove = (data, actions) => {
-    setVisible(!visible)
+    setVisible(!visible);
     getPromotionPlan().then((res) => {
       setAllPromotions(res);
       setPlan(res[0].title);
@@ -54,10 +52,9 @@ export default function SubscribeToPlan() {
 
   const openModal = (data) => {
     setVisible(!visible);
-    setAmount(Number(data?.price?.slice(3)) * 780* 100);
+    setAmount(Number(data?.price?.slice(3)) * 780 * 100);
     setSelectedPlan(data);
   };
-
 
   const componentProps = {
     email: userData?.email,
@@ -67,13 +64,12 @@ export default function SubscribeToPlan() {
       phone: `${userData?.phone_number}`,
     },
     publicKey,
-    text: "Pay Now",
+    text: "Paystack",
     onSuccess: () => {
       setVisible(!visible);
     },
-    onClose: () => (''),
+    onClose: () => "",
   };
-
 
   useEffect(() => {
     getPromotionPlan().then((res) => {
@@ -141,23 +137,27 @@ export default function SubscribeToPlan() {
       <Dialog
         visible={visible}
         className=" w-[95%] md:w-[70%] lg:w-[40%]"
-        onHide={() => {setVisible(false), setPaymentChannel(null)}}
+        onHide={() => {
+          setVisible(false), setPaymentChannel(null);
+        }}
       >
         <div className="flex flex-col gap-10 items-center justify-between w-fit mx-auto ">
           <h2 className=" text-center font-bold">Select A Payment Channel</h2>
           {paymentChannel == null ? (
             <div className="flex items-center gap-10">
-              <div className="p-12 rounded-lg border cursor-pointer hover:bg-[var(--primary)] hover:text-white  " onClick={()=> setPaymentChannel('paypal')}>
+              <div
+                className="p-12 rounded-lg border cursor-pointer hover:bg-[var(--primary)] hover:text-white  "
+                onClick={() => setPaymentChannel("paypal")}
+              >
                 Paypal
               </div>
-              <div className="p-12 rounded-lg border cursor-pointer hover:bg-[var(--primary)] hover:text-white" onClick={()=> setPaymentChannel('paystack')}>
-                Paystack
-              </div>
+              <PaystackButton
+                className="p-12 rounded-lg border cursor-pointer hover:bg-[var(--primary)] hover:text-white"
+                {...componentProps}
+              />
             </div>
           ) : paymentChannel === "paypal" ? (
             <PaypalSubmit />
-          ) : paymentChannel === "paystack" ? (
-            <PaystackButton {...componentProps} />
           ) : (
             ""
           )}
