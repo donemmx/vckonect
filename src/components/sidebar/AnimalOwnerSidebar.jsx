@@ -7,7 +7,7 @@ import chaticon from "../../assets/sidebar/chat.svg";
 import feedicon from "../../assets/sidebar/feed-calc.svg";
 import diseaseicon from "../../assets/sidebar/disease-prediction.svg";
 import accounticon from "../../assets/sidebar/account.svg";
-import adsicon from "../../assets/sidebar/ads.svg";
+import adsicon from "../../assets/sidebar/promotionIcon.svg";
 import activitiesicon from "../../assets/sidebar/activities.svg";
 import { Link, NavLink } from "react-router-dom";
 

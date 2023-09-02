@@ -8,7 +8,7 @@ import diseaseicon from "../../assets/sidebar/disease-prediction.svg";
 import accounticon from "../../assets/sidebar/account.svg";
 import clinicIcon from "../../assets/sidebar/clinic-dash.svg";
 import casesIcon from "../../assets/sidebar/cases.svg";
-import adsicon from "../../assets/sidebar/ads.svg";
+import adsicon from "../../assets/sidebar/promotionIcon.svg";
 import activitiesicon from "../../assets/sidebar/activities.svg";
 import { Link } from "react-router-dom";
 export default function VetSidebar() {

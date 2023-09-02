@@ -3,7 +3,7 @@ import searchIcon from "../../assets/sidebar/search-dash.svg";
 import storeIcon from "../../assets/sidebar/stores.svg";
 import livestockIcon from "../../assets/sidebar/livestock.svg";
 import cases from "../../assets/sidebar/cases.svg";
-import adsIcon from "../../assets/sidebar/ads.svg";
+import adsIcon from "../../assets/sidebar/promotionIcon.svg";
 import arrow from "../../assets/sidebar/gray-arrow.svg";
 import AccountCard from "../../components/accountCard/AccountCard";
 import { useEffect, useState } from "react";

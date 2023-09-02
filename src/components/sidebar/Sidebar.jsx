@@ -5,7 +5,7 @@ import accounticon from "../../assets/sidebar/account.svg";
 import logout from "../../assets/sidebar/logout.svg";
 import users from "../../assets/sidebar/users.svg";
 import subscription from "../../assets/sidebar/subscription.svg";
-import adsicon from "../../assets/sidebar/ads.svg";
+import adsicon from "../../assets/sidebar/promotionIcon.svg";
 import activitiesicon from "../../assets/sidebar/activities.svg";
 import { NavLink, useNavigate } from "react-router-dom";
 import logo from "../../assets/logo/vc-logo.svg";
