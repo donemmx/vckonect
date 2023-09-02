@@ -4,26 +4,25 @@ import { useRecoilValue } from "recoil";
 import { user } from "../../atom/userAtom";
 import ReactDOM from "react-dom";
 import CurrencyFormatter from "currency-formatter-react";
+import { Dialog } from "primereact/dialog";
+// import PayButton from '../../utils/paystackConfig'
+const PayPalButton = window.paypal.Buttons.driver("react", { React, ReactDOM });
 
 export default function SubscribeToPlan() {
   const [allPromotion, setAllPromotions] = useState([]);
-  const [plan, setPlan] = useState();
+  const [plan, setPlan] = useState(null);
+  const [paymentChannel, setPaymentChannel] = useState();
   const [selectedPlan, setSelectedPlan] = useState("");
-  const PayPalButton = window.paypal.Buttons.driver("react", {
-    React,
-    ReactDOM,
-  });
+  const [visible, setVisible] = useState(false);
 
   const userData = useRecoilValue(user);
 
   const createOrder = (data, actions) => {
-    let amount = 0;
-
     return actions.order.create({
       purchase_units: [
         {
           amount: {
-            value: amount,
+            value: selectedPlan.price.slice(3),
           },
         },
       ],
@@ -31,29 +30,27 @@ export default function SubscribeToPlan() {
   };
 
   const onApprove = (data, actions) => {
+    setVisible(!visible)
+    getPromotionPlan().then((res) => {
+      setAllPromotions(res);
+      setPlan(res[0].title);
+    });
     return actions.order.capture();
   };
 
   function PaypalSubmit() {
-    if (selectedPlan) {
-      return (
-        <PayPalButton
-          createOrder={(data, actions) => createOrder(data, actions)}
-          onApprove={(data, actions) => onApprove(data, actions)}
-        />
-      );
-    } else {
-      return (
-        <button
-          className="p-6 cursor-pointer bg-green-800 text-center text-white text-sm font-bold rounded-b-lg disabled"
-          type="submit"
-          disabled
-        >
-          Pay with Paypal
-        </button>
-      );
-    }
+    return (
+      <PayPalButton
+        createOrder={(data, actions) => createOrder(data, actions)}
+        onApprove={(data, actions) => onApprove(data, actions)}
+      />
+    );
   }
+
+  const openModal = (data) => {
+    setVisible(!visible);
+    setSelectedPlan(data);
+  };
 
   useEffect(() => {
     getPromotionPlan().then((res) => {
@@ -103,21 +100,46 @@ export default function SubscribeToPlan() {
                         />
                       </h2>
                     </div>
+                    <div
+                      className="p-6 cursor-pointer bg-green-800 text-center text-white text-sm font-bold rounded-b-lg"
+                      onClick={() => openModal(res)}
+                    >
+                      SELECT PLAN
+                    </div>
                   </div>
                 ) : (
                   ""
                 )}
               </div>
             ))}
-            <div
-              className="p-6 cursor-pointer bg-green-800 text-center text-white text-sm font-bold rounded-b-lg"
-              onClick={PaypalSubmit}
-            >
-              SELECT PLAN
-            </div>
           </div>
         </div>
       </div>
+      <Dialog
+        visible={visible}
+        className=" w-[95%] md:w-[70%] lg:w-[40%]"
+        onHide={() => {setVisible(false), setPaymentChannel(null)}}
+      >
+        <div className="flex flex-col gap-10 items-center justify-between w-fit mx-auto ">
+          <h2 className=" text-center font-bold">Select A Payment Channel</h2>
+          {paymentChannel == null ? (
+            <div className="flex items-center gap-10">
+              <div className="p-12 rounded-lg border cursor-pointer hover:bg-[var(--primary)] hover:text-white  " onClick={()=> setPaymentChannel('paypal')}>
+                Paypal
+              </div>
+              <div className="p-12 rounded-lg border cursor-pointer hover:bg-[var(--primary)] hover:text-white" onClick={()=> setPaymentChannel('paystack')}>
+                Paystack
+              </div>
+            </div>
+          ) : paymentChannel === "paypal" ? (
+            <PaypalSubmit />
+          ) : paymentChannel === "paystack" ? (
+            " "
+          ) : (
+            ""
+          )}
+        </div>
+      </Dialog>
     </div>
   );
 }
