@@ -39,13 +39,6 @@ export default function AdminPromotion() {
     });
   };
 
-  const searchData = async () => {
-    setLoading(true);
-    await getPromotionPlan({ name: search }).then((res) => {
-      setPromotions(res);
-      setLoading(false);
-    });
-  };
 
   const deletePromotion = (data) => {
     setLoading(true);
@@ -103,7 +96,7 @@ export default function AdminPromotion() {
           <img src={addIcon} alt="" className="w-[40px]" />
         </Link>
         <div className="posts p-3 mt-5 grid gap-2">
-          <div className="form__group flex space-x-2 items-center p-1 border-[#EBEBEB] border  bg-white rounded-[16px]">
+          {/* <div className="form__group flex space-x-2 items-center p-1 border-[#EBEBEB] border  bg-white rounded-[16px]">
             <input
               type="text"
               placeholder="Search"
@@ -119,7 +112,7 @@ export default function AdminPromotion() {
               <img src={searchIcon} alt="" className=" h-[15px]" />
               Search
             </button>
-          </div>
+          </div> */}
           {loading ? (
             <>
               <AdminCardLoading />
