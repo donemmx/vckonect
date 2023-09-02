@@ -21,21 +21,26 @@ export default function AddProduct() {
   const [tags, setTags] = useState([]);
   const location = useNavigate();
   const [category, setCategory] = useState(null);
-
+  const [selectedFiles, setSelectedFiles] = useState(undefined);
+  const [imagePreviews, setImagePreviews] = useState([]);
   const [file, setFile] = useState([]);
-  const [fileDataURL, setFileDataURL] = useState(null);
   const [avialability, setAvailability] = useState(false);
 
-  const getImage = (e) => {
-    const fileData = e.target.files[0];
-    setFile(fileData);
-    console.log(fileData);
+  const selectFiles = (event) => {
+    let images = [];
+    let dataImage = [];
+    for (let i = 0; i < event.target.files.length; i++) {
+      dataImage.push(event.target.files[i]);
+      images.push(URL.createObjectURL(event.target.files[i]));
+    }
+    setFile(event.target.files);
+    setSelectedFiles(event.target.files);
+    setImagePreviews(images);
   };
 
-
   const back = () => {
-    window.history.back()
-  }
+    window.history.back();
+  };
 
   const categories = ["Poultry", "Fish", "Pig", "Sheep"];
 
@@ -61,16 +66,17 @@ export default function AddProduct() {
         store_id: store?.id,
         availability: available,
         category: category,
-        images: [file],
+        images: file,
         ...values,
       };
     } else {
       payload = {
-        user_role: userData?.role,
         user_id: userData?.id,
+        user_role: userData?.role,
+        store_id: store?.id,
         availability: available,
         category: category,
-        images: [file],
+        images: file,
         ...values,
       };
     }
@@ -255,16 +261,24 @@ export default function AddProduct() {
             {errors.available_units && touched.available_units && (
               <p className="error">{errors.available_units}</p>
             )}
-            {fileDataURL !== null || picture !== null ? (
+            {imagePreviews?.length > 0 ? (
               <>
-                <img
-                  src={fileDataURL ?? picture}
-                  className="h-[200px] w-full object-cover border-[1px] rounded-md"
-                />
+                <div className=" grid grid-cols-2">
+                  {imagePreviews?.map((img, i) => {
+                    return (
+                      <img
+                        className="preview"
+                        src={img}
+                        alt={"image-" + i}
+                        key={i}
+                      />
+                    );
+                  })}
+                </div>
                 <div
                   className="underline cursor-pointer"
                   onClick={() => {
-                    setFileDataURL(null), setPicture(null);
+                    setImagePreviews(null)
                   }}
                 >
                   Remove Image
@@ -274,8 +288,9 @@ export default function AddProduct() {
               <input
                 type="file"
                 id="image"
+                multiple
                 accept=".png, .jpg, .jpeg"
-                onChange={(e) => getImage(e)}
+                onChange={selectFiles}
               />
             )}
 

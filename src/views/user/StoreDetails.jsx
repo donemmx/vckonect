@@ -34,13 +34,12 @@ export default function StoreDetails() {
     }
   };
 
+
   const setActionData = () => {
     setAction("add");
   };
 
-  const resetStore = () => {
-    setStoreInfo(null)
-  }
+
 
   // useEffect(() => getUser, []);
 
@@ -150,7 +149,7 @@ export default function StoreDetails() {
           <p className="text-xs mt-4">Click to copy</p>
           {userData?.id === storeInfo?.user_id ? (
             <button
-              onClick={() => checker("add-product")}
+              onClick={() => {checker("add-product"), setActionData()}}
               className="border-[1px] hover:border-[#52CE06] cursor-pointer  flex items-center justify-between p-3 rounded-[18px] mt-5 mb-5 w-full"
             >
               <p className="font-bold px-2">Add New Product</p>
@@ -170,7 +169,7 @@ export default function StoreDetails() {
           </p>
           {userData?.id === storeInfo?.user_id ? (
             <button
-              onClick={() => {checker("add-product"), resetStore()}}
+              onClick={() => {checker("add-product"), setActionData()}}
               className="border-[1px] hover:border-[#52CE06] cursor-pointer  flex items-center justify-between p-3 rounded-[18px] mt-5 mb-5 w-full"
             >
               <p className="font-bold px-2">Add New Product</p>
