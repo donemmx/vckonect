@@ -5,6 +5,8 @@ import { useRecoilValue } from "recoil";
 import ReactDOM from "react-dom";
 import { user } from "../../atom/userAtom";
 import React, { useState } from "react";
+import { vetPlan } from "../../utils/vetApiService";
+import { toast } from "react-toastify";
 
 
 export default function SubscriptionCard({ data, selectedPlan }) {
@@ -55,11 +57,34 @@ export default function SubscriptionCard({ data, selectedPlan }) {
     }
   }
 
+  const subscribeUserToPlan = async () => {
+    const payload = {
+      id: selected.id,
+      role: 'Veterinarian',
+      title: selected.title,
+      subscription_id: selected.subscription_id,
+      price: selected.price,
+      no_of_products: selected.no_of_products,
+      store: selected.store,
+      case: selected.case,
+      plan_id: selected.id
+    }
+
+   await vetPlan(payload).then(()=> {
+      toast.success('Subscription successful')
+    }).catch((err)=> {
+      toast.error(err.message)
+    })
+  }
+
   const selectPlan = (data) => {
     setSelected(data)
     if(Number(data.price.slice(3)) === 0){
-      
+      subscribeUserToPlan()
     } 
+    else{
+      
+    }
   }
 
   return (
