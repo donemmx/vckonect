@@ -16,6 +16,7 @@ const PayPalButton = window.paypal.Buttons.driver("react", { React, ReactDOM });
 export default function SubscriptionCard({ data, selectedPlan }) {
   const [selected, setSelected] = useState("");
   const [loading, setLoading] = useState(false);
+  const [amount, setAmount] = useState(0);
   const [success, setSuccess] = useState(false);
   const [paymentChannel, setPaymentChannel] = useState();
   const [visible, setVisible] = useState(false);
@@ -54,7 +55,7 @@ export default function SubscriptionCard({ data, selectedPlan }) {
 
   const componentProps = {
     email: userData?.email,
-    amount: selected?.price?.slice(3),
+    amount: amount,
     metadata: {
       name: `${userData?.first_name} ${userData?.last_name}`,
       phone: `${userData?.phone_number}`,
@@ -62,6 +63,8 @@ export default function SubscriptionCard({ data, selectedPlan }) {
     publicKey,
     text: "Pay Now",
     onSuccess: () => {
+      setVisible(!visible);
+      subscribeUserToPlan(selected);
       getUserData();
     },
     onClose: () => alert("Wait! Don't leave :("),
@@ -112,6 +115,7 @@ export default function SubscriptionCard({ data, selectedPlan }) {
       setLoading(true);
       subscribeUserToPlan(data);
     } else {
+      setAmount(Number(data?.price?.slice(3)) * 780);
       openModal();
     }
   };
@@ -119,6 +123,7 @@ export default function SubscriptionCard({ data, selectedPlan }) {
   useEffect(() => {
     if (userData.subscription === "Active") {
       navigate("/vet-dashboard");
+      console.log(selected);
     }
   }, [success]);
 
@@ -269,7 +274,7 @@ export default function SubscriptionCard({ data, selectedPlan }) {
                 ) : paymentChannel === "paypal" ? (
                   <PaypalSubmit />
                 ) : paymentChannel === "paystack" ? (
-                  " "
+                  <PaystackButton {...componentProps} />
                 ) : (
                   ""
                 )}

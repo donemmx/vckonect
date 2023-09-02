@@ -5,7 +5,9 @@ import { user } from "../../atom/userAtom";
 import ReactDOM from "react-dom";
 import CurrencyFormatter from "currency-formatter-react";
 import { Dialog } from "primereact/dialog";
-// import PayButton from '../../utils/paystackConfig'
+import { PaystackButton } from "react-paystack";
+import { useNavigate } from "react-router-dom";
+
 const PayPalButton = window.paypal.Buttons.driver("react", { React, ReactDOM });
 
 export default function SubscribeToPlan() {
@@ -14,8 +16,11 @@ export default function SubscribeToPlan() {
   const [paymentChannel, setPaymentChannel] = useState();
   const [selectedPlan, setSelectedPlan] = useState("");
   const [visible, setVisible] = useState(false);
-
+  const publicKey = "pk_test_b151276bd6786f5c094f1c35d7ee0008f073fb2d";
   const userData = useRecoilValue(user);
+  const [amount, setAmount] = useState(0);
+
+  const navigate = useNavigate();
 
   const createOrder = (data, actions) => {
     return actions.order.create({
@@ -49,8 +54,26 @@ export default function SubscribeToPlan() {
 
   const openModal = (data) => {
     setVisible(!visible);
+    setAmount(Number(data?.price?.slice(3)) * 780* 100);
     setSelectedPlan(data);
   };
+
+
+  const componentProps = {
+    email: userData?.email,
+    amount: amount,
+    metadata: {
+      name: `${userData?.first_name} ${userData?.last_name}`,
+      phone: `${userData?.phone_number}`,
+    },
+    publicKey,
+    text: "Pay Now",
+    onSuccess: () => {
+      setVisible(!visible);
+    },
+    onClose: () => (''),
+  };
+
 
   useEffect(() => {
     getPromotionPlan().then((res) => {
@@ -134,7 +157,7 @@ export default function SubscribeToPlan() {
           ) : paymentChannel === "paypal" ? (
             <PaypalSubmit />
           ) : paymentChannel === "paystack" ? (
-            " "
+            <PaystackButton {...componentProps} />
           ) : (
             ""
           )}
