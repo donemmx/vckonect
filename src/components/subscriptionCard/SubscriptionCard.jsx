@@ -9,26 +9,26 @@ import { vetPlan } from "../../utils/vetApiService";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { getUserById } from "../../utils/userApiService";
+import { Dialog } from "primereact/dialog";
+const PayPalButton = window.paypal.Buttons.driver("react", { React, ReactDOM });
 
 export default function SubscriptionCard({ data, selectedPlan }) {
   const [selected, setSelected] = useState("");
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [paymentChannel, setPaymentChannel] = useState();
+  const [visible, setVisible] = useState(false);
+
   const navigate = useNavigate();
-  const PayPalButton = window.paypal.Buttons.driver("react", {
-    React,
-    ReactDOM,
-  });
+
   const [userData, setUserData] = useRecoilState(user);
 
   const createOrder = (data, actions) => {
-    let amount = 0;
-
     return actions.order.create({
       purchase_units: [
         {
           amount: {
-            value: amount,
+            value: selectedPlan.price.slice(3),
           },
         },
       ],
@@ -36,34 +36,30 @@ export default function SubscriptionCard({ data, selectedPlan }) {
   };
 
   const onApprove = (data, actions) => {
+    setVisible(!visible);
+    getUserData();
     return actions.order.capture();
   };
 
   function PaypalSubmit() {
-    if (selectedPlan) {
-      return (
-        <PayPalButton
-          createOrder={(data, actions) => createOrder(data, actions)}
-          onApprove={(data, actions) => onApprove(data, actions)}
-        />
-      );
-    } else {
-      return (
-        <button
-          className="p-6 cursor-pointer bg-green-800 text-center text-white text-sm font-bold rounded-b-lg disabled"
-          type="submit"
-          disabled
-        >
-          Pay with Paypal
-        </button>
-      );
-    }
+    return (
+      <PayPalButton
+        createOrder={(data, actions) => createOrder(data, actions)}
+        onApprove={(data, actions) => onApprove(data, actions)}
+      />
+    );
   }
 
+  const openModal = () => {
+    setVisible(!visible);
+  };
+
   const getUserData = async () => {
-   await getUserById({ id: userData.id, role: userData.role }).then((response) => {
-      setUserData(response)
-    });
+    await getUserById({ id: userData.id, role: userData.role }).then(
+      (response) => {
+        setUserData(response);
+      }
+    );
   };
 
   const subscribeUserToPlan = async (data) => {
@@ -83,9 +79,9 @@ export default function SubscriptionCard({ data, selectedPlan }) {
       .then(() => {
         toast.success("Subscription successful");
         setLoading(false);
-        setSuccess(true)
-        getUserData()
-      
+        setSuccess(true);
+        getUserData();
+
         navigate("/vet-dashboard");
       })
       .catch((err) => {
@@ -99,16 +95,15 @@ export default function SubscriptionCard({ data, selectedPlan }) {
     if (Number(data.price.slice(3)) === 0) {
       subscribeUserToPlan(data);
     } else {
-      console.log('opening popup');
+      openModal()
     }
   };
 
-
-  useEffect(()=> {
-    if(userData.subscription === 'Active' ){
+  useEffect(() => {
+    if (userData.subscription === "Active") {
       navigate("/vet-dashboard");
     }
-  }, [success])
+  }, [success]);
 
   return (
     <>
@@ -220,12 +215,47 @@ export default function SubscriptionCard({ data, selectedPlan }) {
               <button
                 className="p-6 cursor-pointer absolute bottom-0 w-full left-0 bg-green-800 text-center text-white text-sm font-bold rounded-b-lg flex items-center justify-center gap-4"
                 disabled={loading}
-                onClick={() => selectPlan(data)}
+                onClick={() => {selectPlan(data)}}
               >
                 {loading ? <i className="pi pi-spinner pi-spin"></i> : ""}
                 SELECT PLAN
               </button>
             </div>
+            <Dialog
+              visible={visible}
+              className=" w-[95%] md:w-[70%] lg:w-[40%]"
+              onHide={() => {
+                setVisible(false), setPaymentChannel(null);
+              }}
+            >
+              <div className="flex flex-col gap-10 items-center justify-between w-fit mx-auto ">
+                <h2 className=" text-center font-bold">
+                  Select A Payment Channel
+                </h2>
+                {paymentChannel == null ? (
+                  <div className="flex items-center gap-10">
+                    <div
+                      className="p-12 rounded-lg border cursor-pointer hover:bg-[var(--primary)] hover:text-white  "
+                      onClick={() => setPaymentChannel("paypal")}
+                    >
+                      Paypal
+                    </div>
+                    <div
+                      className="p-12 rounded-lg border cursor-pointer hover:bg-[var(--primary)] hover:text-white"
+                      onClick={() => setPaymentChannel("paystack")}
+                    >
+                      Paystack
+                    </div>
+                  </div>
+                ) : paymentChannel === "paypal" ? (
+                  <PaypalSubmit />
+                ) : paymentChannel === "paystack" ? (
+                  " "
+                ) : (
+                  ""
+                )}
+              </div>
+            </Dialog>
           </div>
         </div>
       ) : (
