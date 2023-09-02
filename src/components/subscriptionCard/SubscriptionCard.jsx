@@ -79,7 +79,7 @@ export default function SubscriptionCard({ data, selectedPlan }) {
       subscribeUserToPlan(selected);
       getUserData();
     },
-    onClose: () => alert("Wait! Don't leave :("),
+    onClose: () => (''),
   };
 
   const openModal = () => {
