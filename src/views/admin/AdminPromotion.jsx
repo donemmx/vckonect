@@ -133,9 +133,6 @@ export default function AdminPromotion() {
                   key={res.id}
                   title={res.promotion_title + " " + "plan"}
                   name={`(${res.no_of_products} Product(s) Max)`}
-                  // approveFunction={(res) => {
-                  // }}
-                  editFunction={() => editPromotion(res)}
                   duration={`${res.promotion_title} (${res.duration} ${res.date_option})`}
                   price={res.currency + res.price}
                   message='Are you sure you want to delete this subscription?'
@@ -143,6 +140,12 @@ export default function AdminPromotion() {
                   deleteCard={true}
                   time={moment(res.date).utc().fromNow()}
                   edit={true}
+                  approveFunction={() => {
+                    deletePromotion({
+                      id: res.promotion_id
+                    })
+                  }}
+                  editFunction={() => editPromotion(res)}
                 />
               ))}
             </>

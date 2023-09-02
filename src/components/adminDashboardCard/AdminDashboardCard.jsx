@@ -4,7 +4,7 @@ import AdminCardLoading from "../loading/AdminCardLoading";
 import editIcon from "../../assets/account/edit-icon.svg";
 import WarningCard from "../warningCard/WarningCard";
 import { Avatar } from "primereact/avatar";
-import React from 'react'
+
 export default function AdminDashboardCard({
   image,
   title,

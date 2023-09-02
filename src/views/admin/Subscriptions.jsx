@@ -37,28 +37,25 @@ export default function Subscriptions() {
     });
   };
 
-  const deleteSubscription = (data) => {
+  const deleteMySubscription = async (payload) => {
     setLoading(true);
-    const payload = {
-      plan_id: data.plan_id,
-    };
-    deleteSubscriptionPlan(payload).then((res) => {
+    await deleteSubscriptionPlan(payload).then((res) => {
       toast.success("Subscription plan deleted successfully");
       setLoading(false);
-      getSubscriptions()
+      getSubscriptions();
     });
   };
 
   const editSubscription = (data) => {
     setStore(data);
     setAction("edit");
-    location('/add-subscription')
+    location("/add-subscription");
   };
 
-  const addSubscription  = () => {
+  const addSubscription = () => {
     setAction("add");
-    location('/add-subscription')
-  }
+    location("/add-subscription");
+  };
 
   useEffect(() => {
     getSubscriptions();
@@ -85,7 +82,7 @@ export default function Subscriptions() {
       </div>
       <div className="activity mt-5  mb-5 p-4 border bg-white rounded-lg w-full">
         <Link
-         onClick={addSubscription}
+          onClick={addSubscription}
           className="border-[1px] hover:border-[#52CE06] cursor-pointer  flex items-center justify-between p-3 rounded-[18px] mt-10 mb-5"
         >
           <p className="font-bold px-2">Add New Subscription</p>
@@ -106,14 +103,18 @@ export default function Subscriptions() {
                   time={moment(res.date).utc().fromNow()}
                   title={res.subscription_title}
                   name={res.detail}
-                  approveFunction={() => deleteSubscription(res)}
-                  editFunction={() => editSubscription(res)}
-                  message='Are you sure you want to delete this plan?'
-                  price={ res.currency+res.price}
+                  message="Are you sure you want to delete this plan?"
+                  price={res.currency + res.price}
                   duration={`${res.subscription_title} (${res.duration} ${res.date_option})`}
                   deleteCard={true}
                   edit={true}
                   loading={loading}
+                  approveFunction={() =>
+                    deleteMySubscription({
+                      plan_id: res.subscription_id,
+                    })
+                  }
+                  editFunction={() => editSubscription(res)}
                 />
               ))}
             </>
