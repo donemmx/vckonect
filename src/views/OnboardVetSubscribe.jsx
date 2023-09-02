@@ -15,6 +15,10 @@ export default function OnboardVetSubscribe() {
       setPlan(res[0].title);
     });
   }, []);
+
+
+
+
   return (
     <div className="login pt-[15vh]">
       <h2 className="font-black text-center text-4xl mt-10 ">Subscribe to a plan</h2>

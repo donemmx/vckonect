@@ -15,6 +15,7 @@ import { toast } from "react-toastify";
 import { useRecoilState } from "recoil";
 import { registration } from "../atom/registrationAtom";
 import { userOne } from "../validations/UserValidation";
+import SocialLogin from "react-social-login";
 
 export default function OnboardVetAccount() {
   const [data, setData] = useRecoilState(registration);
@@ -35,7 +36,7 @@ export default function OnboardVetAccount() {
           toast.error(res.detail);
         }
       })
-      .catch((err) => console.log(err));
+      .catch((error) => toast(error.message));
   };
 
   const { values, errors,isValid, isSubmitting, touched, handleBlur, handleChange, handleSubmit } =
@@ -128,18 +129,7 @@ export default function OnboardVetAccount() {
             )}
             Proceed
           </button>
-          <div className=" flex items-center justify-center gap-4">
-            <img
-              src={linkedIn}
-              alt=""
-              className="h-[35px] w-[35px] object-contain cursor-pointer"
-            />
-            <img
-              src={google}
-              alt=""
-              className="h-[35px] w-[35px] object-contain cursor-pointer"
-            />
-          </div>
+          <SocialLogin/>
           <img src={or} alt="" className=" w-full object-cover" />
           <Link to="/login" className="secondary__btn mt-[-30px]">
             Login

@@ -125,15 +125,15 @@ const addCase = yup.object().shape({
 })
 
 const addPetCase  =  yup.object().shape({
-    clientName: yup.string().required("Required"),
-    phone: yup.string().required("Required"),
-    caseType: yup.string().required("Required"),
+    client_name: yup.string().required("Required"),
+    client_phone: yup.string().required("Required"),
+    case_type: yup.string().required("Required"),
     petName: yup.string().required("Required"),
     specie: yup.string().required("Required"),
     breed: yup.string().required("Required"),
     age: yup.string().required("Required"),
     sex: yup.string().required("Required"),
-    caseTitle: yup.string().required("Required"),
+    case_title: yup.string().required("Required"),
 })
 const pet  =  yup.object().shape({
     petName: yup.string().required("Required"),

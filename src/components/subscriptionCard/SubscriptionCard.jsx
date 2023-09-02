@@ -4,7 +4,7 @@ import CurrencyFormatter from "currency-formatter-react";
 import { useRecoilState } from "recoil";
 import ReactDOM from "react-dom";
 import { user } from "../../atom/userAtom";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { vetPlan } from "../../utils/vetApiService";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
@@ -99,6 +99,13 @@ export default function SubscriptionCard({ data, selectedPlan }) {
       console.log('opening popup');
     }
   };
+
+
+  useEffect(()=> {
+    if(userData.subscription === 'Active' ){
+      navigate("/vet-dashboard");
+    }
+  }, [])
 
   return (
     <>

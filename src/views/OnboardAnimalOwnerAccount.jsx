@@ -15,6 +15,7 @@ import { registration } from "../atom/registrationAtom";
 import { useFormik } from "formik";
 import { userOne } from "../validations/UserValidation";
 import { toast } from "react-toastify";
+import SocialLogin from "../components/socialLogin/SocialLogin";
 export default function OnboardAnimalOwnerAccount() {
   const [data, setData] = useRecoilState(registration);
   const location = useNavigate();
@@ -35,21 +36,27 @@ export default function OnboardAnimalOwnerAccount() {
         }
       })
       .catch((err) => console.log(err));
-  
   };
 
-  const { values, errors, isValid, isSubmitting, touched, handleBlur, handleChange, handleSubmit } =
-    useFormik({
-      validateOnMount: true,
-      initialValues: {
-        email: "",
-        password: "",
-        confirmPassword: "",
-      },
-      validationSchema: userOne,
-      onSubmit,
-    });
-
+  const {
+    values,
+    errors,
+    isValid,
+    isSubmitting,
+    touched,
+    handleBlur,
+    handleChange,
+    handleSubmit,
+  } = useFormik({
+    validateOnMount: true,
+    initialValues: {
+      email: "",
+      password: "",
+      confirmPassword: "",
+    },
+    validationSchema: userOne,
+    onSubmit,
+  });
 
   return (
     <div className="login flex justify-center items-center h-[140vh]">
@@ -122,20 +129,14 @@ export default function OnboardAnimalOwnerAccount() {
             <p className="error">{errors.confirmPassword}</p>
           )}
           <button className="green__btn" disabled={!isValid || isSubmitting}>
-              {isSubmitting?  <i className="pi pi-spin pi-spinner !text-[20px]"></i> : ''}
-              Proceed</button>
-          <div className=" flex items-center justify-center gap-4">
-            <img
-              src={linkedIn}
-              alt=""
-              className="h-[35px] w-[35px] object-contain cursor-pointer"
-            />
-            <img
-              src={google}
-              alt=""
-              className="h-[35px] w-[35px] object-contain cursor-pointer"
-            />
-          </div>
+            {isSubmitting ? (
+              <i className="pi pi-spin pi-spinner !text-[20px]"></i>
+            ) : (
+              ""
+            )}
+            Proceed
+          </button>
+          <SocialLogin />
           <img src={or} alt="" className=" w-full object-cover" />
           <Link to="/login" className="secondary__btn mt-[-30px]">
             Login

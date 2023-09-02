@@ -17,6 +17,7 @@ export default function AddCase() {
   const action = useRecoilValue(actionState);
   const [gender, setGender] = useState(null);
   const [type, setType] = useState(null);
+  const [selectedPet, setSelectedPet] = useState(null);
 
   const types = ["Pet", "Farm"];
   const genders = ["Male", "Female"];
@@ -24,28 +25,51 @@ export default function AddCase() {
 
   const onSubmit = async (values) => {
     const formData = new FormData();
-    const { petName, breed, age } = values;
+    const { case_title, date_of_occurence, age } = values;
     let payload;
-    if (action && action === "edit") {
-      payload = {
-        user_id: store?.user_id,
-        pet_name: petName,
-        specie: specie,
-        breed: breed,
-        sex: gender,
-        pet_id: store?.pet_id,
-        age: age,
-      };
-    } else {
-      payload = {
-        user_id: userData.id,
-        pet_name: petName,
-        specie: specie,
-        breed: breed,
-        sex: gender,
-        age: age,
-      };
-    }
+    // if (action && action === "edit") {
+    //   payload = {
+    //     user_id: store?.user_id,
+    //     case_title: 
+    //     pet_name: petName,
+    //     specie: specie,
+    //     breed: breed,
+    //     sex: gender,
+    //     pet_id: store?.pet_id,
+    //     age: age,
+    //   };
+    // } else {
+    //   payload = {
+    //     user_id: userData.id,
+    //     pet_name: petName,
+    //     specie: specie,
+    //     breed: breed,
+    //     sex: gender,
+    //     age: age,
+    //   };
+    // }
+    payload = {
+          user_id: userData?.user_id,
+          case_title: case_title,
+          pet_name: selectedPet.pet_name,
+          pet_id: selectedPet.pet_id,
+          specie: selectedPet.specie,
+          breed: selectedPet.breed,
+          age: selectedPet.age,
+          sex: selectedPet.age,
+          date_of_occurence: date_of_occurence,
+          history: '',
+          clinical_sign: '',
+          tentative_diagnoistic: '',
+          differential_diagnosis:'',
+          disease_diagnostic: '',
+          lab_confirm: '',
+          motality: '',
+          treatment_regiment: '',
+          clinic_physical_address: '',
+          mobile_veterinarian: '',
+        };
+
     Object.entries(payload).forEach(([key, value]) => {
       formData.append(key, value);
     });
@@ -103,6 +127,7 @@ export default function AddCase() {
     validationSchema: addPetCase,
     onSubmit,
   });
+
 
   return (
     <div className=" bg-white h-full pb-20  mb-10 rounded-md border-[1px] border-[#EBEBEB]">

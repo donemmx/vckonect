@@ -11,7 +11,8 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { user } from "../../atom/userAtom";
 import { toast } from "react-toastify";
 import { getNotification } from "../../utils/userApiService";
-import { Badge } from 'primereact/badge';
+import { Badge } from "primereact/badge";
+import { Avatar } from "primereact/avatar";
 
 export default function Header({ bg }) {
   const location = useNavigate();
@@ -26,7 +27,7 @@ export default function Header({ bg }) {
 
   const logOut = () => {
     setData(null);
-    localStorage.clear()
+    localStorage.clear();
     toast.success("Successfully logged out");
   };
 
@@ -44,16 +45,15 @@ export default function Header({ bg }) {
     }
   };
 
-
-  useEffect(()=> {
-    const payload ={
-      user_id:  userData?.id,
-      role: userData?.role
-    }
+  useEffect(() => {
+    const payload = {
+      user_id: userData?.id,
+      role: userData?.role,
+    };
     // getNotification(payload).then((res)=> {
     //   setNotification(res)
     // })
-  }, [])
+  }, []);
 
   return (
     <>
@@ -110,12 +110,30 @@ export default function Header({ bg }) {
           ) : (
             <div className="">
               <div className="flex items-center gap-4">
-                <i className="pi pi-bell p-overlay-badge p-3 bg-gray-50 rounded-full border" >
-                <Badge value={notification?.length} severity="danger" className="w-[20px] h-[20px] !flex !justify-center !items-center !rounded-full !text-[10px]"></Badge>
+                <i className="pi pi-bell p-overlay-badge p-3 bg-gray-50 rounded-full border">
+                  <Badge
+                    value={notification?.length}
+                    severity="danger"
+                    className="w-[20px] h-[20px] !flex !justify-center !items-center !rounded-full !text-[10px]"
+                  ></Badge>
                 </i>
-                <div className="w-[48px] h-[48px] "  onClick={openModal}>
-                  <img src={userData?.profile_picture} alt="" className="w-full h-full object-cover rounded-full" />
-                </div>
+                {userData?.profile_picture.length > 64 ? (
+                  <div className="w-[48px] h-[48px] " onClick={openModal}>
+                    <img
+                      src={userData?.profile_picture}
+                      alt=""
+                      className="w-full h-full object-cover rounded-full"
+                    />
+                  </div>
+                ) : (
+                  <Avatar
+                    label={userData?.first_name?.split("")[0].toUpperCase()}
+                    size="large"
+                    className=" !bg-green-500 !text-white"
+                    shape="circle"
+                    onClick={openModal}
+                  />
+                )}
               </div>
             </div>
           )}
@@ -148,17 +166,24 @@ export default function Header({ bg }) {
       ) : (
         ""
       )}
-          {open && userData ? (
+      {open && userData ? (
         <div
-          className="modal w-[220px] h-[16vh] z-[100] bg-white fixed top-[9%] right-[8%] rounded-md shadow-sm"
+          className="modal w-[220px] h-[22vh] z-[100] bg-white fixed top-[9%] right-[8%] rounded-md shadow-sm"
           data-aos="fade"
         >
           <div className="modal__body flex  flex-col gap-2 p-4">
             <button
-              onClick={logOut}
+              onClick={() => checker('account')}
               className="group text-[15px] text-gray-600 p-2 flex items-center gap-3 hover:bg-gray-300 rounded-md cursor-pointer"
             >
               <img src={userPic} alt="" className="h-4" />
+              Account
+            </button>
+            <button
+              onClick={logOut}
+              className="group text-[15px] text-gray-600 p-2 flex items-center gap-3 hover:bg-gray-300 rounded-md cursor-pointer"
+            >
+              <i className="pi pi-sign-out h-4"></i>
               Log out
             </button>
 
