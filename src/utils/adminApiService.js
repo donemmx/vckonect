@@ -107,6 +107,12 @@ const addPromotionPlan = (payload) => {
     .then((res) => res.data)
     .catch((err) => console.log(err));
 };
+const deleteUserPromotionPlan = (payload) => {
+  return axios
+    .post(`${baseURl}/deleteUserPromotionPlan`, payload)
+    .then((res) => res.data)
+    .catch((err) => console.log(err));
+};
 
 const addSubscriptionPlan = (payload) => {
   return axios
@@ -211,5 +217,6 @@ export {
   addPromotionPlan,
   getSubscriptionPlan,
   getPromotionPlan,
-  deleteSubscriptionPlan
+  deleteSubscriptionPlan,
+  deleteUserPromotionPlan
 };

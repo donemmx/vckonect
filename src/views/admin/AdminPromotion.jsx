@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { user } from "../../atom/userAtom";
-import { getPromotionPlan } from "../../utils/adminApiService";
+import { deleteUserPromotionPlan, getPromotionPlan } from "../../utils/adminApiService";
 import AdminDashboardCard from "../../components/adminDashboardCard/AdminDashboardCard";
 import moment from "moment";
 import { Link } from "react-router-dom";
@@ -13,12 +13,17 @@ import AdminCard from "../../components/adminCard/AdminCard";
 import expiredPromotions from "../../assets/sidebar/expired-promotion.svg";
 import activePromotions from "../../assets/sidebar/active-promotion.svg";
 import totalPromotions from "../../assets/sidebar/total-promotion.svg";
+import { toast } from "react-toastify";
+import { storeData } from "../../atom/storeAtom";
+import { actionState } from "../../atom/actionAtom";
 
 export default function AdminPromotion() {
   const [promotions, setPromotions] = useState();
   const userData = useRecoilValue(user);
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
+  const [store, setStore] = useRecoilState(storeData);
+  const [action, setAction] = useRecoilState(actionState);
 
   const getPromotions = async () => {
     const payload = {};
@@ -35,6 +40,27 @@ export default function AdminPromotion() {
       setLoading(false);
     });
   };
+
+
+  const deletePromotion = (data) => {
+    setLoading(true);
+    const payload = {
+      promotion_id: data.promotion_id,
+    };
+    deleteUserPromotionPlan(payload).then((res) => {
+      toast.success("Promotion deleted successfully");
+      setLoading(false);
+      getPromotions()
+    });
+  };
+
+  const editPromotion = (data) => {
+    setStore(data);
+    setAction("edit");
+    location('/add-promotion')
+  };
+
+
 
   useEffect(() => {
     getPromotions();
@@ -95,11 +121,12 @@ export default function AdminPromotion() {
             <>
               {promotions?.map((res) => (
                 <AdminDashboardCard
-                  // time={moment(res.date).utc().fromNow()}
                   title={res.title}
                   name={res.no_of_products}
                   key={res.id}
                   price={res.price}
+                  approveFunction={() => deletePromotion(res)}
+                  editFunction={() => editPromotion(res)}
                   duration={res.duration}
                   loading={loading}
                   deleteCard={true}
