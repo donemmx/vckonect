@@ -53,6 +53,18 @@ export default function SubscriptionCard({ data, selectedPlan }) {
     );
   }
 
+  const selectPlan = (data) => {
+    setSelected(data);
+    if (Number(data.price.slice(3)) === 0) {
+      setLoading(true);
+      subscribeUserToPlan(data);
+    } else {
+      setAmount(Number(data?.price?.slice(3)) * 780*100);
+      openModal();
+    }
+  };
+
+
   const componentProps = {
     email: userData?.email,
     amount: amount,
@@ -109,16 +121,6 @@ export default function SubscriptionCard({ data, selectedPlan }) {
       });
   };
 
-  const selectPlan = (data) => {
-    setSelected(data);
-    if (Number(data.price.slice(3)) === 0) {
-      setLoading(true);
-      subscribeUserToPlan(data);
-    } else {
-      setAmount(Number(data?.price?.slice(3)) * 780);
-      openModal();
-    }
-  };
 
   useEffect(() => {
     if (userData.subscription === "Active") {
