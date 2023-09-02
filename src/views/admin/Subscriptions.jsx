@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { user } from "../../atom/userAtom";
 import {
+  adminGetSubscriptionPlan,
   deleteSubscriptionPlan,
   getSubscriptionPlan,
 } from "../../utils/adminApiService";
@@ -30,7 +31,7 @@ export default function Subscriptions() {
   const getSubscriptions = async () => {
     setLoading(true);
     const payload = {};
-    await getSubscriptionPlan(payload).then((res) => {
+    await adminGetSubscriptionPlan(payload).then((res) => {
       setSubscriptions(res);
       setLoading(false);
     });
@@ -54,6 +55,10 @@ export default function Subscriptions() {
     location('/add-subscription')
   };
 
+  const addSubscription  = () => {
+    setAction("add");
+    location('/add-subscription')
+  }
 
   useEffect(() => {
     getSubscriptions();
@@ -80,7 +85,7 @@ export default function Subscriptions() {
       </div>
       <div className="activity mt-5  mb-5 p-4 border bg-white rounded-lg w-full">
         <Link
-          to="/add-subscription"
+         onClick={addSubscription}
           className="border-[1px] hover:border-[#52CE06] cursor-pointer  flex items-center justify-between p-3 rounded-[18px] mt-10 mb-5"
         >
           <p className="font-bold px-2">Add New Subscription</p>
@@ -99,13 +104,13 @@ export default function Subscriptions() {
                 <AdminDashboardCard
                   key={res.id}
                   time={moment(res.date).utc().fromNow()}
-                  title={res.title}
+                  title={res.subscription_title}
                   name={res.detail}
                   approveFunction={() => deleteSubscription(res)}
                   editFunction={() => editSubscription(res)}
                   message='Are you sure you want to delete this plan?'
-                  price={res.price}
-                  duration={res.duration}
+                  price={ res.currency+res.price}
+                  duration={`${res.subscription_title} (${res.duration} ${res.date_option})`}
                   deleteCard={true}
                   edit={true}
                   loading={loading}

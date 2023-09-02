@@ -22,33 +22,26 @@ export default function AddPromotion() {
   const currencies = ["NGN", "USD", "GBP"];
 
   const onSubmit = async (values) => {
-    const formData = new FormData();
     let payload;
-    //     if (action && action === "edit") {
-    //      payload = {
-    //       user_id: user?.user_id,
-    //       farm_name: user?.farm_name,
-    //       no_of_worker: workers,
-    //       sex: gender,
-    //       farm_id: store?.farm_id,
-    //       livestock_type:store?.livestock_type,
-    //       no_of_livestock: store?.no_of_livestock,
-    //       ...others,
-    //     };
-    //   }
-  //   else{
+        if (action && action === "edit") {
+         payload = {
+          id: userData.staff_id,
+          permission_level: userData.permission_level,
+          promotion_id: store.promotion_id,
+          ...values,
+        };
+      }
+    else{
     payload = {
       id: userData.staff_id,
       permission_level: userData.permission_level,
       ...values,
     };
-    //   }
+      }
     console.log(payload);
-    Object.entries(payload).forEach(([key, value]) => {
-      formData.append(key, value);
-    });
 
-    addPromotionPlan(formData)
+
+    addPromotionPlan(payload)
       .then((res) => {
         console.log(res);
         if (res.code) {
@@ -72,20 +65,16 @@ export default function AddPromotion() {
     no_of_product: "",
   };
 
-  //   const loadedData = {
-  //    title: "",
-    // currency: "",
-    // price: "",
-    // vat: "",
-    // date_option: "",
-    // duration: "",
-    // no_of_product: "",
-  //   };
+    const loadedData = {
+      title: store.promotion_title,
+      no_of_product:store. no_of_products,
+      ...store
+    };
 
   const { values, isValid, isSubmitting, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
       validateOnMount: true,
-      initialValues: initialValues,
+      initialValues:  action === 'add' ?  initialValues : loadedData,
       validationSchema: promotion,
       onSubmit,
     });

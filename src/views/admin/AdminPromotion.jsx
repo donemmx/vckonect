@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { user } from "../../atom/userAtom";
-import { deleteUserPromotionPlan, getPromotionPlan } from "../../utils/adminApiService";
+import { adminGetPromotionPlan, deleteUserPromotionPlan, getPromotionPlan } from "../../utils/adminApiService";
 import AdminDashboardCard from "../../components/adminDashboardCard/AdminDashboardCard";
 import moment from "moment";
 import { Link, useNavigate } from "react-router-dom";
@@ -30,7 +30,7 @@ export default function AdminPromotion() {
 
   const getPromotions = async () => {
     const payload = {};
-    await getPromotionPlan(payload).then((res) => {
+    await adminGetPromotionPlan(payload).then((res) => {
       setPromotions(res);
       setLoading(false);
     });
@@ -63,11 +63,16 @@ export default function AdminPromotion() {
     location('/add-promotion')
   };
 
-
+  const addPromotion = () => {
+    setAction("add");
+    location('/add-promotion')
+  }
 
   useEffect(() => {
     getPromotions();
   }, [search.length < 3]);
+
+
   return (
     <div className="w-full">
        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-1 lg:gap-2 mt-5">
@@ -90,7 +95,7 @@ export default function AdminPromotion() {
       </div>
       <div className="activity mt-5  mb-5 p-4 border bg-white rounded-lg w-full">
         <Link
-          to="/add-promotion"
+          onClick={addPromotion}
           className="border-[1px] hover:border-[#52CE06] cursor-pointer  flex items-center justify-between p-3 rounded-[18px] mt-10 mb-5"
         >
           <p className="font-bold px-2">Add New Promotions</p>
@@ -124,13 +129,13 @@ export default function AdminPromotion() {
             <>
               {promotions?.map((res) => (
                 <AdminDashboardCard
-                  title={res.title}
-                  name={res.no_of_products}
+                  title={res.promotion_title + ' ' + 'plan'}
+                  name={`(${res.no_of_products} Product(s) Max)`}
                   key={res.id}
-                  price={res.price}
-                  approveFunction={() => deletePromotion(res)}
+                  price={ res.currency+res.price}
+                  // approveFunction={deletePromotion(res)}
                   editFunction={() => editPromotion(res)}
-                  duration={res.duration}
+                  duration={`${res.promotion_title} (${res.duration} ${res.date_option})`}
                   loading={loading}
                   deleteCard={true}
                   time={moment(res.date).utc().fromNow()}

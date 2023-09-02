@@ -100,6 +100,12 @@ const getPromotionPlan = (payload) => {
     .then((res) => res.data)
     .catch((err) => console.log(err));
 };
+const adminGetPromotionPlan = (payload) => {
+  return axios
+    .get(`${baseURl}/adminGetPromotionPlan`, payload)
+    .then((res) => res.data)
+    .catch((err) => console.log(err));
+};
 
 const addPromotionPlan = (payload) => {
   return axios
@@ -129,6 +135,12 @@ const adminGetSubscription = (payload) => {
 const getSubscriptionPlan = (payload) => {
   return axios
     .get(`${baseURl}/getSubscriptionPlan`, payload)
+    .then((res) => res.data)
+    .catch((err) => console.log(err));
+};
+const adminGetSubscriptionPlan = (payload) => {
+  return axios
+    .get(`${baseURl}/adminGetSubscriptionPlan`, payload)
     .then((res) => res.data)
     .catch((err) => console.log(err));
 };
@@ -216,7 +228,10 @@ export {
   getAdminActivityByFilter,
   addPromotionPlan,
   getSubscriptionPlan,
+  adminGetSubscriptionPlan,
   getPromotionPlan,
   deleteSubscriptionPlan,
-  deleteUserPromotionPlan
+  deleteUserPromotionPlan,
+  adminGetPromotionPlan
+
 };

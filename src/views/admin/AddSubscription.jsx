@@ -29,7 +29,10 @@ export default function AddSubscription() {
     let payload;
     if (action && action === "edit") {
       payload = {
-        ...store,
+        id: userData.staff_id,
+        permission_level: userData.permission_level,
+        plan_id: store.subscription_id,
+        ...values,
       };
     } else {
       let contact_info;
@@ -108,16 +111,10 @@ export default function AddSubscription() {
   };
 
   const loadedData = {
-    title: store.title,
-    currency: store.price.slice(0,3),
-    price: store.price.slice(3),
-    vat: store.vat,
-    date_option: store.date_option,
-    duration: store.duration,
-    case: store.case,
-    store: store.store,
-    no_of_product: store.no_of_products,
-    };
+    title: store.subscription_title,
+    no_of_product:store. no_of_products,
+    ...store,
+  };
 
   const {
     values,
@@ -130,12 +127,29 @@ export default function AddSubscription() {
     handleSubmit,
   } = useFormik({
     validateOnMount: true,
-    initialValues:  action === 'add' ?  initialValues : loadedData,
+    initialValues: action === "add" ? initialValues : loadedData,
     validationSchema: subscription,
     onSubmit,
   });
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+
+    if(store.feed_calculator === 'Yes'){
+      setCalculator(true)
+    }
+    if(store.contact_info === 'Yes'){
+      setContact(true)
+    }
+    if(store.direct_message === 'Yes'){
+      setMessage(true)
+    }
+    if(store.disease_predictor === 'Yes'){
+      setPredictor(true)
+    }
+    if(store.customer_support == 'Yes'){
+      setSupport(true)
+    }
+  }, []);
   return (
     <div className=" bg-white h-full w-full pb-20 mb-10 rounded-md border-[1px] border-[#EBEBEB]">
       <Link
