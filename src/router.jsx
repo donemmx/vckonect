@@ -53,6 +53,7 @@ import OnboardVetVerify from "./views/OnboardVetVerify";
 import AddProduct from "./views/user/AddProduct";
 import OnboardSubscription from "./views/OnboardSubscription";
 import SubscribeToPlan from "./views/user/SubscribeToPlan";
+import OnboardVetSubscribe from "./views/OnboardVetSubscribe";
 
 const router = createBrowserRouter([
   {
@@ -337,6 +338,10 @@ const router = createBrowserRouter([
       {
         path: "/onboard-vet-verify",
         element: <OnboardVetVerify />,
+      },
+      {
+        path: "/onboard-vet-subscription",
+        element: <OnboardVetSubscribe />,
       },
      
       {

@@ -26,7 +26,7 @@ export default function OnboardVetVerify() {
     await registerVeterinarian3(payload)
       .then((res) => {
         if (!res.code) {
-          location("/verified");
+          location("/onboard-vet-subscription");
           toast.success(res.detail);
         } else {
           toast.error(res.detail);
