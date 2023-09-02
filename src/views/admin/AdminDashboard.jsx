@@ -106,8 +106,6 @@ export default function AdminDashboard() {
               Unverified Vetenarians
           </h4>
         </div>
-
-  
       </div>
     </div>
   );

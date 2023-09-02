@@ -268,10 +268,10 @@ export default function UserFeatures() {
         </div>
         {loading ? (
           <div className="grid gap-2">
-          <AdminCardLoading />
-          <AdminCardLoading />
-          <AdminCardLoading />
-          <AdminCardLoading />
+            <AdminCardLoading />
+            <AdminCardLoading />
+            <AdminCardLoading />
+            <AdminCardLoading />
           </div>
         ) : (
           <>
@@ -307,15 +307,33 @@ export default function UserFeatures() {
               </div>
             ) : tab == "vet" ? (
               <div className="posts p-3 mt-5 grid gap-2">
-                {vet?.map((res) => (
-                  <AdminDashboardCard
-                    key={res.id}
-                    time={moment(res.date).utc().fromNow()}
-                    title={res.title}
-                    name={res.user_name}
-                    loading={loading}
-                  />
-                ))}
+                {vet?.map((res) =>
+                  res.account_activation === "Activated" ? (
+                    <AdminDashboardCard
+                      key={res.id}
+                      time={moment(res.date).utc().fromNow()}
+                      title={res.first_name + res.last_name}
+                      name={res.role}
+                      image={res.profile_picture}
+                      rejcetButtonText="Disable"
+                      message="Are you sure to deactivate this account?"
+                      approveFunction={() => disableUserAccount(res)}
+                      loading={loading}
+                    />
+                  ) : (
+                    <AdminDashboardCard
+                      key={res.id}
+                      time={moment(res.date).utc().fromNow()}
+                      title={res.first_name + res.last_name}
+                      name={res.role}
+                      image={res.profile_picture}
+                      approveButtonText="Enable"
+                      approveFunction={() => activateUserAccount(res)}
+                      message="Are you sure to activate this account?"
+                      loading={loading}
+                    />
+                  )
+                )}
               </div>
             ) : tab == "store" ? (
               <div className="posts p-3 mt-5 grid gap-2">
@@ -336,8 +354,8 @@ export default function UserFeatures() {
                   <AdminDashboardCard
                     key={res.id}
                     time={moment(res.date).utc().fromNow()}
-                    title={res.title}
-                    name={res.user_name}
+                    title={res.clinic_name}
+                    name={res.location}
                     image={res.picture}
                     loading={loading}
                   />

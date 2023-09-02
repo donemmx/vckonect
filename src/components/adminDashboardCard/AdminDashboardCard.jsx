@@ -3,7 +3,8 @@ import CurrencyFormatter from "currency-formatter-react";
 import AdminCardLoading from "../loading/AdminCardLoading";
 import editIcon from "../../assets/account/edit-icon.svg";
 import WarningCard from "../warningCard/WarningCard";
-
+import { Avatar } from "primereact/avatar";
+import React from 'react'
 export default function AdminDashboardCard({
   image,
   title,
@@ -37,7 +38,12 @@ export default function AdminDashboardCard({
                 />
               </div>
             ) : (
-              ""
+              <Avatar
+                    label={title.split("")[0].toUpperCase()}
+                    size="xlarge"
+                    className=" !bg-green-500 !text-white"
+                    shape="circle"
+                  />
             )}
             <div className="flex gap-6 items-center">
               <div className="">
