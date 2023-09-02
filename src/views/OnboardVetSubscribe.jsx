@@ -1,6 +1,6 @@
 import SubscriptionCard from "../components/subscriptionCard/SubscriptionCard";
 import React, { useEffect, useState } from "react";
-import {  getSubscriptionPlan } from "../utils/userApiService";
+import { getSubscriptionPlan } from "../utils/userApiService";
 import { useRecoilValue } from "recoil";
 import { user } from "../atom/userAtom";
 import ReactDOM from "react-dom";
@@ -63,9 +63,12 @@ export default function OnboardVetSubscribe() {
   }, []);
   return (
     <div className="login pt-[15vh]">
-        <h2 className="font-black text-center text-4xl my-10 ">Subscribe to a plan</h2>
-        <div className="left w-full lg:w-[100%] p-2 rounded-lg">
-          <div className="flex bg-white w-fit flex-wrap mx-auto p-3 shadow rounded-2xl items-center justify-center ">
+      <h2 className="font-black text-center text-4xl mt-10 ">Subscribe to a plan</h2>
+      <div className="subtitle paragraph text-center">
+        Select a plan to continue
+      </div>
+      <div className="left w-full lg:w-[100%] p-2 rounded-lg">
+        <div className="flex bg-white w-fit flex-wrap mx-auto p-3 shadow rounded-2xl items-center justify-center ">
           {allSubscriptions.map((res) => (
             <div className="mt-1 " key={res.id}>
               <div
@@ -80,11 +83,11 @@ export default function OnboardVetSubscribe() {
               </div>
             </div>
           ))}
-          </div>
         </div>
+      </div>
       <div className="flex items-center w-[100%] gap-3 flex-wrap py-10 mx-auto">
         {allSubscriptions.map((res) => (
-            <SubscriptionCard data={res} selectedPlan={plan} key={res.id}/>
+          <SubscriptionCard data={res} selectedPlan={plan} key={res.id} />
         ))}
       </div>
     </div>
