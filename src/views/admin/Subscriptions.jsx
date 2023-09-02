@@ -86,10 +86,11 @@ export default function Subscriptions() {
               {subscriptions?.map((res) => (
                 <AdminDashboardCard
                   key={res.id}
-                  // time={moment(res.date).utc().fromNow()}
+                  time={moment(res.date).utc().fromNow()}
                   title={res.title}
                   name={res.detail}
                   approveFunction={() => deleteSubscription(res)}
+                  message='Are you sure you want to delete this plan?'
                   price={res.price}
                   duration={res.duration}
                   deleteCard={true}
