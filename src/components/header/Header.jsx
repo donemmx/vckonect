@@ -117,7 +117,7 @@ export default function Header({ bg }) {
                     className="w-[20px] h-[20px] !flex !justify-center !items-center !rounded-full !text-[10px]"
                   ></Badge>
                 </i>
-                {userData?.profile_picture.length > 64 ? (
+                {userData?.profile_picture?.length > 64 ? (
                   <div className="w-[48px] h-[48px] " onClick={openModal}>
                     <img
                       src={userData?.profile_picture}

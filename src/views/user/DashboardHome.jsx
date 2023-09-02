@@ -146,7 +146,7 @@ export default function DashboardHome() {
           <div className=" pt-12 gap-6  pb-10 grid md:grid-cols-2  lg:grid-cols-4 w-full">
             {active == "vet" ? vets.map((res) => <Vetcard key={res} />) : ""}
             {active == "store"
-              ? stores.map((res) => (
+              ? stores?.map((res) => (
                   <StoreCard
                     availability={res.availability}
                     storeName={res.store_name}
