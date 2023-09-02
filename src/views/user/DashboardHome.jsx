@@ -160,7 +160,7 @@ export default function DashboardHome() {
                 ))
               : ""}
             {active == "clinic"
-              ? clinics.map((res) => <ClinicCard key={res} />)
+              ? clinics?.map((res) => <ClinicCard key={res} />)
               : ""}
           </div>
         </div>
