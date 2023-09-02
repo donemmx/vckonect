@@ -330,12 +330,11 @@ export default function AddSubscription() {
               />
             </div>
             <button
-              type="submit"
               className="green__btn"
               disabled={!isValid || isSubmitting}
             >
               {isSubmitting ? (
-                <i className="pi pi-spin pi-spinner !text-[20px]"></i>
+                <i className="pi pi-spin pi-spinner !text-[20px] !text-white"></i>
               ) : (
                 ""
               )}

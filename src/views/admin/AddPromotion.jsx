@@ -66,8 +66,8 @@ export default function AddPromotion() {
   };
 
     const loadedData = {
-      title: store.promotion_title,
-      no_of_product:store. no_of_products,
+      title: store?.promotion_title,
+      no_of_product:store?. no_of_products,
       ...store
     };
 
