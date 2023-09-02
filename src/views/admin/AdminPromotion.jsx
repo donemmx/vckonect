@@ -5,7 +5,7 @@ import { user } from "../../atom/userAtom";
 import { deleteUserPromotionPlan, getPromotionPlan } from "../../utils/adminApiService";
 import AdminDashboardCard from "../../components/adminDashboardCard/AdminDashboardCard";
 import moment from "moment";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import addIcon from "../../assets/icons/add-icon.svg";
 import searchIcon from "../../assets/icons/search-icons/search-icon-white.svg";
 import AdminCardLoading from "../../components/loading/AdminCardLoading";
@@ -24,6 +24,9 @@ export default function AdminPromotion() {
   const [loading, setLoading] = useState(true);
   const [store, setStore] = useRecoilState(storeData);
   const [action, setAction] = useRecoilState(actionState);
+  
+  const location = useNavigate() 
+
 
   const getPromotions = async () => {
     const payload = {};
