@@ -13,6 +13,7 @@ import { getUserById } from "../../utils/userApiService";
 export default function SubscriptionCard({ data, selectedPlan }) {
   const [selected, setSelected] = useState("");
   const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
   const navigate = useNavigate();
   const PayPalButton = window.paypal.Buttons.driver("react", {
     React,
@@ -82,7 +83,9 @@ export default function SubscriptionCard({ data, selectedPlan }) {
       .then(() => {
         toast.success("Subscription successful");
         setLoading(false);
+        setSuccess(true)
         getUserData()
+      
         navigate("/vet-dashboard");
       })
       .catch((err) => {
@@ -105,7 +108,7 @@ export default function SubscriptionCard({ data, selectedPlan }) {
     if(userData.subscription === 'Active' ){
       navigate("/vet-dashboard");
     }
-  }, [])
+  }, [success])
 
   return (
     <>
