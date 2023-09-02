@@ -43,7 +43,7 @@ export default function AdminPromotion() {
     <div className="w-full">
        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-1 lg:gap-2 mt-5">
         <AdminCard
-          number={0}
+          number={promotions.length}
           text="Total Promotions"
           icon={totalPromotions}
         />
@@ -103,8 +103,7 @@ export default function AdminPromotion() {
                   duration={res.duration}
                   loading={loading}
                   deleteCard={true}
-                  rejcetButtonText={"Disable"}
-                  approveButtonText={"Activate"}
+                  time={moment(res.date).utc().fromNow()}
                   edit={true}
                 />
               ))}
