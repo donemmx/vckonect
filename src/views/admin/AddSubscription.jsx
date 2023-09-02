@@ -29,7 +29,7 @@ export default function AddSubscription() {
     let payload;
     if (action && action === "edit") {
       payload = {
-        id: userData.staff_id,
+        staff_id: userData.staff_id,
         permission_level: userData.permission_level,
         plan_id: store.subscription_id,
         ...values,
