@@ -28,7 +28,7 @@ export default function SubscriptionCard({ data, selectedPlan }) {
       purchase_units: [
         {
           amount: {
-            value: selectedPlan.price.slice(3),
+            value: selected.price.slice(3),
           },
         },
       ],
