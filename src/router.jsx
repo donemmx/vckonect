@@ -54,8 +54,10 @@ import AddProduct from "./views/user/AddProduct";
 import OnboardSubscription from "./views/OnboardSubscription";
 import SubscribeToPlan from "./views/user/SubscribeToPlan";
 import OnboardVetSubscribe from "./views/OnboardVetSubscribe";
+import NotFound from "./views/NotFound";
 
 const router = createBrowserRouter([
+
   {
     path: "/",
     element: <DefaultLayout />,
@@ -354,6 +356,10 @@ const router = createBrowserRouter([
       },
     ],
   },
+  {
+    path: '*',
+    element: <NotFound/>
+  }
 ]);
 
 export default router;
