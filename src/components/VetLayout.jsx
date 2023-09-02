@@ -9,14 +9,22 @@ export default function VetLayout() {
   return (
     <div>
       {auth?.role === "Veterinarian" ? (
-        <>
-          <Header />
-          <VetSidebar />
-          <div className="absolute left-[5.5vw] lg:left-[13vw] top-[25vh] lg:top-[15vh] w-[90%] lg:w-[80%]">
+        auth.subscription === null || auth.subscription === "Expired" ? (
+          <>
+            <Header />
+            <Navigate to="/vet-subscription" />
             <Outlet />
-          </div>
-        </>
-      )  : (
+          </>
+        ) : (
+          <>
+            <Header />
+            <VetSidebar />
+            <div className="absolute left-[5.5vw] lg:left-[13vw] top-[25vh] lg:top-[15vh] w-[90%] lg:w-[80%]">
+              <Outlet />
+            </div>
+          </>
+        )
+      ) : (
         <Navigate to="/login" />
       )}
     </div>
