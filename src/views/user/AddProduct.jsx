@@ -265,22 +265,26 @@ export default function AddProduct() {
             )}
             {imagePreviews?.length > 0 ? (
               <>
-                <div className=" grid grid-cols-2">
+                <div className=" imagePreviews ">
                   {imagePreviews?.map((img, i) => {
                     return (
-                      <img
-                        className="preview"
-                        src={img}
-                        alt={"image-" + i}
-                        key={i}
-                      />
+                      <>
+                        <div className=" h-[150px]">
+                          <img
+                            className="preview"
+                            src={img}
+                            alt={"image-" + i}
+                            key={i}
+                          />
+                        </div>
+                      </>
                     );
                   })}
                 </div>
                 <div
                   className="underline cursor-pointer"
                   onClick={() => {
-                    setImagePreviews(null)
+                    setImagePreviews(null);
                   }}
                 >
                   Remove Image
