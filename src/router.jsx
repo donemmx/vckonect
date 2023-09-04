@@ -56,6 +56,7 @@ import SubscribeToPlan from "./views/user/SubscribeToPlan";
 import OnboardVetSubscribe from "./views/OnboardVetSubscribe";
 import NotFound from "./views/NotFound";
 import AddPromotionToSub from "./views/user/AddPromotionToSub";
+import ClinicDetails from "./views/user/ClinicDetails";
 
 const router = createBrowserRouter([
 
@@ -100,6 +101,10 @@ const router = createBrowserRouter([
       {
         path: "/vet-clinic",
         element: <Clinic />,
+      },
+      {
+        path: "/vet-clinic-details",
+        element: <ClinicDetails />,
       },
       {
         path: "/vet-add-clinic",
@@ -249,6 +254,10 @@ const router = createBrowserRouter([
       {
         path: "/animal-owner-promotion",
         element: <Promotion />,
+      },
+      {
+        path: "/animal-owner-clinic-details",
+        element: <ClinicDetails />,
       },
     ],
   },

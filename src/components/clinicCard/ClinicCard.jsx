@@ -34,6 +34,15 @@ export default function ClinicCard({
     location("/vet-add-clinic")
   };
 
+  const checker = (route) => {
+    setStore(fullData);
+    if (userData?.role === "Veterinarian") {
+      location(`/vet-${route}`);
+    } else {
+      location(`/animal-owner-${route}`);
+    }
+  };
+
   const deleteClinicById = () => {
     deleteClinic({ clinic_id: clinic_id })
       .then(() => {
@@ -114,7 +123,11 @@ export default function ClinicCard({
               />
             </div>
             <div className="message">
-              <button>
+              <button
+                onClick={() => {
+                  checker("clinic-details");
+                }}
+              >
                 <img src={openIcon} alt="" />
               </button>
             </div>
