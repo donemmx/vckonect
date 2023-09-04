@@ -26,7 +26,7 @@ export default function SubscribeToPlan() {
   const [amount, setAmount] = useState(0);
 
   const addSubscription = (data) => {
-    const {title,price, ...others} = data
+    const {title,price, id, ...others} = data
     const payload = {
       id: userData?.id,
       promotion_title: title,
@@ -34,13 +34,15 @@ export default function SubscribeToPlan() {
       role: userData?.role,
       ...others
     };
-    subscribePromotionPlan(payload).then(() => {
-      toast.success("Subscription added successfully");
-      getPromotionPlan().then((res) => {
-        setAllPromotions(res);
-        setPlan(res[0].title);
-      });
-    });
+
+    console.log(others);
+    // subscribePromotionPlan(payload).then(() => {
+    //   toast.success("Subscription added successfully");
+    //   getPromotionPlan().then((res) => {
+    //     setAllPromotions(res);
+    //     setPlan(res[0].title);
+    //   });
+    // });
   };
 
   const createOrder = (data, actions) => {
