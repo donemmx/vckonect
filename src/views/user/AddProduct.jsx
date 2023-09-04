@@ -32,6 +32,9 @@ export default function AddProduct() {
     for (let i = 0; i < event.target.files.length; i++) {
       dataImage.push(event.target.files[i]);
       images.push(URL.createObjectURL(event.target.files[i]));
+
+      console.log(event.target.files[i]);
+      console.log(event.target.files);
     }
     setFile(event.target.files);
     setSelectedFiles(event.target.files);
@@ -65,9 +68,9 @@ export default function AddProduct() {
         user_id: store?.user_id,
         store_id: store?.id,
         availability: available,
-        tags: [tags],
+        tags: [...tags],
         category: category,
-        images: selectedFiles,
+        images: [...selectedFiles],
         ...values,
       };
     } else {
@@ -76,9 +79,9 @@ export default function AddProduct() {
         user_role: userData?.role,
         store_id: store?.id,
         availability: available,
-        tags: [tags],
+        tags: [...tags],
         category: category,
-        images: selectedFiles,
+        images: [...selectedFiles],
         ...values,
       };
     }
