@@ -79,15 +79,17 @@ export default function AddProduct() {
         user_role: userData?.role,
         store_id: store?.id,
         availability: available,
-        tags: [...tags],
+        tags: JSON.stringify([...tags]),
         category: category,
-        images: [...selectedFiles],
+        images: JSON.stringify([...selectedFiles]),
         ...values,
       };
     }
     Object.entries(payload).forEach(([key, value]) => {
       formData.append(key, value);
     });
+    // formData.append('tags', [...tags]);
+    // formData.append('images', [...selectedFiles])
     await addProduct(formData)
       .then((res) => {
         console.log(res);
