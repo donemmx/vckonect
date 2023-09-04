@@ -32,13 +32,9 @@ export default function AddProduct() {
     for (let i = 0; i < event.target.files.length; i++) {
       dataImage.push(event.target.files[i]);
       images.push(URL.createObjectURL(event.target.files[i]));
-
-      console.log(event.target.files[i]);
-      console.log(event.target.files);
-      formData.append(`image${i}`, event.target.files[i])
     }
     setFile(event.target.files);
-    setSelectedFiles(event.target.files);
+    setSelectedFiles(dataImage);
     setImagePreviews(images);
   };
 
@@ -57,8 +53,6 @@ export default function AddProduct() {
   };
 
   const onSubmit = async (values) => {
-    const formData = new FormData();
-    // let imagess= new FormData();
     let available = 0;
     if (avialability) {
       available = 1;
@@ -76,9 +70,6 @@ export default function AddProduct() {
         ...values,
       };
     } else {
-      // [...selectedFiles].forEach((images) => {
-      //   imagess.append('image', images)
-      // });
       payload = {
         user_id: userData?.id,
         user_role: userData?.role,
@@ -86,15 +77,16 @@ export default function AddProduct() {
         availability: available,
         tags: JSON.stringify([...tags]),
         category: category,
-        // images: JSON.stringify([...selectedFiles]),
         ...values,
       };
     }
-    // formData.append('images', selectedFiles)
-    // console.log(formData);
+      for (let index = 0; index < selectedFiles.length; index++) {
+       formData.append(`images[]`, selectedFiles[index])
+      }
     Object.entries(payload).forEach(([key, value]) => {
       formData.append(key, value);
     });
+    
     await addProduct(formData)
       .then((res) => {
         console.log(res);
