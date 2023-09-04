@@ -35,14 +35,13 @@ export default function SubscribeToPlan() {
       ...others
     };
 
-    console.log(others);
-    // subscribePromotionPlan(payload).then(() => {
-    //   toast.success("Subscription added successfully");
-    //   getPromotionPlan().then((res) => {
-    //     setAllPromotions(res);
-    //     setPlan(res[0].title);
-    //   });
-    // });
+    subscribePromotionPlan(payload).then(() => {
+      toast.success("Subscription added successfully");
+      getPromotionPlan().then((res) => {
+        setAllPromotions(res);
+        setPlan(res[0].title);
+      });
+    });
   };
 
   const createOrder = (data, actions) => {
