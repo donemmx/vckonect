@@ -60,7 +60,7 @@ export default function Clinic() {
       {allClinics?.map((res) => (
           <ClinicCard
             availability={res.availability}
-            clinicNamee={res.clinic_name}
+            clinicName={res.clinic_name}
             clinicLocation={res.location}
             image={res.picture}
             fullData={res}
