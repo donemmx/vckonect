@@ -221,6 +221,13 @@ const viewDirectMessage = (payload) => {
     .catch((err) => console.log(err));
 };
 
+const getMyPromotionPlan = (payload) => {
+  return axios
+    .post(`${baseURl}/getMyPromotionPlan`, payload)
+    .then((res) => res.data)
+    .catch((err) => console.log(err));
+};
+
 const getDirectMessage = (payload) => {
   return axios
     .post(`${baseURl}/getDirectMessage`, payload)
@@ -363,5 +370,6 @@ export {
   shareForumChat,
   getForumChatByFilter,
   getPromotion,
-  confirmResetPasswordCode
+  confirmResetPasswordCode,
+  getMyPromotionPlan
 };

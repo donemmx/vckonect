@@ -12,7 +12,7 @@ export default function Signup() {
       Create a new account to become a user or a veterinarians on vet konect by clicking on one of the cards below
       </div>
       <div className="form flex flex-col gap-3 pt-6">
-        <AccountCard image={animalOwner} icon={blueArrow} title='As an Animal Owner' subtitle='Discover vets, vet clinics, and vendors around you' link={'/onboard-animal-owner-account'}  />
+        <AccountCard image={animalOwner} icon={blueArrow} title='As a User' subtitle='Discover vets, vet clinics, and vendors around you' link={'/onboard-animal-owner-account'}  />
         <AccountCard image={vetIcon} icon={greenArrow} title='Become a Vet' subtitle='Join our pool of veterinarians on vet konect'  link={'/onboard-vet-account'}    />
        
       </div>
