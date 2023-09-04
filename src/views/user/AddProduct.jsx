@@ -67,7 +67,7 @@ export default function AddProduct() {
         availability: available,
         tags: [tags],
         category: category,
-        images: file,
+        images: selectedFiles,
         ...values,
       };
     } else {
@@ -78,7 +78,7 @@ export default function AddProduct() {
         availability: available,
         tags: [tags],
         category: category,
-        images: file,
+        images: selectedFiles,
         ...values,
       };
     }
