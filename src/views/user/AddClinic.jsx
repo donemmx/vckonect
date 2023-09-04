@@ -59,10 +59,10 @@ export default function AddClinic() {
     let payload;
     if (action && action === "edit") {
       payload = {
-        license_number: store?.license_number,
-        user_id: store?.user_id,
+        license_number: license_number,
+        user_id: userData?.id,
         clinic_id: store?.id,
-        clinic_speciality: store.speciality,
+        clinic_speciality: speciality,
         availability: available,
         picture: file ?? store?.picture,
         ...others,
@@ -74,7 +74,7 @@ export default function AddClinic() {
         license_number: license_number,
         user_id: userData.id,
         availability: available,
-        clinic_speciality: speciality,
+        clinic_speciality: [speciality],
         picture: file,
         ...others,
         clinic_name: clinicName,
@@ -115,7 +115,6 @@ export default function AddClinic() {
     email: store?.email,
     phone: store?.phone_number,
     location: store?.location,
-    clinic_speciality: store?.clinic_speciality,
     license_number: store?.license_number,
   };
 
