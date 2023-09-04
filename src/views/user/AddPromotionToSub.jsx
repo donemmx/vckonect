@@ -1,21 +1,33 @@
 import { Checkbox } from "primereact/checkbox";
 import { useState } from "react";
-import { useEffect, useState } from "react";
-import PromoCard from "../../components/promoCard/PromoCard";
 import { Dropdown } from "primereact/dropdown";
 import { InputText } from "primereact/inputtext";
 import { InputSwitch } from "primereact/inputswitch";
-import { Checkbox } from "primereact/checkbox";
+import { useRecoilValue } from "recoil";
+import { user } from "../../atom/userAtom";
 
 export default function AddPromotionToSub() {
     const [specialty, setSpecialty] = useState(null);
-    const [file, setFile] = useState(null);
+    const [file, setFile] = useState([]);
     const [avialability, setAvailability] = useState(false);
+    const [selectedFiles, setSelectedFiles] = useState(undefined);
+    const [imagePreviews, setImagePreviews] = useState([]);
+    const userData = useRecoilValue(user)
     const [agree, setAgree] = useState(false);
-    function handleChange(e) {
-      console.log(e.target.files);
-      setFile(URL.createObjectURL(e.target.files[0]));
-    }
+
+    const selectFiles = (event) => {
+      let images = [];
+      let dataImage = [];
+      for (let i = 0; i < event.target.files.length; i++) {
+        dataImage.push(event.target.files[i]);
+        images.push(URL.createObjectURL(event.target.files[i]));
+      }
+      setFile(event.target.files);
+      setSelectedFiles(event.target.files);
+      setImagePreviews(images);
+    };
+
+
     const Specialties = [
       "Small Animal Medicine",
       "Avian Medicine",
@@ -26,16 +38,33 @@ export default function AddPromotionToSub() {
     const onChange = () => {
       setAgree(!agree);
     };
+
+
+    const checker = (route) => {
+      if (userData?.role === "Veterinarian") {
+        location(`/vet-${route}`);
+      } else {
+        location(`/animal-owner-${route}`);
+      }
+    }; 
+
   return (
     <div>
-           <div className="activity mt-5  mb-5 p-5 lg:p-10 border bg-white rounded-lg w-full lg:w-[38%]">
-        <div className="flex items-center gap-6">
+           <div className="activity mt-5  mb-5 p-5 lg:p-10 border bg-white rounded-lg w-full ">
+           <button
+        onClick={() => checker("promotion")}
+        className="flex items-center gap-3 text-[.75rem] lg:text-[.9rem] cursor-pointer ml-10 mt-10"
+      >
+        <i className="pi pi-angle-left p-1 lg:p-3 h-[25px] w-[25px] lg:h-[45px] lg:w-[45px] bg-white rounded-full"></i>
+        Back
+      </button>
+        <div className="flex items-center py-[10vh]">
           <div className="w-full">
-            <h2 className="title font-black  head__two">Ads Promotion</h2>
-            <div className="pt-2 subtitle paragraph ">
+            <h2 className="title font-black  head__two text-center">Ads Promotion</h2>
+            <div className="pt-2 subtitle paragraph text-center ">
               You can add a new promotion to your list
             </div>
-            <div className="form flex flex-col gap-3 pt-6">
+            <div className="form flex flex-col gap-3 pt-6 lg:w-[38%] mx-auto">
               <h3 className="font-bold mt-5">Product Details</h3>
               <span className="p-float-label">
                 <Dropdown
@@ -92,22 +121,42 @@ export default function AddPromotionToSub() {
                 <label htmlFor="username">Availabile Units - 20 : </label>
               </span>
 
-              {file !== null ? (
-                <>
-                  <img
-                    src={file}
-                    className="h-[200px] w-full object-cover border-[1px] rounded-md"
-                  />
-                  <div
-                    className="underline cursor-pointer"
-                    onClick={() => setFile(null)}
-                  >
-                    Remove Image
-                  </div>
-                </>
-              ) : (
-                <input type="file" onChange={handleChange} />
-              )}
+              {imagePreviews?.length > 0 ? (
+              <>
+                <div className=" imagePreviews ">
+                  {imagePreviews?.map((img, i) => {
+                    return (
+                      <>
+                        <div className=" h-[150px]">
+                          <img
+                            className="preview"
+                            src={img}
+                            alt={"image-" + i}
+                            key={i}
+                          />
+                        </div>
+                      </>
+                    );
+                  })}
+                </div>
+                <div
+                  className="underline cursor-pointer"
+                  onClick={() => {
+                    setImagePreviews(null);
+                  }}
+                >
+                  Remove Image
+                </div>
+              </>
+            ) : (
+              <input
+                type="file"
+                id="image"
+                multiple
+                accept=".png, .jpg, .jpeg"
+                onChange={selectFiles}
+              />
+            )}
 
               <div className="checkbox-group flex items-center mt-4">
                 <Checkbox

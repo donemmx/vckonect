@@ -1,6 +1,6 @@
 import { useRecoilValue } from "recoil";
 import { user } from "../../atom/userAtom";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import addIcon from "../../assets/icons/add-icon.svg";
 import { useState } from "react";
 import SubscribeToPlan from "./SubscribeToPlan";
@@ -8,10 +8,21 @@ import SubscribeToPlan from "./SubscribeToPlan";
 export default function Promotion() {
   const userData = useRecoilValue(user);
   const [tab, setTab] = useState("all");
+  const location = useNavigate()
 
   const activeTab = (type) => {
     setTab(type);
   };
+
+  const checker = (route) => {
+    if (userData?.role === "Veterinarian") {
+      location(`/vet-${route}`);
+    } else {
+      location(`/animal-owner-${route}`);
+    }
+  };
+
+
   return (
     <div className=" flex flex-wrap gap-6">
       <div className="activity mt-5  mb-5 p-5 lg:p-10 border bg-white rounded-lg w-full lg:w-full">
@@ -20,13 +31,13 @@ export default function Promotion() {
             Ads Promotions
           </h2>
         </div>
-        <Link
-          to="/animal-owner-subscription"
+        {/* <Link
+          onClick={()=> checker('add-promotion')}
           className="border-[1px] hover:border-[#52CE06] cursor-pointer  flex items-center justify-between p-3 rounded-[18px] mt-10 mb-5"
         >
           <p className="font-bold px-2">Add New Promotion</p>
           <img src={addIcon} alt="" className="w-[40px]" />
-        </Link>
+        </Link> */}
         {/* <div className="flex items-center justify-center gap-2 text-[.8rem] bg-[#F1FFF4] border border-[#B3FFC4] rounded p-3 mt-4 mb-4 ">
           <div className="available "></div>
           Active - ( Till Jun 20, 2023)
@@ -61,7 +72,7 @@ export default function Promotion() {
               } `}
               onClick={() => activeTab("subscription")}
             >
-              Subsription
+             Ads Subsription
             </h4>
           </div>
             {tab === "all"

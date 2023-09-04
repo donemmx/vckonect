@@ -55,6 +55,7 @@ import OnboardSubscription from "./views/OnboardSubscription";
 import SubscribeToPlan from "./views/user/SubscribeToPlan";
 import OnboardVetSubscribe from "./views/OnboardVetSubscribe";
 import NotFound from "./views/NotFound";
+import AddPromotionToSub from "./views/user/AddPromotionToSub";
 
 const router = createBrowserRouter([
 
@@ -158,6 +159,10 @@ const router = createBrowserRouter([
         element: <SubscribeToPlan />,
       },
       {
+        path: "/vet-add-promotion",
+        element: <AddPromotionToSub />,
+      },
+      {
         path: "/vet-promotion",
         element: <Promotion />,
       },
@@ -238,8 +243,8 @@ const router = createBrowserRouter([
         element: <Activities />,
       },
       {
-        path: "/animal-owner-subscription",
-        element: <SubscribeToPlan />,
+        path: "/animal-owner-add-promotion",
+        element: <AddPromotionToSub />,
       },
       {
         path: "/animal-owner-promotion",
