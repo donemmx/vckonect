@@ -72,8 +72,18 @@ export default function SubscribeToPlan() {
 
   const openModal = (data) => {
     setVisible(!visible);
-    setAmount(Number(data?.price?.slice(3)) * 780 * 100);
     setSelectedPlan(data);
+  };
+
+  const selectPlan = (data) => {
+    setSelected(data);
+    if (Number(data.price.slice(3)) === 0) {
+      setLoading(true);
+      addSubscription(data);
+    } else {
+      setAmount(Number(data?.price?.slice(3)) * 780*100);
+      openModal();
+    }
   };
 
   const componentProps = {
@@ -92,16 +102,7 @@ export default function SubscribeToPlan() {
     onClose: () => "",
   };
 
-  const selectPlan = (data) => {
-    setSelected(data);
-    if (Number(data.price.slice(3)) === 0) {
-      setLoading(true);
-      addSubscription(data);
-    } else {
-      setAmount(Number(data?.price?.slice(3)) * 780*100);
-      openModal();
-    }
-  };
+
 
 
   useEffect(() => {
