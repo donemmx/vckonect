@@ -26,10 +26,11 @@ export default function SubscribeToPlan() {
   const [amount, setAmount] = useState(0);
 
   const addSubscription = (data) => {
-    const {title, ...others} = data
+    const {title,price, ...others} = data
     const payload = {
       id: userData?.id,
       promotion_title: title,
+      promotion_price: price.slice(3),
       role: userData?.role,
       ...others
     };
