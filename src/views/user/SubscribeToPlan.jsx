@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { getPromotionPlan } from "../../utils/userApiService";
+import {
+  getPromotionPlan,
+  subscribePromotionPlan,
+} from "../../utils/userApiService";
 import { useRecoilValue } from "recoil";
 import { user } from "../../atom/userAtom";
 import ReactDOM from "react-dom";
 import CurrencyFormatter from "currency-formatter-react";
 import { Dialog } from "primereact/dialog";
 import { PaystackButton } from "react-paystack";
+import { toast } from "react-toastify";
 
 const PayPalButton = window.paypal.Buttons.driver("react", { React, ReactDOM });
 
@@ -13,19 +17,37 @@ export default function SubscribeToPlan() {
   const [allPromotion, setAllPromotions] = useState([]);
   const [plan, setPlan] = useState(null);
   const [paymentChannel, setPaymentChannel] = useState();
+  const [loading, setLoading] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState("");
+  const [selected, setSelected] = useState("");
   const [visible, setVisible] = useState(false);
   const publicKey = "pk_test_b151276bd6786f5c094f1c35d7ee0008f073fb2d";
   const userData = useRecoilValue(user);
   const [amount, setAmount] = useState(0);
 
+  const addSubscription = (data) => {
+    const {title, ...others} = data
+    const payload = {
+      id: userData?.id,
+      promotion_title: title,
+      role: userData?.role,
+      ...others
+    };
+    subscribePromotionPlan(payload).then(() => {
+      toast.success("Subscription added successfully");
+      getPromotionPlan().then((res) => {
+        setAllPromotions(res);
+        setPlan(res[0].title);
+      });
+    });
+  };
 
   const createOrder = (data, actions) => {
     return actions.order.create({
       purchase_units: [
         {
           amount: {
-            value: selectedPlan.price.slice(3),
+            value: selected.price.slice(3),
           },
         },
       ],
@@ -34,10 +56,7 @@ export default function SubscribeToPlan() {
 
   const onApprove = (data, actions) => {
     setVisible(!visible);
-    getPromotionPlan().then((res) => {
-      setAllPromotions(res);
-      setPlan(res[0].title);
-    });
+    addSubscription();
     return actions.order.capture();
   };
 
@@ -67,9 +86,22 @@ export default function SubscribeToPlan() {
     text: "Paystack",
     onSuccess: () => {
       setVisible(!visible);
+      addSubscription(selected);
     },
     onClose: () => "",
   };
+
+  const selectPlan = (data) => {
+    setSelected(data);
+    if (Number(data.price.slice(3)) === 0) {
+      setLoading(true);
+      addSubscription(data);
+    } else {
+      setAmount(Number(data?.price?.slice(3)) * 780*100);
+      openModal();
+    }
+  };
+
 
   useEffect(() => {
     getPromotionPlan().then((res) => {
@@ -121,7 +153,7 @@ export default function SubscribeToPlan() {
                     </div>
                     <div
                       className="p-6 cursor-pointer bg-green-800 text-center text-white text-sm font-bold rounded-b-lg"
-                      onClick={() => openModal(res)}
+                      onClick={() => selectPlan(res)}
                     >
                       SELECT PLAN
                     </div>
