@@ -90,6 +90,7 @@ export default function AddStore() {
       };
     }
     Object.entries(payload).forEach(([key, value]) => {
+      console.log(key, value);
       formData.append(key, value);
     });
     await addStore(formData)
