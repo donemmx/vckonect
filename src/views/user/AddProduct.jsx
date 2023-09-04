@@ -57,6 +57,7 @@ export default function AddProduct() {
 
   const onSubmit = async (values) => {
     const formData = new FormData();
+    let imagess= new FormData();
     let available = 0;
     if (avialability) {
       available = 1;
@@ -74,6 +75,9 @@ export default function AddProduct() {
         ...values,
       };
     } else {
+      [...selectedFiles].forEach((images) => {
+        imagess.append('image', images)
+      });
       payload = {
         user_id: userData?.id,
         user_role: userData?.role,
@@ -81,15 +85,13 @@ export default function AddProduct() {
         availability: available,
         tags: JSON.stringify([...tags]),
         category: category,
-        images: JSON.stringify([...selectedFiles]),
+        images: JSON.stringify(imagess),
         ...values,
       };
     }
     Object.entries(payload).forEach(([key, value]) => {
       formData.append(key, value);
     });
-    // formData.append('tags', [...tags]);
-    // formData.append('images', [...selectedFiles])
     await addProduct(formData)
       .then((res) => {
         console.log(res);
@@ -107,6 +109,7 @@ export default function AddProduct() {
         }
       })
       .catch((err) => console.log(err));
+
   };
 
   const initialValues = {
