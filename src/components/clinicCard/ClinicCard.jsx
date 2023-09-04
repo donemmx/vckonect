@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { deleteClinic } from "../../utils/vetApiService";
 import { toast } from "react-toastify";
 import WarningCard from "../warningCard/WarningCard";
+import DirectMessageModal from "../directMessageModal/DirectMessageModal";
 
 export default function ClinicCard({
   availability,
@@ -114,11 +115,7 @@ export default function ClinicCard({
               />
 
               </a>
-              <img
-                src={chat}
-                alt=""
-                className=" p-2 h-[35px] bg-white w-[35px] object-contain rounded-full shadow-md cursor-pointer"
-              />
+              <DirectMessageModal fullData={fullData} />
               <a href={`mailto:${fullData?.email}`} rel="noReferrer">
               <img
               

@@ -45,7 +45,7 @@ export default function StoreCard({
   };
 
   const addClientData = () => {
-    if(fullData.user_id !== userData.id){
+    if (fullData.user_id !== userData.id) {
       const payload = {
         user_id: fullData.user_id,
         role: fullData.role,
@@ -124,17 +124,21 @@ export default function StoreCard({
           </div>
           <div className="buttons pt-1 flex justify-between items-center mt-3">
             <div className="group flex items-center gap-3  ">
-              <img
-                src={phone}
-                className=" p-2 h-[35px] bg-white w-[35px] object-contain rounded-full shadow-md cursor-pointer"
-                alt=""
-              />
+              <a href={`tel:${fullData?.phone_number}`} rel="noReferrer">
+                <img
+                  src={phone}
+                  className=" p-2 h-[35px] bg-white w-[35px] object-contain rounded-full shadow-md cursor-pointer"
+                  alt=""
+                />
+              </a>
               <DirectMessageModal fullData={fullData} />
-              <img
-                src={message}
-                alt=""
-                className=" p-2 h-[35px] bg-white w-[35px] object-contain rounded-full shadow-md cursor-pointer"
-              />
+              <a href={`mailto:${fullData?.email}`} rel="noReferrer">
+                <img
+                  src={message}
+                  alt=""
+                  className=" p-2 h-[35px] bg-white w-[35px] object-contain rounded-full shadow-md cursor-pointer"
+                />
+              </a>
             </div>
             <div className="message">
               <button
