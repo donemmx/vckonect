@@ -111,7 +111,7 @@ export default function AddClinic() {
   };
 
   const loadedData = {
-    clinicName: store?.store_name,
+    clinicName: store?.clinic_name,
     email: store?.email,
     phone: store?.phone_number,
     location: store?.location,
@@ -142,6 +142,7 @@ export default function AddClinic() {
       } else {
         setAvailability(false);
       }
+      // setSpeciality(store?.clinic_speciality)
       setPicture(store?.picture);
     }
   }, []);
