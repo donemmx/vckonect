@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import callIcon from "../../assets/icons/phone-icon.svg";
@@ -13,6 +13,7 @@ import notAvailable from "../../assets/sidebar/notAvailable.svg";
 import addIcon from "../../assets/icons/add-icon.svg";
 import { actionState } from "../../atom/actionAtom";
 import PromoCard from "../../components/promoCard/PromoCard";
+import { getStoreByFilter } from "../../utils/userApiService";
 export default function StoreDetails() {
   const [userData, setUserData] = useRecoilState(user);
   const [storeInfo, setStoreInfo] = useRecoilState(storeData);
@@ -38,7 +39,14 @@ export default function StoreDetails() {
     setAction("add");
   };
 
-  // useEffect(() => getUser, []);
+  useEffect(() => {
+    const payload = {
+      id: storeInfo?.id
+    }
+    getStoreByFilter(payload).then((res)=> {
+      setStoreInfo(res[0])
+    })
+  }, []);
 
   return (
     <div className=" bg-white h-full pb-10 mb-10  rounded-md border-[1px] border-[#EBEBEB]">
@@ -183,7 +191,7 @@ export default function StoreDetails() {
       )}
       <div className="w-[90%] mx-auto items-center flex justify-center flex-wrap gap-5">
         {
-          storeInfo?.product.map((res)=> (
+          storeInfo?.product?.map((res)=> (
             <PromoCard  key={res.id} data={res}/>
           ))
         }
