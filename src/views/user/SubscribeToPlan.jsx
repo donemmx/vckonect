@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {
+  getMyPromotionPlan,
   getPromotionPlan,
   subscribePromotionPlan,
 } from "../../utils/userApiService";
@@ -10,6 +11,7 @@ import CurrencyFormatter from "currency-formatter-react";
 import { Dialog } from "primereact/dialog";
 import { PaystackButton } from "react-paystack";
 import { toast } from "react-toastify";
+import useUpadateReload from "../../hooks/UpdateRelaod";
 
 const PayPalButton = window.paypal.Buttons.driver("react", { React, ReactDOM });
 
@@ -24,6 +26,8 @@ export default function SubscribeToPlan() {
   const publicKey = "pk_test_b151276bd6786f5c094f1c35d7ee0008f073fb2d";
   const userData = useRecoilValue(user);
   const [amount, setAmount] = useState(0);
+  const [updateReload] = useUpadateReload();
+
 
   const addSubscription = (data) => {
     const {title,price, id, ...others} = data
@@ -35,8 +39,9 @@ export default function SubscribeToPlan() {
       ...others
     };
 
-    subscribePromotionPlan(payload).then(() => {
-      toast.success("Subscription added successfully");
+    subscribePromotionPlan(payload).then((res) => {
+      toast.success(res.detail);
+      updateReload()
       getPromotionPlan().then((res) => {
         setAllPromotions(res);
         setPlan(res[0].title);
@@ -100,7 +105,9 @@ export default function SubscribeToPlan() {
       setVisible(!visible);
       addSubscription(selected);
     },
-    onClose: () => "",
+    onClose: () => {
+      setLoading(false);
+    },
   };
 
 
@@ -158,6 +165,7 @@ export default function SubscribeToPlan() {
                       className="p-6 cursor-pointer bg-green-800 text-center text-white text-sm font-bold rounded-b-lg"
                       onClick={() => selectPlan(res)}
                     >
+                      {loading ? <i className="pi pi-spinner pi-spin"></i>: ''}
                       SELECT PLAN
                     </div>
                   </div>

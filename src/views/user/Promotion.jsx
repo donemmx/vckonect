@@ -4,9 +4,15 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import SubscribeToPlan from "./SubscribeToPlan";
 import { getMyPromotionPlan } from "../../utils/userApiService";
+import { promotion } from "../../validations/UserValidation";
+import moment from "moment/moment";
+import PromotionPlanCard from "../../components/promotionPlanCard/PromotionPlanCard";
+import PromotionSubscriptionCard from "../../components/promotionSubscriptionCard/PromotionSubscriptionCard";
+import { reloadStore } from "../../atom/reloadAtom";
 
 export default function Promotion() {
   const userData = useRecoilValue(user);
+  const reload = useRecoilValue(reloadStore);
   const [tab, setTab] = useState("all");
   const [myPromotion, setMyPromotion] = useState([]);
   const location = useNavigate();
@@ -25,7 +31,7 @@ export default function Promotion() {
 
   useEffect(() => {
     getPromotion();
-  }, []);
+  }, [reload]);
 
   const getPromotion = () => {
     const payload = {
@@ -65,7 +71,11 @@ export default function Promotion() {
             </h4>
           </div>
           {tab === "all" ? (
-            ""
+            <>
+              <PromotionPlanCard myPromotion={myPromotion} />
+            </>
+          ) : myPromotion?.subscription === "Active" ? (
+            <PromotionSubscriptionCard promotion={myPromotion} />
           ) : (
             <SubscribeToPlan />
           )}
