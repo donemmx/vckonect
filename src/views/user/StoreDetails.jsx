@@ -15,8 +15,8 @@ import { actionState } from "../../atom/actionAtom";
 import PromoCard from "../../components/promoCard/PromoCard";
 import { getStoreByFilter } from "../../utils/userApiService";
 export default function StoreDetails() {
-  const [userData, setUserData] = useRecoilState(user);
-  const [storeInfo, setStoreInfo] = useRecoilState(storeData);
+  const [storeInfo, setStoreInfo] = useState();
+  const userData = useRecoilValue(user)
   const [action, setAction] = useRecoilState(actionState);
   const [openDetail, setOpenDetail] = useState(null);
   const location = useNavigate();

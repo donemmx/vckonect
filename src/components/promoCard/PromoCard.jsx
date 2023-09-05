@@ -9,9 +9,9 @@ export default function PromoCard({ data }) {
   return (
     <div className="adsCard mb-6">
       <Carousel showThumbs={false} swipeable={true} showStatus={false} showArrows={ false} autoPlay infiniteLoop className=" absolute w-full ">
-        {data?.images.map((res) => (
+        {data?.images?.map((res) => (
           <div key={res} className=" h-full w-full rounded-lg"> 
-            <img src={res} className="rounded-lg" />
+            <img src={res} className="rounded-lg w-full h-full" />
           </div>
         ))}
       </Carousel>
@@ -20,11 +20,7 @@ export default function PromoCard({ data }) {
         <div className="top adsUser h-[65%] w-[200px]">
           <div className="pt-4 pr-4">
             <div className="flex items-center gap-2 w-fit ml-auto">
-              <img
-                src={shareIcon}
-                alt=""
-                className=" p-2 mb-2 h-[35px] w-[35px] bg-white rounded-full border-[1px] border-[#EBEBEB] shadow"
-              />
+            
               <img
                 src={deleteIcon}
                 alt=""
