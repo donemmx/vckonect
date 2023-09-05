@@ -1,6 +1,12 @@
 import moment from 'moment'
+import { useState } from 'react'
 
 export default function PromotionPlanCard({myPromotion}) {
+  const [visible, setVisible] = useState(false)
+  
+  const openModal = () => {
+    setVisible(!visible)
+  }
   return (
     <div className=" border h-[10vh] rounded-md bg-gray-100  my-5">
     <div className="flex items-center justify-between h-full">

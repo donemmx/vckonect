@@ -12,7 +12,7 @@ import available from "../../assets/sidebar/available.svg";
 import notAvailable from "../../assets/sidebar/notAvailable.svg";
 import addIcon from "../../assets/icons/add-icon.svg";
 import { actionState } from "../../atom/actionAtom";
-
+import PromoCard from "../../components/promoCard/PromoCard";
 export default function StoreDetails() {
   const [userData, setUserData] = useRecoilState(user);
   const [storeInfo, setStoreInfo] = useRecoilState(storeData);
@@ -34,12 +34,9 @@ export default function StoreDetails() {
     }
   };
 
-
   const setActionData = () => {
     setAction("add");
   };
-
-
 
   // useEffect(() => getUser, []);
 
@@ -149,7 +146,9 @@ export default function StoreDetails() {
           <p className="text-xs mt-4">Click to copy</p>
           {userData?.id === storeInfo?.user_id ? (
             <button
-              onClick={() => {checker("add-product"), setActionData()}}
+              onClick={() => {
+                checker("add-product"), setActionData();
+              }}
               className="border-[1px] hover:border-[#52CE06] cursor-pointer  flex items-center justify-between p-3 rounded-[18px] mt-5 mb-5 w-full"
             >
               <p className="font-bold px-2">Add New Product</p>
@@ -169,7 +168,9 @@ export default function StoreDetails() {
           </p>
           {userData?.id === storeInfo?.user_id ? (
             <button
-              onClick={() => {checker("add-product"), setActionData()}}
+              onClick={() => {
+                checker("add-product"), setActionData();
+              }}
               className="border-[1px] hover:border-[#52CE06] cursor-pointer  flex items-center justify-between p-3 rounded-[18px] mt-5 mb-5 w-full"
             >
               <p className="font-bold px-2">Add New Product</p>
@@ -180,6 +181,13 @@ export default function StoreDetails() {
           )}
         </div>
       )}
+      <div className="w-[90%] mx-auto items-center flex justify-center flex-wrap gap-5">
+        {
+          storeInfo?.product.map((res)=> (
+            <PromoCard  key={res.id} data={res}/>
+          ))
+        }
+      </div>
     </div>
   );
 }
