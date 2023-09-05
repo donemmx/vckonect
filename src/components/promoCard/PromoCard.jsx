@@ -8,10 +8,10 @@ import { Carousel } from "react-responsive-carousel";
 export default function PromoCard({ data }) {
   return (
     <div className="adsCard mb-6">
-      <Carousel showThumbs={false} swipeable={true} showStatus={false} showArrows={ false} autoPlay className=" absolute w-full">
+      <Carousel showThumbs={false} swipeable={true} showStatus={false} showArrows={ false} autoPlay infiniteLoop className=" absolute w-full ">
         {data?.images.map((res) => (
-          <div key={res} className=" h-full w-full"> 
-            <img src={res} />
+          <div key={res} className=" h-full w-full rounded-lg"> 
+            <img src={res} className="rounded-lg" />
           </div>
         ))}
       </Carousel>
