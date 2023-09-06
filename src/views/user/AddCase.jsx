@@ -9,7 +9,7 @@ import { actionState } from "../../atom/actionAtom";
 import { addCase } from "../../utils/vetApiService";
 import { toast } from "react-toastify";
 import { useFormik } from "formik";
-import { addPetCase } from "../../validations/UserValidation";
+import { addFarmCase, addPetCase } from "../../validations/UserValidation";
 
 export default function AddCase() {
   const userData = useRecoilValue(user);
@@ -30,7 +30,7 @@ export default function AddCase() {
     // if (action && action === "edit") {
     //   payload = {
     //     user_id: store?.user_id,
-    //     case_title: 
+    //     case_title:
     //     pet_name: petName,
     //     specie: specie,
     //     breed: breed,
@@ -49,26 +49,26 @@ export default function AddCase() {
     //   };
     // }
     payload = {
-          user_id: userData?.user_id,
-          case_title: case_title,
-          pet_name: selectedPet.pet_name,
-          pet_id: selectedPet.pet_id,
-          specie: selectedPet.specie,
-          breed: selectedPet.breed,
-          age: selectedPet.age,
-          sex: selectedPet.age,
-          date_of_occurence: date_of_occurence,
-          history: '',
-          clinical_sign: '',
-          tentative_diagnoistic: '',
-          differential_diagnosis:'',
-          disease_diagnostic: '',
-          lab_confirm: '',
-          motality: '',
-          treatment_regiment: '',
-          clinic_physical_address: '',
-          mobile_veterinarian: '',
-        };
+      user_id: userData?.user_id,
+      case_title: case_title,
+      pet_name: selectedPet.pet_name,
+      pet_id: selectedPet.pet_id,
+      specie: selectedPet.specie,
+      breed: selectedPet.breed,
+      age: selectedPet.age,
+      sex: selectedPet.age,
+      date_of_occurence: date_of_occurence,
+      history: "",
+      clinical_sign: "",
+      tentative_diagnoistic: "",
+      differential_diagnosis: "",
+      disease_diagnostic: "",
+      lab_confirm: "",
+      motality: "",
+      treatment_regiment: "",
+      clinic_physical_address: "",
+      mobile_veterinarian: "",
+    };
 
     Object.entries(payload).forEach(([key, value]) => {
       formData.append(key, value);
@@ -124,10 +124,9 @@ export default function AddCase() {
   } = useFormik({
     validateOnMount: true,
     initialValues: action === "add" ? initialValues : loadedData,
-    validationSchema: addPetCase,
+    validationSchema: types === "Pet" ? addPetCase : addFarmCase,
     onSubmit,
   });
-
 
   return (
     <div className=" bg-white h-full pb-20  mb-10 rounded-md border-[1px] border-[#EBEBEB]">
@@ -306,7 +305,14 @@ export default function AddCase() {
             ) : (
               ""
             )}
-            <button className="green__btn">Save</button>
+            <button className="green__btn" disabled={!isValid || isSubmitting}>
+              {isSubmitting ? (
+                <i className="pi pi-spin pi-spinner !text-[20px]"></i>
+              ) : (
+                ""
+              )}
+              Save
+            </button>
           </div>
         </div>
       </div>

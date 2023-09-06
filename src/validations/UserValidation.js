@@ -142,15 +142,21 @@ const pet  =  yup.object().shape({
 })
 
 const addFarmCase  =  yup.object().shape({
-    clientName: yup.string().required("Required"),
-    phone: yup.string().required("Required"),
-    caseType: yup.string().required("Required"),
-    petName: yup.string().required("Required"),
-    specie: yup.string().required("Required"),
-    breed: yup.string().required("Required"),
-    age: yup.string().required("Required"),
-    sex: yup.string().required("Required"),
-    caseTitle: yup.string().required("Required"),
+    client_name: yup.string().required("Required"),
+    client_phone: yup.string().required("Required"),
+    case_type: yup.string().required("Required"),
+    details: yup.string().required("Required"),
+    date_of_occurence: yup.string().required("Required"),
+    history: yup.string().required("Required"),
+    clinical_sign: yup.string().required("Required"),
+    motality: yup.string().required("Required"),
+    mobile_veterinarian: yup.string().required("Required"),
+    treatment_regiment: yup.string().required("Required"),
+    clinic_physical_address: yup.string().required("Required"),
+    lab_confirm: yup.string().required("Required"),
+    disease_diagnostic: yup.string().required("Required"),
+    differential_diagnosis: yup.string().required("Required"),
+    tentative_diagnoistic: yup.string().required("Required"),
 })
 
 export {

@@ -19,17 +19,11 @@ export default function AddFarm() {
   const [livestock, setLivestock] = useState(null);
   const [store, setStore] = useRecoilState(storeData);
   const action = useRecoilValue(actionState);
-  const [picture, setPicture] = useState(null)
+  const [picture, setPicture] = useState(null);
 
   const [fileDataURL, setFileDataURL] = useState(null);
 
-
-  const livestocks = [
-     "Poultry" ,
-     "Fish",
-     "Pig",
-     "Sheep"
-  ];
+  const livestocks = ["Poultry", "Fish", "Pig", "Sheep"];
 
   const getImage = (e) => {
     const fileData = e.target.files[0];
@@ -57,37 +51,35 @@ export default function AddFarm() {
     };
   }, [file]);
 
-
   const onSubmit = async (values) => {
     const formData = new FormData();
-    const { farmName,workers, livestockNumber, ...others } = values;
+    const { farmName, workers, livestockNumber, ...others } = values;
     let payload;
     if (action && action === "edit") {
-     payload = {
-      user_id: store?.user_id,
-      farm_name: store?.farm_name,
-      picture:  file ?? store?.picture,
-      no_of_worker: workers,
-      sex: gender,
-      farm_id: store?.farm_id,
-      livestock_type:store?.livestock_type,
-      no_of_livestock: store?.no_of_livestock,
-      ...others,
-    };
-  }
-  else{
-    payload = {
-      user_id: userData.id,
-      farm_id: v4(),
-      farm_name: farmName,
-      picture: file,
-      no_of_worker: workers,
-      sex: gender,
-      livestock_type:livestock,
-      no_of_livestock: livestockNumber,
-      ...others,
-    };
-  }
+      payload = {
+        user_id: store?.user_id,
+        farm_name: store?.farm_name,
+        picture: file ?? store?.picture,
+        no_of_worker: workers,
+        sex: gender,
+        farm_id: store?.farm_id,
+        livestock_type: store?.livestock_type,
+        no_of_livestock: store?.no_of_livestock,
+        ...others,
+      };
+    } else {
+      payload = {
+        user_id: userData.id,
+        farm_id: v4(),
+        farm_name: farmName,
+        picture: file,
+        no_of_worker: workers,
+        sex: gender,
+        livestock_type: livestock,
+        no_of_livestock: livestockNumber,
+        ...others,
+      };
+    }
     console.log(payload);
     Object.entries(payload).forEach(([key, value]) => {
       formData.append(key, value);
@@ -100,43 +92,50 @@ export default function AddFarm() {
           toast.error(res.detail);
         } else {
           toast.success("Farm added successfully");
-          setStore(null)
+          setStore(null);
           window.history.back();
         }
       })
       .catch((err) => console.log(err));
   };
 
-  const initialValues =  {
+  const initialValues = {
     farmName: "",
     workers: "",
     age: "",
     location: "",
-    livestockNumber: ""
-  }
+    livestockNumber: "",
+  };
 
   const loadedData = {
     farmName: store?.farm_name,
     workers: store?.no_of_worker,
     age: store?.age,
     location: store?.location,
-    livestockNumber: store?.no_of_livestock
+    livestockNumber: store?.no_of_livestock,
   };
 
-
-  const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
-    useFormik({
-      initialValues: action === 'add' ?  initialValues : loadedData,
-      validationSchema: farm,
-      onSubmit,
-    });
+  const {
+    values,
+    isSubmitting,
+    isValid,
+    errors,
+    touched,
+    handleBlur,
+    handleChange,
+    handleSubmit,
+  } = useFormik({
+    initialValues: action === "add" ? initialValues : loadedData,
+    validationSchema: farm,
+    onSubmit,
+  });
   const Genders = ["Male", "Female"];
 
   useEffect(() => {
     if (action && action == "edit") {
       setGender(store?.sex);
       setLivestock(store?.livestock_type);
-      setPicture(store?.picture)
+      setPicture(store?.picture);
     }
   }, []);
 
@@ -198,14 +197,14 @@ export default function AddFarm() {
               />
               <label htmlFor="username">Number of Workers (Required) :</label>
             </span>
-       
+
             {errors.workers && touched.workers && (
               <p className="error">{errors.workers}</p>
             )}
             <span className="p-float-label">
               <Dropdown
                 value={livestock}
-                onChange={(e)=> setLivestock(e.target.value)}
+                onChange={(e) => setLivestock(e.target.value)}
                 options={livestocks}
                 placeholder="Select Livestock"
                 className="w-full md:w-20rem"
@@ -227,14 +226,14 @@ export default function AddFarm() {
               <Dropdown
                 name="sex"
                 value={gender}
-                onChange={(e)=> setGender(e.target.value)}
+                onChange={(e) => setGender(e.target.value)}
                 options={Genders}
                 placeholder="Select Sex"
                 className="w-full md:w-20rem"
               />
               <label htmlFor="username">Sex (Required) : </label>
             </span>
-           
+
             <span className="p-float-label">
               <InputText
                 id="username"
@@ -245,9 +244,7 @@ export default function AddFarm() {
               />
               <label htmlFor="username">Age (Required) : </label>
             </span>
-            {errors.age && touched.age && (
-              <p className="error">{errors.age}</p>
-            )}
+            {errors.age && touched.age && <p className="error">{errors.age}</p>}
             {fileDataURL !== null || picture !== null ? (
               <>
                 <img
@@ -256,21 +253,30 @@ export default function AddFarm() {
                 />
                 <div
                   className="underline cursor-pointer"
-                  onClick={() => {setFileDataURL(null), setPicture(null)}}
+                  onClick={() => {
+                    setFileDataURL(null), setPicture(null);
+                  }}
                 >
                   Remove Image
                 </div>
               </>
             ) : (
               <input
-              type="file"
-              id="image"
-              accept=".png, .jpg, .jpeg"
-              onChange={(e) => getImage(e)}
-               />
+                type="file"
+                id="image"
+                accept=".png, .jpg, .jpeg"
+                onChange={(e) => getImage(e)}
+              />
             )}
 
-            <button type="submit" className="green__btn">Save</button>
+            <button className="green__btn" disabled={!isValid || isSubmitting}>
+              {isSubmitting ? (
+                <i className="pi pi-spin pi-spinner !text-[20px]"></i>
+              ) : (
+                ""
+              )}
+              Save
+            </button>
           </form>
         </div>
       </div>
