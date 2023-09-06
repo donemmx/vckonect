@@ -1,12 +1,18 @@
 import moment from 'moment'
+import { Dialog } from 'primereact/dialog'
 import { useState } from 'react'
 
 export default function PromotionPlanCard({myPromotion}) {
   const [visible, setVisible] = useState(false)
-  
+  const [allProducts, setAllProducts] = useState([])
   const openModal = () => {
     setVisible(!visible)
   }
+
+  const chooseProduct = () => {
+    
+  }
+
   return (
     <div className=" border h-[10vh] rounded-md bg-gray-100  my-5">
     <div className="flex items-center justify-between h-full">
@@ -32,13 +38,29 @@ export default function PromotionPlanCard({myPromotion}) {
             {myPromotion?.subscription}
           </div>
         )}
-        <button className="p-3 border bg-[var(--primary)] text-white rounded-full">
+        <button className="p-3 border bg-[var(--primary)] text-white rounded-full" onClick={openModal}>
           Add products
         </button>
         <p className="p-2 bg-gray-50 text-xs rounded-full">
           {moment(myPromotion?.date).fromNow()}
         </p>
       </div>
+      <Dialog
+        visible={visible}
+        className=" w-[95%] md:w-[70%] lg:w-[40%]"
+        onHide={() => setVisible(false)}
+      >
+        <div className="flex items-center justify-between">
+          
+        </div>
+        <div className="">
+          <button
+            className="bg-green-800 p-3 w-full mt-2 rounded text-white flex items-center justify-center gap-4"
+          >
+            Add to Promotion
+          </button>
+        </div>
+      </Dialog>
     </div>
   </div>
   )
