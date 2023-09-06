@@ -16,12 +16,14 @@ import {
   getStoreByFilter,
 } from "../../utils/userApiService";
 import { getVeterinarianByFilter } from "../../utils/vetApiService";
+import Loading from "../../components/loading/Loading";
 
 export default function DashboardHome() {
   const [active, setActive] = useState("vet");
   const [stores, setStores] = useState([]);
   const [clinics, setClinics] = useState([]);
   const [vets, setVets] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const selectTab = (value) => {
     setActive(value);
@@ -35,18 +37,26 @@ export default function DashboardHome() {
   };
 
   const getClinicData = async () => {
+    setLoading(true);
     await getClinicByFilter(name).then((res) => {
       setClinics(res);
+      setLoading(false);
+
     });
   };
   const getStoreData = async () => {
+    setLoading(true);
     await getStoreByFilter({ name: "" }).then((res) => {
       setStores(res);
+      setLoading(false);
+
     });
   };
   const getVetsData = async () => {
+    setLoading(true);
     await getVeterinarianByFilter({ name: "" }).then((res) => {
       setVets(res);
+      setLoading(false);
     });
   };
 
@@ -129,7 +139,15 @@ export default function DashboardHome() {
               </div>
             </div>
           </div>
-
+          <div className=" grid md:grid-col-2 lg:grid-cols-4 gap-4 w-full mb-10">
+            {loading
+              ? [1, 2, 3, 4].map((data) => (
+                  <div className="w-full mt-10" key={data}>
+                    <Loading />
+                  </div>
+                ))
+              : ""}
+          </div>
           <div className=" pt-12 gap-6  pb-10 grid md:grid-cols-2  lg:grid-cols-4 w-full">
             {active == "vet"
               ? vets.map((res) => <Vetcard key={res} fullData={res} />)
