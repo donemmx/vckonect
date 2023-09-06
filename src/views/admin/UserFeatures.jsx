@@ -89,6 +89,7 @@ export default function UserFeatures() {
     setLoading(true);
     switch (tab) {
       case "animalOwner":
+        setLoading(true);
         await adminGetAnimalOwner({ name: search }).then((res) => {
           setLoading(false);
           setAnimalOwner(res);
@@ -96,11 +97,13 @@ export default function UserFeatures() {
         break;
       case "pets":
         if (active === "pet") {
+          setLoading(true);
           await adminGetPet({ name: search }).then((res) => {
             setLoading(false);
             setPet(res);
           });
         } else {
+          setLoading(true);
           await adminGetFarm({ name: search }).then((res) => {
             setLoading(false);
             setFarms(res);
@@ -108,18 +111,21 @@ export default function UserFeatures() {
         }
         break;
       case "vet":
+        setLoading(true);
         await adminGetVeterinarian({ name: search }).then((res) => {
           setLoading(false);
           setVet(res);
         });
         break;
       case "store":
+        setLoading(true);
         await getStoreByFilter({ name: search }).then((res) => {
           setLoading(false);
           setStores(res);
         });
         break;
       case "clinic":
+        setLoading(true);
         await adminGetClinic({ name: search }).then((res) => {
           setLoading(false);
           setClinic(res);
@@ -144,7 +150,7 @@ export default function UserFeatures() {
     deactivateAccount(payload).then((res) => {
       toast.success("User successfully deactivated");
       setLoading(false);
-      getUserCounter()
+      getUserCounter();
     });
   };
   const activateUserAccount = (data) => {
@@ -156,7 +162,7 @@ export default function UserFeatures() {
     activateAccount(payload).then((res) => {
       toast.success("User successfully activated");
       setLoading(false);
-      getUserCounter()
+      getUserCounter();
     });
   };
 
