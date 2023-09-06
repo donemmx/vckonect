@@ -17,6 +17,7 @@ import useRouteChecker from "../../hooks/RouteChecker";
 import AdminHeader from "../../components/header/AdminHeader";
 import { getVeterinarianActivity } from "../../utils/vetApiService";
 import { useNavigate } from "react-router-dom";
+import AdminCardLoading from "../../components/loading/AdminCardLoading";
 
 export default function Dashboard() {
   const [tab, setTab] = useState("activity");
@@ -26,7 +27,7 @@ export default function Dashboard() {
   const [routeChecker] = useRouteChecker();
   const [loading, setLoading] = useState(true);
   const [allActivities, setAllActivities] = useState([]);
-  const location = useNavigate()
+  const location = useNavigate();
   const activeTab = (type) => {
     setTab(type);
   };
@@ -45,25 +46,29 @@ export default function Dashboard() {
       id: userData.id,
       role: userData.role,
     };
-    if(userData.role === 'Animal Owner'){
+    if (userData.role === "Animal Owner") {
+      setLoading(true);
       getAnimalOwnerActivity(payload).then((res) => {
         setAllActivities(res);
-        setLoading(false)
+        setLoading(false);
       });
-    }
-    else {
+    } else {
+      setLoading(true);
       getVeterinarianActivity(payload).then((res) => {
         setAllActivities(res);
-        setLoading(false)
-      })
+        setLoading(false);
+      });
     }
   }, []);
 
-  useEffect(()=> {
-    if(userData?.subscription === null || userData?.subscription === 'Expired'){
+  useEffect(() => {
+    if (
+      userData?.subscription === null ||
+      userData?.subscription === "Expired"
+    ) {
       location("/vet-subscription");
     }
-  }, [])
+  }, []);
   return (
     <div className="">
       <div className="form grid grid-cols-1 md:grid-cols-2 gap-3 pt-6">
@@ -81,23 +86,23 @@ export default function Dashboard() {
           subtitle="Join the poor of vendors on our platform to earn from sales."
           onClick={() => getRoute("store")}
         />
-       {userData?.role === 'Animal Owner' ?
-        <AccountCard
-          image={livestockIcon}
-          icon={arrow}
-          title="Manage Your Pet & Livestock Farm"
-          subtitle="Manage your pet and livestock farm on our platform to access high quality vet care"
-          link={"/livestock"}
-        />
-        :
-        <AccountCard
-          image={cases}
-          icon={arrow}
-          title="Manage Your Cases"
-          subtitle="Manage your cases on our platform to access high quality vet care"
-          link={"/vet-cases"}
-        />
-       }
+        {userData?.role === "Animal Owner" ? (
+          <AccountCard
+            image={livestockIcon}
+            icon={arrow}
+            title="Manage Your Pet & Livestock Farm"
+            subtitle="Manage your pet and livestock farm on our platform to access high quality vet care"
+            link={"/livestock"}
+          />
+        ) : (
+          <AccountCard
+            image={cases}
+            icon={arrow}
+            title="Manage Your Cases"
+            subtitle="Manage your cases on our platform to access high quality vet care"
+            link={"/vet-cases"}
+          />
+        )}
         <AccountCard
           image={adsIcon}
           icon={arrow}
@@ -125,7 +130,16 @@ export default function Dashboard() {
             Forum Trending Topics
           </h4>
         </div>
-
+        {loading ? (
+          <div className="grid gap-2">
+            <AdminCardLoading />
+            <AdminCardLoading />
+            <AdminCardLoading />
+            <AdminCardLoading />
+          </div>
+        ) : (
+          ""
+        )}
         {tab == "activity" ? (
           <div className="posts p-3 mt-5 grid gap-2">
             {allActivities?.map((res) => (
