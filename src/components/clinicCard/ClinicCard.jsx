@@ -15,11 +15,6 @@ import WarningCard from "../warningCard/WarningCard";
 import DirectMessageModal from "../directMessageModal/DirectMessageModal";
 
 export default function ClinicCard({
-  availability,
-  image,
-  clinicName,
-  clinicLocation,
-  clinic_id,
   fullData,
 }) {
 
@@ -45,7 +40,7 @@ export default function ClinicCard({
   };
 
   const deleteClinicById = () => {
-    deleteClinic({ clinic_id: clinic_id })
+    deleteClinic({ clinic_id: fullData?.clinic_id })
       .then(() => {
         toast.success("Clinic deleted successfully");
         updateReload()
@@ -61,7 +56,7 @@ export default function ClinicCard({
         <div
           className="top h-[65%] w-full"
           style={{
-            backgroundImage: `url(${image})`,
+            backgroundImage: `url(${fullData?.picture})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}
@@ -84,7 +79,7 @@ export default function ClinicCard({
             ""
           )}
           <div className="availbility !top-4" >
-            {availability === "1" ? (
+            {fullData?.availability === "1" ? (
               <div className=" flex items-center gap-2 text-[.8rem]">
                 <div className="available "></div>
                 Open
@@ -98,12 +93,12 @@ export default function ClinicCard({
           </div>
         </div>
         <div className="bottom bg-white p-2 rounded-b-[12px]">
-          <div className="name font-black sm:text-[.85rem] md:text-[1.2rem]">
-            {clinicName}
+          <div className="name font-black sm:text-[.85rem] md:text-[1.1rem]">
+            {fullData?.clinic_name}
           </div>
           <div className="location flex text-sm items-center gap-2">
             <img src={location} alt="" className=" h-5" />
-            {clinicLocation}
+            {fullData?.location}
           </div>
           <div className="buttons pt-1 flex justify-between items-center mt-3">
             <div className="group flex items-center gap-3  ">

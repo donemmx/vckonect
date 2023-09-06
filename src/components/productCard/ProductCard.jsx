@@ -46,7 +46,7 @@ export default function ProductCard({
   };
 
   const addClientData = () => {
-    if(fullData.user_id !== userData.id){
+    if (fullData.user_id !== userData.id) {
       const payload = {
         user_id: fullData.user_id,
         role: fullData.role,
@@ -125,17 +125,15 @@ export default function ProductCard({
           </div>
           <div className="buttons pt-1 flex justify-between items-center mt-3">
             <div className="group flex items-center gap-3  ">
-              <img
-                src={phone}
-                className=" p-2 h-[35px] bg-white w-[35px] object-contain rounded-full shadow-md cursor-pointer"
-                alt=""
-              />
+              <a href="">
+                <img
+                  src={phone}
+                  className=" p-2 h-[35px] bg-white w-[35px] object-contain rounded-full shadow-md cursor-pointer"
+                  alt=""
+                />
+              </a>
               <DirectMessageModal fullData={fullData} />
-              <img
-                src={message}
-                alt=""
-                className=" p-2 h-[35px] bg-white w-[35px] object-contain rounded-full shadow-md cursor-pointer"
-              />
+         
             </div>
             <div className="message">
               <button

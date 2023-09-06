@@ -110,9 +110,9 @@ const addProduct = (payload) => {
 
 // Clinic
 
-const getClinicByFilter = (name, specialty) => {
+const getClinicByFilter = (payload) => {
   return axios
-    .post(`${baseURl}/getClinicByFilter?name=${name}&specialty=${specialty}`)
+    .post(`${baseURl}/getClinicByFilter`, payload)
     .then((res) => res.data)
     .catch((err) => console.log(err));
 };

@@ -25,11 +25,7 @@ export default function VetUserDetails() {
     };
   
     const checker = (route) => {
-      if (userData?.role === "Veterinarian") {
-        location(`/vet-${route}`);
-      } else {
-        location(`/animal-owner-${route}`);
-      }
+      window.history.back()
     };
   
   
@@ -51,9 +47,9 @@ export default function VetUserDetails() {
           </div>
         </div>
         <div className="flex items-center justify-center mt-[-6vh]">
-          {storeInfo?.picture && storeInfo?.picture.length > 64 ? (
+          {storeInfo?.profile_picture && storeInfo?.profile_picture.length > 64 ? (
             <img
-              src={storeInfo?.picture}
+              src={storeInfo?.profile_picture}
               alt=""
               className=" rounded-full border-[4px] h-[150px] w-[150px] object-cover border-green-400"
             />
@@ -62,10 +58,10 @@ export default function VetUserDetails() {
           )}
         </div>
         <div className="name text-[1.25rem] pt-1 text-center font-bold">
-          {storeInfo?.store_name}
+        {storeInfo?.first_name} {storeInfo?.last_name}
         </div>
         <small className=" text-[.9rem] py-3 text-center flex items-center justify-center ">
-          Vet Clinic
+          Vetenarian
         </small>
         <div className=" text-[.82rem] flex items-center gap-7 justify-center mt-2">
           <a
@@ -88,7 +84,7 @@ export default function VetUserDetails() {
           </a>
           <div
             className="flex flex-col items-center justify-center"
-            onClick={() => setData(storeInfo?.location, "Location")}
+            onClick={() => setData(storeInfo?.address, "Location")}
           >
             <img
               src={markerIcon}

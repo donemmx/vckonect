@@ -26,18 +26,12 @@ export default function ClinicDetails() {
   };
 
   const checker = (route) => {
-    if (userData?.role === "Veterinarian") {
-      location(`/vet-${route}`);
-    } else {
-      location(`/animal-owner-${route}`);
-    }
+    window.history.back();
   };
 
   const setActionData = () => {
-    setAction('add')
-  }
-
-  // useEffect(() => getUser, []);
+    setAction("add");
+  };
 
   return (
     <div className=" bg-white h-full pb-10 mb-10  rounded-md border-[1px] border-[#EBEBEB]">

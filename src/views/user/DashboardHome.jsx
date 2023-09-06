@@ -1,4 +1,4 @@
-import {  useState } from "react";
+import { useEffect, useState } from "react";
 import Vetcard from "../../components/vetCard/Vetcard";
 import vetClinic from "../../assets/tab-icon/vet-clinic-tab.svg";
 import vetStore from "../../assets/tab-icon/vet-store-tab.svg";
@@ -35,20 +35,24 @@ export default function DashboardHome() {
   };
 
   const getClinicData = async () => {
-    await getClinicByFilter().then((res) => {
+    await getClinicByFilter(name).then((res) => {
       setClinics(res);
     });
   };
   const getStoreData = async () => {
-    await getStoreByFilter({name: ''}).then((res) => {
+    await getStoreByFilter({ name: "" }).then((res) => {
       setStores(res);
     });
   };
   const getVetsData = async () => {
-    await getVeterinarianByFilter().then((res) => {
+    await getVeterinarianByFilter({ name: "" }).then((res) => {
       setVets(res);
     });
   };
+
+  useEffect(() => {
+    getVetsData();
+  }, []);
 
   return (
     <>
@@ -106,7 +110,7 @@ export default function DashboardHome() {
               )}
             </div>
           </div>
-          <div className="menuSearch pt-8">
+          <div className=" pt-8">
             <div className="search">
               <div className="form__group flex space-x-4 items-center p-1 border-[#EBEBEB] border-2  bg-white rounded-full">
                 <img
@@ -124,27 +128,12 @@ export default function DashboardHome() {
                 </div>
               </div>
             </div>
-            <div className="flex flex-wrap items-center justify-center gap-5">
-              <img
-                src={filter}
-                className="h-[50px] object-contain cursor-pointer"
-                alt=""
-              />
-              <img
-                src={listView}
-                className="h-[50px] object-contain cursor-pointer"
-                alt=""
-              />
-              <img
-                src={mapView}
-                className="h-[50px] object-contain cursor-pointer"
-                alt=""
-              />
-            </div>
           </div>
 
           <div className=" pt-12 gap-6  pb-10 grid md:grid-cols-2  lg:grid-cols-4 w-full">
-            {active == "vet" ? vets.map((res) => <Vetcard key={res} />) : ""}
+            {active == "vet"
+              ? vets.map((res) => <Vetcard key={res} fullData={res} />)
+              : ""}
             {active == "store"
               ? stores?.map((res) => (
                   <StoreCard
@@ -160,7 +149,9 @@ export default function DashboardHome() {
                 ))
               : ""}
             {active == "clinic"
-              ? clinics?.map((res) => <ClinicCard key={res} />)
+              ? clinics?.map((res) => (
+                  <ClinicCard key={res.id} fullData={res} />
+                ))
               : ""}
           </div>
         </div>

@@ -16,7 +16,7 @@ import PromoCard from "../../components/promoCard/PromoCard";
 import { getStoreByFilter } from "../../utils/userApiService";
 export default function StoreDetails() {
   const [storeInfo, setStoreInfo] = useState();
-  const userData = useRecoilValue(user)
+  const userData = useRecoilValue(user);
   const [action, setAction] = useRecoilState(actionState);
   const [openDetail, setOpenDetail] = useState(null);
   const location = useNavigate();
@@ -28,24 +28,22 @@ export default function StoreDetails() {
   };
 
   const checker = (route) => {
-    if (userData?.role === "Veterinarian") {
-      location(`/vet-${route}`);
-    } else {
-      location(`/animal-owner-${route}`);
-    }
+    window.history.back();
   };
 
   const setActionData = () => {
     setAction("add");
   };
 
+  const getCurrentStore = () => {
+    getStoreByFilter(payload).then((res) => {
+      console.log(res);
+      setStoreInfo(res[0]);
+    });
+  };
+
   useEffect(() => {
-    const payload = {
-      id: storeInfo?.id
-    }
-    getStoreByFilter(payload).then((res)=> {
-      setStoreInfo(res[0])
-    })
+    getCurrentStore();
   }, []);
 
   return (
@@ -190,11 +188,9 @@ export default function StoreDetails() {
         </div>
       )}
       <div className="w-[90%] mx-auto items-center flex justify-center flex-wrap gap-5">
-        {
-          storeInfo?.product?.map((res)=> (
-            <PromoCard  key={res.id} data={res}/>
-          ))
-        }
+        {storeInfo?.product?.map((res) => (
+          <PromoCard key={res.id} data={res} />
+        ))}
       </div>
     </div>
   );

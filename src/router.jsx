@@ -57,6 +57,7 @@ import OnboardVetSubscribe from "./views/OnboardVetSubscribe";
 import NotFound from "./views/NotFound";
 import AddPromotionToSub from "./views/user/AddPromotionToSub";
 import ClinicDetails from "./views/user/ClinicDetails";
+import VetUserDetails from "./views/user/VetUserDetails";
 
 const router = createBrowserRouter([
 
@@ -91,6 +92,10 @@ const router = createBrowserRouter([
         element: <DashboardHome />,
       },
       {
+        path: "/vet-details",
+        element: <VetUserDetails />,
+      },
+      {
         path: "/vet-cases",
         element: <Cases />,
       },
@@ -120,7 +125,7 @@ const router = createBrowserRouter([
         element: <Stores />,
       },
       {
-        path: "/vet-store-details",
+        path: "/vet-store-details/:id",
         element: <StoreDetails />,
       },
       {
@@ -208,7 +213,7 @@ const router = createBrowserRouter([
         element: <Stores />,
       },
       {
-        path: "/animal-owner-store-details",
+        path: "/animal-owner-store-details/:id",
         element: <StoreDetails />,
       },
       {
@@ -258,6 +263,10 @@ const router = createBrowserRouter([
       {
         path: "/animal-owner-clinic-details",
         element: <ClinicDetails />,
+      },
+      {
+        path: "/animal-owner-vet-details",
+        element: <VetUserDetails />,
       },
     ],
   },
