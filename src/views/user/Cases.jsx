@@ -19,7 +19,7 @@ export default function Cases() {
           <img src={addIcon} alt="" className="w-[40px]" />
         </Link>
 
-        <PeLivestocktCard petName="Kora" petName2="Catherine" />
+        {/* <PeLivestocktCard petName="Kora" petName2="Catherine" /> */}
       </div>
     </div>
   );
