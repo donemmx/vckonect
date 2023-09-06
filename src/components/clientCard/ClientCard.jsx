@@ -6,7 +6,7 @@ export default function ClientCard({ data }) {
 
   }
   return (
-    <div className="border rounded-lg p-3 my-4">
+    <div className="border bg-white rounded-lg p-3 my-4">
       <div className="flex justify-between flex-wrap gap-2">
         <div className="flex items-center gap-4">
           <img

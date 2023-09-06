@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { getClient } from "../../utils/userApiService";
 import { useRecoilValue } from "recoil";
 import { user } from "../../atom/userAtom";
+import AdminCardLoading from "../../components/loading/AdminCardLoading";
 export default function Clients() {
   const userData = useRecoilValue(user);
   const [loading, setLoading] = useState(true);
@@ -20,9 +21,19 @@ export default function Clients() {
   return (
     <div className="">
       <div className=" font-black text-2xl">My Clients</div>
-      {allClients?.map((res) => (
-        <ClientCard key={res.id} data={res} />
-      ))}
+      {loading ? (
+        <div className="grid gap-2">
+          <AdminCardLoading />
+          <AdminCardLoading />
+          <AdminCardLoading />
+        </div>
+      ) : (
+        <>
+          {allClients?.map((res) => (
+            <ClientCard key={res.id} data={res} />
+          ))}
+        </>
+      )}
     </div>
   );
 }
