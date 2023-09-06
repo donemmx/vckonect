@@ -53,7 +53,6 @@ export default function DashboardHome() {
     });
   };
   const getVetsData = async () => {
-    setLoading(true);
     await getVeterinarianByFilter({ name: "" }).then((res) => {
       setVets(res);
       setLoading(false);
