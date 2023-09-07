@@ -1,30 +1,36 @@
-import shareIcon from "../../assets/icons/share-icon.svg";
-import deleteIcon from "../../assets/icons/delete-icon.svg";
 import expandIcon from "../../assets/icons/expand-icon.svg";
 import location from "../../assets/icons/marker-icon.svg";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
+import WarningCard from "../warningCard/WarningCard";
 
-export default function PromoCard({ data }) {
+export default function PromoCard({ data, deleteProductById }) {
   return (
     <div className="adsCard mb-6">
-      <Carousel showThumbs={false} swipeable={true} showStatus={false} showArrows={ false} autoPlay infiniteLoop className=" absolute w-full ">
+      <Carousel
+        showThumbs={false}
+        swipeable={true}
+        showStatus={false}
+        showArrows={false}
+        autoPlay
+        infiniteLoop
+        className=" absolute w-full "
+      >
         {data?.images?.map((res) => (
-          <div key={res} className=" h-full w-full rounded-lg"> 
+          <div key={res} className=" h-full w-full rounded-lg">
             <img src={res} className="rounded-lg w-full h-full" />
           </div>
         ))}
       </Carousel>
-    
+
       <div className="group h-full w-full">
         <div className="top adsUser h-[65%] w-[200px]">
           <div className="pt-4 pr-4">
             <div className="flex items-center gap-2 w-fit ml-auto">
-            
-              <img
-                src={deleteIcon}
-                alt=""
-                className=" p-2 mb-2 h-[35px] w-[35px] bg-white rounded-full border-[1px] border-[#EBEBEB] shadow"
+              <WarningCard
+                message="Are you Sure you want to delete this store?"
+                header="Confirmation"
+                acceptFunction={deleteProductById}
               />
               <img
                 src={expandIcon}
