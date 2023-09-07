@@ -3,8 +3,30 @@ import location from "../../assets/icons/marker-icon.svg";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
 import WarningCard from "../warningCard/WarningCard";
+import { deleteProduct } from "../../utils/userApiService";
+import { toast } from "react-toastify";
+import { useRecoilValue } from "recoil";
+import { user } from "../../atom/userAtom";
+import useUpadateReload from "../../hooks/UpdateRelaod";
 
-export default function PromoCard({ data, deleteProductById }) {
+export default function PromoCard({ data, store_id }) {
+const userData = useRecoilValue(user)
+const [updateReload] = useUpadateReload();
+
+  const deleteProductById = () => {
+    const payload  = {
+      id: data?.id,
+      store_id: store_id,
+      user_id: userData?.id,
+      role: userData?.role,
+      title: data?.title
+    }
+    deleteProduct(payload).then((res)=> {
+      console.log(res);
+      updateReload()
+      toast.success(res.detail)
+    })
+  }
   return (
     <div className="adsCard mb-6">
       <Carousel

@@ -327,6 +327,18 @@ const getPromotion = async (payload) => {
     .then((res) => res.data)
     .catch((err) => console.log(err));
 };
+const deleteProduct = async (payload) => {
+  return await axios
+    .post(`${baseURl}/deleteProduct`, payload)
+    .then((res) => res.data)
+    .catch((err) => console.log(err));
+};
+const getUserProduct = async (payload) => {
+  return await axios
+    .post(`${baseURl}/getUserProduct`, payload)
+    .then((res) => res.data)
+    .catch((err) => console.log(err));
+};
 
 export {
   login,
@@ -371,5 +383,7 @@ export {
   getForumChatByFilter,
   getPromotion,
   confirmResetPasswordCode,
-  getMyPromotionPlan
+  getMyPromotionPlan,
+  deleteProduct,
+  getUserProduct
 };

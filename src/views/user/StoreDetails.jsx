@@ -7,18 +7,19 @@ import handIcon from "../../assets/account/hand-icon.svg";
 import { toast } from "react-toastify";
 import { user } from "../../atom/userAtom";
 import { CopyToClipboard } from "react-copy-to-clipboard";
-import { storeData } from "../../atom/storeAtom";
 import available from "../../assets/sidebar/available.svg";
 import notAvailable from "../../assets/sidebar/notAvailable.svg";
 import addIcon from "../../assets/icons/add-icon.svg";
 import { actionState } from "../../atom/actionAtom";
 import PromoCard from "../../components/promoCard/PromoCard";
 import { getStoreByFilter } from "../../utils/userApiService";
+import { reloadStore } from "../../atom/reloadAtom";
 export default function StoreDetails() {
   const [storeInfo, setStoreInfo] = useState();
   const userData = useRecoilValue(user);
   const [action, setAction] = useRecoilState(actionState);
   const [openDetail, setOpenDetail] = useState(null);
+  const reload = useRecoilValue(reloadStore)
   const location = useNavigate();
   const params = useParams();
   const setData = (data, type) => {
@@ -35,14 +36,14 @@ export default function StoreDetails() {
   };
 
   const getCurrentStore = () => {
-    getStoreByFilter({id:params.id}).then((res) => {
+    getStoreByFilter({ id: params.id }).then((res) => {
       setStoreInfo(res[0]);
     });
   };
 
   useEffect(() => {
     getCurrentStore();
-  }, []);
+  }, [reload]);
 
   return (
     <div className=" bg-white h-full pb-10 mb-10  rounded-md border-[1px] border-[#EBEBEB]">
@@ -187,7 +188,7 @@ export default function StoreDetails() {
       )}
       <div className="w-[90%] mx-auto items-center flex justify-center flex-wrap gap-5">
         {storeInfo?.product?.map((res) => (
-          <PromoCard key={res.id} data={res} />
+          <PromoCard key={res.id} data={res} store_id={params.id} />
         ))}
       </div>
     </div>
