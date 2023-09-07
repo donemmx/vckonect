@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import callIcon from "../../assets/icons/phone-icon.svg";
 import markerIcon from "../../assets/icons/location-icon.svg";
@@ -20,11 +20,10 @@ export default function StoreDetails() {
   const [action, setAction] = useRecoilState(actionState);
   const [openDetail, setOpenDetail] = useState(null);
   const location = useNavigate();
-
+  const params = useParams();
   const setData = (data, type) => {
     const payload = [data, type];
     setOpenDetail(payload);
-    console.log(openDetail);
   };
 
   const checker = (route) => {
@@ -36,8 +35,7 @@ export default function StoreDetails() {
   };
 
   const getCurrentStore = () => {
-    getStoreByFilter(payload).then((res) => {
-      console.log(res);
+    getStoreByFilter({id:params.id}).then((res) => {
       setStoreInfo(res[0]);
     });
   };
