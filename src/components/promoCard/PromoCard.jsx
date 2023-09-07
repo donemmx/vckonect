@@ -50,7 +50,7 @@ const [updateReload] = useUpadateReload();
           <div className="pt-4 pr-4">
             <div className="flex items-center gap-2 w-fit ml-auto">
               <WarningCard
-                message="Are you Sure you want to delete this store?"
+                message="Are you Sure you want to delete this product?"
                 header="Confirmation"
                 acceptFunction={deleteProductById}
               />
