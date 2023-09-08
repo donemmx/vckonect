@@ -12,7 +12,7 @@ import notAvailable from "../../assets/sidebar/notAvailable.svg";
 import addIcon from "../../assets/icons/add-icon.svg";
 import { actionState } from "../../atom/actionAtom";
 import PromoCard from "../../components/promoCard/PromoCard";
-import { getStoreByFilter } from "../../utils/userApiService";
+import { getOneStore, getStoreByFilter } from "../../utils/userApiService";
 import { reloadStore } from "../../atom/reloadAtom";
 export default function StoreDetails() {
   const [storeInfo, setStoreInfo] = useState();
@@ -44,7 +44,7 @@ export default function StoreDetails() {
   };
 
   const getCurrentStore = () => {
-    getStoreByFilter({ id: params.id }).then((res) => {
+    getOneStore({ store_id: params.id }).then((res) => {
       setStoreInfo(res[0]);
     });
   };
