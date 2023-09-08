@@ -21,7 +21,7 @@ export default function Account() {
   const params = useParams();
 
   let payload;
-  if (userData) {
+  if (userData?.id) {
     payload = {
       id: userData.id,
       role: userData.role,
