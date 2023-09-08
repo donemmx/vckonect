@@ -102,7 +102,7 @@ export default function Header({ bg }) {
               Chat Forum
             </div>
           </div>
-          {!userData ? (
+          {!userData?.id ? (
             <div className="header__user">
               <div
                 className="grouped__icons flex space-x-2 bg-white border p-2 border-gray-300 h-[40px] md:h-[45px] lg:h-[50px] cursor-pointer rounded-[16px]"
@@ -139,14 +139,13 @@ export default function Header({ bg }) {
                     />
                   </div>
                 ) : (
-                 userData?.id ? <Avatar
+                  <Avatar
                     label={userData?.first_name?.split("")[0].toUpperCase()}
                     size="large"
                     className=" !bg-green-500 !text-white"
                     shape="circle"
                     onClick={openModal}
                   />
-                  : 'ƒ'
                 )}
               </div>
             </div>
