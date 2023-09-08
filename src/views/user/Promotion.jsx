@@ -3,7 +3,7 @@ import { user } from "../../atom/userAtom";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import SubscribeToPlan from "./SubscribeToPlan";
-import { getMyPromotionPlan } from "../../utils/userApiService";
+import { getMyPromotionPlan, getPromotion } from "../../utils/userApiService";
 import { promotion } from "../../validations/UserValidation";
 import moment from "moment/moment";
 import PromotionPlanCard from "../../components/promotionPlanCard/PromotionPlanCard";
@@ -15,6 +15,7 @@ export default function Promotion() {
   const reload = useRecoilValue(reloadStore);
   const [tab, setTab] = useState("all");
   const [myPromotion, setMyPromotion] = useState([]);
+  const [productsPromoted, setProductsPromoted] = useState([]);
   const location = useNavigate();
 
   const activeTab = (type) => {
@@ -29,11 +30,7 @@ export default function Promotion() {
     }
   };
 
-  useEffect(() => {
-    getPromotion();
-  }, [reload]);
-
-  const getPromotion = () => {
+  const getCurrentPromotion = () => {
     const payload = {
       id: userData?.id,
       role: userData?.role,
@@ -42,6 +39,20 @@ export default function Promotion() {
       setMyPromotion(res);
     });
   };
+
+  const getProductsPromoted = () => {
+    getPromotion({
+      id: userData?.id,
+      role: userData?.role,
+    }).then((res) => {
+      setProductsPromoted(res);
+    });
+  };
+
+  useEffect(() => {
+    getCurrentPromotion();
+    getProductsPromoted();
+  }, [reload]);
 
   return (
     <div className=" flex flex-wrap gap-6">
@@ -72,7 +83,10 @@ export default function Promotion() {
           </div>
           {tab === "all" ? (
             <>
+            {myPromotion?.subscription === "Active" ?
               <PromotionPlanCard myPromotion={myPromotion} />
+              : ''
+            }
             </>
           ) : myPromotion?.subscription === "Active" ? (
             <PromotionSubscriptionCard promotion={myPromotion} />
