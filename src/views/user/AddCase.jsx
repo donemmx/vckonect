@@ -16,7 +16,7 @@ export default function AddCase() {
   const [store, setStore] = useRecoilState(storeData);
   const action = useRecoilValue(actionState);
   const [gender, setGender] = useState(null);
-  const [type, setType] = useState(null);
+  const [type, setType] = useState('Pet');
   const [selectedPet, setSelectedPet] = useState(null);
 
   const types = ["Pet", "Farm"];
@@ -92,14 +92,34 @@ export default function AddCase() {
       .catch((err) => console.log(err));
   };
 
-  const initialValues = {
-    caseTitle: "",
-    clientName: "",
-    caseType: "",
-    petName: "",
-    specie: "",
-    breed: "",
-    age: "",
+  const initialValuesPet = {
+    client_name: '',
+    client_phone: '',
+    case_type: '',
+    pet_name: '',
+    specie: '',
+    breed: '',
+    age: '',
+    sex: '',
+    case_title: '',
+  };
+  
+  const initialValuesFarm = {
+    client_name: '',
+    client_phone: '',
+    case_type: '',
+    details: '',
+    date_of_occurence: '',
+    history: '',
+    clinical_sign: '',
+    motality: '',
+    mobile_veterinarian: '',
+    treatment_regiment: '',
+    clinic_physical_address: '',
+    lab_confirm: '',
+    disease_diagnostic: '',
+    differential_diagnosis: '',
+    tentative_diagnoistic: '',
   };
 
   const loadedData = {
@@ -123,8 +143,8 @@ export default function AddCase() {
     handleSubmit,
   } = useFormik({
     validateOnMount: true,
-    initialValues: action === "add" ? initialValues : loadedData,
-    validationSchema: types === "Pet" ? addPetCase : addFarmCase,
+    initialValues: type === "Pet"? initialValuesPet : initialValuesFarm,
+    validationSchema: type === "Pet" ? addPetCase : addFarmCase,
     onSubmit,
   });
 
@@ -150,34 +170,42 @@ export default function AddCase() {
               <InputText
                 id="username"
                 name="caseTitle"
-                value={values.caseTitle}
+                value={values.case_title}
                 onChange={handleChange}
                 onBlur={handleBlur}
               />
               <label htmlFor="username">Case Title</label>
             </span>
-            {errors.caseTitle && touched.caseTitle && (
-              <p className="error">{errors.caseTitle}</p>
+            {errors.case_title && touched.case_title && (
+              <p className="error">{errors.case_title}</p>
             )}
 
             <span className="p-float-label">
               <InputText
                 id="username"
-                name="clientName"
-                value={values.clientName}
+                name="client_name"
+                value={values.client_name}
                 onChange={handleChange}
                 onBlur={handleBlur}
               />
               <label htmlFor="username">Client Name </label>
             </span>
-            {errors.clientName && touched.clientName && (
-              <p className="error">{errors.clientName}</p>
+            {errors.client_name && touched.client_name && (
+              <p className="error">{errors.client_name}</p>
             )}
 
             <span className="p-float-label">
-              <InputText id="username" />
+              <InputText id="username"  
+                name="client_phone"
+               value={values.client_phone}
+               onChange={handleChange}
+               onBlur={handleBlur}
+              />
               <label htmlFor="username">Client Phone Number </label>
             </span>
+            {errors.client_phone && touched.client_phone && (
+              <p className="error">{errors.client_phone}</p>
+            )}
             <span className="p-float-label">
               <Dropdown
                 value={type}
@@ -193,15 +221,15 @@ export default function AddCase() {
                 <span className="p-float-label">
                   <InputText
                     id="username"
-                    name="petName"
-                    value={values.petName}
+                    name="pet_name"
+                    value={values.pet_name}
                     onChange={handleChange}
                     onBlur={handleBlur}
                   />
                   <label htmlFor="username">Pet Name </label>
                 </span>
-                {errors.petName && touched.petName && (
-                  <p className="error">{errors.petName}</p>
+                {errors.pet_name && touched.pet_name && (
+                  <p className="error">{errors.pet_name}</p>
                 )}
 
                 <span className="p-float-label">
@@ -247,14 +275,19 @@ export default function AddCase() {
                 )}
                 <span className="p-float-label">
                   <Dropdown
-                    value={gender}
-                    onChange={(e) => setGender(e.value)}
+                    value={values.sex}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
                     options={genders}
+                    name="sex"
                     placeholder="Select Pet or Farm"
                     className="w-full md:w-20rem"
                   />
                   <label htmlFor="username"> Sex</label>
                 </span>
+                {errors.sex && touched.sex && (
+                  <p className="error">{errors.sex}</p>
+                )}
               </>
             ) : (
               ""

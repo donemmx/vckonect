@@ -128,7 +128,7 @@ const addPetCase  =  yup.object().shape({
     client_name: yup.string().required("Required"),
     client_phone: yup.string().required("Required"),
     case_type: yup.string().required("Required"),
-    petName: yup.string().required("Required"),
+    pet_name: yup.string().required("Required"),
     specie: yup.string().required("Required"),
     breed: yup.string().required("Required"),
     age: yup.string().required("Required"),
