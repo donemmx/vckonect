@@ -36,7 +36,7 @@ export default function PromoCard({ data, store_id, show }) {
       id: data?.id,
     }
     deletePromotion(payload).then((res)=> {
-      toast.success(res),
+      toast.success(res.detail),
       updateReload();
     })
   }
@@ -107,6 +107,9 @@ export default function PromoCard({ data, store_id, show }) {
           <div className="location flex text-sm items-center gap-2">
             <img src={location} alt="" className=" h-5" />
             {data?.location}
+          </div>
+          <div className="" onClick={gotoStore}>
+            view
           </div>
           <div className="flex items-center justify-center gap-2 text-[.8rem] bg-gray-100  rounded p-3 mt-4 ">
             <div
