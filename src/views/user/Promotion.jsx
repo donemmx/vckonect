@@ -44,7 +44,7 @@ export default function Promotion() {
 
   const getProductsPromoted = () => {
     adminGetPromotion({
-      name: ''
+      name: "",
     }).then((res) => {
       setProductsPromoted(res);
     });
@@ -86,10 +86,22 @@ export default function Promotion() {
             <>
               {myPromotion?.subscription === "Active" ? (
                 <>
-                  <PromotionPlanCard myPromotion={myPromotion} productsPromoted={productsPromoted}/>
+                  <PromotionPlanCard
+                    myPromotion={myPromotion}
+                    productsPromoted={productsPromoted}
+                  />
                   <div className=" flex flex-wrap justify-center items-center gap-4">
                     {productsPromoted.map((res) => (
-                      <PromoCard key={res.id} data={res} />
+                      <>
+                        {res.subscription === "Active" ? (
+                          <PromoCard key={res.id} data={res} />
+                        ) : (res.subscription === "Expired " || res.subscription === "Suspended") &&
+                          res.user_id === userData?.id ? (
+                          <PromoCard key={res.id} data={res} />
+                        ) : (
+                          ""
+                        )}
+                      </>
                     ))}
                   </div>
                 </>
