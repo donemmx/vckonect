@@ -33,10 +33,6 @@ export default function Sidebar() {
     setOpen(!open);
   };
 
-  useEffect(() => {
-    console.log(userData);
-  }, []);
-
   return (
     <div className="">
       <div className="hidden  fixed lg:flex items-center justify-center shadow-2xl shadow-slate-100 z-50 bg-white w-[17vw] l-0 top-0 h-[100vh]">
