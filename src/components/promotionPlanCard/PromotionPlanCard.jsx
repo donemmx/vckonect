@@ -8,7 +8,7 @@ import { MultiSelect } from 'primereact/multiselect';
 import { toast } from "react-toastify";
 import useUpadateReload from "../../hooks/UpdateRelaod";
         
-export default function PromotionPlanCard({ myPromotion }) {
+export default function PromotionPlanCard({ myPromotion, show }) {
   const [visible, setVisible] = useState(false);
   const userData = useRecoilValue(user);
   const [allProducts, setAllProducts] = useState([]);

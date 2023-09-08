@@ -8,27 +8,37 @@ import { toast } from "react-toastify";
 import { useRecoilValue } from "recoil";
 import { user } from "../../atom/userAtom";
 import useUpadateReload from "../../hooks/UpdateRelaod";
+import { useNavigate } from "react-router-dom";
+import useRouteChecker from "../../hooks/RouteChecker";
 
 export default function PromoCard({ data, store_id }) {
-const userData = useRecoilValue(user)
-const [updateReload] = useUpadateReload();
-
+  const userData = useRecoilValue(user);
+  const [updateReload] = useUpadateReload();
+  const navigate = useNavigate()
+  const [routeChecker] = useRouteChecker()
   const deleteProductById = () => {
-    const payload  = {
+    const payload = {
       id: data?.id,
       store_id: store_id,
       user_id: userData?.id,
       role: userData?.role,
-      title: data?.title
-    }
-    deleteProduct(payload).then((res)=> {
+      title: data?.title,
+    };
+    deleteProduct(payload).then((res) => {
       console.log(res);
-      updateReload()
-      toast.success(res.detail)
-    })
-  }
+      updateReload();
+      toast.success(res.detail);
+    });
+  };
+
+  const gotoStore = () => {
+    routeChecker(`store-details/${data.store_id}`)
+  };
   return (
-    <div className="adsCard mb-6">
+    <div
+      className="adsCard mb-6  hover:shadow-3xl hover:border-4 hover:border-green-400 transition-all ease-in-out cursor-pointer"
+      onClick={gotoStore}
+    >
       <Carousel
         showThumbs={false}
         swipeable={true}
@@ -40,7 +50,10 @@ const [updateReload] = useUpadateReload();
       >
         {data?.images?.map((res) => (
           <div key={res} className=" h-full w-full rounded-lg">
-            <img src={res} className="rounded-lg w-full h-[200px] object-cover" />
+            <img
+              src={res}
+              className="rounded-lg w-full h-[200px] object-cover"
+            />
           </div>
         ))}
       </Carousel>

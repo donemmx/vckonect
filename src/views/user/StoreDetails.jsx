@@ -14,12 +14,13 @@ import { actionState } from "../../atom/actionAtom";
 import PromoCard from "../../components/promoCard/PromoCard";
 import { getOneStore, getStoreByFilter } from "../../utils/userApiService";
 import { reloadStore } from "../../atom/reloadAtom";
+import DirectMessageModal from "../../components/directMessageModal/DirectMessageModal";
 export default function StoreDetails() {
   const [storeInfo, setStoreInfo] = useState();
   const userData = useRecoilValue(user);
   const [action, setAction] = useRecoilState(actionState);
   const [openDetail, setOpenDetail] = useState(null);
-  const reload = useRecoilValue(reloadStore)
+  const reload = useRecoilValue(reloadStore);
   const location = useNavigate();
   const params = useParams();
   const setData = (data, type) => {
@@ -114,6 +115,10 @@ export default function StoreDetails() {
             className=" p-2 mb-2 h-[40px] w-[40px] bg-white rounded-full border-[1px] border-[#828282] hover:border-green-400 hover:bg-green-100 cursor-pointer"
           />
           Location
+        </div>
+        <div className="flex flex-col items-center justify-center gap-3">
+          <DirectMessageModal fullData={storeInfo} className="!h-[20px] !border-2" />
+          Direct Message
         </div>
       </div>
       <small className=" text-[1.1rem] pt-5 text-center flex flex-col gap-4 items-center justify-center space-y-2">
