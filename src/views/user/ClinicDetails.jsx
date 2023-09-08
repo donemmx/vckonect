@@ -35,7 +35,7 @@ export default function ClinicDetails() {
   };
 
   const getCurrentClinic = () => {
-    getOneClinic({ store_id: params.id }).then((res) => {
+    getOneClinic({ id: params.id }).then((res) => {
       setStoreInfo(res);
     });
   };
