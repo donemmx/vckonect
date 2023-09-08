@@ -108,7 +108,7 @@ export default function PromoCard({ data, store_id, show }) {
 
         <div className="bottom absolute w-full z-50 bg-white p-5 rounded-b-[12px]">
           <div className="name font-black sm:text-[.85rem] md:text-[1rem]">
-            {data?.title}
+            {data?.title ?? data?.product_title}
           </div>
           <div className="location flex text-sm items-center justify-between gap-2">
             <div className="flex text-sm items-center gap-2">
