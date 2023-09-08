@@ -110,7 +110,7 @@ export default function PromotionPlanCard({ myPromotion }) {
           </div>
           <div className="flex items-center justify-between">
             
-          <MultiSelect value={selected} onChange={(e) => checkProducts(e.value)} options={allProducts} optionLabel="title" 
+          <MultiSelect value={selected} onChange={(e) => checkProducts(e.value)} options={allProducts} optionLabel="title" filter 
     placeholder="Select a Product" className="w-full md:w-14rem mb-4" />
           </div>
           <div className="">
