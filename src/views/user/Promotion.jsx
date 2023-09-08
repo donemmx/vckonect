@@ -87,7 +87,7 @@ export default function Promotion() {
               {myPromotion?.subscription === "Active" ? (
                 <>
                   <PromotionPlanCard myPromotion={myPromotion} productsPromoted={productsPromoted}/>
-                  <div className=" flex flex-wrap items-center gap-4">
+                  <div className=" flex flex-wrap justify-center items-center gap-4">
                     {productsPromoted.map((res) => (
                       <PromoCard key={res.id} data={res} />
                     ))}
