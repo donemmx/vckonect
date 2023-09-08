@@ -340,7 +340,7 @@ const router = createBrowserRouter([
         element: <StoreDetails />,
       },
       {
-        path: "/clinic-details/:id",
+        path: "/clinic/:id",
         element: <ClinicDetails />,
       },
       {
