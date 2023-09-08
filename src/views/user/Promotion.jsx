@@ -18,6 +18,7 @@ export default function Promotion() {
   const [tab, setTab] = useState("all");
   const [myPromotion, setMyPromotion] = useState([]);
   const [productsPromoted, setProductsPromoted] = useState([]);
+  const [myproductsPromoted, setMyProductsPromoted] = useState([]);
   const location = useNavigate();
 
   const activeTab = (type) => {
@@ -47,7 +48,9 @@ export default function Promotion() {
       name: "",
     }).then((res) => {
       setProductsPromoted(res);
-    });
+      const filtedData = res.filter((data)=> data.user_id === userData?.id)
+      setMyProductsPromoted(filtedData)
+    })
   };
 
   useEffect(() => {
@@ -88,7 +91,7 @@ export default function Promotion() {
                 <>
                   <PromotionPlanCard
                     myPromotion={myPromotion}
-                    productsPromoted={productsPromoted}
+                    productsPromoted={myproductsPromoted}
                   />
                   <div className=" flex flex-wrap justify-center items-center gap-4">
                     {productsPromoted.map((res) => (

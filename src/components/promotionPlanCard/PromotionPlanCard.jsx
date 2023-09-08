@@ -1,6 +1,6 @@
 import moment from "moment";
 import { Dialog } from "primereact/dialog";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { addPromotion, getUserProduct } from "../../utils/userApiService";
 import { useRecoilValue } from "recoil";
 import { user } from "../../atom/userAtom";
@@ -63,6 +63,9 @@ const [updateReload] = useUpadateReload()
    })
   }
 
+  useEffect(()=> {
+    console.log('Products promoted', productsPromoted.length, 'selected', selected);
+  }, [])
 
   return (
     <div className=" border h-[10vh] rounded-md bg-gray-100  my-5">
