@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import callIcon from "../../assets/icons/phone-icon.svg";
 import markerIcon from "../../assets/icons/location-icon.svg";
@@ -12,14 +12,15 @@ import available from "../../assets/sidebar/available.svg";
 import notAvailable from "../../assets/sidebar/notAvailable.svg";
 import addIcon from "../../assets/icons/add-icon.svg";
 import { actionState } from "../../atom/actionAtom";
+import { getOneClinic } from "../../utils/vetApiService";
 
 export default function ClinicDetails() {
   const userData = useRecoilValue(user);
-  const storeInfo = useRecoilValue(storeData);
+  const [storeInfo, setStoreInfo] = useState();
   const [action, setAction] = useRecoilState(actionState);
   const [openDetail, setOpenDetail] = useState(null);
   const location = useNavigate();
-
+  const params = useParams();
   const setData = (data, type) => {
     const payload = [data, type];
     setOpenDetail(payload);
@@ -33,18 +34,32 @@ export default function ClinicDetails() {
     setAction("add");
   };
 
+  const getCurrentClinic = () => {
+    getOneClinic({ store_id: params.id }).then((res) => {
+      setStoreInfo(res);
+    });
+  };
+
+  useEffect(() => {
+    getCurrentClinic();
+  }, [reload]);
+
   return (
     <div className=" bg-white h-full pb-10 mb-10  rounded-md border-[1px] border-[#EBEBEB]">
       <div className="top bg-account h-[25vh] p-3 lg:p-10 rounded-t-lg">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3 text-[.75rem] lg:text-[.9rem] cursor-pointer">
-            <Link
-              onClick={() => checker("clinic")}
-              className=" flex items-center gap-3 text-[.75rem] lg:text-[.9rem] cursor-pointer"
-            >
-              <i className="pi pi-angle-left p-1 lg:p-3 h-[25px] w-[25px] lg:h-[45px] lg:w-[45px] bg-white rounded-full"></i>
-              Back
-            </Link>
+            {userData?.id ? (
+              <Link
+                onClick={() => checker("clinic")}
+                className=" flex items-center gap-3 text-[.75rem] lg:text-[.9rem] cursor-pointer"
+              >
+                <i className="pi pi-angle-left p-1 lg:p-3 h-[25px] w-[25px] lg:h-[45px] lg:w-[45px] bg-white rounded-full"></i>
+                Back
+              </Link>
+            ) : (
+              ""
+            )}
           </div>
         </div>
       </div>
