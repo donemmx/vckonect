@@ -3,7 +3,7 @@ import location from "../../assets/icons/marker-icon.svg";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
 import WarningCard from "../warningCard/WarningCard";
-import { deleteProduct } from "../../utils/userApiService";
+import { deleteProduct, deletePromotion } from "../../utils/userApiService";
 import { toast } from "react-toastify";
 import { useRecoilValue } from "recoil";
 import { user } from "../../atom/userAtom";
@@ -14,8 +14,8 @@ import useRouteChecker from "../../hooks/RouteChecker";
 export default function PromoCard({ data, store_id, show }) {
   const userData = useRecoilValue(user);
   const [updateReload] = useUpadateReload();
-  const navigate = useNavigate()
-  const [routeChecker] = useRouteChecker()
+  const navigate = useNavigate();
+  const [routeChecker] = useRouteChecker();
   const deleteProductById = () => {
     const payload = {
       id: data?.id,
@@ -31,13 +31,21 @@ export default function PromoCard({ data, store_id, show }) {
     });
   };
 
+  const deletePromotionProduct = () => {
+    const payload = {
+      id: data?.id,
+    }
+    deletePromotion(payload).then((res)=> {
+      toast.success(res)
+    })
+  }
+
   const gotoStore = () => {
-    routeChecker(`store-details/${data.store_id}`)
+    routeChecker(`store-details/${data.store_id}`);
   };
   return (
     <div
-      className="adsCard mb-6  hover:shadow-3xl hover:border-4 hover:border-green-400 transition-all ease-in-out cursor-pointer"
-      onClick={gotoStore}
+      className="adsCard mb-6  "
     >
       <Carousel
         showThumbs={false}
@@ -60,18 +68,28 @@ export default function PromoCard({ data, store_id, show }) {
       <div className="group h-full w-full">
         <div className="top adsUser h-[65%] w-[200px]">
           <div className="pt-4 pr-4">
-            { show && userData?.id === data?.user_id ? <div className="flex items-center gap-2 w-fit ml-auto">
-              <WarningCard
-                message="Are you Sure you want to delete this product?"
-                header="Confirmation"
-                acceptFunction={deleteProductById}
-              />
-              <img
-                src={expandIcon}
-                alt=""
-                className=" p-2 mb-2 !h-[35px] w-[35px] object-cover bg-white rounded-full border-[1px] border-[#EBEBEB] shadow"
-              />
-            </div>  : ''}
+            {show && userData?.id === data?.user_id ? (
+              <div className="flex items-center gap-2 w-fit ml-auto">
+                <WarningCard
+                  message="Are you Sure you want to delete this product?"
+                  header="Confirmation"
+                  acceptFunction={deleteProductById}
+                />
+                <img
+                  src={expandIcon}
+                  alt=""
+                  className=" p-2 mb-2 !h-[35px] w-[35px] object-cover bg-white rounded-full border-[1px] border-[#EBEBEB] shadow"
+                />
+              </div>
+            ) : (
+              <div className="flex items-center gap-2 w-fit ml-auto">
+                <WarningCard
+                  message="Are you Sure you want to delete this promotion?"
+                  header="Confirmation"
+                  acceptFunction={deletePromotionProduct}
+                />
+              </div>
+            )}
           </div>
           <div className="bottom flex items-center justify-between p-2 absolute bottom-2 w-full ">
             <div className="rating text-white text-sm flex items-center gap-2"></div>

@@ -345,6 +345,12 @@ const addPromotion = async (payload) => {
     .then((res) => res.data)
     .catch((err) => console.log(err));
 };
+const deletePromotion = async (payload) => {
+  return await axios
+    .post(`${baseURl}/deletePromotion`, payload)
+    .then((res) => res.data)
+    .catch((err) => console.log(err));
+};
 
 export {
   login,
@@ -392,5 +398,6 @@ export {
   getMyPromotionPlan,
   deleteProduct,
   getUserProduct,
-  addPromotion
+  addPromotion,
+  deletePromotion
 };
