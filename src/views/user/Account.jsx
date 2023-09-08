@@ -4,7 +4,7 @@ import callIcon from "../../assets/icons/phone-icon.svg";
 import messageIcon from "../../assets/icons/message-icon.svg";
 import markerIcon from "../../assets/icons/location-icon.svg";
 import handIcon from "../../assets/account/hand-icon.svg";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { user } from "../../atom/userAtom";
 import { getUserById } from "../../utils/userApiService";
@@ -13,14 +13,31 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 import { toast } from "react-toastify";
 
 export default function Account() {
-  const [userData, setUserData] = useRecoilState(user);
+  const [userData, setUserData] = useState();
   const [userDetails, setUserDetails] = useState();
   const [openDetail, setOpenDetail] = useState(null);
   const location = useNavigate();
-  let payload = {
-    id: userData.id,
-    role: userData.role,
-  };
+  const params = useParams();
+
+  let payload;
+  if (userData) {
+    payload = {
+      id: userData.id,
+      role: userData.role,
+    };
+  } else {
+    let role;
+    if (window.location.pathname.split("/")[1].includes("vet")) {
+      role = "Veterinarian";
+    }
+    else{
+      role = 'Animal Owner'
+    }
+    payload = {
+      id: params.id,
+      role: role,
+    };
+  }
 
   const getUser = () => {
     getUserById(payload).then((res) => {
@@ -35,7 +52,6 @@ export default function Account() {
   const setData = (data, type) => {
     const payload = [data, type];
     setOpenDetail(payload);
-    console.log(openDetail);
   };
 
   const checker = (route) => {
