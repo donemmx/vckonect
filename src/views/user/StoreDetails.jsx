@@ -27,8 +27,16 @@ export default function StoreDetails() {
     setOpenDetail(payload);
   };
 
-  const checker = (route) => {
+  const back = (route) => {
     window.history.back();
+  };
+
+  const checker = (route) => {
+    if (userData?.role === "Veterinarian") {
+      location(`/vet-${route}`);
+    } else {
+      location(`/animal-owner-${route}`);
+    }
   };
 
   const setActionData = () => {
@@ -51,7 +59,7 @@ export default function StoreDetails() {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3 text-[.75rem] lg:text-[.9rem] cursor-pointer">
             <Link
-              onClick={() => checker("stores")}
+              onClick={back}
               className=" flex items-center gap-3 text-[.75rem] lg:text-[.9rem] cursor-pointer"
             >
               <i className="pi pi-angle-left p-1 lg:p-3 h-[25px] w-[25px] lg:h-[45px] lg:w-[45px] bg-white rounded-full"></i>
