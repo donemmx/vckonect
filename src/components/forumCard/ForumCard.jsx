@@ -76,6 +76,7 @@ export default function ForumCard({
   };
 
   const shareForum = () => {
+    setLoading(true);
     const { picture, content, title, user_id, user_role, id, ...others } =
       fullData;
     const payload = {
@@ -92,10 +93,12 @@ export default function ForumCard({
     shareForumChat(payload).then((res) => {
       toast.success("Post reshare successful");
       updateReload();
+      setLoading(false);
     });
   };
 
   const commentForum = () => {
+    setLoading(true);
     const payload = {
       forum_chat_id: fullData.id,
       user_id: userData.id,
@@ -106,6 +109,8 @@ export default function ForumCard({
       .then(() => {
         toast.success("Comment added successfully");
         updateReload();
+        setComment('')
+        setLoading(false);
       })
       .catch((err) => toast.error(err.detail));
   };
@@ -191,10 +196,14 @@ export default function ForumCard({
           </form>
           <button
             className="green__btn mt-2"
-            disabled={comment.length === 0}
+            disabled={comment.length === 0 || loading}
             onClick={share}
           >
-            <i className="pi pi-send"></i>
+            {loading ? (
+              <i className="pi pi-spin pi-spinner"></i>
+            ) : (
+              <i className="pi pi-send !text-sm"></i>
+            )}
             Share Post
           </button>
         </div>
@@ -348,10 +357,14 @@ export default function ForumCard({
                     </form>
                     <button
                       className="p-3.5 rounded-md text-white bg-green-800 text-sm mt-2 flex items-center gap-2"
-                      disabled={comment.length === 0}
+                      disabled={comment.length === 0 || loading}
                       onClick={commentForum}
                     >
-                      <i className="pi pi-send !text-sm"></i>
+                      {loading ? (
+                        <i className="pi pi-spin pi-spinner"></i>
+                      ) : (
+                        <i className="pi pi-send !text-sm"></i>
+                      )}
                       Add Comment
                     </button>
                   </div>
