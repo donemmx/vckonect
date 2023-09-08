@@ -16,7 +16,7 @@ export default function AddCase() {
   const [store, setStore] = useRecoilState(storeData);
   const action = useRecoilValue(actionState);
   const [gender, setGender] = useState(null);
-  const [type, setType] = useState('Pet');
+  const [type, setType] = useState("Pet");
   const [selectedPet, setSelectedPet] = useState(null);
 
   const types = ["Pet", "Farm"];
@@ -24,113 +24,68 @@ export default function AddCase() {
   const species = ["Dog", "Cat", "Pig", "Sheep"];
 
   const onSubmit = async (values) => {
-    const formData = new FormData();
-    const { case_title, date_of_occurence, age } = values;
-    let payload;
-    // if (action && action === "edit") {
-    //   payload = {
-    //     user_id: store?.user_id,
-    //     case_title:
-    //     pet_name: petName,
-    //     specie: specie,
-    //     breed: breed,
-    //     sex: gender,
-    //     pet_id: store?.pet_id,
-    //     age: age,
-    //   };
-    // } else {
-    //   payload = {
-    //     user_id: userData.id,
-    //     pet_name: petName,
-    //     specie: specie,
-    //     breed: breed,
-    //     sex: gender,
-    //     age: age,
-    //   };
-    // }
-    payload = {
-      user_id: userData?.user_id,
-      case_title: case_title,
-      pet_name: selectedPet.pet_name,
-      pet_id: selectedPet.pet_id,
-      specie: selectedPet.specie,
-      breed: selectedPet.breed,
-      age: selectedPet.age,
-      sex: selectedPet.age,
-      date_of_occurence: date_of_occurence,
-      history: "",
-      clinical_sign: "",
-      tentative_diagnoistic: "",
-      differential_diagnosis: "",
-      disease_diagnostic: "",
-      lab_confirm: "",
-      motality: "",
-      treatment_regiment: "",
-      clinic_physical_address: "",
-      mobile_veterinarian: "",
-    };
+    console.log(values);
+    // Object.entries(payload).forEach(([key, value]) => {
+    //   formData.append(key, value);
+    // });
 
-    Object.entries(payload).forEach(([key, value]) => {
-      formData.append(key, value);
-    });
-    console.log(payload);
-
-    await addCase(formData)
-      .then((res) => {
-        if (!res.code) {
-          window.history.back();
-          if (action && action === "edit") {
-            toast.success("Add cases edited successfully");
-          } else {
-            toast.success("Cases added successfully");
-          }
-          setStore(null);
-        } else {
-          toast.error(res.detail);
-        }
-      })
-      .catch((err) => console.log(err));
+    // await addCase(formData)
+    //   .then((res) => {
+    //     if (!res.code) {
+    //       window.history.back();
+    //       if (action && action === "edit") {
+    //         toast.success("Add cases edited successfully");
+    //       } else {
+    //         toast.success("Cases added successfully");
+    //       }
+    //       setStore(null);
+    //     } else {
+    //       toast.error(res.detail);
+    //     }
+    //   })
+    //   .catch((err) => console.log(err));
   };
 
   const initialValuesPet = {
-    client_name: '',
-    client_phone: '',
-    case_type: '',
-    pet_name: '',
-    specie: '',
-    breed: '',
-    age: '',
-    sex: '',
-    case_title: '',
-  };
-  
-  const initialValuesFarm = {
-    client_name: '',
-    client_phone: '',
-    case_type: '',
-    details: '',
-    date_of_occurence: '',
-    history: '',
-    clinical_sign: '',
-    motality: '',
-    mobile_veterinarian: '',
-    treatment_regiment: '',
-    clinic_physical_address: '',
-    lab_confirm: '',
-    disease_diagnostic: '',
-    differential_diagnosis: '',
-    tentative_diagnoistic: '',
+    client_name: "",
+    client_phone: "",
+    pet_name: "",
+    specie: "",
+    breed: "",
+    age: "",
+    sex: "",
+    case_title: "",
   };
 
-  const loadedData = {
-    caseTitle: store?.case_title,
-    clientName: store?.client_name,
-    caseType: store?.case_type,
-    petName: store?.pet_name,
-    breed: store?.breed,
-    specie: store?.specie,
-    age: store?.age,
+  const initialValuesFarm = {
+    client_name: "",
+    client_phone: "",
+    age: "",
+    sex: "",
+    farm_name: "",
+    details: "",
+    date_of_occurence: "",
+    history: "",
+    clinical_sign: "",
+    motality: "",
+    mobile_veterinarian: "",
+    treatment_regiment: "",
+    clinic_physical_address: "",
+    lab_confirm: "",
+    disease_diagnostic: "",
+    differential_diagnosis: "",
+    tentative_diagnoistic: "",
   };
+
+  // const loadedData = {
+  //   caseTitle: store?.case_title,
+  //   clientName: store?.client_name,
+  //   caseType: store?.case_type,
+  //   petName: store?.pet_name,
+  //   breed: store?.breed,
+  //   specie: store?.specie,
+  //   age: store?.age,
+  // };
 
   const {
     values,
@@ -143,7 +98,7 @@ export default function AddCase() {
     handleSubmit,
   } = useFormik({
     validateOnMount: true,
-    initialValues: type === "Pet"? initialValuesPet : initialValuesFarm,
+    initialValues: type === "Pet" ? initialValuesPet : initialValuesFarm,
     validationSchema: type === "Pet" ? addPetCase : addFarmCase,
     onSubmit,
   });
@@ -165,11 +120,14 @@ export default function AddCase() {
           <div className="pt-2 subtitle paragraph text-center">
             You can add a new case to your case list
           </div>
-          <div className="form flex flex-col gap-3 pt-6">
+          <form
+            onSubmit={handleSubmit}
+            className="form flex flex-col gap-3 pt-6"
+          >
             <span className="p-float-label">
               <InputText
                 id="username"
-                name="caseTitle"
+                name="case_title"
                 value={values.case_title}
                 onChange={handleChange}
                 onBlur={handleBlur}
@@ -195,11 +153,12 @@ export default function AddCase() {
             )}
 
             <span className="p-float-label">
-              <InputText id="username"  
+              <InputText
+                id="username"
                 name="client_phone"
-               value={values.client_phone}
-               onChange={handleChange}
-               onBlur={handleBlur}
+                value={values.client_phone}
+                onChange={handleChange}
+                onBlur={handleBlur}
               />
               <label htmlFor="username">Client Phone Number </label>
             </span>
@@ -233,12 +192,14 @@ export default function AddCase() {
                 )}
 
                 <span className="p-float-label">
-                  <InputText
-                    id="username"
+                  <Dropdown
                     name="specie"
                     value={values.specie}
                     onChange={handleChange}
                     onBlur={handleBlur}
+                    options={species}
+                    placeholder="Select Pet or Farm"
+                    className="w-full md:w-20rem"
                   />
                   <label htmlFor="username">Specie </label>
                 </span>
@@ -276,10 +237,10 @@ export default function AddCase() {
                 <span className="p-float-label">
                   <Dropdown
                     value={values.sex}
+                    name="sex"
                     onChange={handleChange}
                     onBlur={handleBlur}
                     options={genders}
-                    name="sex"
                     placeholder="Select Pet or Farm"
                     className="w-full md:w-20rem"
                   />
@@ -295,41 +256,54 @@ export default function AddCase() {
             {type === "Farm" ? (
               <>
                 <span className="p-float-label">
-                  <InputText id="username" />
+                  <InputText
+                    id="username"
+                    name="farm_name"
+                    value={values.farm_name}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                  />
                   <label htmlFor="username">Farm Name</label>
                 </span>
 
+                {/* <span className="p-float-label"> */}
+                {/* <InputText id="username"
+                  id=""
+                  name="pet_name"
+                  value={values}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  /> */}
+                {/* <label htmlFor="username">Type of Livestock </label> */}
+                {/* </span> */}
                 <span className="p-float-label">
-                  <InputText id="username" />
-                  <label htmlFor="username">Type of Livestock </label>
-                </span>
-                <span className="p-float-label">
-                  <InputText id="username" />
-                  <label htmlFor="username">Number of Livestock </label>
-                </span>
-                <span className="p-float-label">
-                  <InputText id="username" />
-                  <label htmlFor="username">Number of Workers</label>
-                </span>
-
-                <span className="p-float-label">
-                  <InputText id="username" />
+                  <InputText
+                    id="username"
+                    name="age"
+                    value={values.age}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                  />
                   <label htmlFor="username">Age </label>
                 </span>
+                {errors.age && touched.age && (
+                  <p className="error">{errors.age}</p>
+                )}
                 <span className="p-float-label">
                   <Dropdown
-                    value={gender}
-                    onChange={(e) => setGender(e.value)}
+                    value={values.sex}
+                    name="sex"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
                     options={genders}
                     placeholder="Select Pet or Farm"
                     className="w-full md:w-20rem"
                   />
-                  <label htmlFor="username">Sex </label>
+                  <label htmlFor="username"> Sex</label>
                 </span>
-                <span className="p-float-label">
-                  <InputText id="username" />
-                  <label htmlFor="username">Location </label>
-                </span>
+                {errors.sex && touched.sex && (
+                  <p className="error">{errors.sex}</p>
+                )}
                 <span className="p-float-label">
                   <InputText id="username" />
                   <label htmlFor="username">Other Details </label>
@@ -338,7 +312,11 @@ export default function AddCase() {
             ) : (
               ""
             )}
-            <button className="green__btn" disabled={!isValid || isSubmitting}>
+            <button
+              className="green__btn"
+              type="submit"
+              disabled={!isValid || isSubmitting}
+            >
               {isSubmitting ? (
                 <i className="pi pi-spin pi-spinner !text-[20px]"></i>
               ) : (
@@ -346,7 +324,7 @@ export default function AddCase() {
               )}
               Save
             </button>
-          </div>
+          </form>
         </div>
       </div>
     </div>

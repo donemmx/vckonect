@@ -149,7 +149,7 @@ export default function DashboardHome() {
           </div>
           <div className=" pt-12 gap-6  pb-10 grid md:grid-cols-2  lg:grid-cols-4 w-full">
             {active == "vet"
-              ? vets.map((res) => <Vetcard key={res} fullData={res} />)
+              ? vets?.map((res) => <Vetcard key={res} fullData={res} />)
               : ""}
             {active == "store"
               ? stores?.map((res) => (

@@ -127,7 +127,6 @@ const addCase = yup.object().shape({
 const addPetCase  =  yup.object().shape({
     client_name: yup.string().required("Required"),
     client_phone: yup.string().required("Required"),
-    case_type: yup.string().required("Required"),
     pet_name: yup.string().required("Required"),
     specie: yup.string().required("Required"),
     breed: yup.string().required("Required"),
@@ -144,7 +143,7 @@ const pet  =  yup.object().shape({
 const addFarmCase  =  yup.object().shape({
     client_name: yup.string().required("Required"),
     client_phone: yup.string().required("Required"),
-    case_type: yup.string().required("Required"),
+    farm_name: yup.string().required("Required"),
     details: yup.string().required("Required"),
     date_of_occurence: yup.string().required("Required"),
     history: yup.string().required("Required"),
@@ -157,6 +156,8 @@ const addFarmCase  =  yup.object().shape({
     disease_diagnostic: yup.string().required("Required"),
     differential_diagnosis: yup.string().required("Required"),
     tentative_diagnoistic: yup.string().required("Required"),
+    sex: yup.string().required("Required"),
+
 })
 
 export {

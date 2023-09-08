@@ -145,7 +145,7 @@ export default function AddPet() {
           </h2>
           <div className="pt-2 subtitle paragraph text-center">
             You can add a new pet to your pet list
-          </div>
+          </div> 
           <form
             encType="multipart/form-data"
             onSubmit={handleSubmit}
