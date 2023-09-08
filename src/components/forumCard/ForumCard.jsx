@@ -90,7 +90,7 @@ export default function ForumCard({
     };
     shareForumChat(payload).then((res) => {
       toast.success("Post reshare successful");
-      updateReload()
+      updateReload();
     });
   };
 
@@ -132,7 +132,7 @@ export default function ForumCard({
       user_id: userData?.id,
       user_role: userData?.role,
       comment_id: data.forum_chat_comment_id,
-      response_id: data.id
+      response_id: data.id,
     };
     deleteresponseForumChat(payload).then((res) => {
       toast.success("Response deleted successfully");
@@ -172,7 +172,7 @@ export default function ForumCard({
 
   return (
     <div className="">
-      <Dialog
+      {/* <Dialog
         visible={visible}
         className=" w-[95%] md:w-[70%] lg:w-[50%]"
         onHide={() => setVisible(false)}
@@ -198,7 +198,7 @@ export default function ForumCard({
             {type === "comment" ? " Add Comment " : "Share Post"}
           </button>
         </div>
-      </Dialog>
+      </Dialog> */}
 
       {fullData.status === "Approved" ? (
         <>
@@ -237,19 +237,6 @@ export default function ForumCard({
                   <small className=" font-light text-sm">{position}</small>
                 </div>
               </div>
-              <div className="flex items-center gap-2 w-fit ml-auto">
-                <i
-                  className={
-                    showComments
-                      ? "pi pi-window-maximize p-2 rounded cursor-pointer bg-green-100 text-green-500 transition-all ease-in-out"
-                      : "pi pi-window-maximize p-2 bg-gray-100 rounded cursor-pointer"
-                  }
-                  onClick={toggleCommentShow}
-                ></i>
-                <div className="text-[11px] bg-gray-100 flex items-center justify-center mr-auto lg:ml-auto w-[90px] p-2 border rounded-full">
-                  {moment(date).fromNow()}
-                </div>
-              </div>
             </div>
             {forumImg.length > 64 ? (
               <div className=" h-[240px]">
@@ -276,6 +263,7 @@ export default function ForumCard({
                 ) : (
                   ""
                 )}
+
                 <div
                   className="flex gap-3 items-center justify-center cursor-pointer "
                   onClick={() => commentOpen("comment")}
@@ -315,6 +303,28 @@ export default function ForumCard({
               className=" p-2 mb-2 h-[35px] w-[35px] bg-white rounded-full border-[1px] border-[#EBEBEB] shadow"
             />
           </div> */}
+                <div className="flex items-center gap-2 w-fit ml-auto">
+                  <button
+                    className={
+                      showComments
+                        ? "p-2 rounded cursor-pointer bg-green-100 text-green-500 transition-all ease-in-out"
+                        : " p-2 bg-gray-100 rounded cursor-pointer"
+                    }
+                    onClick={toggleCommentShow}
+                  >
+                    {showComments ? "close comments" : "view comments"}
+                    <i
+                      className={
+                        showComments
+                          ? "pi pi-window-maximize p-2 rounded cursor-pointer bg-green-100 text-green-500 transition-all ease-in-out"
+                          : "pi pi-window-maximize p-2 bg-gray-100 rounded cursor-pointer"
+                      }
+                    ></i>
+                  </button>
+                  <div className="text-[11px] bg-gray-100 flex items-center justify-center mr-auto lg:ml-auto w-[90px] p-2 border rounded-full">
+                    {moment(date).fromNow()}
+                  </div>
+                </div>
                 <div
                   className="flex flex-col items-center justify-center cursor-pointer"
                   onClick={() => commentOpen("share")}
@@ -324,6 +334,27 @@ export default function ForumCard({
               </div>
               {showComments ? (
                 <div className="flex flex-col gap-2">
+                  <div className="mb-5">
+                    <form className="pt-3">
+                      <label htmlFor="username"></label>
+                      <textarea
+                        name="content"
+                        value={comment}
+                        onChange={(e) => setComment(e.target.value)}
+                        rows={10}
+                        cols={10}
+                        className="!border !border-gray-200 outline-none"
+                      ></textarea>
+                    </form>
+                    <button
+                      className="p-3.5 rounded-md text-white bg-green-800 text-sm mt-2 flex items-center gap-2"
+                      disabled={comment.length === 0}
+                      onClick={postComment}
+                    >
+                      <i className="pi pi-send !text-sm"></i>
+                      {type === "comment" ? " Add Comment " : "Share Post"}
+                    </button>
+                  </div>
                   {comments.map((res) => (
                     <>
                       <div key={res.id} className="bg-gray-100 p-3 rounded">
@@ -362,43 +393,48 @@ export default function ForumCard({
                         <div className="p-2 text-sm ">{res.comment}</div>
                         <div className=""></div>
                       </div>
-                      {res.response.map((response)=> (
-                        <div key={response.id} className="bg-gray-100 p-3 ml-10 rounded">
-                        <div className="flex flex-wrap items-center justify-between">
-                          <div className="flex flex-wrap items-center gap-3">
-                            <img
-                              src={response.profile_picture}
-                              alt=""
-                              className="w-[30px] h-[30px] rounded-full"
-                            />
-                            <p className="text-sm font-bold">
-                              {" "}
-                              {response.first_name + ' ' + response.last_name}
-                            </p>
-                            <small className="bg-green-100 p-1 text-[10px] text-green-600">
-                              {response.user_role}
-                            </small>
-                          </div>
-                          <div className="flex items-center justify-center gap-2">
-                            {userData.id === response.user_id ? (
-                              <WarningCard
-                                message="Are you sure you want to delete this comment?"
-                                header="Confirmation"
-                                acceptFunction={() =>
-                                  deleteForumResponseData(response)
-                                }
+                      {res.response.map((response) => (
+                        <div
+                          key={response.id}
+                          className="bg-gray-100 p-3 ml-10 rounded"
+                        >
+                          <div className="flex flex-wrap items-center justify-between">
+                            <div className="flex flex-wrap items-center gap-3">
+                              <img
+                                src={response.profile_picture}
+                                alt=""
+                                className="w-[30px] h-[30px] rounded-full"
                               />
-                            ) : (
-                            <></>
-                            )}
-                            <p className="text-xs p-1 bg-gray-100 rounded-full">
-                              {moment(response.date).utc().fromNow()}
-                            </p>
+                              <p className="text-sm font-bold">
+                                {" "}
+                                {response.first_name + " " + response.last_name}
+                              </p>
+                              <small className="bg-green-100 p-1 text-[10px] text-green-600">
+                                {response.user_role}
+                              </small>
+                            </div>
+                            <div className="flex items-center justify-center gap-2">
+                              {userData.id === response.user_id ? (
+                                <WarningCard
+                                  message="Are you sure you want to delete this comment?"
+                                  header="Confirmation"
+                                  acceptFunction={() =>
+                                    deleteForumResponseData(response)
+                                  }
+                                />
+                              ) : (
+                                <></>
+                              )}
+                              <p className="text-xs p-1 bg-gray-100 rounded-full">
+                                {moment(response.date).utc().fromNow()}
+                              </p>
+                            </div>
                           </div>
+                          <div className="p-2 text-sm ">
+                            {response.response}
+                          </div>
+                          <div className=""></div>
                         </div>
-                        <div className="p-2 text-sm ">{response.response}</div>
-                        <div className=""></div>
-                      </div>
                       ))}
                     </>
                   ))}
