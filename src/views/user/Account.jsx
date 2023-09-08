@@ -34,9 +34,9 @@ export default function Account() {
   const getUser = () => {
     getUserById(payload).then((res) => {
       setUserData(res);
-    });
+    }).catch((err)=> console.log(err));
   };
-  
+
   useEffect(() => {
     getUser, console.log(payload);
   }, []);
