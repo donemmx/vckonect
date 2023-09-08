@@ -37,9 +37,6 @@ export default function Account() {
     }).catch((err)=> console.log(err));
   };
 
-  useEffect(() => {
-    getUser, console.log(payload);
-  }, []);
 
 
 
@@ -68,6 +65,9 @@ export default function Account() {
   };
 
 
+  useEffect(() => {
+    getUser()
+  }, []);
 
   return (
     <div className=" bg-white h-[110vh] mb-10  rounded-md border-[1px] border-[#EBEBEB]">
