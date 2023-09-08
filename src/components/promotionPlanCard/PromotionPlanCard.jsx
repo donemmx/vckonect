@@ -6,6 +6,7 @@ import { useRecoilValue } from "recoil";
 import { user } from "../../atom/userAtom";
 import { MultiSelect } from 'primereact/multiselect';
 import { toast } from "react-toastify";
+import useUpadateReload from "../../hooks/UpdateRelaod";
         
 export default function PromotionPlanCard({ myPromotion }) {
   const [visible, setVisible] = useState(false);
@@ -13,7 +14,7 @@ export default function PromotionPlanCard({ myPromotion }) {
   const [allProducts, setAllProducts] = useState([]);
   const [selected, setSelected] = useState([]);
   const [loading, setLoading] = useState(false);
-
+const [updateReload] = useUpadateReload()
 
   const openModal = () => {
     setVisible(!visible);
@@ -56,6 +57,7 @@ export default function PromotionPlanCard({ myPromotion }) {
       toast.success(res.detail)
       setLoading(false)
       setVisible(false)
+      updateReload()
     })
    })
   }
