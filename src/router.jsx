@@ -152,7 +152,7 @@ const router = createBrowserRouter([
         element: <DiseasePrediction />,
       },
       {
-        path: "/vet-account",
+        path: "/vet-account/:id",
         element: <Account />,
       },
       {
@@ -338,6 +338,26 @@ const router = createBrowserRouter([
       {
         path: "/store-details/:id",
         element: <StoreDetails />,
+      },
+      {
+        path: "/clinic-details/:id",
+        element: <ClinicDetails />,
+      },
+      {
+        path: "/vetenarian/:id",
+        element: <VetUserDetails />,
+      },
+      {
+        path: "/users/:id",
+        element: <AccountDetails />,
+      },
+      {
+        path: "/farm/:id",
+        element: <farmDetails />,
+      },
+      {
+        path: "/pet/:id",
+        element: <farmDetails />,
       },
       {
         path: "/otp",

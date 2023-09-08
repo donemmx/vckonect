@@ -34,9 +34,9 @@ export default function Header({ bg }) {
   const checker = (route) => {
     if (data?.role) {
       if (data?.role === "Veterinarian") {
-        location(`/vet-${route}`);
+        location(`/vet-${route}/${userData?.id}`);
       } else if (data?.role === "Animal Owner") {
-        location(`/animal-owner-${route}`);
+        location(`/animal-owner-${route}/${userData?.id}`);
       } else {
         location(`/admin-${route}`);
       }

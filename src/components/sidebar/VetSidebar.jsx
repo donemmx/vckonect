@@ -10,9 +10,15 @@ import clinicIcon from "../../assets/sidebar/clinic-dash.svg";
 import casesIcon from "../../assets/sidebar/cases.svg";
 import adsicon from "../../assets/sidebar/promotionIcon.svg";
 import activitiesicon from "../../assets/sidebar/activities.svg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { user } from "../../atom/userAtom";
 export default function VetSidebar() {
-
+const userData = useRecoilValue(user)
+const navigate = useNavigate()
+const openAccountDetails = () => {
+  navigate(`/vet-account/${userData?.id}`)
+}
   return (
       <div className="fixed z-50   w-full lg:w-fit pr-14 lg:pr-0 top-[12vh] lg:top-[15vh] pb-10 left-8 h-[18vh] lg:h-[85vh] overflow-x-scroll lg:overflow-y-scroll no-scrollbar flex items-center lg:flex-col gap-2 justify-between">
         <Link
@@ -92,15 +98,15 @@ export default function VetSidebar() {
             Disease Prediction
           </small>
         </Link>
-        <Link
-          to="/vet-account"
+        <div
+        onClick={openAccountDetails}
           className="flex items-center flex-col gap-1 cursor-pointer justify-center bg-white w-[90px] px-6 h-[80px] p-2 rounded-[15px] border hover:border-[2px] hover:border-green-500"
         >
           <img className="h-[30px]" src={accounticon} alt="" />
           <small className="text-[10px] leading-3 font-bold text-center">
             Account
           </small>
-        </Link>
+        </div>
         <Link
           to="/vet-activities"
           className="flex items-center flex-col gap-1 cursor-pointer justify-center bg-white w-[90px] px-6 h-[80px] p-2 rounded-[15px] border hover:border-[2px] hover:border-green-500"
