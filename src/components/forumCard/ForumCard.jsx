@@ -16,6 +16,7 @@ import {
   shareForumChat,
 } from "../../utils/userApiService";
 import { user } from "../../atom/userAtom";
+import { loadingState } from "../../atom/loadingAtom";
 import { storeData } from "../../atom/storeAtom";
 import moment from "moment";
 import { useState } from "react";
@@ -50,6 +51,7 @@ export default function ForumCard({
   const [type, setType] = useState(null);
   const location = useNavigate();
   const [updateReload] = useUpadateReload();
+  const [globalLoading, setGlobalLoading] = useRecoilState(loadingState);
 
   const checker = (route) => {
     if (userData?.role === "Veterinarian") {
@@ -147,6 +149,7 @@ export default function ForumCard({
   };
 
   const deleteFormData = () => {
+    setGlobalLoading(!globalLoading)
     const { id, ...others } = fullData;
     const payload = {
       forum_chat_id: id,

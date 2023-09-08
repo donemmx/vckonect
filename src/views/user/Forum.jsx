@@ -11,6 +11,7 @@ import {
   getDirectMessage,
   getForumChat,
   getForumChatByFilter,
+  viewDirectMessage,
 } from "../../utils/userApiService";
 import { storeData } from "../../atom/storeAtom";
 import { reloadStore } from "../../atom/reloadAtom";
@@ -20,6 +21,8 @@ import emptyMessage from "../../assets/icons/empty-message.svg";
 import { toast } from "react-toastify";
 import DirectMessageCard from "../../components/directMessageCard/DirectMessageCard";
 import { message } from "../../atom/messageAtom";
+import moment from "moment";
+import { Badge } from "primereact/badge";
 
 export default function Forum() {
   const [tab, setTab] = useState("chat");
@@ -33,6 +36,7 @@ export default function Forum() {
   const [allmessages, setAllMessages] = useState([]);
   const [file, setFile] = useState(null);
   const [comment, setComment] = useState([]);
+  const [messages, setMessages] = useState([]);
   const [reload, setReload] = useRecoilState(reloadStore);
 
   const userStore = useRecoilValue(storeData);
@@ -40,6 +44,12 @@ export default function Forum() {
 
   const [messageStore, setMessageStore] = useState()
 
+  const viewMessage = (data) => {
+    viewDirectMessage(data).then(() => {
+      setMessages(data)
+    });
+
+  }
   const activeTab = (type) => {
     setTab(type);
   };
@@ -218,22 +228,48 @@ export default function Forum() {
         </>
       ) : (
         <>
-          <div className="grid md:grid-cols-2 gap-2">
+          <div className="grid md:grid-cols-2 gap-2 relative ">
             <div className="flex flex-col gap-2">
               {allmessages?.map((res) =>
                 res.id !== userData.id ? (
-                  <DirectMessageCard data={res} key={res.id} />
+                  <div key={res.id}
+                  className="flex flex-wrap gap-2  border items-center justify-between p-5 bg-white cursor-pointer hover:border-green-500 hover:border-2 transition-all ease-in-out hover:bg-green-50 rounded"
+                  onClick={() => viewMessage(res)}
+                >
+                  <div className="flex gap-2 ">
+                    <div className="h-[40px] w-[40px]">
+                      <img
+                        src={res?.profile_picture}
+                        alt=""
+                        className="w-full h-full object-cover rounded-full"
+                      />
+                    </div>
+                    <div className="">
+                      <div className="name text-sm font-bold">
+                        {res?.first_name} {res?.last_name}
+                      </div>
+                      <small className="font-light text-xs">{res?.role}</small>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="time text-xs p-1 px-3 rounded-full bg-gray-200 w-fit ">
+                      {moment(res?.message[0].date).fromNow()}
+                    </div>
+                    {res.counter > 0 ? <Badge value={res?.counter} severity={"danger"}></Badge> : ''}
+                  </div>
+                </div>
                 ) : (
                   ""
                 )
+
               )}
             </div>
-            <div className="">
-              {messageData ? (
+            <div className="fixed !overflow-y-auto h-[50vh] right-[8%]">
+              {messages ? (
                 <>
                   <div className="">
                     <div className="flex flex-col gap-2">
-                      {messageData?.message?.map((res) => (
+                      {messages?.message?.map((res) => (
                         <div
                           className="border p-4 bg-white rounded"
                           key={res.id}
