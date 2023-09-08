@@ -201,7 +201,7 @@ export default function StoreDetails() {
       )}
       <div className="w-[90%] mx-auto items-center flex justify-center flex-wrap gap-5">
         {storeInfo?.product?.map((res) => (
-          <PromoCard key={res.id} data={res} store_id={params.id} />
+          <PromoCard key={res.id} data={res} store_id={params.id} show={true} />
         ))}
       </div>
     </div>

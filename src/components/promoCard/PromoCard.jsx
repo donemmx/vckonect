@@ -11,7 +11,7 @@ import useUpadateReload from "../../hooks/UpdateRelaod";
 import { useNavigate } from "react-router-dom";
 import useRouteChecker from "../../hooks/RouteChecker";
 
-export default function PromoCard({ data, store_id }) {
+export default function PromoCard({ data, store_id, show }) {
   const userData = useRecoilValue(user);
   const [updateReload] = useUpadateReload();
   const navigate = useNavigate()
@@ -57,11 +57,10 @@ export default function PromoCard({ data, store_id }) {
           </div>
         ))}
       </Carousel>
-
       <div className="group h-full w-full">
         <div className="top adsUser h-[65%] w-[200px]">
           <div className="pt-4 pr-4">
-            <div className="flex items-center gap-2 w-fit ml-auto">
+            { show && userData?.id === data?.user_id ? <div className="flex items-center gap-2 w-fit ml-auto">
               <WarningCard
                 message="Are you Sure you want to delete this product?"
                 header="Confirmation"
@@ -72,7 +71,7 @@ export default function PromoCard({ data, store_id }) {
                 alt=""
                 className=" p-2 mb-2 !h-[35px] w-[35px] object-cover bg-white rounded-full border-[1px] border-[#EBEBEB] shadow"
               />
-            </div>
+            </div>  : ''}
           </div>
           <div className="bottom flex items-center justify-between p-2 absolute bottom-2 w-full ">
             <div className="rating text-white text-sm flex items-center gap-2"></div>
