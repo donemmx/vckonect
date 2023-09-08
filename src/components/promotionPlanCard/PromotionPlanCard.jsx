@@ -8,7 +8,7 @@ import { MultiSelect } from 'primereact/multiselect';
 import { toast } from "react-toastify";
 import useUpadateReload from "../../hooks/UpdateRelaod";
         
-export default function PromotionPlanCard({ myPromotion, show }) {
+export default function PromotionPlanCard({ myPromotion , productsPromoted}) {
   const [visible, setVisible] = useState(false);
   const userData = useRecoilValue(user);
   const [allProducts, setAllProducts] = useState([]);
@@ -57,6 +57,7 @@ const [updateReload] = useUpadateReload()
       toast.success(res.detail)
       setLoading(false)
       setVisible(false)
+      setSelected([])
       updateReload()
     })
    })
@@ -72,7 +73,7 @@ const [updateReload] = useUpadateReload()
             <h3 className="font-black text-lg ">
               {myPromotion?.promotion_title}
             </h3>
-            <p className="">{myPromotion?.no_of_products} Products</p>
+            <p className="">{Number(myPromotion?.no_of_products) - productsPromoted?.length +' / '+ myPromotion?.no_of_products}    Slots left</p>
           </div>
         </div>
         <div className="">
@@ -108,7 +109,7 @@ const [updateReload] = useUpadateReload()
               {myPromotion?.promotion_title}
             </h3>
           <div className=" font-bold mb-4">
-            Available No. of Products for plan: {myPromotion?.no_of_products - selected?.length }
+            Available No. of Products for plan: {(Number(myPromotion?.no_of_products) - productsPromoted?.length ) - selected?.length }
           </div>
           <div className="flex items-center justify-between">
             
