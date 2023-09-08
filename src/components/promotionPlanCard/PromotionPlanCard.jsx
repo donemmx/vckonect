@@ -12,6 +12,8 @@ export default function PromotionPlanCard({ myPromotion }) {
   const userData = useRecoilValue(user);
   const [allProducts, setAllProducts] = useState([]);
   const [selected, setSelected] = useState([]);
+  const [loading, setLoading] = useState(false);
+
 
   const openModal = () => {
     setVisible(!visible);
@@ -39,6 +41,7 @@ export default function PromotionPlanCard({ myPromotion }) {
   }
 
   const submitProduct = () => {
+    setLoading(true)
    selected?.forEach((res)=> {
     const {title, category, description, available_units,id, ...others} = res
     const payload = {
@@ -51,6 +54,8 @@ export default function PromotionPlanCard({ myPromotion }) {
     }
     addPromotion(payload).then((res)=> {
       toast.success('Product added to promotion')
+      setLoading(false)
+      setVisible(false)
     })
    })
   }
@@ -109,7 +114,8 @@ export default function PromotionPlanCard({ myPromotion }) {
     placeholder="Select a Product" className="w-full md:w-14rem mb-4" />
           </div>
           <div className="">
-            <button disabled={selected?.length ==0} onClick={submitProduct} className="bg-green-800 p-3 w-full mt-2 rounded text-white flex items-center justify-center gap-4">
+            <button disabled={selected?.length ==0 || loading} onClick={submitProduct} className="bg-green-800 p-3 w-full mt-2 rounded text-white flex items-center justify-center gap-4">
+            { loading ?  <i className="pi pi-spin pi-spinner"></i>: ''}
               Add to Promotion
             </button>
           </div>
