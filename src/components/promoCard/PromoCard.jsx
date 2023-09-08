@@ -34,20 +34,17 @@ export default function PromoCard({ data, store_id, show }) {
   const deletePromotionProduct = () => {
     const payload = {
       id: data?.id,
-    }
-    deletePromotion(payload).then((res)=> {
-      toast.success(res.detail),
-      updateReload();
-    })
-  }
+    };
+    deletePromotion(payload).then((res) => {
+      toast.success(res.detail), updateReload();
+    });
+  };
 
   const gotoStore = () => {
     routeChecker(`store-details/${data.store_id}`);
   };
   return (
-    <div
-      className="adsCard mb-6  "
-    >
+    <div className="adsCard mb-6  ">
       <Carousel
         showThumbs={false}
         swipeable={true}
@@ -104,13 +101,17 @@ export default function PromoCard({ data, store_id, show }) {
           <div className="name font-black sm:text-[.85rem] md:text-[1rem]">
             {data?.title}
           </div>
-          <div className="location flex text-sm items-center gap-2">
+          <div className="location flex text-sm items-center justify-between gap-2">
+            <div className="flex text-sm items-center gap-2">
             <img src={location} alt="" className=" h-5" />
             {data?.location}
+            </div>
+            <button className="p-2 bg-slate-100 rounded-full px-4 flex items-center gap-3 hover:bg-green-100" onClick={gotoStore}>
+              <i className="pi pi-eye"></i>
+              view
+            </button>
           </div>
-          <div className="" onClick={gotoStore}>
-            view
-          </div>
+
           <div className="flex items-center justify-center gap-2 text-[.8rem] bg-gray-100  rounded p-3 mt-4 ">
             <div
               className={data?.availability == 1 ? "available" : "unavailable"}
