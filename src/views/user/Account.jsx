@@ -65,10 +65,10 @@ export default function Account() {
   const shareAccount =() => {
     let route
     if (window.location.pathname.split("/")[1].includes("vet")) {
-        route = `${window.location.host}/veterinarian/${userData?.id}`
+        route = `${window.location.protocol}//${window.location.host}/veterinarian/${userData?.id}`
     }
     else{
-      route = `${window.location.host}/user/${userData?.id}`
+      route = `${window.location.protocol}//${window.location.host}/user/${userData?.id}`
     }
 
     setData(route, 'share')
