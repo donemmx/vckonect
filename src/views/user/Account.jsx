@@ -36,6 +36,12 @@ export default function Account() {
       setUserData(res);
     });
   };
+  
+  useEffect(() => {
+    getUser, console.log(payload);
+  }, []);
+
+
 
   const setData = (data, type) => {
     const payload = [data, type];
@@ -61,9 +67,7 @@ export default function Account() {
     setData(route, "share");
   };
 
-  useEffect(() => {
-    getUser, console.log(payload);
-  }, []);
+
 
   return (
     <div className=" bg-white h-[110vh] mb-10  rounded-md border-[1px] border-[#EBEBEB]">
