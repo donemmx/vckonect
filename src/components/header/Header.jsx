@@ -139,13 +139,14 @@ export default function Header({ bg }) {
                     />
                   </div>
                 ) : (
-                  <Avatar
+                 userData?.id ? <Avatar
                     label={userData?.first_name?.split("")[0].toUpperCase()}
                     size="large"
                     className=" !bg-green-500 !text-white"
                     shape="circle"
                     onClick={openModal}
                   />
+                  : 'ƒ'
                 )}
               </div>
             </div>
