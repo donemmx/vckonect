@@ -4,6 +4,7 @@ import callIcon from "../../assets/icons/phone-icon.svg";
 import messageIcon from "../../assets/icons/message-icon.svg";
 import markerIcon from "../../assets/icons/location-icon.svg";
 import handIcon from "../../assets/account/hand-icon.svg";
+import shareIcon from "../../assets/icons/share-icon.svg";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { user } from "../../atom/userAtom";
@@ -29,9 +30,8 @@ export default function Account() {
     let role;
     if (window.location.pathname.split("/")[1].includes("vet")) {
       role = "Veterinarian";
-    }
-    else{
-      role = 'Animal Owner'
+    } else {
+      role = "Animal Owner";
     }
     payload = {
       id: params.id,
@@ -61,6 +61,18 @@ export default function Account() {
       location(`/animal-owner-${route}`);
     }
   };
+
+  const shareAccount =() => {
+    let route
+    if (window.location.pathname.split("/")[1].includes("vet")) {
+        route = `${window.location.host}/veterinarian/${userData?.id}`
+    }
+    else{
+      route = `${window.location.host}/user/${userData?.id}`
+    }
+
+    setData(route, 'share')
+  }
 
   useEffect(() => getUser, []);
 
@@ -134,6 +146,17 @@ export default function Account() {
             className=" p-2 mb-2 h-[40px] w-[40px] bg-white rounded-full border-[1px] border-[#828282] hover:border-green-400 hover:bg-green-100 cursor-pointer"
           />
           Location
+        </div>
+        <div
+          className="flex flex-col items-center justify-center"
+          onClick={shareAccount}
+        >
+          <img
+            src={shareIcon}
+            alt=""
+            className=" p-2 mb-2 h-[40px] w-[40px] bg-white rounded-full border-[1px] border-[#828282] hover:border-green-400 hover:bg-green-100 cursor-pointer"
+          />
+          Share
         </div>
       </div>
 
