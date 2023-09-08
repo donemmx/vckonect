@@ -49,7 +49,7 @@ export default function PromotionPlanCard({ myPromotion }) {
       product_category: category,
       product_description: description,
       units: available_units,
-      id: myPromotion?.id,
+      id: userData?.id,
       ...others
     }
     addPromotion(payload).then((res)=> {
