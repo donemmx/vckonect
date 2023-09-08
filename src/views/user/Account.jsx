@@ -33,7 +33,6 @@ export default function Account() {
 
   const getUser = () => {
     getUserById(payload).then((res) => {
-      setUserDetails(res);
       setUserData({
         ...userData,
         ...res,
