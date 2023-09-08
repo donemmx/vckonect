@@ -108,7 +108,7 @@ const router = createBrowserRouter([
         element: <Clinic />,
       },
       {
-        path: "/vet-clinic-details",
+        path: "/vet-clinic-details/:id",
         element: <ClinicDetails />,
       },
       {
@@ -260,7 +260,7 @@ const router = createBrowserRouter([
         element: <Promotion />,
       },
       {
-        path: "/animal-owner-clinic-details",
+        path: "/animal-owner-clinic-detail/:id",
         element: <ClinicDetails />,
       },
       {
