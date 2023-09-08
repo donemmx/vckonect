@@ -10,6 +10,7 @@ import PromotionPlanCard from "../../components/promotionPlanCard/PromotionPlanC
 import PromotionSubscriptionCard from "../../components/promotionSubscriptionCard/PromotionSubscriptionCard";
 import { reloadStore } from "../../atom/reloadAtom";
 import PromoCard from "../../components/promoCard/PromoCard";
+import { adminGetPromotion } from "../../utils/adminApiService";
 
 export default function Promotion() {
   const userData = useRecoilValue(user);
@@ -42,9 +43,8 @@ export default function Promotion() {
   };
 
   const getProductsPromoted = () => {
-    getPromotion({
-      id: userData?.id,
-      role: userData?.role,
+    adminGetPromotion({
+      name: ''
     }).then((res) => {
       setProductsPromoted(res);
     });
