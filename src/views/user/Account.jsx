@@ -20,17 +20,16 @@ export default function Account() {
   const location = useNavigate();
   const params = useParams();
 
-
-    let role;
-    if (window.location.pathname.split("/")[1].includes("vet")) {
-      role = "Veterinarian";
-    } else {
-      role = "Animal Owner";
-    }
-   let payload = {
-      id: params.id,
-      role: role,
-    };
+  let role;
+  if (window.location.pathname.split("/")[1].includes("vet")) {
+    role = "Veterinarian";
+  } else {
+    role = "Animal Owner";
+  }
+  let payload = {
+    id: params.id,
+    role: role,
+  };
 
   const getUser = () => {
     getUserById(payload).then((res) => {
@@ -55,19 +54,20 @@ export default function Account() {
     }
   };
 
-  const shareAccount =() => {
-    let route
+  const shareAccount = () => {
+    let route;
     if (window.location.pathname.split("/")[1].includes("vet")) {
-        route = `${window.location.protocol}//${window.location.host}/veterinarian/${userData?.id}`
-    }
-    else{
-      route = `${window.location.protocol}//${window.location.host}/user/${userData?.id}`
+      route = `${window.location.protocol}//${window.location.host}/veterinarian/${userData?.id}`;
+    } else {
+      route = `${window.location.protocol}//${window.location.host}/user/${userData?.id}`;
     }
 
-    setData(route, 'share')
-  }
+    setData(route, "share");
+  };
 
-  useEffect(() => getUser, []);
+  useEffect(() => {
+    getUser, console.log(payload);
+  }, []);
 
   return (
     <div className=" bg-white h-[110vh] mb-10  rounded-md border-[1px] border-[#EBEBEB]">
