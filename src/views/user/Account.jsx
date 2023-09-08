@@ -16,7 +16,7 @@ export default function Account() {
   const [userData, setUserData] = useRecoilState(user);
   const [userDetails, setUserDetails] = useState();
   const [openDetail, setOpenDetail] = useState(null);
-  const location = useNavigate()
+  const location = useNavigate();
   let payload = {
     id: userData.id,
     role: userData.role,
@@ -32,13 +32,11 @@ export default function Account() {
     });
   };
 
-
   const setData = (data, type) => {
     const payload = [data, type];
     setOpenDetail(payload);
     console.log(openDetail);
   };
-
 
   const checker = (route) => {
     if (userData?.role === "Veterinarian") {
@@ -54,19 +52,22 @@ export default function Account() {
     <div className=" bg-white h-[110vh] mb-10  rounded-md border-[1px] border-[#EBEBEB]">
       <div className="top bg-account h-[25vh] p-3 lg:p-10 rounded-t-lg">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3 text-[.75rem] lg:text-[.9rem] cursor-pointer">
-          </div>
-          <Link
-            onClick={() => checker("account-details")}
-            className=" flex items-center gap-3 text-[.75rem] lg:text-[.9rem] cursor-pointer"
-          >
-            Edit
-            <img
-              src={editIcon}
-              alt=""
-              className="p-1 lg:p-3 h-[25px] w-[25px] lg:h-[45px] lg:w-[45px] bg-white rounded-full"
-            />
-          </Link>
+          <div className="flex items-center gap-3 text-[.75rem] lg:text-[.9rem] cursor-pointer"></div>
+          {userData?.id ? (
+            <Link
+              onClick={() => checker("account-details")}
+              className=" flex items-center gap-3 text-[.75rem] lg:text-[.9rem] cursor-pointer"
+            >
+              Edit
+              <img
+                src={editIcon}
+                alt=""
+                className="p-1 lg:p-3 h-[25px] w-[25px] lg:h-[45px] lg:w-[45px] bg-white rounded-full"
+              />
+            </Link>
+          ) : (
+            ""
+          )}
         </div>
       </div>
       <div className="flex items-center justify-center mt-[-6vh]">
@@ -124,8 +125,9 @@ export default function Account() {
         <div className="user  flex flex-col justify-center items-center w-[65%] lg:w-[20%] mx-auto mt-[15vh]">
           <h4 className=" font-bold pt-3">Users’ {openDetail[1]}</h4>
           <p className="text-sm text-center text-[#666666]">{openDetail[0]}</p>
-          <CopyToClipboard text={openDetail[0]} 
-          onCopy={()=> toast.success('Copied')}
+          <CopyToClipboard
+            text={openDetail[0]}
+            onCopy={() => toast.success("Copied")}
           >
             <div className="p-4 border rounded-full bg-white shadow-lg mt-4 cursor-pointer hover:border-green-400">
               <svg
