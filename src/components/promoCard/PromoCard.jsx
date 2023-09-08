@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import expandIcon from "../../assets/icons/expand-icon.svg";
 import location from "../../assets/icons/marker-icon.svg";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
@@ -25,7 +26,6 @@ export default function PromoCard({ data, store_id, show }) {
       title: data?.title,
     };
     deleteProduct(payload).then((res) => {
-      console.log(res);
       updateReload();
       toast.success(res.detail);
     });
@@ -36,7 +36,8 @@ export default function PromoCard({ data, store_id, show }) {
       id: data?.id,
     }
     deletePromotion(payload).then((res)=> {
-      toast.success(res)
+      toast.success(res),
+      updateReload();
     })
   }
 
