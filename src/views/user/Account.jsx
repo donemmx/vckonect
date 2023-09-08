@@ -27,7 +27,7 @@ export default function Account() {
     role = "Animal Owner";
   }
   let payload = {
-    id: params.id,
+    id: params?.id,
     role: role,
   };
 

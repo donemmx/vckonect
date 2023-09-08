@@ -345,11 +345,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/veterinarian/:id",
-        element: <VetUserDetails />,
+        element: <Account />,
       },
       {
         path: "/user/:id",
-        element: <AccountDetails />,
+        element: <Account />,
       },
       {
         path: "/farm/:id",
