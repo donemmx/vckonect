@@ -240,7 +240,7 @@ const router = createBrowserRouter([
         element: <DiseasePrediction />,
       },
       {
-        path: "/animal-owner-account",
+        path: "/animal-owner-account/:id",
         element: <Account />,
       },
       {
