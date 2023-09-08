@@ -1,67 +1,104 @@
-import moment from 'moment'
-import { Dialog } from 'primereact/dialog'
-import { useState } from 'react'
+import moment from "moment";
+import { Dialog } from "primereact/dialog";
+import { useState } from "react";
+import { getUserProduct } from "../../utils/userApiService";
+import { useRecoilValue } from "recoil";
+import { user } from "../../atom/userAtom";
+import { Dropdown } from 'primereact/dropdown';
+import { MultiSelect } from 'primereact/multiselect';
+        
+export default function PromotionPlanCard({ myPromotion }) {
+  const [visible, setVisible] = useState(false);
+  const userData = useRecoilValue(user);
+  const [allProducts, setAllProducts] = useState([]);
+  const [selected, setSelected] = useState();
 
-export default function PromotionPlanCard({myPromotion}) {
-  const [visible, setVisible] = useState(false)
-  const [allProducts, setAllProducts] = useState([])
   const openModal = () => {
-    setVisible(!visible)
+    setVisible(!visible);
+    getAllProducts()
+    console.log(allProducts);
+  };
+
+  const getAllProducts = () => {
+    const payload = {
+      user_id: userData?.id,
+      role: userData?.role,
+    };
+    getUserProduct(payload).then((res) => {
+      setAllProducts(res);
+    });
+  };
+
+  const checkProducts = (e) => {
+    if(e.length > myPromotion?.no_of_products ){
+      setSelected(e.slice(0, myPromotion?.no_of_products))
+    }
+    else{
+      setSelected(e)
+    }
   }
 
-  const chooseProduct = () => {
-    
-  }
+
 
   return (
     <div className=" border h-[10vh] rounded-md bg-gray-100  my-5">
-    <div className="flex items-center justify-between h-full">
-      <div className=" flex items-center gap-5 p-5 w-[24%] [clip-path:polygon(0%_0%,75%_0%,100%_50%,75%_100%,0%_100%)] rounded-md bg-green-900 h-full text-white">
-        <i className=" pi pi-cog  pi-spin !text-xl"></i>
-        <div className="">
-          <h3 className="font-black text-lg ">
-            {myPromotion?.promotion_title}
-          </h3>
-          <p className="">{myPromotion?.no_of_products} Products</p>
-        </div>
-      </div>
-      <div className="">
-        <p>Expires: {moment(myPromotion?.expiry_date).fromNow()}</p>
-      </div>
-      <div className=" flex items-center gap-4 p-5">
-        {myPromotion?.subscription === "Active" ? (
-          <div className=" bg-green-100 p-2 rounded text-sm text-green-600">
-            {myPromotion?.subscription}
+      <div className="flex items-center justify-between h-full">
+        <div className=" flex items-center gap-5 p-5 w-[24%] [clip-path:polygon(0%_0%,75%_0%,100%_50%,75%_100%,0%_100%)] rounded-md bg-green-900 h-full text-white">
+          <i className=" pi pi-cog  pi-spin !text-xl"></i>
+          <div className="">
+            <h3 className="font-black text-lg ">
+              {myPromotion?.promotion_title}
+            </h3>
+            <p className="">{myPromotion?.no_of_products} Products</p>
           </div>
-        ) : (
-          <div className="bg-red-100 p-2 rounded text-sm text-red-600">
-            {myPromotion?.subscription}
-          </div>
-        )}
-        <button className="p-3 border bg-[var(--primary)] text-white rounded-full" onClick={openModal}>
-          Add products
-        </button>
-        <p className="p-2 bg-gray-50 text-xs rounded-full">
-          {moment(myPromotion?.date).fromNow()}
-        </p>
-      </div>
-      <Dialog
-        visible={visible}
-        className=" w-[95%] md:w-[70%] lg:w-[40%]"
-        onHide={() => setVisible(false)}
-      >
-        <div className="flex items-center justify-between">
-          
         </div>
         <div className="">
+          <p>Expires: {moment(myPromotion?.expiry_date).fromNow()}</p>
+        </div>
+        <div className=" flex items-center gap-4 p-5">
+          {myPromotion?.subscription === "Active" ? (
+            <div className=" bg-green-100 p-2 rounded text-sm text-green-600">
+              {myPromotion?.subscription}
+            </div>
+          ) : (
+            <div className="bg-red-100 p-2 rounded text-sm text-red-600">
+              {myPromotion?.subscription}
+            </div>
+          )}
           <button
-            className="bg-green-800 p-3 w-full mt-2 rounded text-white flex items-center justify-center gap-4"
+            className="p-3 border bg-[var(--primary)] text-white rounded-full"
+            onClick={openModal}
           >
-            Add to Promotion
+            Add products
           </button>
+          <p className="p-2 bg-gray-50 text-xs rounded-full">
+            {moment(myPromotion?.date).fromNow()}
+          </p>
         </div>
-      </Dialog>
+        <Dialog
+          visible={visible}
+          className=" w-[95%] md:w-[70%] lg:w-[40%]"
+          onHide={() => setVisible(false)}
+          draggable={false}
+        >
+           <h3 className="font-black text-lg ">
+              {myPromotion?.promotion_title}
+            </h3>
+          <div className=" font-bold mb-4">
+            Available No. of Products for plan: {myPromotion?.no_of_products - selected?.length }
+          </div>
+          <div className="flex items-center justify-between">
+            
+          <MultiSelect value={selected} onChange={(e) => checkProducts(e.value)} options={allProducts} optionLabel="title" 
+    placeholder="Select a Product" className="w-full md:w-14rem mb-4" />
+          </div>
+          <div className="">
+            <button className="bg-green-800 p-3 w-full mt-2 rounded text-white flex items-center justify-center gap-4">
+              Add to Promotion
+            </button>
+          </div>
+        </Dialog>
+      </div>
     </div>
-  </div>
-  )
+  );
 }
