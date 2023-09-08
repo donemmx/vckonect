@@ -222,7 +222,7 @@ export default function Sidebar() {
                 </NavLink>
                 <div
                   onClick={() => {
-                    logOut; openModal;
+                    logOut(), openModal()
                   }}
                   className=" flex items-center w-[100%]  gap-4 cursor-pointer  p-2 hover:bg-gray-100 rounded-full  "
                 >
