@@ -79,7 +79,7 @@ export default function PromoCard({ data, store_id, show }) {
                   className=" p-2 mb-2 !h-[35px] w-[35px] object-cover bg-white rounded-full border-[1px] border-[#EBEBEB] shadow"
                 />
               </div>
-            ) : (
+            ) : !show && userData?.id === data?.user_id ? (
               <div className="flex items-center gap-2 w-fit ml-auto">
                 <WarningCard
                   message="Are you Sure you want to delete this promotion?"
@@ -87,6 +87,8 @@ export default function PromoCard({ data, store_id, show }) {
                   acceptFunction={deletePromotionProduct}
                 />
               </div>
+            ) : (
+              ""
             )}
           </div>
           <div className="bottom flex items-center justify-between p-2 absolute bottom-2 w-full ">
@@ -103,10 +105,13 @@ export default function PromoCard({ data, store_id, show }) {
           </div>
           <div className="location flex text-sm items-center justify-between gap-2">
             <div className="flex text-sm items-center gap-2">
-            <img src={location} alt="" className=" h-5" />
-            {data?.location}
+              <img src={location} alt="" className=" h-5" />
+              {data?.location}
             </div>
-            <button className="p-2 bg-slate-100 rounded-full px-4 flex items-center gap-3 hover:bg-green-100" onClick={gotoStore}>
+            <button
+              className="p-2 bg-slate-100 rounded-full px-4 flex items-center gap-3 hover:bg-green-100"
+              onClick={gotoStore}
+            >
               <i className="pi pi-eye"></i>
               view
             </button>
