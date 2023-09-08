@@ -139,7 +139,7 @@ export default function Header({ bg }) {
           )}
         </div>
       </div>
-      {open && !userData ? (
+      {open && !userData?.id ? (
         <div
           className="modal w-[220px]  h-[24vh] z-[100] bg-white fixed top-[9%] right-[8%] rounded-md shadow-sm"
           data-aos="fade"
@@ -166,7 +166,7 @@ export default function Header({ bg }) {
       ) : (
         ""
       )}
-      {open && userData ? (
+      {open && userData?.id ? (
         <div
           className="modal w-[220px] h-[22vh] z-[100] bg-white fixed top-[9%] right-[8%] rounded-md shadow-sm"
           data-aos="fade"
