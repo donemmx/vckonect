@@ -59,13 +59,17 @@ export default function StoreDetails() {
       <div className="top bg-account h-[25vh] p-3 lg:p-10 rounded-t-lg">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3 text-[.75rem] lg:text-[.9rem] cursor-pointer">
-            <Link
-              onClick={back}
-              className=" flex items-center gap-3 text-[.75rem] lg:text-[.9rem] cursor-pointer"
-            >
-              <i className="pi pi-angle-left p-1 lg:p-3 h-[25px] w-[25px] lg:h-[45px] lg:w-[45px] bg-white rounded-full"></i>
-              Back
-            </Link>
+            {userData?.id ? (
+              <Link
+                onClick={back}
+                className=" flex items-center gap-3 text-[.75rem] lg:text-[.9rem] cursor-pointer"
+              >
+                <i className="pi pi-angle-left p-1 lg:p-3 h-[25px] w-[25px] lg:h-[45px] lg:w-[45px] bg-white rounded-full"></i>
+                Back
+              </Link>
+            ) : (
+              ""
+            )}
           </div>
         </div>
       </div>
@@ -116,9 +120,32 @@ export default function StoreDetails() {
           />
           Location
         </div>
-        <div className="flex flex-col items-center justify-center gap-3">
-          <DirectMessageModal fullData={storeInfo} className="!h-[20px] !border-2" />
-          Direct Message
+        {userData?.id ? (
+          <div className="flex flex-col items-center justify-center gap-3">
+            <DirectMessageModal
+              fullData={storeInfo}
+              className="!h-[20px] !border-2"
+            />
+            Direct Message
+          </div>
+        ) : (
+          ""
+        )}
+        <div
+          className="flex flex-col items-center justify-center"
+          onClick={() =>
+            setData(
+              `${window.location.host}/store-details/${storeInfo.id}`,
+              "Share"
+            )
+          }
+        >
+          <img
+            src={markerIcon}
+            alt=""
+            className=" p-2 mb-2 h-[40px] w-[40px] bg-white rounded-full border-[1px] border-[#828282] hover:border-green-400 hover:bg-green-100 cursor-pointer"
+          />
+          Share
         </div>
       </div>
       <small className=" text-[1.1rem] pt-5 text-center flex flex-col gap-4 items-center justify-center space-y-2">

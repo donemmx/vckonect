@@ -115,7 +115,6 @@ const router = createBrowserRouter([
         path: "/vet-add-clinic",
         element: <AddClinic />,
       },
-
       {
         path: "/vet-add-case",
         element: <AddCase />,
@@ -335,6 +334,10 @@ const router = createBrowserRouter([
       {
         path: "/signup",
         element: <Signup />,
+      },
+      {
+        path: "/store-details/:id",
+        element: <StoreDetails />,
       },
       {
         path: "/otp",
