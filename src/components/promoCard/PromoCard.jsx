@@ -108,13 +108,13 @@ export default function PromoCard({ data, store_id, show }) {
               <img src={location} alt="" className=" h-5" />
               {data?.location}
             </div>
-            <button
+            { !show ? <button
               className="p-2 bg-slate-100 rounded-full px-4 flex items-center gap-3 hover:bg-green-100"
               onClick={gotoStore}
             >
               <i className="pi pi-eye"></i>
               view
-            </button>
+            </button> : ''}
           </div>
 
           <div className="flex items-center justify-center gap-2 text-[.8rem] bg-gray-100  rounded p-3 mt-4 ">
