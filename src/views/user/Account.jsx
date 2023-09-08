@@ -20,24 +20,17 @@ export default function Account() {
   const location = useNavigate();
   const params = useParams();
 
-  let payload;
-  if (userData?.id) {
-    payload = {
-      id: userData.id,
-      role: userData.role,
-    };
-  } else {
+
     let role;
     if (window.location.pathname.split("/")[1].includes("vet")) {
       role = "Veterinarian";
     } else {
       role = "Animal Owner";
     }
-    payload = {
+   let payload = {
       id: params.id,
       role: role,
     };
-  }
 
   const getUser = () => {
     getUserById(payload).then((res) => {
