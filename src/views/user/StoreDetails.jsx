@@ -45,7 +45,7 @@ export default function StoreDetails() {
 
   const getCurrentStore = () => {
     getOneStore({ store_id: params.id }).then((res) => {
-      setStoreInfo(res[0]);
+      setStoreInfo(res);
     });
   };
 
