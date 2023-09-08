@@ -344,11 +344,11 @@ const router = createBrowserRouter([
         element: <ClinicDetails />,
       },
       {
-        path: "/vetenarian/:id",
+        path: "/veterinarian/:id",
         element: <VetUserDetails />,
       },
       {
-        path: "/users/:id",
+        path: "/user/:id",
         element: <AccountDetails />,
       },
       {
