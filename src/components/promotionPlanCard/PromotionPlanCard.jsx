@@ -1,17 +1,17 @@
 import moment from "moment";
 import { Dialog } from "primereact/dialog";
 import { useState } from "react";
-import { getUserProduct } from "../../utils/userApiService";
+import { addPromotion, getUserProduct } from "../../utils/userApiService";
 import { useRecoilValue } from "recoil";
 import { user } from "../../atom/userAtom";
-import { Dropdown } from 'primereact/dropdown';
 import { MultiSelect } from 'primereact/multiselect';
+import { toast } from "react-toastify";
         
 export default function PromotionPlanCard({ myPromotion }) {
   const [visible, setVisible] = useState(false);
   const userData = useRecoilValue(user);
   const [allProducts, setAllProducts] = useState([]);
-  const [selected, setSelected] = useState();
+  const [selected, setSelected] = useState([]);
 
   const openModal = () => {
     setVisible(!visible);
@@ -38,6 +38,22 @@ export default function PromotionPlanCard({ myPromotion }) {
     }
   }
 
+  const submitProduct = () => {
+   selected?.forEach((res)=> {
+    const {title, category, description, available_units,id, ...others} = res
+    const payload = {
+      product_title: title,
+      product_category: category,
+      product_description: description,
+      units: available_units,
+      id: myPromotion?.id,
+      ...others
+    }
+    addPromotion(payload).then((res)=> {
+      toast.success('Product added to promotion')
+    })
+   })
+  }
 
 
   return (
@@ -93,7 +109,7 @@ export default function PromotionPlanCard({ myPromotion }) {
     placeholder="Select a Product" className="w-full md:w-14rem mb-4" />
           </div>
           <div className="">
-            <button className="bg-green-800 p-3 w-full mt-2 rounded text-white flex items-center justify-center gap-4">
+            <button disabled={selected?.length ==0} onClick={submitProduct} className="bg-green-800 p-3 w-full mt-2 rounded text-white flex items-center justify-center gap-4">
               Add to Promotion
             </button>
           </div>
