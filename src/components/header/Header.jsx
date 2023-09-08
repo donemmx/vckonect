@@ -34,6 +34,19 @@ export default function Header({ bg }) {
   const checker = (route) => {
     if (data?.role) {
       if (data?.role === "Veterinarian") {
+        location(`/vet-${route}`);
+      } else if (data?.role === "Animal Owner") {
+        location(`/animal-owner-${route}`);
+      } else {
+        location(`/admin-${route}`);
+      }
+    } else {
+      location("/login");
+    }
+  };
+  const accountChecker = (route) => {
+    if (data?.role) {
+      if (data?.role === "Veterinarian") {
         location(`/vet-${route}/${userData?.id}`);
       } else if (data?.role === "Animal Owner") {
         location(`/animal-owner-${route}/${userData?.id}`);
@@ -173,7 +186,7 @@ export default function Header({ bg }) {
         >
           <div className="modal__body flex  flex-col gap-2 p-4">
             <button
-              onClick={() => checker('account')}
+              onClick={() => accountChecker('account')}
               className="group text-[15px] text-gray-600 p-2 flex items-center gap-3 hover:bg-gray-300 rounded-md cursor-pointer"
             >
               <img src={userPic} alt="" className="h-4" />
