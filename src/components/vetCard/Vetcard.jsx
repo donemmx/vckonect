@@ -13,12 +13,10 @@ import { useNavigate } from "react-router-dom";
 
 export default function Vetcard({ fullData }) {
   const userData = useRecoilValue(user);
-  const [store, setStore] = useRecoilState(storeData);
   const [action, setAction] = useRecoilState(actionState);
   const location = useNavigate();
 
   const checker = (route) => {
-    setStore(fullData);
     if (userData?.role === "Veterinarian") {
       location(`/${route}`);
     } else {
@@ -29,12 +27,13 @@ export default function Vetcard({ fullData }) {
   return (
     <div className=" vetCard mb-6">
       <div className="group h-full w-full ">
-        <div className="top h-[65%] w-full relative"
-        style={{
-          backgroundImage: `url(${fullData?.profile_picture})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
+        <div
+          className="top h-[65%] w-full relative"
+          style={{
+            backgroundImage: `url(${fullData?.profile_picture})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
         >
           <div className="availbility">
             {fullData?.availability === "1" ? (
@@ -55,7 +54,11 @@ export default function Vetcard({ fullData }) {
               4.5 of 5 */}
             </div>
             <div className="verfied">
-              {fullData?.vet_number_status === 'Verified' ? <img src={verified} alt="" /> : <img src={unverified}/>}
+              {fullData?.vet_number_status === "Verified" ? (
+                <img src={verified} alt="" />
+              ) : (
+                <img src={unverified} />
+              )}
             </div>
           </div>
         </div>
@@ -69,15 +72,15 @@ export default function Vetcard({ fullData }) {
           </div>
           <div className="buttons pt-1 flex justify-between items-center mt-3">
             <div className="group flex items-center gap-3  ">
-            <a href={`tel:${fullData?.phone_number}`} rel="noReferrer">
+              <a href={`tel:${fullData?.phone_number}`} rel="noReferrer">
                 <img
                   src={phone}
                   className=" p-2 h-[35px] bg-white w-[35px] object-contain rounded-full shadow-md cursor-pointer"
                   alt=""
                 />
               </a>
-               <DirectMessageModal fullData={fullData} />
-               <a href={`mailto:${fullData?.email}`} rel="noReferrer">
+              {userData?.id ? <DirectMessageModal fullData={fullData} /> : ""}
+              <a href={`mailto:${fullData?.email}`} rel="noReferrer">
                 <img
                   src={message}
                   alt=""
@@ -88,7 +91,7 @@ export default function Vetcard({ fullData }) {
             <div className="message">
               <button
                 onClick={() => {
-                  checker("vet-details")
+                  checker("vet-details");
                 }}
               >
                 <img src={openIcon} alt="" />
