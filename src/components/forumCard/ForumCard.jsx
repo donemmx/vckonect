@@ -46,6 +46,7 @@ export default function ForumCard({
   const [action, setAction] = useRecoilState(actionState);
   const [visible, setVisible] = useState(false);
   const [showComments, setShowComments] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [type, setType] = useState(null);
   const location = useNavigate();
   const [updateReload] = useUpadateReload();
@@ -162,17 +163,16 @@ export default function ForumCard({
   };
 
   const postComment = () => {
-    if (type && type == "comment") {
-      commentForum();
-    } else {
-      shareForum();
-    }
+    commentForum();
+  };
+  const share = () => {
+    shareForum();
     setVisible(false);
   };
 
   return (
     <div className="">
-      {/* <Dialog
+      <Dialog
         visible={visible}
         className=" w-[95%] md:w-[70%] lg:w-[50%]"
         onHide={() => setVisible(false)}
@@ -192,13 +192,13 @@ export default function ForumCard({
           <button
             className="green__btn mt-2"
             disabled={comment.length === 0}
-            onClick={postComment}
+            onClick={share}
           >
             <i className="pi pi-send"></i>
-            {type === "comment" ? " Add Comment " : "Share Post"}
+            Share Post
           </button>
         </div>
-      </Dialog> */}
+      </Dialog>
 
       {fullData.status === "Approved" ? (
         <>
@@ -349,10 +349,10 @@ export default function ForumCard({
                     <button
                       className="p-3.5 rounded-md text-white bg-green-800 text-sm mt-2 flex items-center gap-2"
                       disabled={comment.length === 0}
-                      onClick={postComment}
+                      onClick={commentForum}
                     >
                       <i className="pi pi-send !text-sm"></i>
-                      {type === "comment" ? " Add Comment " : "Share Post"}
+                      Add Comment
                     </button>
                   </div>
                   {comments.map((res) => (
