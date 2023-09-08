@@ -64,7 +64,7 @@ export default function PromoCard({ data, store_id, show }) {
         ))}
       </Carousel>
       <div className="group h-full w-full">
-        <div className="top adsUser h-[65%] w-[200px]">
+        <div className="top adsUser h-[55%] w-[200px]">
           {!show && data?.subscription === "Active" ? (
             <div className=" p-1 px-4 text-xs absolute top-2 left-2  border-1.5 bg-green-100 text-green-700 border-green-400 w-fit rounded-full ">
               {data?.subscription}
