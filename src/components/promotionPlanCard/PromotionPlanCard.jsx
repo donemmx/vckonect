@@ -53,7 +53,7 @@ export default function PromotionPlanCard({ myPromotion }) {
       ...others
     }
     addPromotion(payload).then((res)=> {
-      toast.success('Product added to promotion')
+      toast.success(res.detail)
       setLoading(false)
       setVisible(false)
     })

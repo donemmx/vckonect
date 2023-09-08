@@ -66,7 +66,6 @@ export default function AddProduct() {
         availability: available,
         tags: [...tags],
         category: category,
-        images: [...selectedFiles],
         ...values,
       };
     } else {

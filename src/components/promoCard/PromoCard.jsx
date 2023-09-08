@@ -40,7 +40,7 @@ const [updateReload] = useUpadateReload();
       >
         {data?.images?.map((res) => (
           <div key={res} className=" h-full w-full rounded-lg">
-            <img src={res} className="rounded-lg w-full h-full" />
+            <img src={res} className="rounded-lg w-full h-[200px] object-cover" />
           </div>
         ))}
       </Carousel>
@@ -57,7 +57,7 @@ const [updateReload] = useUpadateReload();
               <img
                 src={expandIcon}
                 alt=""
-                className=" p-2 mb-2 h-[35px] w-[35px] bg-white rounded-full border-[1px] border-[#EBEBEB] shadow"
+                className=" p-2 mb-2 !h-[35px] w-[35px] object-cover bg-white rounded-full border-[1px] border-[#EBEBEB] shadow"
               />
             </div>
           </div>

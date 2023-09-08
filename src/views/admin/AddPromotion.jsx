@@ -38,10 +38,8 @@ export default function AddPromotion() {
       ...values,
     };
       }
-    console.log(payload);
 
-
-    addPromotionPlan(payload)
+    await addPromotionPlan(payload)
       .then((res) => {
         console.log(res);
         if (res.code) {

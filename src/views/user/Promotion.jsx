@@ -9,6 +9,7 @@ import moment from "moment/moment";
 import PromotionPlanCard from "../../components/promotionPlanCard/PromotionPlanCard";
 import PromotionSubscriptionCard from "../../components/promotionSubscriptionCard/PromotionSubscriptionCard";
 import { reloadStore } from "../../atom/reloadAtom";
+import PromoCard from "../../components/promoCard/PromoCard";
 
 export default function Promotion() {
   const userData = useRecoilValue(user);
@@ -83,10 +84,18 @@ export default function Promotion() {
           </div>
           {tab === "all" ? (
             <>
-            {myPromotion?.subscription === "Active" ?
-              <PromotionPlanCard myPromotion={myPromotion} />
-              : ''
-            }
+              {myPromotion?.subscription === "Active" ? (
+                <>
+                  <PromotionPlanCard myPromotion={myPromotion} />
+                  {
+                    productsPromoted.map((res)=> (
+                      <PromoCard key={res.id} data={res}/>
+                    ))
+                  }
+                </>
+              ) : (
+                ""
+              )}
             </>
           ) : myPromotion?.subscription === "Active" ? (
             <PromotionSubscriptionCard promotion={myPromotion} />
