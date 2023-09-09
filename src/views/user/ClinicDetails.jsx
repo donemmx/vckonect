@@ -3,6 +3,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import callIcon from "../../assets/icons/phone-icon.svg";
 import markerIcon from "../../assets/icons/location-icon.svg";
+import editIcon from "../../assets/account/edit-icon.svg";
 import handIcon from "../../assets/account/hand-icon.svg";
 import { toast } from "react-toastify";
 import { user } from "../../atom/userAtom";
@@ -18,6 +19,7 @@ export default function ClinicDetails() {
   const userData = useRecoilValue(user);
   const [storeInfo, setStoreInfo] = useState();
   const [action, setAction] = useRecoilState(actionState);
+  const [store, setStore] = useRecoilState(storeData);
   const [openDetail, setOpenDetail] = useState(null);
   const location = useNavigate();
   const params = useParams();
@@ -26,12 +28,18 @@ export default function ClinicDetails() {
     setOpenDetail(payload);
   };
 
-  const checker = (route) => {
+  const back = () => {
     window.history.back();
   };
 
-  const setActionData = () => {
-    setAction("add");
+  const checker = (route) => {
+    setStore(storeInfo);
+    setAction("edit");
+    if (userData?.role === "Veterinarian") {
+      location(`/vet-${route}`);
+    } else {
+      location(`/animal-owner-${route}`);
+    }
   };
 
   const getCurrentClinic = () => {
@@ -46,15 +54,34 @@ export default function ClinicDetails() {
     <div className=" bg-white h-full pb-10 mb-10  rounded-md border-[1px] border-[#EBEBEB]">
       <div className="top bg-account h-[25vh] p-3 lg:p-10 rounded-t-lg">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3 text-[.75rem] lg:text-[.9rem] cursor-pointer">
+          <div className="flex w-full items-center gap-3 text-[.75rem] lg:text-[.9rem] cursor-pointer">
             {userData?.id ? (
-              <Link
-                onClick={() => checker("clinic")}
-                className=" flex items-center gap-3 text-[.75rem] lg:text-[.9rem] cursor-pointer"
-              >
-                <i className="pi pi-angle-left p-1 lg:p-3 h-[25px] w-[25px] lg:h-[45px] lg:w-[45px] bg-white rounded-full"></i>
-                Back
-              </Link>
+              <>
+                <div className="flex w-full items-center gap-3 justify-between">
+                  <Link
+                    onClick={back}
+                    className=" flex items-center gap-3 text-[.75rem] lg:text-[.9rem] cursor-pointer"
+                  >
+                    <i className="pi pi-angle-left p-1 lg:p-3 h-[25px] w-[25px] lg:h-[45px] lg:w-[45px] bg-white rounded-full"></i>
+                    Back
+                  </Link>
+                  {userData.id === storeInfo?.user_id ? (
+                    <Link
+                      onClick={() => checker("add-clinic")}
+                      className=" flex items-center gap-3 text-[.75rem] lg:text-[.9rem] cursor-pointer"
+                    >
+                      Edit
+                      <img
+                        src={editIcon}
+                        alt=""
+                        className="p-1 lg:p-3 h-[25px] w-[25px] lg:h-[45px] lg:w-[45px] bg-white rounded-full"
+                      />
+                    </Link>
+                  ) : (
+                    ""
+                  )}
+                </div>
+              </>
             ) : (
               ""
             )}
@@ -143,11 +170,15 @@ export default function ClinicDetails() {
       <div className=" flex items-center flex-col justify-center p-4">
         <h3 className="font-black p-2 ">Specialty </h3>
         <div className=" flex gap-2 items-center">
-          {storeInfo?.clinic_speciality?.map((res) => (
-            <div className=" flex items-center text-sm p-1 bg-green-100 text-green-500 px-3 rounded-full " key={res}>
-              {res}
-            </div>
-          ))}
+          {storeInfo?.clinic_speciality &&
+            storeInfo?.clinic_speciality?.map((res) => (
+              <div
+                className=" flex items-center text-sm p-1 bg-green-100 text-green-500 px-3 rounded-full "
+                key={res}
+              >
+                {res}
+              </div>
+            ))}
         </div>
       </div>
       {openDetail ? (
