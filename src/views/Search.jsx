@@ -7,9 +7,6 @@ import vet from "../assets/tab-icon/vet-icon-tab.svg";
 import search from "../assets/icons/search-icons/search-icon-white.svg";
 import verified from "../assets/vetcard/verified-icon.svg";
 import location from "../assets/icons/marker-icon.svg";
-import filter from "../assets/menu-search/filter.svg";
-import mapView from "../assets/menu-search/map-view.svg";
-import listView from "../assets/menu-search/list-view.svg";
 import { getClinicByFilter, getStoreByFilter } from "../utils/userApiService";
 import { getVeterinarianByFilter } from "../utils/vetApiService";
 import ClinicCard from "../components/clinicCard/ClinicCard";
@@ -18,6 +15,7 @@ import Loading from "../components/loading/Loading";
 
 export default function Search() {
   const [active, setActive] = useState("vet");
+  const [searchData, setSearchData] = useState("");
   const [stores, setStores] = useState([]);
   const [clinics, setClinics] = useState([]);
   const [vets, setVets] = useState([]);
@@ -37,27 +35,49 @@ export default function Search() {
   const getClinicData = async () => {
     setLoading(true);
     await getClinicByFilter(name).then((res) => {
-      setClinics(res.slice(0,4));
+      setClinics(res.slice(0, 4));
       setLoading(false);
     });
   };
   const getStoreData = async () => {
     setLoading(true);
     await getStoreByFilter({ name: "" }).then((res) => {
-      setStores(res.slice(0,4));
+      setStores(res.slice(0, 4));
       setLoading(false);
     });
   };
   const getVetsData = async () => {
     await getVeterinarianByFilter({ name: "" }).then((res) => {
-      setVets(res.slice(0,4));
+      setVets(res.slice(0, 4));
       setLoading(false);
     });
   };
 
+  const searchDataFunction = async () => {
+    setLoading(true);
+    if (active == "clinic") {
+      await getClinicByFilter({
+        name: searchData,
+      }).then((res) => {
+        setClinics(res);
+        setLoading(false);
+      });
+    } else if (active == "store") {
+      await getStoreByFilter({ name: searchData }).then((res) => {
+        setStores(res);
+        setLoading(false);
+      });
+    } else {
+      await getVeterinarianByFilter({ name: searchData }).then((res) => {
+        setVets(res);
+        setLoading(false);
+      });
+    }
+  };
+
   useEffect(() => {
     getVetsData();
-  }, []);
+  }, [searchData.length < 3]);
 
   return (
     <>
@@ -135,12 +155,19 @@ export default function Search() {
                     />
                     <input
                       type="text"
-                      placeholder="Type in your location"
+                      placeholder="Type in your name"
                       className=" outline-none p-1 w-full"
+                      value={searchData}
+                      onChange={(e) => setSearchData(e.target.value)}
                     />
-                    <div className="search__btn  bg-gray-600 h-[45px] w-[80px] flex items-center justify-center rounded-r-full">
+
+                    <button
+                      disabled={searchData.length < 3}
+                      onClick={searchDataFunction}
+                      className="search__btn  bg-gray-600 h-[45px] w-[80px] flex items-center justify-center rounded-r-full"
+                    >
                       <img src={search} alt="" className=" h-[15px]" />
-                    </div>
+                    </button>
                   </div>
                 </div>
               </div>
