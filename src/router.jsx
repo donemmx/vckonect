@@ -264,7 +264,7 @@ const router = createBrowserRouter([
         element: <ClinicDetails />,
       },
       {
-        path: "/animal-owner-vet-details",
+        path: "/animal-owner-vet-details/:id",
         element: <VetUserDetails />,
       },
     ],
