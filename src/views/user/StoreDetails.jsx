@@ -212,7 +212,7 @@ export default function StoreDetails() {
             Kindly click any of your choice from the icon button above to
             connect with this user
           </p>
-          {userData?.id === storeInfo?.user_id ? (
+          {userData?.id && userData?.id === storeInfo?.user_id ? (
             <button
               onClick={() => {
                 checker("add-product"), setActionData();
