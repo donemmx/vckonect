@@ -17,9 +17,11 @@ import {
 } from "../../utils/userApiService";
 import { getVeterinarianByFilter } from "../../utils/vetApiService";
 import Loading from "../../components/loading/Loading";
+import { storeData } from "../../atom/storeAtom";
 
 export default function DashboardHome() {
   const [active, setActive] = useState("vet");
+  const [searchData, setSearchData] = useState("");
   const [stores, setStores] = useState([]);
   const [clinics, setClinics] = useState([]);
   const [vets, setVets] = useState([]);
@@ -41,7 +43,6 @@ export default function DashboardHome() {
     await getClinicByFilter(name).then((res) => {
       setClinics(res);
       setLoading(false);
-
     });
   };
   const getStoreData = async () => {
@@ -49,7 +50,6 @@ export default function DashboardHome() {
     await getStoreByFilter({ name: "" }).then((res) => {
       setStores(res);
       setLoading(false);
-
     });
   };
   const getVetsData = async () => {
@@ -59,9 +59,31 @@ export default function DashboardHome() {
     });
   };
 
+  const searchDataFunction = async () => {
+    setLoading(true);
+    if (active == "clinic") {
+      await getClinicByFilter({
+        name: searchData,
+      }).then((res) => {
+        setClinics(res);
+        setLoading(false);
+      });
+    } else if (active == "store") {
+      await getStoreByFilter({ name: searchData }).then((res) => {
+        setStores(res);
+        setLoading(false);
+      });
+    } else {
+      await getVeterinarianByFilter({ name: searchData }).then((res) => {
+        setVets(res);
+        setLoading(false);
+      });
+    }
+  };
+
   useEffect(() => {
     getVetsData();
-  }, []);
+  }, [searchData.length < 3]);
 
   return (
     <>
@@ -129,12 +151,19 @@ export default function DashboardHome() {
                 />
                 <input
                   type="text"
-                  placeholder="Type in your location"
+                  placeholder="Type in your name"
                   className=" outline-none p-1 w-full"
+                  value={searchData}
+                  onChange={(e) => setSearchData(e.target.value)}
                 />
-                <div className="search__btn  bg-gray-600 h-[45px] w-[80px] flex items-center justify-center rounded-r-full">
+
+                <button
+                  disabled={searchData.length < 3}
+                  onClick={searchDataFunction}
+                  className="search__btn  bg-gray-600 h-[45px] w-[80px] flex items-center justify-center rounded-r-full"
+                >
                   <img src={search} alt="" className=" h-[15px]" />
-                </div>
+                </button>
               </div>
             </div>
           </div>
