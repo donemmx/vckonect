@@ -38,6 +38,14 @@ export default function StoreCard({
   const checker = (route) => {
     setStore(fullData);
     if (userData?.role === "Veterinarian") {
+      location(`/vet-${route}`);
+    } else {
+      location(`/animal-owner-${route}`);
+    }
+  };
+  const openChecker = (route) => {
+    setStore(fullData);
+    if (userData?.role === "Veterinarian") {
       location(`/vet-${route}/${fullData.id}`);
     } else {
       location(`/animal-owner-${route}/${fullData.id}`);
@@ -143,7 +151,7 @@ export default function StoreCard({
             <div className="message">
               <button
                 onClick={() => {
-                  checker("store-details"), addClientData();
+                  openChecker("store-details"), addClientData();
                 }}
               >
                 <img src={openIcon} alt="" />
