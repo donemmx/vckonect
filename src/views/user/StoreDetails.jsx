@@ -12,7 +12,7 @@ import notAvailable from "../../assets/sidebar/notAvailable.svg";
 import addIcon from "../../assets/icons/add-icon.svg";
 import { actionState } from "../../atom/actionAtom";
 import PromoCard from "../../components/promoCard/PromoCard";
-import { getOneStore, getStoreByFilter } from "../../utils/userApiService";
+import { getOneStore } from "../../utils/userApiService";
 import { reloadStore } from "../../atom/reloadAtom";
 import shareIcon from "../../assets/icons/share-icon.svg";
 import DirectMessageModal from "../../components/directMessageModal/DirectMessageModal";
