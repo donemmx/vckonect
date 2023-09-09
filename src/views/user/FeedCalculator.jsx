@@ -294,7 +294,7 @@ useEffect(()=> {
               </p>
 
               <div className=" grid gap-2 mt-10">
-                <button className="tertiary__btn" onClick={() => checker('/store')}>Visit a Store</button>
+                <button className="tertiary__btn" onClick={() => checker('home')}>Visit a Store</button>
                 <button className="green__btn" onClick={restart}>
                   Restart
                 </button>
