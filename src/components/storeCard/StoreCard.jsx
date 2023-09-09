@@ -44,11 +44,16 @@ export default function StoreCard({
     }
   };
   const openChecker = (route) => {
-    setStore(fullData);
-    if (userData?.role === "Veterinarian") {
-      location(`/vet-${route}/${fullData.id}`);
-    } else {
-      location(`/animal-owner-${route}/${fullData.id}`);
+    if(userData?.id){
+      setStore(fullData);
+      if (userData?.role === "Veterinarian") {
+        location(`/vet-${route}/${fullData.id}`);
+      } else {
+        location(`/animal-owner-${route}/${fullData.id}`);
+      }
+    }
+    else{
+      location(`/store/${fullData.id}`);
     }
   };
 
@@ -139,7 +144,9 @@ export default function StoreCard({
                   alt=""
                 />
               </a>
-              <DirectMessageModal fullData={fullData} />
+            { userData?.id ?
+              <DirectMessageModal fullData={fullData} /> : ''
+              }
               <a href={`mailto:${fullData?.email}`} rel="noReferrer">
                 <img
                   src={message}

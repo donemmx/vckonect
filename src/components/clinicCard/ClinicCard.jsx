@@ -14,28 +14,30 @@ import { toast } from "react-toastify";
 import WarningCard from "../warningCard/WarningCard";
 import DirectMessageModal from "../directMessageModal/DirectMessageModal";
 
-export default function ClinicCard({
-  fullData,
-}) {
-
+export default function ClinicCard({ fullData }) {
   const userData = useRecoilValue(user);
   const [store, setStore] = useRecoilState(storeData);
   const [action, setAction] = useRecoilState(actionState);
   const [updateReload] = useUpadateReload();
-  const location = useNavigate()
+  const location = useNavigate();
 
   const editClinic = () => {
     setStore(fullData);
     setAction("edit");
-    location("/vet-add-clinic")
+    location("/vet-add-clinic");
   };
 
   const checker = (route) => {
-    setStore(fullData);
-    if (userData?.role === "Veterinarian") {
-      location(`/vet-${route}/${fullData?.id}`);
-    } else {
-      location(`/animal-owner-${route}/${fullData?.id}`);
+    if(userData?.id){
+      setStore(fullData);
+      if (userData?.role === "Veterinarian") {
+        location(`/vet-${route}/${fullData?.id}`);
+      } else {
+        location(`/animal-owner-${route}/${fullData?.id}`);
+      }
+    }
+    else{
+      location(`/clinic/${fullData?.id}`);
     }
   };
 
@@ -43,7 +45,7 @@ export default function ClinicCard({
     deleteClinic({ clinic_id: fullData?.clinic_id })
       .then(() => {
         toast.success("Clinic deleted successfully");
-        updateReload()
+        updateReload();
       })
       .catch((err) => {
         toast.error(err.message);
@@ -52,7 +54,7 @@ export default function ClinicCard({
 
   return (
     <div className=" vetCard mb-6">
-        <div className="group h-full w-full ">
+      <div className="group h-full w-full ">
         <div
           className="top h-[65%] w-full"
           style={{
@@ -78,7 +80,7 @@ export default function ClinicCard({
           ) : (
             ""
           )}
-          <div className="availbility !top-4" >
+          <div className="availbility !top-4">
             {fullData?.availability === "1" ? (
               <div className=" flex items-center gap-2 text-[.8rem]">
                 <div className="available "></div>
@@ -103,21 +105,19 @@ export default function ClinicCard({
           <div className="buttons pt-1 flex justify-between items-center mt-3">
             <div className="group flex items-center gap-3  ">
               <a href={`tel:${fullData?.phone_number}`} rel="noReferrer">
-              <img
-                src={phone}
-                className=" p-2 h-[35px] bg-white w-[35px] object-contain rounded-full shadow-md cursor-pointer"
-                alt=""
-              />
-
+                <img
+                  src={phone}
+                  className=" p-2 h-[35px] bg-white w-[35px] object-contain rounded-full shadow-md cursor-pointer"
+                  alt=""
+                />
               </a>
-              <DirectMessageModal fullData={fullData} />
+              {userData?.id ? <DirectMessageModal fullData={fullData} /> : ""}
               <a href={`mailto:${fullData?.email}`} rel="noReferrer">
-              <img
-              
-                src={message}
-                alt=""
-                className=" p-2 h-[35px] bg-white w-[35px] object-contain rounded-full shadow-md cursor-pointer"
-              />
+                <img
+                  src={message}
+                  alt=""
+                  className=" p-2 h-[35px] bg-white w-[35px] object-contain rounded-full shadow-md cursor-pointer"
+                />
               </a>
             </div>
             <div className="message">

@@ -253,7 +253,7 @@ export default function Forum() {
                   </div>
                   <div className="flex items-center gap-2">
                     <div className="time text-xs p-1 px-3 rounded-full bg-gray-200 w-fit ">
-                      {moment(res?.message[0].date).fromNow()}
+                      {moment(new Date(res?.message[0].date)).format('DD-MM-YYYY').fromNow()}
                     </div>
                     {res.counter > 0 ? <Badge value={res?.counter} severity={"danger"}></Badge> : ''}
                   </div>

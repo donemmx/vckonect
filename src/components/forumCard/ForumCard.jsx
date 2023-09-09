@@ -334,7 +334,7 @@ export default function ForumCard({
                     ></i>
                   </button>
                   <div className="text-[11px] bg-gray-100 flex items-center justify-center mr-auto lg:ml-auto w-[90px] p-2 border rounded-full">
-                    {moment(date).fromNow()}
+                    {moment(new Date(date)).fromNow()}
                   </div>
                 </div>
                 <div

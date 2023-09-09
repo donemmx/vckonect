@@ -1,12 +1,10 @@
 import phone from "../../assets/icons/phone-icon.svg";
 import message from "../../assets/icons/message-icon.svg";
-import location from "../../assets/icons/marker-icon.svg";
 import openIcon from "../../assets/bg/card-next-bg.svg";
 import verified from "../../assets/vetcard/verified-icon.svg";
 import unverified from "../../assets/sidebar/cancel.svg";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { user } from "../../atom/userAtom";
-import { storeData } from "../../atom/storeAtom";
 import { actionState } from "../../atom/actionAtom";
 import DirectMessageModal from "../directMessageModal/DirectMessageModal";
 import { useNavigate } from "react-router-dom";
@@ -17,10 +15,15 @@ export default function Vetcard({ fullData }) {
   const location = useNavigate();
 
   const checker = (route) => {
-    if (userData?.role === "Veterinarian") {
-      location(`/vet-${route}/${fullData?.id}`);
-    } else {
-      location(`/animal-owner-${route}/${fullData?.id}`);
+    if(userData?.id){
+      if (userData?.role === "Veterinarian") {
+        location(`/vet-${route}/${fullData?.id}`);
+      } else {
+        location(`/animal-owner-${route}/${fullData?.id}`);
+      }
+    }
+    else{
+      location(`/veterinarian/${fullData?.id}`)
     }
   };
 

@@ -336,7 +336,7 @@ const router = createBrowserRouter([
         element: <Signup />,
       },
       {
-        path: "/store-details/:id",
+        path: "/store/:id",
         element: <StoreDetails />,
       },
       {

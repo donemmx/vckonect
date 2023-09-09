@@ -136,7 +136,7 @@ export default function StoreDetails() {
           className="flex flex-col items-center justify-center"
           onClick={() =>
             setData(
-              `${window.location.protocol}//${window.location.host}/store-details/${storeInfo.id}`,
+              `${window.location.protocol}//${window.location.host}/store/${storeInfo.id}`,
               "Share"
             )
           }
