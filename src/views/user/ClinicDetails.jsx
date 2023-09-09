@@ -10,9 +10,10 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 import { storeData } from "../../atom/storeAtom";
 import available from "../../assets/sidebar/available.svg";
 import notAvailable from "../../assets/sidebar/notAvailable.svg";
-import addIcon from "../../assets/icons/add-icon.svg";
+import shareIcon from "../../assets/icons/share-icon.svg";
 import { actionState } from "../../atom/actionAtom";
 import { getOneClinic } from "../../utils/vetApiService";
+
 
 export default function ClinicDetails() {
   const userData = useRecoilValue(user);
@@ -40,9 +41,7 @@ export default function ClinicDetails() {
     });
   };
 
-  useEffect(() => {
-    getCurrentClinic();
-  }, [reload]);
+  useEffect(() => getCurrentClinic(), []);
 
   return (
     <div className=" bg-white h-full pb-10 mb-10  rounded-md border-[1px] border-[#EBEBEB]">
@@ -109,6 +108,22 @@ export default function ClinicDetails() {
             className=" p-2 mb-2 h-[40px] w-[40px] bg-white rounded-full border-[1px] border-[#828282] hover:border-green-400 hover:bg-green-100 cursor-pointer"
           />
           Location
+        </div>
+        <div
+          className="flex flex-col items-center justify-center"
+          onClick={() =>
+            setData(
+              `${window.location.protocol}//${window.location.host}/clinic/${storeInfo.id}`,
+              "Share"
+            )
+          }
+        >
+          <img
+            src={shareIcon}
+            alt=""
+            className=" p-2 mb-2 h-[40px] w-[40px] bg-white rounded-full border-[1px] border-[#828282] hover:border-green-400 hover:bg-green-100 cursor-pointer"
+          />
+          Share
         </div>
       </div>
       <small className=" text-[1.1rem] pt-5 text-center flex flex-col gap-4 items-center justify-center space-y-2">

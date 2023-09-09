@@ -18,9 +18,9 @@ export default function Vetcard({ fullData }) {
 
   const checker = (route) => {
     if (userData?.role === "Veterinarian") {
-      location(`/${route}`);
+      location(`/vet-${route}/${fullData?.id}`);
     } else {
-      location(`/animal-owner-${route}`);
+      location(`/animal-owner-${route}/${fullData?.id}`);
     }
   };
 

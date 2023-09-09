@@ -92,7 +92,7 @@ const router = createBrowserRouter([
         element: <DashboardHome />,
       },
       {
-        path: "/vet-details",
+        path: "/vet-details/:id",
         element: <VetUserDetails />,
       },
       {

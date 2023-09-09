@@ -33,9 +33,9 @@ export default function ClinicCard({
   const checker = (route) => {
     setStore(fullData);
     if (userData?.role === "Veterinarian") {
-      location(`/vet-${route}`);
+      location(`/vet-${route}/${fullData?.id}`);
     } else {
-      location(`/animal-owner-${route}`);
+      location(`/animal-owner-${route}/${fullData?.id}`);
     }
   };
 
