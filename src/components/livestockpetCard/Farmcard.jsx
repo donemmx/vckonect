@@ -54,7 +54,7 @@ export default function FarmCard({
 
   const shareAccount = () => {
     let route;
-    route = `${window.location.protocol}//${window.location.host}/farm/${farmId}`;
+    route = `${window.location.protocol}//${window.location.host}/farm/${name}`;
     setData(route, "share");
   };
 

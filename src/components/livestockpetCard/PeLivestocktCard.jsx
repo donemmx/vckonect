@@ -53,7 +53,7 @@ export default function PeLivestocktCard({
 
   const shareAccount = () => {
     let route;
-    route = `${window.location.protocol}//${window.location.host}/pet/${petId}`;
+    route = `${window.location.protocol}//${window.location.host}/pet/${name}`;
     setData(route, "share");
   };
 

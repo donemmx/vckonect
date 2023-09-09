@@ -8,7 +8,7 @@ import shareIcon from "../../assets/icons/share-icon.svg";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { user } from "../../atom/userAtom";
-import { getUserById } from "../../utils/userApiService";
+import { getFarmByFilter, getUserById } from "../../utils/userApiService";
 import { useEffect, useState } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { toast } from "react-toastify";
@@ -20,11 +20,11 @@ export default function Farm() {
   const params = useParams();
 
   let payload = {
-    id: params?.id,
+    name: params?.id,
   };
 
   const getUser = () => {
-    getUserById(payload)
+    getFarmByFilter(payload)
       .then((res) => {
         setUserData(res);
       })
@@ -54,9 +54,9 @@ export default function Farm() {
         </div>
       </div>
       <div className="flex items-center justify-center mt-[-6vh]">
-        {userData?.profile_picture && userData?.profile_picture.length > 64 ? (
+        {userData?.picture && userData?.picture.length > 64 ? (
           <img
-            src={userData?.profile_picture}
+            src={userData?.picture}
             alt=""
             className=" rounded-full border-[4px] h-[150px] w-[150px] object-cover border-green-400"
           />
@@ -65,7 +65,7 @@ export default function Farm() {
         )}
       </div>
       <div className="name text-[1.25rem] pt-1 text-center font-bold">
-        {userData?.first_name} {userData?.last_name}
+        {userData?.farm_name}
       </div>
 
       <div className=" text-[.82rem] flex items-center gap-7 justify-center mt-2">

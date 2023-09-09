@@ -8,7 +8,7 @@ import shareIcon from "../../assets/icons/share-icon.svg";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { user } from "../../atom/userAtom";
-import { getUserById } from "../../utils/userApiService";
+import { getPetByFilter, getUserById } from "../../utils/userApiService";
 import { useEffect, useState } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { toast } from "react-toastify";
@@ -20,13 +20,13 @@ export default function Pets() {
     const params = useParams();
   
     let payload = {
-      id: params?.id,
+      name: params?.id,
     };
   
     const getUser = () => {
-      getUserById(payload)
+        getPetByFilter(payload)
         .then((res) => {
-          setUserData(res);
+          setUserData(res[0]);
         })
         .catch((err) => console.log(err));
     };
@@ -42,21 +42,21 @@ export default function Pets() {
   
     const shareAccount = () => {
       let route;
-      route = `${window.location.protocol}//${window.location.host}/farm/${params?.id}`;
+      route = `${window.location.protocol}//${window.location.host}/pet/${params?.id}`;
       setData(route, "share");
     };
   
     return (  
-      <div className=" bg-white h-[110vh] mb-10  rounded-md border-[1px] border-[#EBEBEB]">
+      <div className=" bg-white h-full pb-10  rounded-md border-[1px] border-[#EBEBEB]">
         <div className="top bg-account h-[25vh] p-3 lg:p-10 rounded-t-lg">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3 text-[.75rem] lg:text-[.9rem] cursor-pointer"></div>
           </div>
         </div>
         <div className="flex items-center justify-center mt-[-6vh]">
-          {userData?.profile_picture && userData?.profile_picture.length > 64 ? (
+          {userData?.picture && userData?.picture.length > 64 ? (
             <img
-              src={userData?.profile_picture}
+              src={userData?.picture}
               alt=""
               className=" rounded-full border-[4px] h-[150px] w-[150px] object-cover border-green-400"
             />
@@ -65,43 +65,11 @@ export default function Pets() {
           )}
         </div>
         <div className="name text-[1.25rem] pt-1 text-center font-bold">
-          {userData?.first_name} {userData?.last_name}
+          {userData?.pet_name} 
         </div>
   
         <div className=" text-[.82rem] flex items-center gap-7 justify-center mt-2">
-          <a
-            className="flex flex-col items-center justify-center "
-            onClick={() => setData(userData?.phone_number, "Phone Number")}
-          >
-            <img
-              src={callIcon}
-              alt=""
-              className=" p-2 mb-2 h-[40px] w-[40px] bg-white rounded-full border-[1px] border-[#828282] hover:border-green-400 hover:bg-green-100 cursor-pointer"
-            />
-            Call
-          </a>
-          <a
-            className="flex flex-col items-center justify-center"
-            onClick={() => setData(userData?.email, "Email")}
-          >
-            <img
-              src={messageIcon}
-              alt=""
-              className=" p-2 mb-2 h-[40px] w-[40px] bg-white rounded-full border-[1px] border-[#828282] hover:border-green-400 hover:bg-green-100 cursor-pointer"
-            />
-            Email
-          </a>
-          <div
-            className="flex flex-col items-center justify-center"
-            onClick={() => setData(userData?.address, "Location")}
-          >
-            <img
-              src={markerIcon}
-              alt=""
-              className=" p-2 mb-2 h-[40px] w-[40px] bg-white rounded-full border-[1px] border-[#828282] hover:border-green-400 hover:bg-green-100 cursor-pointer"
-            />
-            Location
-          </div>
+ 
           <div
             className="flex flex-col items-center justify-center"
             onClick={shareAccount}
@@ -114,9 +82,26 @@ export default function Pets() {
             Share
           </div>
         </div>
-  
+       <div className=" w-[50%] lg:w-[20%] mx-auto pt-10">
+       <div className="grouped-pets px-4 pt-1 flex items-center justify-between">
+            <div className="title font-bold">Specie</div>
+            <div className="value">{userData?.specie}</div>
+          </div>
+          <div className="grouped-pets px-4 pt-1 flex items-center justify-between">
+            <div className="title font-bold">Breed</div>
+            <div className="value">{userData?.breed}</div>
+          </div>
+          <div className="grouped-pets px-4 pt-1 flex items-center justify-between">
+            <div className="title font-bold">Sex</div>
+            <div className="value">{userData?.sex}</div>
+          </div>
+          <div className="grouped-pets px-4 pt-1 flex items-center justify-between">
+            <div className="title font-bold">Age</div>
+            <div className="value">{userData?.age}</div>
+          </div>
+       </div>
         {openDetail ? (
-          <div className="user  flex flex-col justify-center items-center w-[65%] lg:w-[20%] mx-auto mt-[15vh]">
+          <div className="user  flex flex-col justify-center items-center w-[65%] lg:w-[20%] mx-auto mt-[10vh]">
             <h4 className=" font-bold pt-3">Users’ {openDetail[1]}</h4>
             <p className="text-sm text-center text-[#666666]">{openDetail[0]}</p>
             <CopyToClipboard

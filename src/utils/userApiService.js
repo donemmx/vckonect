@@ -351,6 +351,18 @@ const deletePromotion = async (payload) => {
     .then((res) => res.data)
     .catch((err) => console.log(err));
 };
+const getFarmByFilter = async (payload) => {
+  return await axios
+    .post(`${baseURl}/getFarmByFilter`, payload)
+    .then((res) => res.data)
+    .catch((err) => console.log(err));
+};
+const getPetByFilter = async (payload) => {
+  return await axios
+    .post(`${baseURl}/getPetByFilter`, payload)
+    .then((res) => res.data)
+    .catch((err) => console.log(err));
+};
 
 export {
   login,
@@ -399,5 +411,7 @@ export {
   deleteProduct,
   getUserProduct,
   addPromotion,
-  deletePromotion
+  deletePromotion,
+  getFarmByFilter,
+  getPetByFilter
 };
