@@ -6,7 +6,7 @@ import markerIcon from "../../assets/icons/location-icon.svg";
 import handIcon from "../../assets/account/hand-icon.svg";
 import shareIcon from "../../assets/icons/share-icon.svg";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { user } from "../../atom/userAtom";
 import { getUserById } from "../../utils/userApiService";
 import { useEffect, useState } from "react";
@@ -15,7 +15,7 @@ import { toast } from "react-toastify";
 
 export default function Account() {
   const [userData, setUserData] = useState();
-  const [userDetails, setUserDetails] = useState();
+  const userDetails = useRecoilValue(user);
   const [openDetail, setOpenDetail] = useState(null);
   const location = useNavigate();
   const params = useParams();
@@ -74,7 +74,7 @@ export default function Account() {
       <div className="top bg-account h-[25vh] p-3 lg:p-10 rounded-t-lg">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3 text-[.75rem] lg:text-[.9rem] cursor-pointer"></div>
-          {userData?.id ? (
+          {userData?.id && userDetails?.id === params.id ? (
             <Link
               onClick={() => checker("account-details")}
               className=" flex items-center gap-3 text-[.75rem] lg:text-[.9rem] cursor-pointer"

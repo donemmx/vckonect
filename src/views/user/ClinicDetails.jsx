@@ -14,7 +14,6 @@ import shareIcon from "../../assets/icons/share-icon.svg";
 import { actionState } from "../../atom/actionAtom";
 import { getOneClinic } from "../../utils/vetApiService";
 
-
 export default function ClinicDetails() {
   const userData = useRecoilValue(user);
   const [storeInfo, setStoreInfo] = useState();
@@ -74,10 +73,10 @@ export default function ClinicDetails() {
         )}
       </div>
       <div className="name text-[1.25rem] pt-1 text-center font-bold">
-        {storeInfo?.store_name}
+        {storeInfo?.clinic_name}
       </div>
       <small className=" text-[.9rem] py-3 text-center flex items-center justify-center ">
-        Vet Clinic
+        Clinic
       </small>
       <div className=" text-[.82rem] flex items-center gap-7 justify-center mt-2">
         <a
@@ -140,6 +139,17 @@ export default function ClinicDetails() {
           />
         )}
       </small>
+
+      <div className=" flex items-center flex-col justify-center p-4">
+        <h3 className="font-black p-2 ">Specialty </h3>
+        <div className=" flex gap-2 items-center">
+          {storeInfo?.clinic_speciality?.map((res) => (
+            <div className=" flex items-center text-sm p-1 bg-green-100 text-green-500 px-3 rounded-full " key={res}>
+              {res}
+            </div>
+          ))}
+        </div>
+      </div>
       {openDetail ? (
         <div className="user  flex flex-col justify-center items-center w-[65%] lg:w-[20%] mx-auto mt-[10vh]">
           <h4 className=" font-bold pt-3">Users’ {openDetail[1]}</h4>

@@ -93,7 +93,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/vet-details/:id",
-        element: <VetUserDetails />,
+        element: <Account />,
       },
       {
         path: "/vet-cases",
@@ -265,7 +265,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/animal-owner-vet-details/:id",
-        element: <VetUserDetails />,
+        element: <Account />,
       },
     ],
   },
