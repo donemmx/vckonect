@@ -99,6 +99,13 @@ const format = (data) => {
         <Button icon="pi pi-refresh" rounded raised onClick={restart}/>
     </div>
 );
+const checker = (route) => {
+  if (userData?.role === "Veterinarian") {
+    location(`/vet-${route}`);
+  } else {
+    location(`/animal-owner-${route}`);
+  }
+};
 
 useEffect(()=> {
   if(userData.subscription === null || userData.subscription === 'Expired'){
@@ -287,7 +294,7 @@ useEffect(()=> {
               </p>
 
               <div className=" grid gap-2 mt-10">
-                <button className="tertiary__btn">Consult a Vet</button>
+                <button className="tertiary__btn" onClick={() => checker('/store')}>Visit a Store</button>
                 <button className="green__btn" onClick={restart}>
                   Restart
                 </button>

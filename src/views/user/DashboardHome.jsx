@@ -93,7 +93,7 @@ export default function DashboardHome() {
                 alt=""
                 className=" w-[20px] md:w-[35px] object-contain"
               />
-              <p className="hidden lg:block">Vet Vendor & Store</p>
+              <p className="hidden lg:block"> Store</p>
               {active === "store" ? (
                 <img src={verified} alt="" className=" h-[14px] md:h-[20px]" />
               ) : (
