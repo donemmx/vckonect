@@ -1,8 +1,7 @@
 /* eslint-disable no-unused-vars */
 import moment from "moment";
 import editIcon from "../../assets/account/edit-icon.svg";
-import deleteIcon from "../../assets/icons/delete-icon.svg";
-import expandIcon from "../../assets/icons/expand-icon.svg";
+import shareIcon from "../../assets/icons/share-icon.svg";
 import { useRecoilState } from "recoil";
 import { storeData } from "../../atom/storeAtom";
 import { actionState } from "../../atom/actionAtom";
@@ -70,11 +69,11 @@ export default function FarmCard({
               header="Confirmation"
               acceptFunction={deleteFarmData}
             />
-            {/* <img
-              src={expandIcon}
+            <img
+              src={shareIcon}
               alt=""
-              className=" p-2 mb-2 h-[35px] w-[35px] bg-white rounded-full border-[1px] border-[#EBEBEB] shadow"
-            /> */}
+              className=" p-2 mb-2 h-[35px] w-[35px] bg-white rounded-full border-[1px] border-[#EBEBEB]hover:border-green-400 hover:bg-green-100 transition-all ease-in-out  cursor-pointer"
+            />
           </div>
         </div>
         <div className="py-4">
