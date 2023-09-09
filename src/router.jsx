@@ -58,6 +58,8 @@ import NotFound from "./views/NotFound";
 import AddPromotionToSub from "./views/user/AddPromotionToSub";
 import ClinicDetails from "./views/user/ClinicDetails";
 import VetUserDetails from "./views/user/VetUserDetails";
+import Farm from "./views/user/Farm";
+import Pets from "./views/user/Pets";
 
 const router = createBrowserRouter([
 
@@ -353,11 +355,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/farm/:id",
-        element: <farmDetails />,
+        element: <Farm />,
       },
       {
         path: "/pet/:id",
-        element: <farmDetails />,
+        element: <Pets />,
       },
       {
         path: "/otp",
