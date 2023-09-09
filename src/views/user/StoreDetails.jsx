@@ -14,6 +14,7 @@ import { actionState } from "../../atom/actionAtom";
 import PromoCard from "../../components/promoCard/PromoCard";
 import { getOneStore, getStoreByFilter } from "../../utils/userApiService";
 import { reloadStore } from "../../atom/reloadAtom";
+import shareIcon from "../../assets/icons/share-icon.svg";
 import DirectMessageModal from "../../components/directMessageModal/DirectMessageModal";
 export default function StoreDetails() {
   const [storeInfo, setStoreInfo] = useState();
@@ -141,7 +142,7 @@ export default function StoreDetails() {
           }
         >
           <img
-            src={markerIcon}
+            src={shareIcon}
             alt=""
             className=" p-2 mb-2 h-[40px] w-[40px] bg-white rounded-full border-[1px] border-[#828282] hover:border-green-400 hover:bg-green-100 cursor-pointer"
           />
