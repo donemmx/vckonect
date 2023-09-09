@@ -26,7 +26,7 @@ export default function Farm() {
   const getUser = () => {
     getFarmByFilter(payload)
       .then((res) => {
-        setUserData(res);
+        setUserData(res[0]);
       })
       .catch((err) => console.log(err));
   };
@@ -46,7 +46,7 @@ export default function Farm() {
     setData(route, "share");
   };
 
-  return (  
+  return (
     <div className=" bg-white h-[110vh] mb-10  rounded-md border-[1px] border-[#EBEBEB]">
       <div className="top bg-account h-[25vh] p-3 lg:p-10 rounded-t-lg">
         <div className="flex items-center justify-between">
@@ -69,31 +69,9 @@ export default function Farm() {
       </div>
 
       <div className=" text-[.82rem] flex items-center gap-7 justify-center mt-2">
-        <a
-          className="flex flex-col items-center justify-center "
-          onClick={() => setData(userData?.phone_number, "Phone Number")}
-        >
-          <img
-            src={callIcon}
-            alt=""
-            className=" p-2 mb-2 h-[40px] w-[40px] bg-white rounded-full border-[1px] border-[#828282] hover:border-green-400 hover:bg-green-100 cursor-pointer"
-          />
-          Call
-        </a>
-        <a
-          className="flex flex-col items-center justify-center"
-          onClick={() => setData(userData?.email, "Email")}
-        >
-          <img
-            src={messageIcon}
-            alt=""
-            className=" p-2 mb-2 h-[40px] w-[40px] bg-white rounded-full border-[1px] border-[#828282] hover:border-green-400 hover:bg-green-100 cursor-pointer"
-          />
-          Email
-        </a>
         <div
           className="flex flex-col items-center justify-center"
-          onClick={() => setData(userData?.address, "Location")}
+          onClick={() => setData(userData?.location, "Location")}
         >
           <img
             src={markerIcon}
