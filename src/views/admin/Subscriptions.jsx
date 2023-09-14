@@ -24,10 +24,15 @@ import { actionState } from "../../atom/actionAtom";
 export default function Subscriptions() {
   const [subscriptions, setSubscriptions] = useState();
   const [activeSub, setActiveSub] = useState([]);
+  const [monthly, setMonthly] = useState([]);
+  const [yearly, setYearly] = useState([]);
+  const [quarterly, setQuarterly] = useState([]);
+  const [freemium, setFreemium] = useState([]);
   const [userSubscription, setUserSubscription] = useState([]);
   const [loading, setLoading] = useState(true);
   const userData = useRecoilValue(user);
   const [tab, setTab] = useState("all");
+  const [subscribers, setSubscribers] = useState("freemium");
   const [store, setStore] = useRecoilState(storeData);
   const [action, setAction] = useRecoilState(actionState);
   const location = useNavigate();
@@ -44,8 +49,20 @@ export default function Subscriptions() {
   const getmySubscriptions = () => {
     adminGetSubscription({ name: null }).then((res) => {
       setUserSubscription(res);
-      const filteredActiveSub = res.filter((data)=> data.subscription === 'Active')
-      setActiveSub(filteredActiveSub)
+      const filteredActiveSub = res.filter(
+        (data) => data.subscription === "Active"
+      );
+      const freemiumSub = res.filter((data) => data.plan === "Freenium");
+      const monthlySub = res.filter((data) => data.plan === "Monthly");
+      const quarterlySub = res.filter((data) => data.plan === "Quarterly");
+      const yearlySub = res.filter((data) => data.plan === "Yearly");
+
+      setFreemium(freemiumSub);
+      setMonthly(monthlySub);
+      setQuarterly(quarterlySub);
+      setYearly(yearlySub);
+
+      setActiveSub(filteredActiveSub);
     });
   };
 
@@ -120,6 +137,44 @@ export default function Subscriptions() {
               Subscription
             </h2>
           </div>
+          {tab === "all" ? (
+            <div className="flex  items-center gap-6">
+              <h2
+                className={` text-[1rem] lg:text-[1rem] cursor-pointer ${
+                  subscribers === "freemium" ? "font-black" : ""
+                } `}
+                onClick={() => setSubscribers("freemium")}
+              >
+                Freemium
+              </h2>
+              <h2
+                className={` text-[1rem] lg:text-[1rem] cursor-pointer ${
+                  subscribers === "monthly" ? "font-black" : ""
+                } `}
+                onClick={() =>  setSubscribers("monthly")}
+              >
+                Monthly
+              </h2>
+              <h2
+                className={` text-[1rem] lg:text-[1rem] cursor-pointer ${
+                  subscribers === "quarterly" ? "font-black" : ""
+                } `}
+                onClick={() => setSubscribers("quarterly")}
+              >
+                Quarterly
+              </h2>
+              <h2
+                className={` text-[1rem] lg:text-[1rem] cursor-pointer ${
+                  subscribers === "yearly" ? "font-black" : ""
+                } `}
+                onClick={() => setSubscribers("yearly")}
+              >
+                Yearly
+              </h2>
+            </div>
+          ) : (
+            ""
+          )}
           {loading ? (
             <div className="grid gap-2">
               <AdminCardLoading />
@@ -129,19 +184,61 @@ export default function Subscriptions() {
           ) : (
             <>
               {tab === "all" ? (
-                 <>
-                 {userSubscription?.map((res) => (
-                   <AdminDashboardCard
-                   key={res.id}
-                   time={moment(res.date).utc().fromNow()}
-                   title={res.first_name + res.last_name}
-                   name={res.role}
-                   image={res.profile_picture}
-                   loading={loading}
-                   freeText={res.plan}
-                 />
-                 ))}
-               </>
+               subscribers === 'freemium' ?
+                <>
+                  {freemium?.map((res) => (
+                    <AdminDashboardCard
+                      key={res.id}
+                      time={moment(res.date).utc().fromNow()}
+                      title={res.first_name + res.last_name}
+                      name={res.role}
+                      image={res.profile_picture}
+                      loading={loading}
+                    />
+                  ))}
+                </>
+                :
+                subscribers === 'monthly' ?
+                <>
+                  {monthly?.map((res) => (
+                    <AdminDashboardCard
+                      key={res.id}
+                      time={moment(res.date).utc().fromNow()}
+                      title={res.first_name + res.last_name}
+                      name={res.role}
+                      image={res.profile_picture}
+                      loading={loading}
+                    />
+                  ))}
+                </> :
+                 subscribers === 'quarterly' ?
+                <>
+                  {quarterly?.map((res) => (
+                    <AdminDashboardCard
+                      key={res.id}
+                      time={moment(res.date).utc().fromNow()}
+                      title={res.first_name + res.last_name}
+                      name={res.role}
+                      image={res.profile_picture}
+                      loading={loading}
+                    />
+                  ))}
+                </> :
+                  subscribers === 'yearly' ?
+                <>
+                  {yearly?.map((res) => (
+                    <AdminDashboardCard
+                      key={res.id}
+                      time={moment(res.date).utc().fromNow()}
+                      title={res.first_name + res.last_name}
+                      name={res.role}
+                      image={res.profile_picture}
+                      loading={loading}
+                    />
+                  ))}
+                </>
+
+                : ''
               ) : (
                 <>
                   {subscriptions?.map((res) => (
