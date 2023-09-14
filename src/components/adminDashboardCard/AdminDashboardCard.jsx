@@ -22,7 +22,7 @@ export default function AdminDashboardCard({
   deleteFormDataFunction,
   editFunction,
   freeText,
-  status
+  status,
 }) {
   return (
     <>
@@ -41,11 +41,11 @@ export default function AdminDashboardCard({
               </div>
             ) : (
               <Avatar
-                    label={title.split("")[0].toUpperCase()}
-                    size="xlarge"
-                    className=" !bg-green-500 !text-white"
-                    shape="circle"
-                  />
+                label={title.split("")[0].toUpperCase()}
+                size="xlarge"
+                className=" !bg-green-500 !text-white"
+                shape="circle"
+              />
             )}
             <div className="flex gap-6 items-center">
               <div className="">
@@ -66,15 +66,12 @@ export default function AdminDashboardCard({
                   ""
                 )}
                 {freeText ? (
-                  <div className=" text-[26px] font-black">
-                    {freeText}
-                  </div>
+                  <div className=" text-[26px] font-black">{freeText}</div>
                 ) : (
                   ""
                 )}
               </div>
             </div>
-
           </div>
           <div className="flex items-center gap-4 w-full">
             <AdminWarningCard
@@ -108,17 +105,19 @@ export default function AdminDashboardCard({
               )}
             </>
             <div className="">
-            <div className="">
-            {status === "Active" ? (
-            <div className=" bg-green-100 p-2 rounded text-xs text-green-600">
-              {status}
-            </div>
-          ) : (
-            <div className="bg-red-100 p-2 rounded text-xs text-red-600">
-              {status}
-            </div>
-          )}
-          </div>
+              <div className="">
+                {status === "Active" ? (
+                  <div className=" bg-green-100 p-2 rounded text-xs text-green-600">
+                    {status}
+                  </div>
+                ) : status === "Expired" ? (
+                  <div className="bg-red-100 p-2 rounded text-xs text-red-600">
+                    {status}
+                  </div>
+                ) : (
+                  ""
+                )}
+              </div>
             </div>
             <>
               {time ? (
