@@ -192,6 +192,7 @@ export default function Subscriptions() {
                       time={moment(res.date).utc().fromNow()}
                       title={res.first_name + res.last_name}
                       name={res.role}
+                      status={res.subscription}
                       image={res.profile_picture}
                       loading={loading}
                     />
@@ -206,6 +207,7 @@ export default function Subscriptions() {
                       time={moment(res.date).utc().fromNow()}
                       title={res.first_name + res.last_name}
                       name={res.role}
+                      status={res.subscription}
                       image={res.profile_picture}
                       loading={loading}
                     />
@@ -219,6 +221,7 @@ export default function Subscriptions() {
                       time={moment(res.date).utc().fromNow()}
                       title={res.first_name + res.last_name}
                       name={res.role}
+                      status={res.subscription}
                       image={res.profile_picture}
                       loading={loading}
                     />
@@ -232,6 +235,7 @@ export default function Subscriptions() {
                       time={moment(res.date).utc().fromNow()}
                       title={res.first_name + res.last_name}
                       name={res.role}
+                      status={res.subscription}
                       image={res.profile_picture}
                       loading={loading}
                     />

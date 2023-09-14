@@ -21,14 +21,15 @@ export default function AdminDashboardCard({
   deleteCard,
   deleteFormDataFunction,
   editFunction,
-  freeText
+  freeText,
+  status
 }) {
   return (
     <>
       {loading ? (
         <AdminCardLoading />
       ) : (
-        <div className=" bg-white grid md:grid-cols-[8fr_4fr] items-center flex-col gap-2 lg:flex-row justify-between p-5 border rounded-lg">
+        <div className=" bg-white grid md:grid-cols-[8fr_4fr] relative items-center flex-col gap-2 lg:flex-row justify-between p-5 border rounded-lg">
           <div className="flex items-center gap-4 w-full">
             {image && image.length > 64 ? (
               <div className=" h-[65px] w-[65px]">
@@ -73,6 +74,7 @@ export default function AdminDashboardCard({
                 )}
               </div>
             </div>
+
           </div>
           <div className="flex items-center gap-4 w-full">
             <AdminWarningCard
@@ -105,6 +107,19 @@ export default function AdminDashboardCard({
                 ""
               )}
             </>
+            <div className="">
+            <div className="">
+            {status === "Active" ? (
+            <div className=" bg-green-100 p-2 rounded text-xs text-green-600">
+              {status}
+            </div>
+          ) : (
+            <div className="bg-red-100 p-2 rounded text-xs text-red-600">
+              {status}
+            </div>
+          )}
+          </div>
+            </div>
             <>
               {time ? (
                 <div className="text-[11px] bg-gray-100 flex text-center justify-center mr-auto lg:ml-auto p-2 w-[140px] px-4 border rounded-full">
