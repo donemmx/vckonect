@@ -51,7 +51,6 @@ export default function AdminContent() {
   const approveContent = (payload) => {
     setButtonLoading(true);
     setSelectedId(payload.forum_chat_id)
-    console.log(payload);
     approveForumChat(payload).then((res) => {
       toast.success("Post Approved Successfully");
       setButtonLoading(false);

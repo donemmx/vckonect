@@ -35,10 +35,12 @@ export default function UserFeatures() {
   const [pet, setPet] = useState();
   const [farms, setFarms] = useState();
   const [vet, setVet] = useState();
+  const [selectedId, setSelectedId] = useState();
   const [tab, setTab] = useState("animalOwner");
   const [active, setActive] = useState("pet");
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
+  const [buttonLoading, setButtonLoading] = useState(false);
 
   const getUserCounter = async () => {
     await usersCounter().then((res) => {
@@ -141,7 +143,8 @@ export default function UserFeatures() {
   };
 
   const disableUserAccount = (data) => {
-    setLoading(true);
+    setButtonLoading(true);
+    setSelectedId(data.id)
     console.log(data);
     const payload = {
       id: data.id,
@@ -149,19 +152,21 @@ export default function UserFeatures() {
     };
     deactivateAccount(payload).then((res) => {
       toast.success("User successfully deactivated");
-      setLoading(false);
+      setButtonLoading(false);
       getUserCounter();
     });
   };
   const activateUserAccount = (data) => {
-    setLoading(true);
+    setButtonLoading(true);
+    setSelectedId(data.id)
+
     const payload = {
       id: data.id,
       role: data.role,
     };
     activateAccount(payload).then((res) => {
       toast.success("User successfully activated");
-      setLoading(false);
+      setButtonLoading(false);
       getUserCounter();
     });
   };
@@ -294,23 +299,27 @@ export default function UserFeatures() {
                       time={moment(res.date).utc().fromNow()}
                       title={res.first_name + res.last_name}
                       name={res.role}
+                      id={res.id}
+                      selectedId={selectedId}
                       image={res.profile_picture}
                       rejcetButtonText="Disable"
                       message="Are you sure to deactivate this account?"
                       approveFunction={() => disableUserAccount(res)}
-                      loading={loading}
+                      loading={buttonLoading}
                     />
                   ) : (
                     <AdminDashboardCard
                       key={res.id}
                       time={moment(res.date).utc().fromNow()}
                       title={res.first_name + res.last_name}
+                      selectedId={selectedId}
                       name={res.role}
+                      id={res.id}
                       image={res.profile_picture}
                       approveButtonText="Enable"
                       approveFunction={() => activateUserAccount(res)}
                       message="Are you sure to activate this account?"
-                      loading={loading}
+                      loading={buttonLoading}
                     />
                   )
                 )}
@@ -323,12 +332,14 @@ export default function UserFeatures() {
                       key={res.id}
                       time={moment(res.date).utc().fromNow()}
                       title={res.first_name + res.last_name}
+                      id={res.id}
+                      selectedId={selectedId}
                       name={res.role}
                       image={res.profile_picture}
                       rejcetButtonText="Disable"
                       message="Are you sure to deactivate this account?"
                       approveFunction={() => disableUserAccount(res)}
-                      loading={loading}
+                      loading={buttonLoading}
                     />
                   ) : (
                     <AdminDashboardCard
@@ -336,11 +347,13 @@ export default function UserFeatures() {
                       time={moment(res.date).utc().fromNow()}
                       title={res.first_name + res.last_name}
                       name={res.role}
+                      id={res.id}
+                      selectedId={selectedId}
                       image={res.profile_picture}
                       approveButtonText="Enable"
                       approveFunction={() => activateUserAccount(res)}
                       message="Are you sure to activate this account?"
-                      loading={loading}
+                      loading={buttonLoading}
                     />
                   )
                 )}
@@ -352,9 +365,11 @@ export default function UserFeatures() {
                     key={res.id}
                     time={moment(res.date).utc().fromNow()}
                     title={res.store_name}
+                    id={res.id}
+                    selectedId={selectedId}
                     name={res.location}
                     image={res.picture}
-                    loading={loading}
+                    loading={buttonLoading}
                   />
                 ))}
               </div>
@@ -365,9 +380,11 @@ export default function UserFeatures() {
                     key={res.id}
                     time={moment(res.date).utc().fromNow()}
                     title={res.clinic_name}
+                    id={res.id}
+                    selectedId={selectedId}
                     name={res.location}
                     image={res.picture}
-                    loading={loading}
+                    loading={buttonLoading}
                   />
                 ))}
               </div>
@@ -399,6 +416,8 @@ export default function UserFeatures() {
                         time={moment(res.date).utc().fromNow()}
                         title={res.pet_name}
                         name={res.pet_id}
+                        id={res.pet_id}
+                        selectedId={selectedId}
                         image={res.picture}
                         loading={loading}
                       />
@@ -413,6 +432,8 @@ export default function UserFeatures() {
                         title={res.farm_name}
                         name={res.farm_id}
                         image={res.picture}
+                        id={res.id}
+                        selectedId={selectedId}
                         loading={loading}
                       />
                     ))}
@@ -427,6 +448,8 @@ export default function UserFeatures() {
                     time={moment(res.date).utc().fromNow()}
                     title={res.title}
                     name={res.user_name}
+                    id={res.id}
+                    selectedId={selectedId}
                     loading={loading}
                   />
                 ))}
