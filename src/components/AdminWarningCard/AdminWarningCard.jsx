@@ -8,6 +8,8 @@ export default function AdminWarningCard({
   rejcetButtonText,
   approveButtonText,
   loading,
+  id,
+  selectedId
 }) {
   const [visible, setVisible] = useState(false);
 
@@ -55,9 +57,9 @@ export default function AdminWarningCard({
           <button
             className=" border flex items-center gap-2 justify-center rounded-full w-[100px] h-[30px] text-green-800 bg-green-50 border-green-400 text-xs"
             onClick={openModal}
-            disabled={loading}
+            disabled={ id === selectedId &&  loading}
           >
-            {loading ? <i className="pi pi-spin pi-spinner !text-sm"></i> : ""}
+            {id === selectedId &&  loading ? <i className="pi pi-spin pi-spinner !text-sm"></i> : ""}
             {approveButtonText}
           </button>
         ) : (
@@ -67,9 +69,9 @@ export default function AdminWarningCard({
           <button
             className=" border flex items-center gap-2 justify-center rounded-full w-[100px] h-[30px] text-red-700 bg-red-50 border-red-400 text-xs"
             onClick={openModal}
-            disabled={loading}
+            disabled={ id === selectedId && loading}
           >
-            {loading ? <i className="pi pi-spin pi-spinner !text-sm"></i> : ""}
+            { id === selectedId && loading ? <i className="pi pi-spin pi-spinner !text-sm"></i> : ""}
             {rejcetButtonText}
           </button>
         ) : (

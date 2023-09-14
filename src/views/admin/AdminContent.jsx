@@ -33,7 +33,9 @@ export default function AdminContent() {
   const [approved, setApproved] = useState();
   const [rejected, setRejected] = useState();
   const [loading, setLoading] = useState(true);
+  const [buttonLoading, setButtonLoading] = useState(false);
   const [pet, setPet] = useState();
+  const [selectedId, setSelectedId] = useState();
   const [search, setSearch] = useState("");
 
   const getUserCounter = async () => {
@@ -47,18 +49,21 @@ export default function AdminContent() {
   };
 
   const approveContent = (payload) => {
-    setLoading(true);
+    setButtonLoading(true);
+    setSelectedId(payload.forum_chat_id)
+    console.log(payload);
     approveForumChat(payload).then((res) => {
       toast.success("Post Approved Successfully");
-      setLoading(false);
+      setButtonLoading(false);
       getUserCounter();
     });
   };
   const rejectContent = (payload) => {
-    setLoading(true);
+    setButtonLoading(true);
+    setSelectedId(payload.forum_chat_id)
     rejectForumChat(payload).then((res) => {
       toast.success("Post Rejected Successfully");
-      setLoading(false);
+      setButtonLoading(false);
       getUserCounter();
     });
   };
@@ -132,7 +137,9 @@ export default function AdminContent() {
                     title={res.title}
                     name={res.user_name}
                     rejcetButtonText="Reject"
-                    loading={loading}
+                    loading={buttonLoading}
+                    id={res.id}
+                    selectedId={selectedId}
                     message="Are you sure you want to reject this post"
                     approveFunction={() =>
                       rejectContent({
@@ -150,7 +157,9 @@ export default function AdminContent() {
                     name={res.user_name}
                     approveButtonText="Approve"
                     message="Are you sure you want to accept this post"
-                    loading={loading}
+                    loading={buttonLoading}
+                    id={res.id}
+                    selectedId={selectedId}
                     approveFunction={() =>
                       approveContent({
                         forum_chat_id: res.id,
