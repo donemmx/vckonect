@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { user } from "../../atom/userAtom";
 import {
+  adminGetPromotion,
   adminGetPromotionPlan,
   deleteUserPromotionPlan,
   getPromotionPlan,
@@ -23,6 +24,7 @@ import { actionState } from "../../atom/actionAtom";
 
 export default function AdminPromotion() {
   const [promotions, setPromotions] = useState();
+  const [userPromotions, setUserPromotions] = useState([]);
   const userData = useRecoilValue(user);
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
@@ -35,6 +37,13 @@ export default function AdminPromotion() {
     const payload = {};
     await adminGetPromotionPlan(payload).then((res) => {
       setPromotions(res);
+      setLoading(false);
+    });
+  };
+  const getUserPromotions = async () => {
+    const payload = {};
+    await adminGetPromotion(payload).then((res) => {
+      setUserPromotions(res);
       setLoading(false);
     });
   };

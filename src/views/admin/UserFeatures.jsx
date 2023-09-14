@@ -25,6 +25,7 @@ import moment from "moment";
 import { farm, product } from "../../validations/UserValidation";
 import AdminDashboardCard from "../../components/adminDashboardCard/AdminDashboardCard";
 import AdminCardLoading from "../../components/loading/AdminCardLoading";
+import PromoCard from "../../components/promoCard/PromoCard";
 
 export default function UserFeatures() {
   const [counter, setCounter] = useState();
@@ -441,17 +442,9 @@ export default function UserFeatures() {
                 )}
               </>
             ) : tab == "product" ? (
-              <div className="posts p-3 mt-5 grid gap-2">
+              <div className="posts w-full mx-auto items-center pt-10 flex justify-center flex-wrap gap-5">
                 {product?.map((res) => (
-                  <AdminDashboardCard
-                    key={res.id}
-                    time={moment(res.date).utc().fromNow()}
-                    title={res.title}
-                    name={res.user_name}
-                    id={res.id}
-                    selectedId={selectedId}
-                    loading={loading}
-                  />
+                  <PromoCard key={res.id} data={res} store_id={res.id} show={true} />
                 ))}
               </div>
             ) : (
