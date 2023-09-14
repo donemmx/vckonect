@@ -23,6 +23,7 @@ import { actionState } from "../../atom/actionAtom";
 
 export default function Subscriptions() {
   const [subscriptions, setSubscriptions] = useState();
+  const [activeSub, setActiveSub] = useState([]);
   const [userSubscription, setUserSubscription] = useState([]);
   const [loading, setLoading] = useState(true);
   const userData = useRecoilValue(user);
@@ -43,6 +44,8 @@ export default function Subscriptions() {
   const getmySubscriptions = () => {
     adminGetSubscription({ name: null }).then((res) => {
       setUserSubscription(res);
+      const filteredActiveSub = res.filter((data)=> data.subscription === 'Active')
+      setActiveSub(filteredActiveSub)
     });
   };
 
@@ -74,12 +77,12 @@ export default function Subscriptions() {
     <div className="w-full">
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-1 lg:gap-2 mt-5">
         <AdminCard
-          number={userSubscription?.Freenium?.length}
+          number={userSubscription?.length}
           text="Total Subscribers"
           icon={totalSubscribers}
         />
         <AdminCard
-          number={userSubscription?.Freenium?.length}
+          number={activeSub?.length}
           text="Active Subscription"
           icon={activeSubscriber}
         />
@@ -127,7 +130,7 @@ export default function Subscriptions() {
             <>
               {tab === "all" ? (
                  <>
-                 {userSubscription?.Freenium?.map((res) => (
+                 {userSubscription?.map((res) => (
                    <AdminDashboardCard
                    key={res.id}
                    time={moment(res.date).utc().fromNow()}
