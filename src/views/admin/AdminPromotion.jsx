@@ -132,14 +132,6 @@ export default function AdminPromotion() {
             </h4>
             <h4
               className={`text-[.85rem] lg:text-[1rem] cursor-pointer ${
-                tab === "suspended" ? "font-black" : ""
-              } `}
-              onClick={() => activeTab("suspended")}
-            >
-              Suspended
-            </h4>
-            <h4
-              className={`text-[.85rem] lg:text-[1rem] cursor-pointer ${
                 tab === "expired" ? "font-black" : ""
               } `}
               onClick={() => activeTab("expired")}
