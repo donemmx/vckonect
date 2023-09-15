@@ -336,6 +336,7 @@ body {
 }
 
 .p-inputtext,
+.p-calendar,
 .p-password {
   width: 100%;
   height: 66px;

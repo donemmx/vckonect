@@ -11,7 +11,8 @@ import { toast } from "react-toastify";
 import { useFormik } from "formik";
 import { addCaseValidation } from "../../validations/UserValidation";
 import { getFarmByFilter, getPetByFilter } from "../../utils/userApiService";
-
+import { Calendar } from 'primereact/calendar';
+        
 export default function AddCase() {
   const userData = useRecoilValue(user);
   const [store, setStore] = useRecoilState(storeData);
@@ -20,31 +21,33 @@ export default function AddCase() {
   const [pets, setPets] = useState([]);
   const [data, setData] = useState();
   const [farms, setFarms] = useState([]);
-  const [selectedPet, setSelectedPet] = useState(null);
 
   const types = ["Pet", "Farm"];
 
   const onSubmit = async (values) => {
-    console.log(values);
-    // Object.entries(payload).forEach(([key, value]) => {
-    //   formData.append(key, value);
-    // });
-
-    // await addCase(formData)
-    //   .then((res) => {
-    //     if (!res.code) {
-    //       window.history.back();
-    //       if (action && action === "edit") {
-    //         toast.success("Add cases edited successfully");
-    //       } else {
-    //         toast.success("Cases added successfully");
-    //       }
-    //       setStore(null);
-    //     } else {
-    //       toast.error(res.detail);
-    //     }
-    //   })
-    //   .catch((err) => console.log(err));
+    console.log(values, data, type);
+    const payload = {
+      ...data,
+      ...values,
+      case_type: type,
+      user_id: userData?.id,
+      role: userData?.role
+    }
+    await addCase(payload)
+      .then((res) => {
+        if (!res.code) {
+          window.history.back();
+          if (action && action === "edit") {
+            toast.success("Add cases edited successfully");
+          } else {
+            toast.success("Cases added successfully");
+          }
+          setStore(null);
+        } else {
+          toast.error(res.detail);
+        }
+      })
+      .catch((err) => console.log(err));
   };
 
   const initialValues = {
@@ -97,12 +100,6 @@ export default function AddCase() {
     getAllPets(), getAllFarms();
   }, []);
 
-  
-  useEffect(() => {
-   console.log(data);
-  }, [data]);
-
-  
 
   return (
     <div className=" bg-white h-full pb-20  mb-10 rounded-md border-[1px] border-[#EBEBEB]">
@@ -276,12 +273,13 @@ export default function AddCase() {
               <p className="error">{errors.mobile_veterinarian}</p>
             )}
             <span className="p-float-label">
-              <InputText
+              <Calendar
                 id="username"
                 name="date_of_occurence"
                 value={values.date_of_occurence}
                 onChange={handleChange}
                 onBlur={handleBlur}
+                dateFormat="dd/mm/yy"
               />
               <label htmlFor="username">Date of Occurence </label>
             </span>
