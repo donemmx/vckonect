@@ -3,6 +3,7 @@ import chat from "../../assets/icons/chat-icon.svg";
 import message from "../../assets/icons/message-icon.svg";
 import editIcon from "../../assets/account/edit-icon.svg";
 import openIcon from "../../assets/bg/card-next-bg.svg";
+import star from "../../assets/icons/star.svg";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { user } from "../../atom/userAtom";
 import { storeData } from "../../atom/storeAtom";
@@ -56,7 +57,7 @@ export default function ClinicCard({ fullData }) {
     <div className=" vetCard mb-6">
       <div className="group h-full w-full ">
         <div
-          className="top h-[65%] w-full"
+          className="top h-[65%] w-full relative"
           style={{
             backgroundImage: `url(${fullData?.picture})`,
             backgroundSize: "cover",
@@ -93,8 +94,13 @@ export default function ClinicCard({ fullData }) {
               </div>
             )}
           </div>
+          <div className="rating bg-gray-50 left-2 rounded-full text-black px-3 py-2 font-bold absolute bottom-0 text-sm flex items-center gap-2 mb-2">
+            <img src={star} alt="" className="h-6" />
+            {fullData?.rating ?? 0} of 5
+          </div>
         </div>
         <div className="bottom bg-white p-2 rounded-b-[12px]">
+      
           <div className="name font-black sm:text-[.85rem] md:text-[1.1rem]">
             {fullData?.clinic_name}
           </div>

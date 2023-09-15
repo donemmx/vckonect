@@ -13,6 +13,7 @@ import { actionState } from "../../atom/actionAtom";
 import { useNavigate } from "react-router-dom";
 import useUpadateReload from "../../hooks/UpdateRelaod";
 import DirectMessageModal from "../directMessageModal/DirectMessageModal";
+import star from "../../assets/icons/star.svg";
 
 export default function StoreCard({
   availability,
@@ -44,15 +45,14 @@ export default function StoreCard({
     }
   };
   const openChecker = (route) => {
-    if(userData?.id){
+    if (userData?.id) {
       setStore(fullData);
       if (userData?.role === "Veterinarian") {
         location(`/vet-${route}/${fullData.id}`);
       } else {
         location(`/animal-owner-${route}/${fullData.id}`);
       }
-    }
-    else{
+    } else {
       location(`/store/${fullData.id}`);
     }
   };
@@ -89,7 +89,7 @@ export default function StoreCard({
     <div className=" vetCard mb-6">
       <div className="group h-full w-full ">
         <div
-          className="top h-[65%] w-full"
+          className="top h-[65%] w-full relative"
           style={{
             backgroundImage: `url(${image})`,
             backgroundSize: "cover",
@@ -126,8 +126,14 @@ export default function StoreCard({
               </div>
             )}
           </div>
+          <div className="rating bg-gray-50 left-2 rounded-full text-black px-3 py-2 font-bold absolute bottom-0 text-sm flex items-center gap-2 mb-2">
+            <img src={star} alt="" className="h-6" />
+            {fullData.rating} of 5
+          </div>
         </div>
+
         <div className="bottom bg-white p-2 rounded-b-[12px]">
+        
           <div className="name font-black sm:text-[.85rem] md:text-[1.2rem]">
             {storeName}
           </div>
@@ -144,9 +150,7 @@ export default function StoreCard({
                   alt=""
                 />
               </a>
-            { userData?.id ?
-              <DirectMessageModal fullData={fullData} /> : ''
-              }
+              {userData?.id ? <DirectMessageModal fullData={fullData} /> : ""}
               <a href={`mailto:${fullData?.email}`} rel="noReferrer">
                 <img
                   src={message}
