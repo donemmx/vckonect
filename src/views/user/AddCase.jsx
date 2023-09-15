@@ -9,18 +9,16 @@ import { actionState } from "../../atom/actionAtom";
 import { addCase } from "../../utils/vetApiService";
 import { toast } from "react-toastify";
 import { useFormik } from "formik";
-import { addFarmCase, addPetCase } from "../../validations/UserValidation";
+import { addCaseValidation } from "../../validations/UserValidation";
 
 export default function AddCase() {
   const userData = useRecoilValue(user);
   const [store, setStore] = useRecoilState(storeData);
   const action = useRecoilValue(actionState);
-  const [gender, setGender] = useState(null);
   const [type, setType] = useState("Pet");
   const [selectedPet, setSelectedPet] = useState(null);
 
   const types = ["Pet", "Farm"];
-  const genders = ["Male", "Female"];
   const species = ["Dog", "Cat", "Pig", "Sheep"];
 
   const onSubmit = async (values) => {
@@ -46,29 +44,16 @@ export default function AddCase() {
     //   .catch((err) => console.log(err));
   };
 
-  const initialValuesPet = {
+  const initialValues = {
     client_name: "",
     client_phone: "",
-    pet_name: "",
-    specie: "",
-    breed: "",
-    age: "",
-    sex: "",
     case_title: "",
-  };
-
-  const initialValuesFarm = {
-    client_name: "",
-    client_phone: "",
-    age: "",
-    sex: "",
-    farm_name: "",
     details: "",
-    date_of_occurence: "",
-    history: "",
     clinical_sign: "",
+    history: "",
     motality: "",
     mobile_veterinarian: "",
+    date_of_occurence: "",
     treatment_regiment: "",
     clinic_physical_address: "",
     lab_confirm: "",
@@ -77,15 +62,6 @@ export default function AddCase() {
     tentative_diagnoistic: "",
   };
 
-  // const loadedData = {
-  //   caseTitle: store?.case_title,
-  //   clientName: store?.client_name,
-  //   caseType: store?.case_type,
-  //   petName: store?.pet_name,
-  //   breed: store?.breed,
-  //   specie: store?.specie,
-  //   age: store?.age,
-  // };
 
   const {
     values,
@@ -98,8 +74,8 @@ export default function AddCase() {
     handleSubmit,
   } = useFormik({
     validateOnMount: true,
-    initialValues: type === "Pet" ? initialValuesPet : initialValuesFarm,
-    validationSchema: type === "Pet" ? addPetCase : addFarmCase,
+    initialValues: initialValues,
+    validationSchema: addCaseValidation,
     onSubmit,
   });
 
@@ -170,26 +146,14 @@ export default function AddCase() {
                 value={type}
                 onChange={(e) => setType(e.value)}
                 options={types}
-                placeholder="Select Pet or Farm"
+                placeholder="Type"
                 className="w-full md:w-20rem"
               />
-              <label htmlFor="username">Select Pet or Farm </label>
+              <label htmlFor="username">Type </label>
             </span>
             {type === "Pet" ? (
               <>
-                <span className="p-float-label">
-                  <InputText
-                    id="username"
-                    name="pet_name"
-                    value={values.pet_name}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                  />
-                  <label htmlFor="username">Pet Name </label>
-                </span>
-                {errors.pet_name && touched.pet_name && (
-                  <p className="error">{errors.pet_name}</p>
-                )}
+           
 
                 <span className="p-float-label">
                   <Dropdown
@@ -198,120 +162,192 @@ export default function AddCase() {
                     onChange={handleChange}
                     onBlur={handleBlur}
                     options={species}
-                    placeholder="Select Pet or Farm"
+                    placeholder="Select Pet"
                     className="w-full md:w-20rem"
                   />
-                  <label htmlFor="username">Specie </label>
+                  <label htmlFor="username">Select a Pet </label>
                 </span>
-                {errors.specie && touched.specie && (
-                  <p className="error">{errors.specie}</p>
-                )}
 
-                <span className="p-float-label">
-                  <InputText
-                    id="username"
-                    name="breed"
-                    value={values.breed}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                  />
-                  <label htmlFor="username">Breed </label>
-                </span>
-                {errors.breed && touched.breed && (
-                  <p className="error">{errors.breed}</p>
-                )}
-
-                <span className="p-float-label">
-                  <InputText
-                    id="username"
-                    name="age"
-                    value={values.age}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                  />
-                  <label htmlFor="username">Age </label>
-                </span>
-                {errors.age && touched.age && (
-                  <p className="error">{errors.age}</p>
-                )}
-                <span className="p-float-label">
-                  <Dropdown
-                    value={values.sex}
-                    name="sex"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    options={genders}
-                    placeholder="Select Pet or Farm"
-                    className="w-full md:w-20rem"
-                  />
-                  <label htmlFor="username"> Sex</label>
-                </span>
-                {errors.sex && touched.sex && (
-                  <p className="error">{errors.sex}</p>
-                )}
               </>
             ) : (
               ""
             )}
             {type === "Farm" ? (
               <>
-                <span className="p-float-label">
-                  <InputText
-                    id="username"
-                    name="farm_name"
-                    value={values.farm_name}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                  />
-                  <label htmlFor="username">Farm Name</label>
-                </span>
-
-                {/* <span className="p-float-label"> */}
-                {/* <InputText id="username"
-                  id=""
-                  name="pet_name"
-                  value={values}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  /> */}
-                {/* <label htmlFor="username">Type of Livestock </label> */}
-                {/* </span> */}
-                <span className="p-float-label">
-                  <InputText
-                    id="username"
-                    name="age"
-                    value={values.age}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                  />
-                  <label htmlFor="username">Age </label>
-                </span>
-                {errors.age && touched.age && (
-                  <p className="error">{errors.age}</p>
-                )}
-                <span className="p-float-label">
+          
+          <span className="p-float-label">
                   <Dropdown
-                    value={values.sex}
-                    name="sex"
+                    name="specie"
+                    value={values.specie}
                     onChange={handleChange}
                     onBlur={handleBlur}
-                    options={genders}
-                    placeholder="Select Pet or Farm"
+                    options={species}
+                    placeholder="Select Farm"
                     className="w-full md:w-20rem"
                   />
-                  <label htmlFor="username"> Sex</label>
+                  <label htmlFor="username">Select a Farm </label>
                 </span>
-                {errors.sex && touched.sex && (
-                  <p className="error">{errors.sex}</p>
-                )}
-                <span className="p-float-label">
-                  <InputText id="username" />
-                  <label htmlFor="username">Other Details </label>
-                </span>
+
               </>
             ) : (
               ""
             )}
+                 <span className="p-float-label">
+                  <InputText
+                    id="username"
+                    name="details"
+                    value={values.details}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                  />
+                  <label htmlFor="username">Details </label>
+                </span>
+                {errors.details && touched.details && (
+                  <p className="error">{errors.details}</p>
+                )}
+                 <span className="p-float-label">
+                  <InputText
+                    id="username"
+                    name="clinical_sign"
+                    value={values.clinical_sign}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                  />
+                  <label htmlFor="username">Clinical Sign </label>
+                </span>
+                {errors.clinical_sign && touched.clinical_sign && (
+                  <p className="error">{errors.clinical_sign}</p>
+                )}
+                 <span className="p-float-label">
+                  <InputText
+                    id="username"
+                    name="history"
+                    value={values.history}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                  />
+                  <label htmlFor="username">History </label>
+                </span>
+                {errors.history && touched.history && (
+                  <p className="error">{errors.history}</p>
+                )}
+                 <span className="p-float-label">
+                  <InputText
+                    id="username"
+                    name="motality"
+                    value={values.motality}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                  />
+                  <label htmlFor="username">Motality </label>
+                </span>
+                {errors.motality && touched.motality && (
+                  <p className="error">{errors.motality}</p>
+                )}
+                 <span className="p-float-label">
+                  <InputText
+                    id="username"
+                    name="mobile_veterinarian"
+                    value={values.mobile_veterinarian}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                  />
+                  <label htmlFor="username">Mobile Veterinarian </label>
+                </span>
+                {errors.mobile_veterinarian && touched.mobile_veterinarian && (
+                  <p className="error">{errors.mobile_veterinarian}</p>
+                )}
+                 <span className="p-float-label">
+                  <InputText
+                    id="username"
+                    name="date_of_occurence"
+                    value={values.date_of_occurence}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                  />
+                  <label htmlFor="username">Date of Occurence </label>
+                </span>
+                {errors.date_of_occurence && touched.date_of_occurence && (
+                  <p className="error">{errors.date_of_occurence}</p>
+                )}
+                 <span className="p-float-label">
+                  <InputText
+                    id="username"
+                    name="treatment_regiment"
+                    value={values.treatment_regiment}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                  />
+                  <label htmlFor="username">Treatment Regiment </label>
+                </span>
+                {errors.treatment_regiment && touched.treatment_regiment && (
+                  <p className="error">{errors.treatment_regiment}</p>
+                )}
+                 <span className="p-float-label">
+                  <InputText
+                    id="username"
+                    name="clinic_physical_address"
+                    value={values.clinic_physical_address}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                  />
+                  <label htmlFor="username">Clinic Physical Address </label>
+                </span>
+                {errors.clinic_physical_address && touched.clinic_physical_address && (
+                  <p className="error">{errors.clinic_physical_address}</p>
+                )}
+                 <span className="p-float-label">
+                  <InputText
+                    id="username"
+                    name="lab_confirm"
+                    value={values.lab_confirm}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                  />
+                  <label htmlFor="username">Lab Confirm </label>
+                </span>
+                {errors.lab_confirm && touched.lab_confirm && (
+                  <p className="error">{errors.lab_confirm}</p>
+                )}
+                 <span className="p-float-label">
+                  <InputText
+                    id="username"
+                    name="disease_diagnostic"
+                    value={values.disease_diagnostic}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                  />
+                  <label htmlFor="username">Disease Diagnostic </label>
+                </span>
+                {errors.disease_diagnostic && touched.disease_diagnostic && (
+                  <p className="error">{errors.disease_diagnostic}</p>
+                )}
+                 <span className="p-float-label">
+                  <InputText
+                    id="username"
+                    name="differential_diagnosis"
+                    value={values.differential_diagnosis}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                  />
+                  <label htmlFor="username">Differential Diagnosis </label>
+                </span>
+                {errors.differential_diagnosis && touched.differential_diagnosis && (
+                  <p className="error">{errors.differential_diagnosis}</p>
+                )}
+                 <span className="p-float-label">
+                  <InputText
+                    id="username"
+                    name="tentative_diagnoistic"
+                    value={values.tentative_diagnoistic}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                  />
+                  <label htmlFor="username">Tentative Diagnoistic </label>
+                </span>
+                {errors.tentative_diagnoistic && touched.tentative_diagnoistic && (
+                  <p className="error">{errors.tentative_diagnoistic}</p>
+                )}
             <button
               className="green__btn"
               type="submit"
