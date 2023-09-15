@@ -203,6 +203,12 @@ const rejectForumChat = (payload) => {
     .then((res) => res.data)
     .catch((err) => console.log(err));
 };
+const verifyVetNumber = (payload) => {
+  return axios
+    .post(`${baseURl}/verifyVetNumber`, payload)
+    .then((res) => res.data)
+    .catch((err) => console.log(err));
+};
 
 export {
   adminLogin,
@@ -232,6 +238,6 @@ export {
   getPromotionPlan,
   deleteSubscriptionPlan,
   deleteUserPromotionPlan,
-  adminGetPromotionPlan
-
+  adminGetPromotionPlan,
+  verifyVetNumber,
 };

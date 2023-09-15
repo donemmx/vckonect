@@ -23,6 +23,8 @@ export default function AdminDashboardCard({
   deleteFormDataFunction,
   editFunction,
   freeText,
+  verifyVetFunction,
+  vetLoading,
   status,
   id,
   selectedId
@@ -81,6 +83,8 @@ export default function AdminDashboardCard({
               message={message}
               id={id}
               vet={vet}
+              verifyVetFunction={verifyVetFunction}
+              vetLoading={vetLoading}
               selectedId={selectedId}
               loading={loading}
             />

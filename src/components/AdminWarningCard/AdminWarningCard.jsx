@@ -9,6 +9,7 @@ export default function AdminWarningCard({
   approveButtonText,
   verifyVetFunction,
   loading,
+  vetLoading,
   id,
   vet,
   selectedId,
@@ -93,7 +94,8 @@ export default function AdminWarningCard({
       <div className="flex items-center gap-2">
         {vet === "Not Verified" ? (
           <>
-            <button className=" border flex items-center gap-2 justify-center rounded-full w-[110px] h-[30px] text-green-800 bg-green-50 border-green-400 text-xs" onClick={openVerifyModal}>
+            <button className=" border flex items-center gap-2 justify-center rounded-full w-[110px] h-[30px] text-green-800 bg-green-50 border-green-400 text-xs" onClick={openVerifyModal} disabled={id === selectedId && vetLoading}>
+            {id === selectedId && vetLoading ? <i className="pi pi-spin pi-spinner !text-sm"></i>: ''}
               Verify Vet No.
             </button>
           </>

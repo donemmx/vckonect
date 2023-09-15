@@ -17,6 +17,7 @@ import {
   adminGetVeterinarian,
   deactivateAccount,
   usersCounter,
+  verifyVetNumber,
 } from "../../utils/adminApiService";
 import { toast } from "react-toastify";
 import { getStore, getStoreByFilter } from "../../utils/userApiService";
@@ -42,6 +43,7 @@ export default function UserFeatures() {
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
   const [buttonLoading, setButtonLoading] = useState(false);
+  const [vetLoading, setVetLoading] = useState(false);
 
   const getUserCounter = async () => {
     await usersCounter().then((res) => {
@@ -157,6 +159,20 @@ export default function UserFeatures() {
       getUserCounter();
     });
   };
+
+  const verifyVetNumberFunction = (id)=> {
+    setVetLoading(true);
+    const payload = {
+      id: id
+    }
+    setSelectedId(id)
+
+    verifyVetNumber(payload).then((res)=> {
+      toast.success("Vet Number Verified successfully");
+      setVetLoading(false)
+      getUserCounter();
+    })
+  }
   const activateUserAccount = (data) => {
     setButtonLoading(true);
     setSelectedId(data.id)
@@ -335,6 +351,8 @@ export default function UserFeatures() {
                       title={res.first_name + res.last_name}
                       id={res.id}
                       vet={res.vet_number_status}
+                      verifyVetFunction={() => verifyVetNumberFunction(res.id)}
+                      vetLoading={vetLoading}
                       selectedId={selectedId}
                       name={res.role}
                       image={res.profile_picture}
