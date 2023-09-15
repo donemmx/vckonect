@@ -334,6 +334,7 @@ export default function UserFeatures() {
                       time={moment(res.date).utc().fromNow()}
                       title={res.first_name + res.last_name}
                       id={res.id}
+                      vet={res.vet_number_status}
                       selectedId={selectedId}
                       name={res.role}
                       image={res.profile_picture}

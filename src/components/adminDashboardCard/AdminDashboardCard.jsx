@@ -15,6 +15,7 @@ export default function AdminDashboardCard({
   approveFunction,
   message,
   duration,
+  vet,
   price,
   loading,
   edit,
@@ -79,6 +80,7 @@ export default function AdminDashboardCard({
               acceptFunction={approveFunction}
               message={message}
               id={id}
+              vet={vet}
               selectedId={selectedId}
               loading={loading}
             />
