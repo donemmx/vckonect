@@ -26,12 +26,13 @@ export default function AddCase() {
 
   const onSubmit = async (values) => {
     console.log(values, data, type);
+    const {id, date, ...others} = data
     const payload = {
-      ...data,
+      ...others,
       ...values,
       case_type: type,
       user_id: userData?.id,
-      role: userData?.role
+      role: userData?.role,
     }
     await addCase(payload)
       .then((res) => {
