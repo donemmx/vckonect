@@ -3,6 +3,7 @@ import message from "../../assets/icons/message-icon.svg";
 import openIcon from "../../assets/bg/card-next-bg.svg";
 import verified from "../../assets/vetcard/verified-icon.svg";
 import unverified from "../../assets/sidebar/cancel.svg";
+import star from "../../assets/icons/star.svg";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { user } from "../../atom/userAtom";
 import { actionState } from "../../atom/actionAtom";
@@ -15,15 +16,14 @@ export default function Vetcard({ fullData }) {
   const location = useNavigate();
 
   const checker = (route) => {
-    if(userData?.id){
+    if (userData?.id) {
       if (userData?.role === "Veterinarian") {
         location(`/${route}/${fullData?.id}`);
       } else {
         location(`/animal-owner-${route}/${fullData?.id}`);
       }
-    }
-    else{
-      location(`/veterinarian/${fullData?.id}`)
+    } else {
+      location(`/veterinarian/${fullData?.id}`);
     }
   };
 
@@ -51,10 +51,11 @@ export default function Vetcard({ fullData }) {
               </div>
             )}
           </div>
+          
           <div className="bottom flex items-center justify-between p-2 absolute bottom-2 w-full ">
-            <div className="rating text-white text-sm flex items-center gap-2">
-              {/* <img src={star} alt="" />
-              4.5 of 5 */}
+          <div className="rating bg-gray-50 left-2 rounded-full text-black px-3 py-2 font-bold bottom-0 text-sm flex items-center gap-2 mb-2">
+              <img src={star} alt="" className="h-6" />
+              {fullData?.rating ?? 0} of 5
             </div>
             <div className="verfied">
               {fullData?.vet_number_status === "Verified" ? (
