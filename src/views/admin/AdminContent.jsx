@@ -41,6 +41,7 @@ export default function AdminContent() {
   const getUserCounter = async () => {
     await getForumChat().then((res) => {
       setForum(res);
+      setLoading(false)
       setApproved(() => res.filter((data) => data.status === "Approved"));
       setRejected(() => res.filter((data) => data.status === "Not Approved"));
     });

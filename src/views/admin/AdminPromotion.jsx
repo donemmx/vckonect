@@ -21,6 +21,7 @@ import totalPromotions from "../../assets/sidebar/total-promotion.svg";
 import { toast } from "react-toastify";
 import { storeData } from "../../atom/storeAtom";
 import { actionState } from "../../atom/actionAtom";
+import PromoCard from "../../components/promoCard/PromoCard";
 
 export default function AdminPromotion() {
   const [promotions, setPromotions] = useState();
@@ -28,10 +29,17 @@ export default function AdminPromotion() {
   const userData = useRecoilValue(user);
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
+  const [activeSub, setActiveSub] = useState();
+  const [expiredSub, setExpiredSub] = useState();
   const [store, setStore] = useRecoilState(storeData);
   const [action, setAction] = useRecoilState(actionState);
+  const [tab, setTab] = useState("active");
 
   const location = useNavigate();
+
+  const activeTab = (type) => {
+    setTab(type);
+  };
 
   const getPromotions = async () => {
     const payload = {};
@@ -44,10 +52,17 @@ export default function AdminPromotion() {
     const payload = {};
     await adminGetPromotion(payload).then((res) => {
       setUserPromotions(res);
+      const active = res.filter((data) => data.subscription === "Active");
+      const suspended = res.filter((data) => data.subscription === "Suspended");
+      const expired = res.filter(
+        (data) =>
+          data.subscription === "Expired" || data.subscription === "Suspended"
+      );
+      setActiveSub(active);
+      setExpiredSub(expired);
       setLoading(false);
     });
   };
-
 
   const deletePromotion = (data) => {
     setLoading(true);
@@ -74,6 +89,7 @@ export default function AdminPromotion() {
 
   useEffect(() => {
     getPromotions();
+    getUserPromotions();
   }, [search.length < 3]);
 
   return (
@@ -85,13 +101,13 @@ export default function AdminPromotion() {
           icon={totalPromotions}
         />
         <AdminCard
-          number={0}
+          number={activeSub?.length}
           text="Active Promotions"
           icon={activePromotions}
         />
 
         <AdminCard
-          number={0}
+          number={expiredSub?.length}
           text="Expired Promotions"
           icon={expiredPromotions}
         />
@@ -105,6 +121,40 @@ export default function AdminPromotion() {
           <img src={addIcon} alt="" className="w-[40px]" />
         </Link>
         <div className="posts p-3 mt-5 grid gap-2">
+          <div className="flex  flex-wrap items-center gap-4">
+            <h4
+              className={`text-[.85rem] lg:text-[1rem] cursor-pointer ${
+                tab === "active" ? "font-black" : ""
+              } `}
+              onClick={() => activeTab("active")}
+            >
+              Active
+            </h4>
+            <h4
+              className={`text-[.85rem] lg:text-[1rem] cursor-pointer ${
+                tab === "suspended" ? "font-black" : ""
+              } `}
+              onClick={() => activeTab("suspended")}
+            >
+              Suspended
+            </h4>
+            <h4
+              className={`text-[.85rem] lg:text-[1rem] cursor-pointer ${
+                tab === "expired" ? "font-black" : ""
+              } `}
+              onClick={() => activeTab("expired")}
+            >
+              Expired
+            </h4>
+            <h4
+              className={`text-[.85rem] lg:text-[1rem] cursor-pointer ${
+                tab === "plans" ? "font-black" : ""
+              } `}
+              onClick={() => activeTab("plans")}
+            >
+              All Promotion plans
+            </h4>
+          </div>
           {/* <div className="form__group flex space-x-2 items-center p-1 border-[#EBEBEB] border  bg-white rounded-[16px]">
             <input
               type="text"
@@ -130,26 +180,58 @@ export default function AdminPromotion() {
             </>
           ) : (
             <>
-              {promotions?.map((res) => (
-                <AdminDashboardCard
-                  key={res.id}
-                  title={res.promotion_title + " " + "plan"}
-                  name={`(${res.no_of_products} Product(s) Max)`}
-                  duration={`${res.promotion_title} (${res.duration} ${res.date_option})`}
-                  price={res.currency + res.price}
-                  message='Are you sure you want to delete this subscription?'
-                  loading={loading}
-                  deleteCard={true}
-                  time={moment(res.date).utc().fromNow()}
-                  edit={true}
-                  approveFunction={() => {
-                    deletePromotion({
-                      id: res.promotion_id
-                    })
-                  }}
-                  editFunction={() => editPromotion(res)}
-                />
-              ))}
+              {tab == "plans" ? (
+                <>
+                  {promotions?.map((res) => (
+                    <AdminDashboardCard
+                      key={res.id}
+                      title={res.promotion_title + " " + "plan"}
+                      name={`(${res.no_of_products} Product(s) Max)`}
+                      duration={`${res.promotion_title} (${res.duration} ${res.date_option})`}
+                      price={res.currency + res.price}
+                      message="Are you sure you want to delete this subscription?"
+                      loading={loading}
+                      deleteCard={true}
+                      time={moment(res.date).utc().fromNow()}
+                      edit={true}
+                      approveFunction={() => {
+                        deletePromotion({
+                          id: res.promotion_id,
+                        });
+                      }}
+                      editFunction={() => editPromotion(res)}
+                    />
+                  ))}
+                </>
+              ) : tab == "active" ? (
+                <>
+                  <div className="posts w-full mx-auto items-center pt-10 flex flex-wrap gap-5">
+                    {activeSub?.map((res) => (
+                      <PromoCard
+                        key={res.id}
+                        data={res}
+                        store_id={res.id}
+                        show={true}
+                      />
+                    ))}
+                  </div>
+                </>
+              ) : tab == "expired" ? (
+                <>
+                  <div className="posts w-full mx-auto items-center pt-10 flex flex-wrap gap-5">
+                    {expiredSub?.map((res) => (
+                      <PromoCard
+                        key={res.id}
+                        data={res}
+                        store_id={res.id}
+                        show={true}
+                      />
+                    ))}
+                  </div>
+                </>
+              ) : (
+                ""
+              )}
             </>
           )}
         </div>
