@@ -6,12 +6,13 @@ import markerIcon from "../../assets/icons/location-icon.svg";
 import handIcon from "../../assets/account/hand-icon.svg";
 import shareIcon from "../../assets/icons/share-icon.svg";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import {  useRecoilValue } from "recoil";
+import { useRecoilValue } from "recoil";
 import { user } from "../../atom/userAtom";
 import { getUserById } from "../../utils/userApiService";
 import { useEffect, useState } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { toast } from "react-toastify";
+import RatingModal from "../../components/ratingModal/RatingModal";
 
 export default function Account() {
   const [userData, setUserData] = useState();
@@ -32,13 +33,12 @@ export default function Account() {
   };
 
   const getUser = () => {
-    getUserById(payload).then((res) => {
-      setUserData(res);
-    }).catch((err)=> console.log(err));
+    getUserById(payload)
+      .then((res) => {
+        setUserData(res);
+      })
+      .catch((err) => console.log(err));
   };
-
-
-
 
   const setData = (data, type) => {
     const payload = [data, type];
@@ -64,9 +64,8 @@ export default function Account() {
     setData(route, "share");
   };
 
-
   useEffect(() => {
-    getUser()
+    getUser();
   }, []);
 
   return (
@@ -151,17 +150,20 @@ export default function Account() {
           />
           Share
         </div>
-       { userData?.role === 'Veterinarian' ? 
-           <div
-           className="flex flex-col items-center justify-center"
-         >
-          <i className="pi pi-star pi-spin !p-2 mb-2 h-[40px] w-[40px] bg-white !flex !items-center !justify-center !text-center rounded-full border-[1px] border-[#828282] hover:border-green-400 hover:bg-green-100 cursor-pointer"></i>
-           Rating
-         </div>
-       : ''}
+        {userData?.role === "Veterinarian" && userData?.id !== params.id ? (
+          <div
+            className="flex flex-col items-center justify-center"
+            onClick={() => setData("rate")}
+          >
+            <i className="pi pi-star pi-spin !p-2 mb-2 h-[40px] w-[40px] bg-white !flex !items-center !justify-center !text-center rounded-full border-[1px] border-[#828282] hover:border-green-400 hover:bg-green-100 cursor-pointer"></i>
+            Rating
+          </div>
+        ) : (
+          ""
+        )}
       </div>
 
-      {openDetail ? (
+      {openDetail && openDetail[0] !== "rate" ? (
         <div className="user  flex flex-col justify-center items-center w-[65%] lg:w-[20%] mx-auto mt-[15vh]">
           <h4 className=" font-bold pt-3">Users’ {openDetail[1]}</h4>
           <p className="text-sm text-center text-[#666666]">{openDetail[0]}</p>
@@ -189,6 +191,8 @@ export default function Account() {
           </CopyToClipboard>
           <p className="text-xs mt-4">Click to copy</p>
         </div>
+      ) : openDetail && openDetail[0] === "rate" ? (
+        <RatingModal type={"vet"} id={params.id} />
       ) : (
         <div className="user  flex flex-col justify-center items-center w-[65%] lg:w-[20%] mx-auto mt-[15vh]">
           <img src={handIcon} alt="" className=" w-[30px]" />

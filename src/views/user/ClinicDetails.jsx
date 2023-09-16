@@ -66,7 +66,7 @@ export default function ClinicDetails() {
                     <i className="pi pi-angle-left p-1 lg:p-3 h-[25px] w-[25px] lg:h-[45px] lg:w-[45px] bg-white rounded-full"></i>
                     Back
                   </Link>
-                  
+
                   {userData.id === storeInfo?.user_id ? (
                     <Link
                       onClick={() => checker("add-clinic")}
@@ -90,7 +90,7 @@ export default function ClinicDetails() {
           </div>
         </div>
       </div>
-     
+
       <div className="flex items-center justify-center mt-[-6vh]">
         {storeInfo?.picture && storeInfo?.picture.length > 64 ? (
           <img
@@ -105,7 +105,7 @@ export default function ClinicDetails() {
       <div className="name text-[1.25rem] pt-1 text-center font-bold">
         {storeInfo?.clinic_name}
       </div>
-    
+
       <small className=" text-[.9rem] py-3 text-center flex items-center justify-center ">
         Clinic
       </small>
@@ -155,12 +155,17 @@ export default function ClinicDetails() {
           />
           Share
         </div>
-        <div
-          className="flex flex-col items-center justify-center"
-        >
-         <i className="pi pi-star pi-spin !p-2 mb-2 h-[40px] w-[40px] bg-white !flex !items-center !justify-center !text-center rounded-full border-[1px] border-[#828282] hover:border-green-400 hover:bg-green-100 cursor-pointer"></i>
-          Rate
-        </div>
+        {userData?.id ? (
+          <div
+            className="flex flex-col items-center justify-center"
+            onClick={() => setData("rate")}
+          >
+            <i className="pi pi-star pi-spin !p-2 mb-2 h-[40px] w-[40px] bg-white !flex !items-center !justify-center !text-center rounded-full border-[1px] border-[#828282] hover:border-green-400 hover:bg-green-100 cursor-pointer"></i>
+            Rate
+          </div>
+        ) : (
+          ""
+        )}
       </div>
       <small className=" text-[1.1rem] pt-5 text-center flex flex-col gap-4 items-center justify-center space-y-2">
         Availability
@@ -208,7 +213,7 @@ export default function ClinicDetails() {
           </div>
         )}
       </div>
-      {openDetail ? (
+      {openDetail && openDetail[0] !== "rate" ? (
         <div className="user  flex flex-col justify-center items-center w-[65%] lg:w-[20%] mx-auto mt-[10vh]">
           <h4 className=" font-bold pt-3">Users’ {openDetail[1]}</h4>
           <p className="text-sm text-center text-[#666666]">{openDetail[0]}</p>
@@ -236,6 +241,8 @@ export default function ClinicDetails() {
           </CopyToClipboard>
           <p className="text-xs mt-4">Click to copy</p>
         </div>
+      ) : openDetail && openDetail[0] === "rate" ? (
+        <RatingModal type={"clinic"} id={params.id} />
       ) : (
         <div className="user  flex flex-col justify-center items-center w-[65%] lg:w-[20%] mx-auto mt-[10vh]">
           <img src={handIcon} alt="" className=" w-[30px]" />

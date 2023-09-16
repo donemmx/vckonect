@@ -150,13 +150,17 @@ export default function StoreDetails() {
           />
           Share
         </div>
-        <div
-          className="flex flex-col items-center justify-center"
-          onClick={() => setData("rate")}
-        >
-          <i className="pi pi-star pi-spin !p-2 mb-2 h-[40px] w-[40px] bg-white !flex !items-center !justify-center !text-center rounded-full border-[1px] border-[#828282] hover:border-green-400 hover:bg-green-100 cursor-pointer"></i>
-          Rate
-        </div>
+        {userData?.id ? (
+          <div
+            className="flex flex-col items-center justify-center"
+            onClick={() => setData("rate")}
+          >
+            <i className="pi pi-star pi-spin !p-2 mb-2 h-[40px] w-[40px] bg-white !flex !items-center !justify-center !text-center rounded-full border-[1px] border-[#828282] hover:border-green-400 hover:bg-green-100 cursor-pointer"></i>
+            Rate
+          </div>
+        ) : (
+          ""
+        )}
       </div>
       <small className=" text-[1.1rem] pt-5 text-center flex flex-col gap-4 items-center justify-center space-y-2">
         Availability
@@ -214,7 +218,7 @@ export default function StoreDetails() {
           )}
         </div>
       ) : openDetail && openDetail[0] === "rate" ? (
-        <RatingModal />
+        <RatingModal type={'store'} id={params.id} />
       ) : (
         <div className="user  flex flex-col justify-center items-center w-[65%] lg:w-[20%] mx-auto mt-[10vh]">
           <img src={handIcon} alt="" className=" w-[30px]" />

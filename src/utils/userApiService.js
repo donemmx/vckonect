@@ -363,6 +363,12 @@ const getPetByFilter = async (payload) => {
     .then((res) => res.data)
     .catch((err) => console.log(err));
 };
+const rate = async (payload) => {
+  return await axios
+    .post(`${baseURl}/rate`, payload)
+    .then((res) => res.data)
+    .catch((err) => console.log(err));
+};
 
 export {
   login,
@@ -413,5 +419,6 @@ export {
   addPromotion,
   deletePromotion,
   getFarmByFilter,
-  getPetByFilter
+  getPetByFilter,
+  rate
 };
