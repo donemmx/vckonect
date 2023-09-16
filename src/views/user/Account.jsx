@@ -150,7 +150,7 @@ export default function Account() {
           />
           Share
         </div>
-        {userData?.role === "Veterinarian" && userData?.id !== params.id ? (
+        {userData?.role === "Veterinarian" && userDetails?.id !== params.id ? (
           <div
             className="flex flex-col items-center justify-center"
             onClick={() => setData("rate")}
