@@ -155,7 +155,12 @@ export default function ClinicDetails() {
           />
           Share
         </div>
-        <RatingModal />
+        <div
+          className="flex flex-col items-center justify-center"
+        >
+         <i className="pi pi-star pi-spin !p-2 mb-2 h-[40px] w-[40px] bg-white !flex !items-center !justify-center !text-center rounded-full border-[1px] border-[#828282] hover:border-green-400 hover:bg-green-100 cursor-pointer"></i>
+          Rating
+        </div>
       </div>
       <small className=" text-[1.1rem] pt-5 text-center flex flex-col gap-4 items-center justify-center space-y-2">
         Availability

@@ -6,13 +6,12 @@ import markerIcon from "../../assets/icons/location-icon.svg";
 import handIcon from "../../assets/account/hand-icon.svg";
 import shareIcon from "../../assets/icons/share-icon.svg";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { useRecoilState, useRecoilValue } from "recoil";
+import {  useRecoilValue } from "recoil";
 import { user } from "../../atom/userAtom";
 import { getUserById } from "../../utils/userApiService";
 import { useEffect, useState } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { toast } from "react-toastify";
-import RatingModal from "../../components/ratingModal/RatingModal";
 
 export default function Account() {
   const [userData, setUserData] = useState();
@@ -152,7 +151,14 @@ export default function Account() {
           />
           Share
         </div>
-       { userData?.role === 'Veterinarian' ? <RatingModal /> : ''}
+       { userData?.role === 'Veterinarian' ? 
+           <div
+           className="flex flex-col items-center justify-center"
+         >
+          <i className="pi pi-star pi-spin !p-2 mb-2 h-[40px] w-[40px] bg-white !flex !items-center !justify-center !text-center rounded-full border-[1px] border-[#828282] hover:border-green-400 hover:bg-green-100 cursor-pointer"></i>
+           Rating
+         </div>
+       : ''}
       </div>
 
       {openDetail ? (
