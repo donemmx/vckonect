@@ -228,7 +228,7 @@ export default function Forum() {
         </>
       ) : (
         <>
-          <div className={`${allmessages.length > 0  ? 'lg:grid-cols-2' : 'lg:grid-cols-1'}grid md:grid-cols-1  gap-2 relative w-full `}>
+          <div className={`${allmessages?.length > 0  ? 'grid md:grid-cols-1   gap-2 relative w-full lg:grid-cols-2' : ' grid md:grid-cols-1   gap-2 relative w-full lg:grid-cols-1'}  `}>
             <div className="flex flex-col gap-2">
               {allmessages?.map((res) =>
                 res.id !== userData.id ? (
