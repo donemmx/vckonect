@@ -1,46 +1,37 @@
-import { Dialog } from "primereact/dialog";
 import { useState } from "react";
 import { Rating } from "primereact/rating";
 
 export default function RatingModal() {
-  const [visible, setVisible] = useState(false);
   const [value, setValue] = useState(0);
+  const [loading, setLoading] = useState(false);
 
-  const getValue =(data) => {
+  const getValue = (data) => {
     console.log(data);
-    setValue(data)
-  }
+    setValue(data);
+  };
   return (
-    <>
-      <Dialog
-        visible={visible}
-        draggable={false}
-        className=" w-[95%] md:w-[50%] lg:w-[30%]  "
-        onHide={() => setVisible(false)}
-        headerClassName="!bg-green-50"
-        contentClassName="!bg-green-50"
-      >
-        <div className=" flex items-center flex-col justify-center p-4 py-4">
-         <h3 className=" text-lg font-bold">
-            Rate 
-         </h3>
-         <p>Micheals Clinic</p>
-        <Rating
+    <div className="flex flex-col items-center justify-center  mt-[10vh]">
+      <i className="pi pi-star-fill !text-[3rem] !text-yellow-400 "></i>
+      <h2 className="py-4 lg:text-[1.3rem] font-black">User's Feedback</h2>
+      <p className=" w-[60%] lg:w-[15%] text-sm text-center mx-auto ">We would like you to rate this user on a scale of 1 to 5</p>
+      <Rating
           value={value}
           onChange={(e) => getValue(e.target.value)}
           cancel={false}
           stars={5}
           className="h-20"
         />
-        </div>
-      </Dialog>
-      <div
-          className="flex flex-col items-center justify-center"
-          onClick={() => setVisible(!visible)}
-        >
-         <i className="pi pi-star pi-spin !p-2 mb-2 h-[40px] w-[40px] bg-white !flex !items-center !justify-center !text-center rounded-full border-[1px] border-[#828282] hover:border-green-400 hover:bg-green-100 cursor-pointer"></i>
-          Rating
-        </div>
-    </>
+        <button
+              className="green__btn"
+              disabled={loading}
+            >
+              {loading ? (
+                <i className="pi pi-spin pi-spinner !text-[20px]"></i>
+              ) : (
+                ""
+              )}
+              Submit Rating
+            </button>
+    </div>
   );
 }

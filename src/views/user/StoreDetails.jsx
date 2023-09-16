@@ -16,6 +16,7 @@ import { getOneStore } from "../../utils/userApiService";
 import { reloadStore } from "../../atom/reloadAtom";
 import shareIcon from "../../assets/icons/share-icon.svg";
 import DirectMessageModal from "../../components/directMessageModal/DirectMessageModal";
+import RatingModal from "../../components/ratingModal/RatingModal";
 export default function StoreDetails() {
   const [storeInfo, setStoreInfo] = useState();
   const userData = useRecoilValue(user);
@@ -89,9 +90,9 @@ export default function StoreDetails() {
         {storeInfo?.store_name}
       </div>
       <small className=" text-[.9rem] py-3 text-center flex items-center justify-center ">
-       {storeInfo?.role}
+        {storeInfo?.role}
       </small>
-      <div className=" text-[.82rem] flex items-center gap-7 justify-center mt-2">
+      <div className=" text-[.82rem] flex items-center gap-7 flex-wrap justify-center mt-2">
         <a
           className="flex flex-col items-center justify-center "
           onClick={() => setData(storeInfo?.phone_number, "Phone Number")}
@@ -151,9 +152,10 @@ export default function StoreDetails() {
         </div>
         <div
           className="flex flex-col items-center justify-center"
+          onClick={() => setData("rate")}
         >
-         <i className="pi pi-star pi-spin !p-2 mb-2 h-[40px] w-[40px] bg-white !flex !items-center !justify-center !text-center rounded-full border-[1px] border-[#828282] hover:border-green-400 hover:bg-green-100 cursor-pointer"></i>
-          Rating
+          <i className="pi pi-star pi-spin !p-2 mb-2 h-[40px] w-[40px] bg-white !flex !items-center !justify-center !text-center rounded-full border-[1px] border-[#828282] hover:border-green-400 hover:bg-green-100 cursor-pointer"></i>
+          Rate
         </div>
       </div>
       <small className=" text-[1.1rem] pt-5 text-center flex flex-col gap-4 items-center justify-center space-y-2">
@@ -170,7 +172,7 @@ export default function StoreDetails() {
           />
         )}
       </small>
-      {openDetail ? (
+      {openDetail && openDetail[0] !== "rate" ? (
         <div className="user  flex flex-col justify-center items-center w-[65%] lg:w-[20%] mx-auto mt-[10vh]">
           <h4 className=" font-bold pt-3">Users’ {openDetail[1]}</h4>
           <p className="text-sm text-center text-[#666666]">{openDetail[0]}</p>
@@ -211,6 +213,8 @@ export default function StoreDetails() {
             ""
           )}
         </div>
+      ) : openDetail && openDetail[0] === "rate" ? (
+        <RatingModal />
       ) : (
         <div className="user  flex flex-col justify-center items-center w-[65%] lg:w-[20%] mx-auto mt-[10vh]">
           <img src={handIcon} alt="" className=" w-[30px]" />
