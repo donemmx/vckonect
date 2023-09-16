@@ -12,6 +12,7 @@ import { getUserById } from "../../utils/userApiService";
 import { useEffect, useState } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { toast } from "react-toastify";
+import RatingModal from "../../components/ratingModal/RatingModal";
 
 export default function Account() {
   const [userData, setUserData] = useState();
@@ -151,6 +152,7 @@ export default function Account() {
           />
           Share
         </div>
+       { userData?.role === 'Veterinarian' ? <RatingModal /> : ''}
       </div>
 
       {openDetail ? (
