@@ -16,6 +16,7 @@ import { getOneStore } from "../../utils/userApiService";
 import { reloadStore } from "../../atom/reloadAtom";
 import shareIcon from "../../assets/icons/share-icon.svg";
 import DirectMessageModal from "../../components/directMessageModal/DirectMessageModal";
+import RatingModal from "../../components/ratingModal/RatingModal";
 export default function StoreDetails() {
   const [storeInfo, setStoreInfo] = useState();
   const userData = useRecoilValue(user);
@@ -132,6 +133,7 @@ export default function StoreDetails() {
         ) : (
           ""
         )}
+
         <div
           className="flex flex-col items-center justify-center"
           onClick={() =>
@@ -148,6 +150,7 @@ export default function StoreDetails() {
           />
           Share
         </div>
+        <RatingModal />
       </div>
       <small className=" text-[1.1rem] pt-5 text-center flex flex-col gap-4 items-center justify-center space-y-2">
         Availability
