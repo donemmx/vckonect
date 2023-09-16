@@ -25,6 +25,14 @@ export default function DiseasePrediction() {
     };
     diseasePredictor(payload).then((res) => setResult(res));
   };
+  
+  const checker = (route) => {
+    if (userData?.role === "Veterinarian") {
+      location(`/vet-${route}`);
+    } else {
+      location(`/animal-owner-${route}`);
+    }
+  };
 
 
   const restart = () => {
@@ -122,7 +130,7 @@ export default function DiseasePrediction() {
                 </p>
               ))}
               <div className=" grid gap-2 mt-10">
-                <button className="tertiary__btn">Consult a Vet</button>
+                <button className="tertiary__btn" onClick={()=> checker('home')} >Consult a Vet</button>
                 <button className="green__btn" onClick={restart}>Restart</button>
               </div>
             </div>
