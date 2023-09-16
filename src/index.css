@@ -38,6 +38,18 @@
 
 /* reset style */
 
+.p-rating .p-rating-item.p-rating-item-active .p-rating-icon{
+  color: var(--primary) !important;
+  box-shadow: none !important;
+
+}
+.p-rating .p-rating-item .p-rating-icon.p-icon{
+  height: 1.6rem !important;
+  width: 1.6rem !important;
+}
+.p-rating-item{
+  box-shadow: none !important;
+}
 .p-datatable .p-datatable-tbody > tr > td{
   padding: 0.5rem !important;
 }

@@ -84,7 +84,7 @@ export default function Dashboard() {
           icon={arrow}
           title="Manage your store"
           subtitle="Join the poor of vendors on our platform to earn from sales."
-          onClick={() => getRoute("store")}
+          onClick={() => getRoute("stores")}
         />
         {userData?.role === "Animal Owner" ? (
           <AccountCard

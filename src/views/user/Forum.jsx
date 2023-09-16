@@ -228,7 +228,7 @@ export default function Forum() {
         </>
       ) : (
         <>
-          <div className="grid md:grid-cols-2 gap-2 relative ">
+          <div className="grid md:grid-cols-1 lg:grid-cols-2 gap-2 relative w-full ">
             <div className="flex flex-col gap-2">
               {allmessages?.map((res) =>
                 res.id !== userData.id ? (
@@ -253,7 +253,7 @@ export default function Forum() {
                   </div>
                   <div className="flex items-center gap-2">
                     <div className="time text-xs p-1 px-3 rounded-full bg-gray-200 w-fit ">
-                      {moment(new Date(res?.message[0].date)).format('DD-MM-YYYY').fromNow()}
+                      {moment(res?.message[0].date).fromNow()}
                     </div>
                     {res.counter > 0 ? <Badge value={res?.counter} severity={"danger"}></Badge> : ''}
                   </div>
@@ -264,7 +264,7 @@ export default function Forum() {
 
               )}
             </div>
-            <div className="fixed !overflow-y-auto h-[50vh] right-[8%]">
+            <div className="lg:fixed w-full lg:w-[38%] !overflow-y-auto h-[50vh] lg:right-[8%]">
               {messages ? (
                 <>
                   <div className="">

@@ -14,7 +14,8 @@ import notAvailable from "../../assets/sidebar/notAvailable.svg";
 import shareIcon from "../../assets/icons/share-icon.svg";
 import { actionState } from "../../atom/actionAtom";
 import { getOneClinic } from "../../utils/vetApiService";
-
+import RatingModal from "../../components/ratingModal/RatingModal";
+        
 export default function ClinicDetails() {
   const userData = useRecoilValue(user);
   const [storeInfo, setStoreInfo] = useState();
@@ -151,6 +152,7 @@ export default function ClinicDetails() {
           />
           Share
         </div>
+          <RatingModal/>
       </div>
       <small className=" text-[1.1rem] pt-5 text-center flex flex-col gap-4 items-center justify-center space-y-2">
         Availability

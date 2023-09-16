@@ -21,9 +21,25 @@ import arrowBlue from "../assets/icons/arrow-icons/next-icon-blue.svg";
 import arrowRed from "../assets/icons/arrow-icons/next-icon-red.svg";
 import Footer from "../components/footer/Footer";
 import Vetcard from "../components/vetCard/Vetcard";
+import { useEffect, useState } from "react";
+import { getVeterinarianByFilter } from "../utils/vetApiService";
+import Loading from "../components/loading/Loading";
 
 export default function Home() {
+  const [loading, setLoading] = useState(true);
 
+  const [vets, setVets] = useState([]);
+
+  const getVetsData = async () => {
+    await getVeterinarianByFilter({ name: "" }).then((res) => {
+      setVets(res.slice(0, 4));
+      setLoading(false);
+    });
+  };
+
+  useEffect(() => {
+    getVetsData();
+  }, []);
   return (
     <div>
       <Hero />
@@ -41,6 +57,7 @@ export default function Home() {
                   subtitle="Discover nearby vet clinics that can provides quality vet care for your pets/livestock via our platform."
                   btnText="Browse Now"
                   icon={arrowBlue}
+                  route={"/search"}
                 />
                 <CardOne
                   image={vetIcon}
@@ -48,6 +65,8 @@ export default function Home() {
                   subtitle="Create a vet Clinic account in (3) three simple step on our platform to make your clinic visible to nearby clients."
                   btnText="Get Started"
                   icon={arrowRed}
+                  route={"/vet-add-clinic"}
+                  
                 />
               </div>
             </div>
@@ -79,6 +98,7 @@ export default function Home() {
                 btnText="Browse Now"
                 icon={arrowYellow}
                 image={searchYellow}
+                route={"/vet-home"}
               />
               <CardOne
                 title="Register your store"
@@ -86,6 +106,7 @@ export default function Home() {
                 btnText="Get Started"
                 icon={arrowGreen}
                 image={storeIcon}
+                route={"/vet-stores"}
               />
             </div>
           </div>
@@ -103,6 +124,7 @@ export default function Home() {
               subtitle="Discover the appropriate amount of feed to give your livestock to stay healthy and productive"
               btnText="Try it Now"
               icon={arrowOrange}
+              route={"/vet-feed-calculator"}
             />
             <CardOne
               image={diseaseIcon}
@@ -110,6 +132,7 @@ export default function Home() {
               subtitle="Diagnose and treat various diseases in animals to improving their health and well-being"
               btnText="Try it Now"
               icon={arrowMixed}
+              route={"/vet-disease-prediction"}
             />
           </div>
         </div>
@@ -156,11 +179,19 @@ export default function Home() {
           <div className="title font-black head__two ">
             Most Contacted Nearby Vet
           </div>
-          <div className="group scrollable">
-            <Vetcard />
-            <Vetcard />
-            <Vetcard />
-            <Vetcard />
+          <div className=" grid md:grid-col-2 lg:grid-cols-4 gap-4 w-full mb-10">
+            {loading
+              ? [1, 2, 3, 4].map((data) => (
+                  <div className="w-full mt-10" key={data}>
+                    <Loading />
+                  </div>
+                ))
+              : ""}
+          </div>
+          <div className="grid md:grid-col-2 lg:grid-cols-4 gap-4 w-full">
+            {vets?.map((res) => (
+              <Vetcard key={res} fullData={res} />
+            ))}
           </div>
         </div>
       </div>
