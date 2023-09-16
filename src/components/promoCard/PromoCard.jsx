@@ -54,14 +54,14 @@ export default function PromoCard({ data, store_id, show }) {
         infiniteLoop
         className=" absolute w-full "
       >
-        {/* {data?.images?.map((res) => (
+        {data?.images?.map((res) => (
           <div key={res} className=" h-full w-full rounded-lg">
             <img
               src={res}
               className="rounded-lg w-full h-[200px] object-cover"
             />
           </div>
-        ))} */}
+        ))}
       </Carousel>
       <div className="group h-full w-full">
         <div className="top adsUser h-[55%] w-[200px]">
