@@ -228,7 +228,7 @@ export default function Forum() {
         </>
       ) : (
         <>
-          <div className="grid md:grid-cols-1 lg:grid-cols-2 gap-2 relative w-full ">
+          <div className={`${allmessages.length > 0  ? 'lg:grid-cols-2' : 'lg:grid-cols-1'}grid md:grid-cols-1  gap-2 relative w-full `}>
             <div className="flex flex-col gap-2">
               {allmessages?.map((res) =>
                 res.id !== userData.id ? (
@@ -264,10 +264,10 @@ export default function Forum() {
 
               )}
             </div>
-            <div className="lg:fixed w-full lg:w-[38%] !overflow-y-auto h-[50vh] lg:right-[8%]">
-              {messages ? (
+            <div className="w-full !overflow-y-auto h-[50vh] ">
+              {messages?.length > 0  ? (
                 <>
-                  <div className="">
+                  <div className="lg:fixed  lg:w-[38%] lg:right-[8%] ">
                     <div className="flex flex-col gap-2">
                       {messages?.message?.map((res) => (
                         <div
@@ -405,7 +405,7 @@ export default function Forum() {
                 </>
               ) : (
                 <>
-                  <div className="border p-5 h-full flex flex-col items-center gap-3 justify-center">
+                  <div className="border p-5 h-full w-full flex flex-col items-center gap-3 justify-center">
                     <img src={emptyMessage} alt="" />
                     <div className="font-bold">No Details</div>
                     <small className="w-[50%] text-center">
