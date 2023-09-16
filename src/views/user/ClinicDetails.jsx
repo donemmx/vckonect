@@ -15,7 +15,7 @@ import shareIcon from "../../assets/icons/share-icon.svg";
 import { actionState } from "../../atom/actionAtom";
 import { getOneClinic } from "../../utils/vetApiService";
 import RatingModal from "../../components/ratingModal/RatingModal";
-        
+
 export default function ClinicDetails() {
   const userData = useRecoilValue(user);
   const [storeInfo, setStoreInfo] = useState();
@@ -66,6 +66,7 @@ export default function ClinicDetails() {
                     <i className="pi pi-angle-left p-1 lg:p-3 h-[25px] w-[25px] lg:h-[45px] lg:w-[45px] bg-white rounded-full"></i>
                     Back
                   </Link>
+                  
                   {userData.id === storeInfo?.user_id ? (
                     <Link
                       onClick={() => checker("add-clinic")}
@@ -89,6 +90,7 @@ export default function ClinicDetails() {
           </div>
         </div>
       </div>
+     
       <div className="flex items-center justify-center mt-[-6vh]">
         {storeInfo?.picture && storeInfo?.picture.length > 64 ? (
           <img
@@ -103,6 +105,7 @@ export default function ClinicDetails() {
       <div className="name text-[1.25rem] pt-1 text-center font-bold">
         {storeInfo?.clinic_name}
       </div>
+    
       <small className=" text-[.9rem] py-3 text-center flex items-center justify-center ">
         Clinic
       </small>
@@ -152,7 +155,7 @@ export default function ClinicDetails() {
           />
           Share
         </div>
-          <RatingModal/>
+        <RatingModal />
       </div>
       <small className=" text-[1.1rem] pt-5 text-center flex flex-col gap-4 items-center justify-center space-y-2">
         Availability
@@ -182,6 +185,23 @@ export default function ClinicDetails() {
               </div>
             ))}
         </div>
+      </div>
+      <div className="w-[85%] md:w-[60%] lg:w-[40%] mx-auto">
+        {userData?.vet_number_status === "Verified" ? (
+          <div className="border border-[#52CE06] text-center text-green-800 p-3 rounded-[18px] bg-[#F9FFF5] mt-6">
+            <small>Congratulations</small>
+            <p>
+              Your Clinic License Number (CLN) has been Verified and Approved
+            </p>
+          </div>
+        ) : (
+          <div className="border text-red-700 bg-red-50 border-red-400  p-3 rounded-[18px] mt-6">
+            <small>Pending Verification</small>
+            <p>
+              Your Clinic License Number (CLN) has not been Verified / Approved
+            </p>
+          </div>
+        )}
       </div>
       {openDetail ? (
         <div className="user  flex flex-col justify-center items-center w-[65%] lg:w-[20%] mx-auto mt-[10vh]">
