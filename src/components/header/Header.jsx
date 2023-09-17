@@ -221,8 +221,8 @@ export default function Header({ bg }) {
               <div className="flex items-center gap-2 shadow-sm cursor-pointer">
                 <i className="pi pi-envelope"></i>
               <div className="p-3">
-                <p>{res.title}</p>
-                <p>{res.role}</p>
+                <p className="font-bold text-sm">{res.title}</p>
+                <p className="text-xs">{res.role}</p>
               </div>
               </div>
             </div>
