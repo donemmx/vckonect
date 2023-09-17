@@ -48,20 +48,21 @@ export default function Forum() {
     });
     const channel = pusher.subscribe("chatbox");
     channel.bind("App\\Events\\DirectMessage", (data) => {
-      console.log(messages);
       if (
         (data.sender_id == userData.id && data.sender_role == userData.role) ||
         (data.receiver_id == userData.id &&
           data.receiver_role == userData.receiver_role)
       ) {
-        let message=[...messages, data]
-        setMessages(message);
-        console.log(message);
+        getDirectMessage({ id: userData?.id, role: userData?.role }).then((res) => {
+          setAllMessages(res);
+          for (let index = 0; index < res.length; index++) {
+            if (res[index].id == partner.id) {
+             setMessages(res[index].message)
+          }
+        }
+        });
       }
     });
-    return () => {
-      pusher.unsubscribe("chatbox");
-    };
   }, [messages]);
 
   useEffect(() => {
