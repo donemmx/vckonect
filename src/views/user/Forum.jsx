@@ -23,6 +23,7 @@ import DirectMessageCard from "../../components/directMessageCard/DirectMessageC
 import { message } from "../../atom/messageAtom";
 import moment from "moment";
 import { Badge } from "primereact/badge";
+import Pusher from "pusher-js";
 
 export default function Forum() {
   const [tab, setTab] = useState("chat");
@@ -34,22 +35,64 @@ export default function Forum() {
   const [search, setSearch] = useState("");
   const [selectedMessage, setSelectedMessage] = useState(null);
   const [allmessages, setAllMessages] = useState([]);
+  const [partner, setPartner] = useState([]);
   const [file, setFile] = useState(null);
   const [comment, setComment] = useState([]);
   const [messages, setMessages] = useState([]);
   const [reload, setReload] = useRecoilState(reloadStore);
 
+  useEffect(() => {
+    const pusher = new Pusher("c38d7afddec65408e4cd", {
+      cluster: "mt1",
+      encrypted: true,
+    });
+    const channel = pusher.subscribe("chatbox");
+    channel.bind("App\\Events\\DirectMessage", (data) => {
+      console.log(data);
+      if (
+        (data.sender_id == userData.id && data.sender_role == userData.role) ||
+        (data.receiver_id == userData.id &&
+          data.receiver_role == userData.receiver_role)
+      ) {
+        const newMessage=messages.push(data)
+        setMessages(newMessage);
+        console.log(messages);
+      }
+    });
+    return () => {
+      pusher.unsubscribe("chatbox");
+    };
+  }, []);
+
+  useEffect(() => {
+    const all=allmessages;
+    for (let index = 0; index < allmessages.length; index++) {
+      if(allmessages[index].id==partner.id){
+        allmessages.splice(index,1);
+      }
+    }
+    if (messages) setAllMessages([...allmessages, messages]);
+  }, [messages]);
+
   const userStore = useRecoilValue(storeData);
   const userData = useRecoilValue(user);
 
-  const [messageStore, setMessageStore] = useState()
+  const [messageStore, setMessageStore] = useState();
 
   const viewMessage = (data) => {
-    viewDirectMessage(data).then(() => {
-      setMessages(data)
+    let payload = {
+      sender_id: data.message[0].sender_id,
+      sender_role: data.message[0].sender_role,
+      receiver_id: data.message[0].receiver_id,
+      receiver_role: data.message[0].receiver_role,
+    };
+    viewDirectMessage(payload).then(() => {
+      data.counter = 0;
+      setPartner({role:data.role, id:data.id});
+      setMessageData(partner);
+      setMessages(data.message);
     });
-
-  }
+  };
   const activeTab = (type) => {
     setTab(type);
   };
@@ -85,13 +128,13 @@ export default function Forum() {
       content: comment,
     };
 
-    // directMessage(payload).then(() => {
-    //   toast.success("Message sent successfully");
-    //   setLoading(false);
-    //   setComment("");
-    // });
+    directMessage(payload).then(() => {
+      // toast.success("Message sent successfully");
+      setLoading(false);
+      setComment("");
+    });
 
-    setMessageData()
+    setMessageData();
   };
 
   const getFile = (e) => {
@@ -123,7 +166,6 @@ export default function Forum() {
         setLoading(false);
       });
     }
-
   };
 
   useEffect(() => {
@@ -142,7 +184,6 @@ export default function Forum() {
       location("/vet-subscription");
     }
   }, []);
-
 
   return (
     <div>
@@ -228,48 +269,57 @@ export default function Forum() {
         </>
       ) : (
         <>
-          <div className={`${allmessages?.length > 0  ? 'grid md:grid-cols-1   gap-2 relative w-full lg:grid-cols-2' : ' grid md:grid-cols-1   gap-2 relative w-full lg:grid-cols-1'}  `}>
-            <div className="flex flex-col gap-2">
+          <div
+            className={`${
+              allmessages?.length > 0
+                ? "grid md:grid-cols-1   gap-2 relative w-full lg:grid-cols-2"
+                : " grid md:grid-cols-1   gap-2 relative w-full lg:grid-cols-1"
+            }  `}
+          >
+            <div className="flex flex-col gap-2" >
               {allmessages?.map((res) =>
                 res.id !== userData.id ? (
-                  <div key={res.id}
-                  className="flex flex-wrap gap-2  border items-center justify-between p-5 bg-white cursor-pointer hover:border-green-500 hover:border-2 transition-all ease-in-out hover:bg-green-50 rounded"
-                  onClick={() => viewMessage(res)}
-                >
-                  <div className="flex gap-2 ">
-                    <div className="h-[40px] w-[40px]">
-                      <img
-                        src={res?.profile_picture}
-                        alt=""
-                        className="w-full h-full object-cover rounded-full"
-                      />
-                    </div>
-                    <div className="">
-                      <div className="name text-sm font-bold">
-                        {res?.first_name} {res?.last_name}
+                  <div
+                    key={res.id}
+                    className="flex flex-wrap gap-2  border items-center justify-between p-5 bg-white cursor-pointer hover:border-green-500 hover:border-2 transition-all ease-in-out hover:bg-green-50 rounded"
+                    onClick={() => viewMessage(res)}
+                  >
+                    <div className="flex gap-2 ">
+                      <div className="h-[40px] w-[40px]">
+                        <img
+                          src={res?.profile_picture}
+                          alt=""
+                          className="w-full h-full object-cover rounded-full"
+                        />
                       </div>
-                      <small className="font-light text-xs">{res?.role}</small>
+                      <div className="">
+                        <div className="name text-sm font-bold">
+                          {res?.first_name} {res?.last_name}
+                        </div>
+                        <small className="font-light text-xs">
+                          {res?.role}
+                        </small>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      {res.counter > 0 ? (
+                        <Badge value={res?.counter} severity={"danger"}></Badge>
+                      ) : (
+                        ""
+                      )}
                     </div>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <div className="time text-xs p-1 px-3 rounded-full bg-gray-200 w-fit ">
-                      {moment(res?.message[0].date).fromNow()}
-                    </div>
-                    {res.counter > 0 ? <Badge value={res?.counter} severity={"danger"}></Badge> : ''}
-                  </div>
-                </div>
                 ) : (
                   ""
                 )
-
               )}
             </div>
             <div className="w-full !overflow-y-auto h-[50vh] ">
-              {messages?.length > 0  ? (
+              {messages?.length > 0 ? (
                 <>
                   <div className="lg:fixed  lg:w-[38%] lg:right-[8%] ">
                     <div className="flex flex-col gap-2">
-                      {messages?.message?.map((res) => (
+                      {messages.map((res) => (
                         <div
                           className="border p-4 bg-white rounded"
                           key={res.id}

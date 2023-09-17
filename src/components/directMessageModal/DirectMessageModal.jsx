@@ -17,10 +17,20 @@ export default function DirectMessageModal({ fullData }) {
   const userData = useRecoilValue(user);
   const openModal = () => {
     setVisible(!visible);
+    let id;
+    let role;
+    if(fullData?.hasOwnProperty('vet_number_status')){
+     id=fullData?.id
+     role='Veterinarian';
+    }else{
+      id=fullData?.user_id;
+      role=fullData?.role;
+    }
     const payload = {
-      id: fullData?.user_id,
-      role: fullData?.role,
+      id: id,
+      role: role,
     };
+    console.log(fullData);
     getUserById(payload).then((res) => {
       setUserInfo(res);
     });
