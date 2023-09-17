@@ -27,7 +27,7 @@ export default function CaseCard({ fullData }) {
   const editPet = () => {
     setStore(fullData);
     setAction("edit");
-    location("/add-pet");
+    location("/vet-add-case");
   };
 
   const deleteMyCase = () => {
@@ -48,20 +48,6 @@ export default function CaseCard({ fullData }) {
     setOpenDetail(payload);
   };
 
-  const filter = () => {
-    let lit = [];
-    // fullData?.map((data)=> {
-    //     // const newdata = data.slice(4)
-    //     console.log(data);
-    //     // lit.push(newdata)
-    // })
-    // setFiltered(lit)
-    console.log(fullData);
-  };
-
-  useEffect(() => {
-    filter();
-  }, []);
 
   return (
     <>

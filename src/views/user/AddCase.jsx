@@ -69,6 +69,10 @@ export default function AddCase() {
     tentative_diagnoistic: "",
   };
 
+  const loadedData = {
+    ...store
+  }
+
   const {
     values,
     errors,
@@ -80,7 +84,7 @@ export default function AddCase() {
     handleSubmit,
   } = useFormik({
     validateOnMount: true,
-    initialValues: initialValues,
+    initialValues: action === 'add' ?  initialValues : loadedData,
     validationSchema: addCaseValidation,
     onSubmit,
   });
@@ -101,6 +105,7 @@ export default function AddCase() {
     getAllPets(), getAllFarms();
   }, []);
 
+ 
 
   return (
     <div className=" bg-white h-full pb-20  mb-10 rounded-md border-[1px] border-[#EBEBEB]">
