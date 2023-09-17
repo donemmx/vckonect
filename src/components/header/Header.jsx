@@ -219,7 +219,7 @@ export default function Header({ bg }) {
           {notification.map((res, i) => (
             <div className=" top-[10vh] z-20" key={res.id}>
               <div className="flex items-center gap-2 shadow-sm cursor-pointer">
-                <i className="pi pi-envelope"></i>
+                <i className="pi pi-inbox"></i>
               <div className="p-3">
                 <p className="font-bold text-sm">{res.title}</p>
                 <p className="text-xs">{res.role}</p>
