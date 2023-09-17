@@ -65,11 +65,11 @@ export default function AdminPromotion() {
   };
 
   const deletePromotion = (data) => {
-    setLoading(true);
     const payload = {
       promotion_id: data.promotion_id,
-    };
-    deleteUserPromotionPlan(payload).then((res) => {
+    }
+    setLoading(true)
+    deleteUserPromotionPlan(payload).then(() => {
       toast.success("Promotion deleted successfully");
       setLoading(false);
       getPromotions();
@@ -186,11 +186,7 @@ export default function AdminPromotion() {
                       deleteCard={true}
                       time={moment(res.date).utc().fromNow()}
                       edit={true}
-                      approveFunction={() => {
-                        deletePromotion({
-                          id: res.promotion_id,
-                        });
-                      }}
+                      approveFunction={() => deletePromotion(res)}
                       editFunction={() => editPromotion(res)}
                     />
                   ))}

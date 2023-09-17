@@ -24,11 +24,11 @@ export default function AdminWarningCard({
     setVerifyVisible(!verifyVisible);
   };
 
-  const accept = async () => {
+  const accept = () => {
     openModal();
     acceptFunction();
   };
-  const verifyVet = async () => {
+  const verifyVet =  () => {
     openVerifyModal();
     verifyVetFunction();
   };
