@@ -211,8 +211,7 @@ export default function AdminPromotion() {
                         key={res.id}
                       >
                         <div className="">
-                         <ImageComponent data={res} />
-                         
+                          <ImageComponent data={res} />
                         </div>
                         <PromoCard data={res} store_id={res.id} show={true} />
                       </div>
@@ -223,12 +222,15 @@ export default function AdminPromotion() {
                 <>
                   <div className="posts w-full mx-auto items-center pt-10 flex flex-wrap gap-5">
                     {expiredSub?.map((res) => (
-                      <PromoCard
+                      <div
+                        className="flex  justify-center flex-col"
                         key={res.id}
-                        data={res}
-                        store_id={res.id}
-                        show={true}
-                      />
+                      >
+                        <div className="">
+                          <ImageComponent data={res} />
+                        </div>
+                        <PromoCard data={res} store_id={res.id} show={true} />
+                      </div>
                     ))}
                   </div>
                 </>
