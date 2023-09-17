@@ -1,8 +1,21 @@
 import addIcon from "../../assets/icons/add-icon.svg";
 import { Link } from "react-router-dom";
-// import PeLivestocktCard from "../../components/livestockpetCard/PeLivestocktCard";
+import PeLivestocktCard from "../../components/livestockpetCard/PeLivestocktCard";
+import { useEffect, useState } from "react";
+import { getCase } from "../../utils/vetApiService";
+import { useRecoilValue } from "recoil";
+import { user } from "../../atom/userAtom";
+import CaseCard from "../../components/caseCard/CaseCard";
 
 export default function Cases() {
+  const [allcase, setAllCases] = useState([])
+  const userData = useRecoilValue(user)
+
+  useEffect(()=> {
+    getCase({user_id: userData?.id}).then((res)=> {
+      setAllCases(res)
+    })
+  }, [])
   return (
     <div className="p-3">
       <div className="pets mt-5  mb-5 p-4 border bg-white rounded-lg">
@@ -19,7 +32,11 @@ export default function Cases() {
           <img src={addIcon} alt="" className="w-[40px]" />
         </Link>
 
-        {/* <PeLivestocktCard petName="Kora" petName2="Catherine" /> */}
+      <div className="">
+       {allcase?.map((res)=> (
+        <CaseCard name={res.farm_name} fullData={res} key={res.id}/> 
+       )) }
+      </div>
       </div>
     </div>
   );
