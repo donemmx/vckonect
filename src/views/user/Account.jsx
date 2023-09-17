@@ -73,7 +73,7 @@ export default function Account() {
       <div className="top bg-account h-[25vh] p-3 lg:p-10 rounded-t-lg">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3 text-[.75rem] lg:text-[.9rem] cursor-pointer"></div>
-          {userData?.id && userDetails?.id === params.id ? (
+          {userDetails?.id && userDetails?.id === params.id ? (
             <Link
               onClick={() => checker("account-details")}
               className=" flex items-center gap-3 text-[.75rem] lg:text-[.9rem] cursor-pointer"
@@ -150,7 +150,7 @@ export default function Account() {
           />
           Share
         </div>
-        {userData?.role === "Veterinarian" && userDetails?.id !== params.id ? (
+        {userDetails?.role === "Veterinarian" && userDetails?.id !== params.id ? (
           <div
             className="flex flex-col items-center justify-center"
             onClick={() => setData("rate")}
@@ -191,7 +191,7 @@ export default function Account() {
           </CopyToClipboard>
           <p className="text-xs mt-4">Click to copy</p>
         </div>
-      ) : userDetails?.id && openDetail && openDetail[0] === "rate" ? (
+      ) :  openDetail && openDetail[0] === "rate" ? (
         <RatingModal type={"vet"} id={params.id} />
       ) : (
         <div className="user  flex flex-col justify-center items-center w-[65%] lg:w-[20%] mx-auto mt-[15vh]">

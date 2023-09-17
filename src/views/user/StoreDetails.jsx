@@ -150,7 +150,7 @@ export default function StoreDetails() {
           />
           Share
         </div>
-        {userData?.id ? (
+        {userData?.id && userData?.id !== params.id ? (
           <div
             className="flex flex-col items-center justify-center"
             onClick={() => setData("rate")}
