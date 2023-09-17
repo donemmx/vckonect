@@ -18,7 +18,8 @@ export default function Header({ bg }) {
   const location = useNavigate();
 
   const [open, setOpen] = useState(false);
-  const [notification, setNotification] = useState();
+  const [openNotify, setOpenNotify] = useState(false);
+  const [notification, setNotification] = useState([]);
   const userData = useRecoilValue(user);
   const [data, setData] = useRecoilState(user);
   const openModal = () => {
@@ -63,9 +64,9 @@ export default function Header({ bg }) {
       user_id: userData?.id,
       role: userData?.role,
     };
-    // getNotification(payload).then((res)=> {
-    //   setNotification(res)
-    // })
+    getNotification(payload).then((res) => {
+      setNotification(res);
+    });
   }, []);
 
   return (
@@ -123,11 +124,14 @@ export default function Header({ bg }) {
           ) : (
             <div className="">
               <div className="flex items-center gap-4">
-                <i className="pi pi-bell p-overlay-badge p-3 bg-gray-50 rounded-full border">
+                <i
+                  className="pi pi-bell p-overlay-badge p-3 !cursor-pointer bg-gray-50 rounded-full border"
+                  onClick={() => setOpenNotify(!openNotify)}
+                >
                   <Badge
                     value={notification?.length}
                     severity="danger"
-                    className="w-[20px] h-[20px] !flex !justify-center !items-center !rounded-full !text-[10px]"
+                    className="w-[20px] h-[20px]  !flex !justify-center !items-center !rounded-full !text-[10px]"
                   ></Badge>
                 </i>
                 {userData?.profile_picture?.length > 64 ? (
@@ -186,7 +190,7 @@ export default function Header({ bg }) {
         >
           <div className="modal__body flex  flex-col gap-2 p-4">
             <button
-              onClick={() => accountChecker('account')}
+              onClick={() => accountChecker("account")}
               className="group text-[15px] text-gray-600 p-2 flex items-center gap-3 hover:bg-gray-300 rounded-md cursor-pointer"
             >
               <img src={userPic} alt="" className="h-4" />
@@ -205,6 +209,24 @@ export default function Header({ bg }) {
               Customer Support
             </div>
           </div>
+        </div>
+      ) : (
+        ""
+      )}
+
+      {openNotify ? (
+        <div className="fixed h-[70vh] overflow-y-scroll right-[10vw] top-[8vh] bg-white w-[20vw] p-5 z-20 ">
+          {notification.map((res, i) => (
+            <div className=" top-[10vh] z-20" key={res.id}>
+              <div className="flex items-center gap-2 shadow-sm cursor-pointer">
+                <i className="pi pi-envelope"></i>
+              <div className="p-3">
+                <p>{res.title}</p>
+                <p>{res.role}</p>
+              </div>
+              </div>
+            </div>
+          ))}
         </div>
       ) : (
         ""
