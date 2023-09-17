@@ -12,6 +12,7 @@ import { getFarmByFilter, getUserById } from "../../utils/userApiService";
 import { useEffect, useState } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { toast } from "react-toastify";
+import moment from "moment";
 
 export default function Farm() {
   const [userData, setUserData] = useState();
@@ -47,7 +48,7 @@ export default function Farm() {
   };
 
   return (
-    <div className=" bg-white h-[110vh] mb-10  rounded-md border-[1px] border-[#EBEBEB]">
+    <div className=" bg-white min-h-[110vh]  rounded-md border-[1px] border-[#EBEBEB]">
       <div className="top bg-account h-[25vh] p-3 lg:p-10 rounded-t-lg">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3 text-[.75rem] lg:text-[.9rem] cursor-pointer"></div>
@@ -93,8 +94,27 @@ export default function Farm() {
         </div>
       </div>
 
+      {Object.entries(userData).map((res) => (
+        <div
+          className="w-[90%] md:w-[60%] lg:w-[30%] mx-auto px-4 pt-1 flex items-center justify-between"
+          key={res.id}
+        >
+        { 
+        res[0].includes('picture')? '':
+        res[0].includes('id')? '':
+        <>
+          <div className="title font-bold">{res[0].split("_").join(" ")}</div>
+          {res[0].includes("date") ? (
+            <div className="value">{moment(res[1]).format("DD-MM-YYYY")}</div>
+          ) : (
+            <div className="value">{res[1]}</div>
+          )}
+        </>
+}
+        </div>
+      ))}
       {openDetail ? (
-        <div className="user  flex flex-col justify-center items-center w-[65%] lg:w-[20%] mx-auto mt-[15vh]">
+        <div className="user  flex flex-col justify-center items-center w-[65%] lg:w-[20%] mx-auto mt-[15vh] mb-[10vh]">
           <h4 className=" font-bold pt-3">Users’ {openDetail[1]}</h4>
           <p className="text-sm text-center text-[#666666]">{openDetail[0]}</p>
           <CopyToClipboard
@@ -122,7 +142,7 @@ export default function Farm() {
           <p className="text-xs mt-4">Click to copy</p>
         </div>
       ) : (
-        <div className="user  flex flex-col justify-center items-center w-[65%] lg:w-[20%] mx-auto mt-[15vh]">
+        <div className="user  flex flex-col justify-center items-center w-[65%] lg:w-[20%] mx-auto mt-[15vh] mb-[10vh]">
           <img src={handIcon} alt="" className=" w-[30px]" />
           <h4 className=" font-bold pt-3">Hey! Users</h4>
           <p className="text-sm text-center text-[#666666]">
