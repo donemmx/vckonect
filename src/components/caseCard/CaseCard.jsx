@@ -112,7 +112,12 @@ export default function CaseCard({
                 key={res.id}
               >
                 <div className="title font-bold">{res[0].split('_').join(' ')}</div>
-                <div className="value">{res[1]}</div>
+               { res[0].includes('date') 
+               ?
+               <div className="value">{moment(res[1]).format('DD-MM-YYYY')}</div>:
+               <div className="value">{res[1]}</div>
+            
+            }
               </div>
             )
           )}
