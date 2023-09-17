@@ -24,10 +24,10 @@ export default function RatingModal({ type, id }) {
       id: id,
       rating: value,
     };
-    rate(payload).then(() => {
+    rate(payload).then((res) => {
       setSubmitted(true);
       setLoading(false);
-      toast.success('Rating submitted')
+      toast.success(res.detail)
     });
   };
   return (
