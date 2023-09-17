@@ -215,7 +215,7 @@ export default function Header({ bg }) {
       )}
 
       {openNotify ? (
-        <div className="fixed h-[70vh] overflow-y-scroll right-[10vw] top-[8vh] bg-white w-[20vw] p-5 z-20 ">
+        <div className="fixed h-[70vh] overflow-y-scroll right-[10vw] top-[8vh] bg-white  md:w-[35vw] lg:w-[20vw] p-5 z-[1000] ">
           {notification.map((res, i) => (
             <div className=" top-[10vh] z-20" key={res.id}>
               <div className="flex items-center gap-2 shadow-sm cursor-pointer">
