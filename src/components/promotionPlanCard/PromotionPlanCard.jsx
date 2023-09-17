@@ -70,7 +70,7 @@ const [updateReload] = useUpadateReload()
   return (
     <div className=" border h-full lg:h-[10vh] rounded-md bg-gray-100  my-5">
       <div className="flex flex-wrap items-center justify-between h-full">
-        <div className=" flex items-center gap-5 p-5 w-[60%] md:w-[50%] lg:w-[24%] [clip-path:polygon(0%_0%,75%_0%,100%_50%,75%_100%,0%_100%)] rounded-md bg-green-900 h-full text-white">
+        <div className=" flex items-center gap-5 p-5 w-[90%] md:w-[50%] lg:w-[24%] [clip-path:polygon(0%_0%,75%_0%,100%_50%,75%_100%,0%_100%)] rounded-md bg-green-900 h-full text-white">
           <i className=" pi pi-cog  pi-spin !text-xl"></i>
           <div className="">
             <h3 className="font-black text-lg ">
@@ -79,10 +79,10 @@ const [updateReload] = useUpadateReload()
             <p className="">{Number(myPromotion?.no_of_products) - productsPromoted?.length +' / '+ myPromotion?.no_of_products}    Slots left</p>
           </div>
         </div>
-        <div className="">
+        <div className=" p-2">
           <p>Expires: {moment(myPromotion?.expiry_date).fromNow()}</p>
         </div>
-        <div className=" flex items-center gap-4 p-5">
+        <div className=" flex items-center flex-wrap gap-4 p-5">
           {myPromotion?.subscription === "Active" ? (
             <div className=" bg-green-100 p-2 rounded text-sm text-green-600">
               {myPromotion?.subscription}
