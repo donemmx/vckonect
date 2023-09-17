@@ -15,16 +15,14 @@ import CopyToClipboard from "react-copy-to-clipboard";
 import { deleteCase } from "../../utils/vetApiService";
 import { user } from "../../atom/userAtom";
 
-export default function CaseCard({
-  fullData,
-}) {
+export default function CaseCard({ fullData }) {
   const [store, setStore] = useRecoilState(storeData);
   const [action, setAction] = useRecoilState(actionState);
   const [updateReload] = useUpadateReload();
   const userData = useRecoilValue(user);
   const [filtered, setFiltered] = useState();
   const [openDetail, setOpenDetail] = useState(null);
-  
+
   const location = useNavigate();
   const editPet = () => {
     setStore(fullData);
@@ -33,10 +31,10 @@ export default function CaseCard({
   };
 
   const deleteMyCase = () => {
-    const payload ={
-        user_id: userData?.id,
-        id: fullData?.id
-    }
+    const payload = {
+      user_id: userData?.id,
+      id: fullData?.id,
+    };
     deleteCase(payload)
       .then((res) => {
         toast.success(res.detail);
@@ -51,7 +49,7 @@ export default function CaseCard({
   };
 
   const filter = () => {
-    let lit = []
+    let lit = [];
     // fullData?.map((data)=> {
     //     // const newdata = data.slice(4)
     //     console.log(data);
@@ -59,12 +57,11 @@ export default function CaseCard({
     // })
     // setFiltered(lit)
     console.log(fullData);
-  }
+  };
 
-  useEffect(()=> {
-    filter()
-  }, [])
-
+  useEffect(() => {
+    filter();
+  }, []);
 
   return (
     <>
@@ -111,13 +108,17 @@ export default function CaseCard({
                 className="grouped-pets px-4 pt-1 flex items-center justify-between"
                 key={res.id}
               >
-                <div className="title font-bold">{res[0].split('_').join(' ')}</div>
-               { res[0].includes('date') 
-               ?
-               <div className="value">{moment(res[1]).format('DD-MM-YYYY')}</div>:
-               <div className="value">{res[1]}</div>
-            
-            }
+                <div className="title font-bold">
+                  {res[0].split("_").join(" ")}
+                </div>
+
+                {res[0].includes("date") ? (
+                  <div className="value">
+                    {moment(res[1]).format("DD-MM-YYYY")}
+                  </div>
+                ) : (
+                  <div className="value">{res[1]}</div>
+                )}
               </div>
             )
           )}
