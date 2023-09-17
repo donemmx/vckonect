@@ -191,7 +191,7 @@ export default function Account() {
           </CopyToClipboard>
           <p className="text-xs mt-4">Click to copy</p>
         </div>
-      ) : openDetail && openDetail[0] === "rate" ? (
+      ) : userDetails?.id && openDetail && openDetail[0] === "rate" ? (
         <RatingModal type={"vet"} id={params.id} />
       ) : (
         <div className="user  flex flex-col justify-center items-center w-[65%] lg:w-[20%] mx-auto mt-[15vh]">
