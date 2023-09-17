@@ -59,7 +59,7 @@ export default function Forum() {
         (data.receiver_id == userData?.id &&
           data.receiver_role == userData?.role)
       ) {
-        setMessages([...messages, data]);
+        // setMessages([...messages, data]);
         getDirectMessage({ id: userData?.id, role: userData?.role }).then(
           (res) => {
             setAllMessages(res);
