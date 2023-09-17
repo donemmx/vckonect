@@ -15,7 +15,7 @@ import { toast } from "react-toastify";
 import moment from "moment";
 
 export default function Farm() {
-  const [userData, setUserData] = useState();
+  const [userData, setUserData] = useState([]);
   const [openDetail, setOpenDetail] = useState(null);
   const location = useNavigate();
   const params = useParams();
