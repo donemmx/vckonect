@@ -11,6 +11,7 @@ import {
   getDirectMessage,
   getForumChat,
   getForumChatByFilter,
+  getUserById,
   viewDirectMessage,
 } from "../../utils/userApiService";
 import { storeData } from "../../atom/storeAtom";
@@ -35,11 +36,15 @@ export default function Forum() {
   const [search, setSearch] = useState("");
   const [selectedMessage, setSelectedMessage] = useState(null);
   const [allmessages, setAllMessages] = useState([]);
-  const [partner, setPartner] = useState([]);
   const [file, setFile] = useState(null);
   const [comment, setComment] = useState([]);
   const [messages, setMessages] = useState([]);
   const [reload, setReload] = useRecoilState(reloadStore);
+
+  const userStore = useRecoilValue(storeData);
+  const userData = useRecoilValue(user);
+
+  const [messageStore, setMessageStore] = useState();
 
   useEffect(() => {
     const pusher = new Pusher("c38d7afddec65408e4cd", {
@@ -49,54 +54,35 @@ export default function Forum() {
     const channel = pusher.subscribe("chatbox");
     channel.bind("App\\Events\\DirectMessage", (data) => {
       if (
-        (data.sender_id == userData.id && data.sender_role == userData.role) ||
-        (data.receiver_id == userData.id &&
-          data.receiver_role == userData.receiver_role)
+        (data.sender_id == userData?.id &&
+          data.sender_role == userData?.role) ||
+        (data.receiver_id == userData?.id &&
+          data.receiver_role == userData?.role)
       ) {
-        getDirectMessage({ id: userData?.id, role: userData?.role }).then((res) => {
-          setAllMessages(res);
-          for (let index = 0; index < res.length; index++) {
-            if (res[index].id == partner.id) {
-             setMessages(res[index].message)
+        setMessages([...messages, data]);
+        getDirectMessage({ id: userData?.id, role: userData?.role }).then(
+          (res) => {
+            setAllMessages(res);
           }
-        }
-        });
+        );
       }
     });
-  }, [messages]);
-
-  useEffect(() => {
-    const all = allmessages;
-    let message;
-    let newIndex;
-    let see=false;
-    for (let index = 0; index < allmessages.length; index++) {
-      if (allmessages[index].id == partner.id) {
-        message = allmessages[index];
-        index = newIndex;
-        let remain=allmessages.splice(index, 1);
-      if (messages) setAllMessages([message, ...remain]);
-      }
-    }
-  }, [messages, partner]);
-
-  const userStore = useRecoilValue(storeData);
-  const userData = useRecoilValue(user);
-
-  const [messageStore, setMessageStore] = useState();
+  }, []);
 
   const viewMessage = (data) => {
     let payload = {
-      sender_id: data.message[0].sender_id,
-      sender_role: data.message[0].sender_role,
-      receiver_id: data.message[0].receiver_id,
-      receiver_role: data.message[0].receiver_role,
+      sender_id: userData?.id,
+      sender_role: userData?.role,
+      receiver_id: data?.id,
+      receiver_role: data?.role,
     };
-    let partner = { role: data.role, id: data.id };
     viewDirectMessage(payload).then(() => {
       data.counter = 0;
-      setPartner(partner);
-      setMessageData(partner);
+      getUserById(data)
+        .then((res) => {
+          setMessageData(res);
+        })
+        .catch((err) => console.log(err));
       setMessages(data.message);
     });
   };
@@ -309,6 +295,9 @@ export default function Forum() {
                       </div>
                     </div>
                     <div className="flex items-center gap-2">
+                      <div className="time text-xs p-1 px-3 rounded-full bg-gray-200 w-fit ">
+                        {moment(res?.message[0].date).fromNow()}
+                      </div>
                       {res.counter > 0 ? (
                         <Badge value={res?.counter} severity={"danger"}></Badge>
                       ) : (
@@ -326,10 +315,10 @@ export default function Forum() {
                 <>
                   <div className="lg:fixed  lg:w-[38%] lg:right-[8%] ">
                     <div className="flex flex-col gap-2">
-                      {messages.map((res) => (
+                      {messages?.map((res) => (
                         <div
                           className="border p-4 bg-white rounded"
-                          key={res.date}
+                          key={res.id}
                         >
                           <div className="flex gap-2  ">
                             <div className="h-[40px] w-[40px]">
@@ -408,7 +397,7 @@ export default function Forum() {
                         </div>
                       </div>
                       <div className="p-2 border w-fit rounded-full bg-white ">
-                        <label htmlFor="file-input"  id ="file-input">
+                        <label htmlFor="file-input">
                           <svg
                             width="24"
                             height="24"
@@ -435,6 +424,7 @@ export default function Forum() {
                     </div>
                     <div className="">
                       <form className="pt-3">
+                        <label htmlFor="username"></label>
                         <textarea
                           name="content"
                           value={comment}
