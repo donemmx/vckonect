@@ -22,6 +22,8 @@ import { toast } from "react-toastify";
 import { storeData } from "../../atom/storeAtom";
 import { actionState } from "../../atom/actionAtom";
 import PromoCard from "../../components/promoCard/PromoCard";
+import { getUserById } from "../../utils/userApiService";
+import ImageComponent from "../../components/image/ImageComponent";
 
 export default function AdminPromotion() {
   const [promotions, setPromotions] = useState();
@@ -67,8 +69,8 @@ export default function AdminPromotion() {
   const deletePromotion = (data) => {
     const payload = {
       promotion_id: data.promotion_id,
-    }
-    setLoading(true)
+    };
+    setLoading(true);
     deleteUserPromotionPlan(payload).then(() => {
       toast.success("Promotion deleted successfully");
       setLoading(false);
@@ -91,6 +93,15 @@ export default function AdminPromotion() {
     getPromotions();
     getUserPromotions();
   }, [search.length < 3]);
+
+  const getUserDetails = (res) => {
+    const payload = {
+      id: res.user_id,
+      role: res.role,
+    };
+    let myInfo = getUserById(payload).then((res) => res.role);
+    return myInfo;
+  };
 
   return (
     <div className="w-full">
@@ -195,12 +206,16 @@ export default function AdminPromotion() {
                 <>
                   <div className="posts w-full mx-auto items-center pt-10 flex flex-wrap gap-5">
                     {activeSub?.map((res) => (
-                      <PromoCard
+                      <div
+                        className="flex  justify-center flex-col"
                         key={res.id}
-                        data={res}
-                        store_id={res.id}
-                        show={true}
-                      />
+                      >
+                        <div className="">
+                         <ImageComponent data={res} />
+                         
+                        </div>
+                        <PromoCard data={res} store_id={res.id} show={true} />
+                      </div>
                     ))}
                   </div>
                 </>

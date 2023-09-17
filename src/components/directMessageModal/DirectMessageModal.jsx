@@ -1,3 +1,4 @@
+/* eslint-disable no-prototype-builtins */
 import { Dialog } from "primereact/dialog";
 import chat from "../../assets/icons/chat-icon.svg";
 import { useState } from "react";

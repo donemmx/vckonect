@@ -27,6 +27,7 @@ import { farm, product } from "../../validations/UserValidation";
 import AdminDashboardCard from "../../components/adminDashboardCard/AdminDashboardCard";
 import AdminCardLoading from "../../components/loading/AdminCardLoading";
 import PromoCard from "../../components/promoCard/PromoCard";
+import ImageComponent from "../../components/image/ImageComponent";
 
 export default function UserFeatures() {
   const [counter, setCounter] = useState();
@@ -147,7 +148,7 @@ export default function UserFeatures() {
 
   const disableUserAccount = (data) => {
     setButtonLoading(true);
-    setSelectedId(data.id)
+    setSelectedId(data.id);
     console.log(data);
     const payload = {
       id: data.id,
@@ -160,22 +161,22 @@ export default function UserFeatures() {
     });
   };
 
-  const verifyVetNumberFunction = (id)=> {
+  const verifyVetNumberFunction = (id) => {
     setVetLoading(true);
     const payload = {
-      id: id
-    }
-    setSelectedId(id)
+      id: id,
+    };
+    setSelectedId(id);
 
-    verifyVetNumber(payload).then((res)=> {
+    verifyVetNumber(payload).then((res) => {
       toast.success("Vet Number Verified successfully");
-      setVetLoading(false)
+      setVetLoading(false);
       getUserCounter();
-    })
-  }
+    });
+  };
   const activateUserAccount = (data) => {
     setButtonLoading(true);
-    setSelectedId(data.id)
+    setSelectedId(data.id);
 
     const payload = {
       id: data.id,
@@ -463,7 +464,16 @@ export default function UserFeatures() {
             ) : tab == "product" ? (
               <div className="posts w-full mx-auto items-center pt-10 flex justify-center flex-wrap gap-5">
                 {product?.map((res) => (
-                  <PromoCard key={res.id} data={res} store_id={res.id} show={true} />
+                  <div className="flex  justify-center flex-col" key={res.id}>
+                    <div className="">
+                      <ImageComponent data={res} />
+                    </div>
+                    <PromoCard
+                      data={res}
+                      store_id={res.id}
+                      show={true}
+                    />
+                  </div>
                 ))}
               </div>
             ) : (
