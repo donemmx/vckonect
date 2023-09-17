@@ -1,21 +1,26 @@
 /* eslint-disable no-unused-vars */
-import expandIcon from "../../assets/icons/expand-icon.svg";
+import editIcon from "../../assets/account/edit-icon.svg";
 import location from "../../assets/icons/marker-icon.svg";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
 import WarningCard from "../warningCard/WarningCard";
 import { deleteProduct, deletePromotion } from "../../utils/userApiService";
 import { toast } from "react-toastify";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { user } from "../../atom/userAtom";
 import useUpadateReload from "../../hooks/UpdateRelaod";
 import { useNavigate } from "react-router-dom";
 import useRouteChecker from "../../hooks/RouteChecker";
+import { storeData } from "../../atom/storeAtom";
+import { actionState } from "../../atom/actionAtom";
 
 export default function PromoCard({ data, store_id, show }) {
   const userData = useRecoilValue(user);
   const [updateReload] = useUpadateReload();
   const navigate = useNavigate();
+  const [store, setStore] = useRecoilState(storeData);
+  const [action, setAction] = useRecoilState(actionState);
+
   const [routeChecker] = useRouteChecker();
   const deleteProductById = () => {
     const payload = {
@@ -38,6 +43,22 @@ export default function PromoCard({ data, store_id, show }) {
     deletePromotion(payload).then((res) => {
       toast.success(res.detail), updateReload();
     });
+  };
+
+
+  const editProduct = () => {
+    setStore(data);
+    setAction("edit");
+    checker("add-product");
+  };
+
+  const checker = (route) => {
+    setStore(data);
+    if (userData?.role === "Veterinarian") {
+      navigate(`/vet-${route}`);
+    } else {
+      navigate(`/animal-owner-${route}`);
+    }
   };
 
   const gotoStore = () => {
@@ -79,16 +100,18 @@ export default function PromoCard({ data, store_id, show }) {
           <div className="pt-4 pr-4">
             {show && userData?.id === data?.user_id ? (
               <div className="flex items-center gap-2 w-fit ml-auto">
+                <img
+                src={editIcon}
+                alt=""
+                className=" p-2 mb-2 h-[35px] w-[35px] bg-white rounded-full border-[1px] cursor-pointer border-[#EBEBEB] hover:border-green-400 hover:bg-green-100 transition-all ease-in-out"
+                onClick={editProduct}
+              />
                 <WarningCard
                   message="Are you Sure you want to delete this product?"
                   header="Confirmation"
                   acceptFunction={deleteProductById}
                 />
-                <img
-                  src={expandIcon}
-                  alt=""
-                  className=" p-2 mb-2 !h-[35px] w-[35px] object-cover bg-white rounded-full border-[1px] border-[#EBEBEB] shadow"
-                />
+               
               </div>
             ) : !show && userData?.id === data?.user_id ? (
               <div className="flex items-center gap-2 w-fit ml-auto">

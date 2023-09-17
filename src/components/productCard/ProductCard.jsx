@@ -30,10 +30,10 @@ export default function ProductCard({
   const [updateReload] = useUpadateReload();
   const location = useNavigate();
 
-  const editStore = () => {
+  const editProduct = () => {
     setStore(fullData);
     setAction("edit");
-    checker("add-store");
+    checker("add-product");
   };
 
   const checker = (route) => {
@@ -61,6 +61,7 @@ export default function ProductCard({
   const getContent = () => {
     setStore(fullData);
   };
+
 
   const deleteStoreById = () => {
     deleteStore({ store_id: store_id })
@@ -90,7 +91,7 @@ export default function ProductCard({
                 src={editIcon}
                 alt=""
                 className=" p-2 mb-2 h-[35px] w-[35px] bg-white rounded-full border-[1px] cursor-pointer border-[#EBEBEB] hover:border-green-400 hover:bg-green-100 transition-all ease-in-out"
-                onClick={editStore}
+                onClick={editProduct}
               />
               <WarningCard
                 message="Are you Sure you want to delete this store?"
