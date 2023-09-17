@@ -407,7 +407,7 @@ export default function Forum() {
                         </div>
                       </div>
                       <div className="p-2 border w-fit rounded-full bg-white ">
-                        <label htmlFor="file-input">
+                        <label htmlFor="file-input"  id ="file-input">
                           <svg
                             width="24"
                             height="24"
@@ -434,7 +434,7 @@ export default function Forum() {
                     </div>
                     <div className="">
                       <form className="pt-3">
-                        <label htmlFor="username"></label>
+                        <label htmlFor="username"  id ="username"></label>
                         <textarea
                           name="content"
                           value={comment}
