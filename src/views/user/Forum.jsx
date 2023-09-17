@@ -32,7 +32,7 @@ export default function Forum() {
   const [forumData, setForumData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [action, setAction] = useRecoilState(actionState);
-  const [messageData, setMessageData] = useRecoilState(message);
+  const [messageData, setMessageData] = useState();
   const [search, setSearch] = useState("");
   const [selectedMessage, setSelectedMessage] = useState(null);
   const [allmessages, setAllMessages] = useState([]);
@@ -40,9 +40,10 @@ export default function Forum() {
   const [comment, setComment] = useState([]);
   const [messages, setMessages] = useState([]);
   const [reload, setReload] = useRecoilState(reloadStore);
-
   const userStore = useRecoilValue(storeData);
   const userData = useRecoilValue(user);
+  const [sendMessage, setSendMessage]=useState(false);
+  const [newMessage, setNewMessage]=useState();
 
   const [messageStore, setMessageStore] = useState();
 
@@ -59,7 +60,8 @@ export default function Forum() {
         (data.receiver_id == userData?.id &&
           data.receiver_role == userData?.role)
       ) {
-        setMessages([...messages, data]);
+        setNewMessage(data)
+        setSendMessage(true);
         getDirectMessage({ id: userData?.id, role: userData?.role }).then(
           (res) => {
             setAllMessages(res);
@@ -68,6 +70,16 @@ export default function Forum() {
       }
     });
   }, []);
+
+  useEffect(() => {
+  if(sendMessage){
+    setMessages([...messages, newMessage])
+    setSendMessage(false);
+  }
+  }, [messages,newMessage, sendMessage]);
+
+
+ 
 
   const viewMessage = (data) => {
     let payload = {
@@ -126,8 +138,6 @@ export default function Forum() {
       setLoading(false);
       setComment("");
     });
-
-    setMessageData();
   };
 
   const getFile = (e) => {
