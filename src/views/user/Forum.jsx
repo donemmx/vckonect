@@ -54,8 +54,7 @@ export default function Forum() {
         (data.receiver_id == userData.id &&
           data.receiver_role == userData.receiver_role)
       ) {
-        const newMessage=messages.push(data)
-        setMessages(newMessage);
+        setMessages([...messages, data]);
         console.log(messages);
       }
     });
@@ -65,14 +64,20 @@ export default function Forum() {
   }, []);
 
   useEffect(() => {
-    const all=allmessages;
+    const all = allmessages;
+    let message;
+    let newIndex;
+    let see=false;
     for (let index = 0; index < allmessages.length; index++) {
-      if(allmessages[index].id==partner.id){
-        allmessages.splice(index,1);
+      console.log(allmessages[index].id, partner.id);
+      if (allmessages[index].id == partner.id) {
+        message = allmessages[index];
+        index = newIndex;
+        let remain=allmessages.splice(index, 1);
+      if (messages) setAllMessages([message, ...remain]);
       }
     }
-    if (messages) setAllMessages([...allmessages, messages]);
-  }, [messages]);
+  }, [messages, partner]);
 
   const userStore = useRecoilValue(storeData);
   const userData = useRecoilValue(user);
@@ -86,9 +91,10 @@ export default function Forum() {
       receiver_id: data.message[0].receiver_id,
       receiver_role: data.message[0].receiver_role,
     };
+    let partner = { role: data.role, id: data.id };
     viewDirectMessage(payload).then(() => {
       data.counter = 0;
-      setPartner({role:data.role, id:data.id});
+      setPartner(partner);
       setMessageData(partner);
       setMessages(data.message);
     });
@@ -276,7 +282,7 @@ export default function Forum() {
                 : " grid md:grid-cols-1   gap-2 relative w-full lg:grid-cols-1"
             }  `}
           >
-            <div className="flex flex-col gap-2" >
+            <div className="flex flex-col gap-2">
               {allmessages?.map((res) =>
                 res.id !== userData.id ? (
                   <div
@@ -322,7 +328,7 @@ export default function Forum() {
                       {messages.map((res) => (
                         <div
                           className="border p-4 bg-white rounded"
-                          key={res.id}
+                          key={res.date}
                         >
                           <div className="flex gap-2  ">
                             <div className="h-[40px] w-[40px]">
