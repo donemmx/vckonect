@@ -69,7 +69,6 @@ export default function Forum() {
     let newIndex;
     let see=false;
     for (let index = 0; index < allmessages.length; index++) {
-      console.log(allmessages[index].id, partner.id);
       if (allmessages[index].id == partner.id) {
         message = allmessages[index];
         index = newIndex;
@@ -434,7 +433,6 @@ export default function Forum() {
                     </div>
                     <div className="">
                       <form className="pt-3">
-                        <label htmlFor="username"  id ="username"></label>
                         <textarea
                           name="content"
                           value={comment}
