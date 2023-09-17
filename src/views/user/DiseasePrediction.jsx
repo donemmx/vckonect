@@ -111,8 +111,7 @@ export default function DiseasePrediction() {
               <h3 className="text-2xl font-bold text-center mt-4 text-[#1D2432]">
                 Result
               </h3>
-              <p className="p-2 text-center text-[#555555] text-md mt-2">
-                {result}
+              <p dangerouslySetInnerHTML={{__html: result}} className="p-2 text-center text-[#555555] text-md mt-2">
               </p>
               <p className="text-center text-[#555555] mt-5 text-md">
                 Selected Animal Specie
