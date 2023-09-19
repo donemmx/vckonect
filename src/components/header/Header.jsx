@@ -64,9 +64,11 @@ export default function Header({ bg }) {
       user_id: userData?.id,
       role: userData?.role,
     };
-    getNotification(payload).then(({data}) => {
-      setNotification(data);
-    });
+    if(userData?.id){
+      // getNotification(payload).then(({data}) => {
+      //   setNotification(data);
+      // });
+    }
   }, []);
 
   return (
