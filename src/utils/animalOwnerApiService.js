@@ -18,13 +18,11 @@ const deleteFarm = (payload) => {
 };
 
 const getFarm = (payload) => {
-  // const { userId, id } = payload;
   return axios
     .post(`${baseURl}/getFarm`, payload)
 };
 
 const getOneFarm = (payload) => {
-  // const { userId, id } = payload;
   return axios
     .post(`${baseURl}/getOneFarm`, payload)
 };
@@ -32,7 +30,6 @@ const getOneFarm = (payload) => {
 //   Pets
 
 const addPet = (payload) => {
-  // const { userId, petName, specie, breed, sex, age } = payload;
   return axios
     .post(
       `${baseURl}/addPet`, payload
@@ -46,13 +43,11 @@ const getOnePet = (payload) => {
 };
 
 const getPet = (payload) => {
-  // const { userId, id } = payload;
   return axios
     .post(`${baseURl}/getPet`, payload)
 };
 
 const deletePet = (payload) => {
-  // const { userId, id } = payload;
   return axios
     .post(`${baseURl}/deletePet`, payload)
 };
@@ -60,7 +55,6 @@ const deletePet = (payload) => {
 // Animal owner Activity
 
 const getAnimalOwnerActivity = (payload) => {
-  // const { role, id } = payload;
   return axios
     .post(`${baseURl}/getAnimalOwnerActivity`, payload)
 };
@@ -68,7 +62,6 @@ const getAnimalOwnerActivity = (payload) => {
 // Register Animal owner
 
 const registerAnimalOwner1 = (payload) => {
-  // const { stage, email, password } = payload;
   return axios
     .post(
       `${baseURl}/registerAnimalOwner`, payload
@@ -76,7 +69,6 @@ const registerAnimalOwner1 = (payload) => {
 };
 
 const registerAnimalOwner2 = (payload) => {
-  // const { stage, email, firstName, lastName, phone, address } = payload;
   return axios
     .post(
       `${baseURl}/registerAnimalOwner`, payload
@@ -84,7 +76,6 @@ const registerAnimalOwner2 = (payload) => {
 };
 
 const registerAnimalOwner3 = (payload) => {
-  // const { stage, email, code } = payload;
   return axios
     .post(
       `${baseURl}/registerAnimalOwner`, payload
