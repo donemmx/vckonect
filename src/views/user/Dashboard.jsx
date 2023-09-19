@@ -32,7 +32,7 @@ export default function Dashboard() {
     setTab(type);
   };
   useEffect(() => {
-    getForumChat().then((res) => setForumData(res));
+    getForumChat().then(({data}) => setForumData(data));
   }, []);
 
   const getRoute = (route) => {

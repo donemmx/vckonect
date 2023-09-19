@@ -87,10 +87,9 @@ export default function AddProduct() {
     });
     
     await addProduct(formData)
-      .then((res) => {
-        console.log(res);
-        if (res.code) {
-          toast.error(res.detail);
+      .then(({data}) => {
+        if (data.code) {
+          toast.error(data.detail);
         } else {
           if (action && action === "edit") {
             toast.success("Product details edited successfully");

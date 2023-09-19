@@ -39,11 +39,11 @@ export default function AdminContent() {
   const [search, setSearch] = useState("");
 
   const getUserCounter = async () => {
-    await getForumChat().then((res) => {
-      setForum(res);
+    await getForumChat().then(({data}) => {
+      setForum(data);
       setLoading(false)
-      setApproved(() => res.filter((data) => data.status === "Approved"));
-      setRejected(() => res.filter((data) => data.status === "Not Approved"));
+      setApproved(() => data.filter((data) => data.status === "Approved"));
+      setRejected(() => data.filter((data) => data.status === "Not Approved"));
     });
   };
 
@@ -68,8 +68,8 @@ export default function AdminContent() {
 
   const searchData = async () => {
     setLoading(true);
-    await getForumChatByFilter({ name: search }).then((res) => {
-      setForum(res);
+    await getForumChatByFilter({ name: search }).then(({data}) => {
+      setForum(data);
       setLoading(false);
     });
   };

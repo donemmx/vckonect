@@ -63,8 +63,8 @@ export default function Forum() {
         setNewMessage(data)
         setSendMessage(true);
         getDirectMessage({ id: userData?.id, role: userData?.role }).then(
-          (res) => {
-            setAllMessages(res);
+          ({data}) => {
+            setAllMessages(data);
           }
         );
       }
@@ -91,8 +91,8 @@ export default function Forum() {
     viewDirectMessage(payload).then(() => {
       data.counter = 0;
       getUserById(data)
-        .then((res) => {
-          setMessageData(res);
+        .then(({data}) => {
+          setMessageData(data);
         })
         .catch((err) => console.log(err));
       setMessages(data.message);
@@ -111,14 +111,14 @@ export default function Forum() {
   };
 
   const getAllMessages = () => {
-    getDirectMessage({ id: userData?.id, role: userData?.role }).then((res) => {
-      setAllMessages(res);
+    getDirectMessage({ id: userData?.id, role: userData?.role }).then(({data}) => {
+      setAllMessages(data);
     });
   };
 
   const searchData = async () => {
-    await getForumChatByFilter({ name: search }).then((res) => {
-      setForumData(res);
+    await getForumChatByFilter({ name: search }).then(({data}) => {
+      setForumData(data);
     });
   };
 
@@ -172,9 +172,9 @@ export default function Forum() {
   };
 
   useEffect(() => {
-    getForumChat().then((res) => {
+    getForumChat().then(({data}) => {
       setLoading(false);
-      setForumData(res);
+      setForumData(data);
       getAllMessages();
     });
   }, [userStore?.like, reload]);

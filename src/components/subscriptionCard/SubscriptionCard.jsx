@@ -88,8 +88,8 @@ export default function SubscriptionCard({ data, selectedPlan }) {
 
   const getUserData = async () => {
     await getUserById({ id: userData.id, role: userData.role }).then(
-      (response) => {
-        setUserData(response);
+      ({data}) => {
+        setUserData(data);
       }
     );
   };

@@ -76,7 +76,7 @@ export default function StoreCard({
 
   const deleteStoreById = () => {
     deleteStore({ store_id: store_id })
-      .then((res) => {
+      .then(() => {
         toast.success("Store deleted successfully");
         updateReload();
       })

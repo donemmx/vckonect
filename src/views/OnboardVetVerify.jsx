@@ -37,12 +37,12 @@ export default function OnboardVetVerify() {
 
   const resendUserOtp = async () => {
     await OtpResend(regEmail.email)
-    .then((res) => {
+    .then(({data}) => {
 
-      if (!res.code) {
+      if (!data.code) {
         toast.success('OTP resent to your email');
       } else {
-        toast.error(res.detail);
+        toast.error(data.detail);
       }
     })
     .catch((err) => console.log(err));

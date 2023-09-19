@@ -76,8 +76,8 @@ export default function FeedCalculator() {
       };
     }
 
-    feedCalculator(payload).then((res) => {
-      setResult(res);
+    feedCalculator(payload).then(({data}) => {
+      setResult(data);
     });
   };
 

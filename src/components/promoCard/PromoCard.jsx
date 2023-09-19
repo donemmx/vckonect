@@ -30,9 +30,9 @@ export default function PromoCard({ data, store_id, show }) {
       role: userData?.role,
       title: data?.title,
     };
-    deleteProduct(payload).then((res) => {
+    deleteProduct(payload).then(({data}) => {
       updateReload();
-      toast.success(res.detail);
+      toast.success(data.detail);
     });
   };
 
@@ -40,8 +40,8 @@ export default function PromoCard({ data, store_id, show }) {
     const payload = {
       id: data?.id,
     };
-    deletePromotion(payload).then((res) => {
-      toast.success(res.detail), updateReload();
+    deletePromotion(payload).then(({data}) => {
+      toast.success(data.detail), updateReload();
     });
   };
 

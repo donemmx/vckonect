@@ -25,8 +25,8 @@ export default function Pets() {
   
     const getUser = () => {
         getPetByFilter(payload)
-        .then((res) => {
-          setUserData(res[0]);
+        .then(({data}) => {
+          setUserData(data[0]);
         })
         .catch((err) => console.log(err));
     };

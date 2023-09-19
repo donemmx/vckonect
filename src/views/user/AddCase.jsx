@@ -90,14 +90,14 @@ export default function AddCase() {
   });
 
   const getAllPets = () => {
-    getPetByFilter({ name: null }).then((res) => {
-      setPets(res);
+    getPetByFilter({ name: null }).then(({data}) => {
+      setPets(data);
     });
   };
 
   const getAllFarms = () => {
-    getFarmByFilter({ name: null }).then((res) => {
-      setFarms(res);
+    getFarmByFilter({ name: null }).then(({data}) => {
+      setFarms(data);
     });
   };
 

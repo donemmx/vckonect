@@ -52,11 +52,11 @@ export default function AdminPromotion() {
   };
   const getUserPromotions = async () => {
     const payload = {};
-    await adminGetPromotion(payload).then(({data}) => {
-      setUserPromotions(data);
-      const active = data.filter((data) => data.subscription === "Active");
-      const suspended = data.filter((data) => data.subscription === "Suspended");
-      const expired = data.filter(
+    await adminGetPromotion(payload).then((res) => {
+      setUserPromotions(res.data);
+      const active = res.data.filter((data) => data.subscription === "Active");
+      const suspended = res.data.filter((data) => data.subscription === "Suspended");
+      const expired = res.data.filter(
         (data) =>
           data.subscription === "Expired" || data.subscription === "Suspended"
       );
@@ -99,7 +99,7 @@ export default function AdminPromotion() {
       id: res.user_id,
       role: res.role,
     };
-    let myInfo = getUserById(payload).then((res) => res.role);
+    let myInfo = getUserById(payload).then(({data}) => data.role);
     return myInfo;
   };
 

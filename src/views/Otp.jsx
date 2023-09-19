@@ -17,12 +17,12 @@ export default function Otp() {
       ...values,
     };
     await confirmResetPasswordCode(payload)
-      .then((res) => {
-        if (res.detail) {
+      .then(({data}) => {
+        if (data.detail) {
           location("/reset-password");
-          toast.success(res.detail);
+          toast.success(data.detail);
         } else {
-          toast.error(res.detail);
+          toast.error(data.detail);
         }
       })
       .catch((err) => console.log(err));

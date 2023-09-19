@@ -34,15 +34,15 @@ export default function Search() {
 
   const getClinicData = async () => {
     setLoading(true);
-    await getClinicByFilter(name).then((res) => {
-      setClinics(res.slice(0, 4));
+    await getClinicByFilter(name).then(({data}) => {
+      setClinics(data.slice(0, 4));
       setLoading(false);
     });
   };
   const getStoreData = async () => {
     setLoading(true);
-    await getStoreByFilter({ name: "" }).then((res) => {
-      setStores(res.slice(0, 4));
+    await getStoreByFilter({ name: "" }).then(({data}) => {
+      setStores(data.slice(0, 4));
       setLoading(false);
     });
   };
@@ -58,13 +58,13 @@ export default function Search() {
     if (active == "clinic") {
       await getClinicByFilter({
         name: searchData,
-      }).then((res) => {
-        setClinics(res);
+      }).then(({data}) => {
+        setClinics(data);
         setLoading(false);
       });
     } else if (active == "store") {
-      await getStoreByFilter({ name: searchData }).then((res) => {
-        setStores(res);
+      await getStoreByFilter({ name: searchData }).then(({data}) => {
+        setStores(data);
         setLoading(false);
       });
     } else {

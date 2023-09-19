@@ -12,8 +12,8 @@ export default function Clients() {
   const [allClients, SetAllClients] = useState([]);
 
   useEffect(() => {
-    getClient({ user_id: userData.id }).then((res) => {
-      SetAllClients(res);
+    getClient({ user_id: userData.id }).then(({data}) => {
+      SetAllClients(data);
       setLoading(false);
     });
   }, []);

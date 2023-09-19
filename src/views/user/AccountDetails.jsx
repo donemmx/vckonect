@@ -83,21 +83,21 @@ export default function AccountDetails() {
     });
 
     await updateUserProfile(formData)
-      .then((res) => {
-        if (!res.code) {
+      .then(({data}) => {
+        if (!data.code) {
           toast.success("User data updated");
           const payload = {
             id: userData?.id,
             role: userData?.role,
           };
-          getUserById(payload).then((fullData) => {
+          getUserById(payload).then(({data}) => {
             setUserData({
-              ...fullData,
+              ...data,
             });
           });
           window.history.back();
         } else {
-          toast.error(res.detail);
+          toast.error(data.detail);
         }
       })
       .catch((err) => console.log(err));

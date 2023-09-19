@@ -15,13 +15,13 @@ export default function ForgotPassword() {
   const onSubmit = async (values) => {
   
     await resetPassword(values)
-      .then((res) => {
-        if (!res.code) {
+      .then(({data}) => {
+        if (!data.code) {
           location("/otp");
-          setData(res);
-          toast.success(res.detail);
+          setData(data);
+          toast.success(data.detail);
         } else {
-          toast.error(res.detail);
+          toast.error(data.detail);
         }
       })
       .catch((err) => console.log(err));

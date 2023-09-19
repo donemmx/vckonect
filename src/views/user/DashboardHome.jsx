@@ -40,15 +40,15 @@ export default function DashboardHome() {
 
   const getClinicData = async () => {
     setLoading(true);
-    await getClinicByFilter(name).then((res) => {
-      setClinics(res);
+    await getClinicByFilter(name).then(({data}) => {
+      setClinics(data);
       setLoading(false);
     });
   };
   const getStoreData = async () => {
     setLoading(true);
-    await getStoreByFilter({ name: "" }).then((res) => {
-      setStores(res);
+    await getStoreByFilter({ name: "" }).then(({data}) => {
+      setStores(data);
       setLoading(false);
     });
   };
@@ -64,13 +64,13 @@ export default function DashboardHome() {
     if (active == "clinic") {
       await getClinicByFilter({
         name: searchData,
-      }).then((res) => {
-        setClinics(res);
+      }).then(({data}) => {
+        setClinics(data);
         setLoading(false);
       });
     } else if (active == "store") {
-      await getStoreByFilter({ name: searchData }).then((res) => {
-        setStores(res);
+      await getStoreByFilter({ name: searchData }).then(({data}) => {
+        setStores(data);
         setLoading(false);
       });
     } else {

@@ -27,8 +27,8 @@ const [updateReload] = useUpadateReload()
       user_id: userData?.id,
       role: userData?.role,
     };
-    getUserProduct(payload).then((res) => {
-      setAllProducts(res);
+    getUserProduct(payload).then(({data}) => {
+      setAllProducts(data);
     });
   };
 
@@ -53,8 +53,8 @@ const [updateReload] = useUpadateReload()
       id: userData?.id,
       ...others
     }
-    addPromotion(payload).then((res)=> {
-      toast.success(res.detail)
+    addPromotion(payload).then(({data})=> {
+      toast.success(data.detail)
       setLoading(false)
       setVisible(false)
       setSelected([])

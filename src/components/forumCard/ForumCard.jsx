@@ -92,7 +92,7 @@ export default function ForumCard({
       shared_chat_id: id,
       picture: picture,
     };
-    shareForumChat(payload).then((res) => {
+    shareForumChat(payload).then(() => {
       toast.success("Post reshare successful");
       updateReload();
       setLoading(false);
@@ -129,7 +129,7 @@ export default function ForumCard({
       user_role: userData?.role,
       comment_id: data.id,
     };
-    deleteForumChatComment(payload).then((res) => {
+    deleteForumChatComment(payload).then(() => {
       toast.success("Comment deleted successfully");
       updateReload();
     });
@@ -142,7 +142,7 @@ export default function ForumCard({
       comment_id: data.forum_chat_comment_id,
       response_id: data.id,
     };
-    deleteresponseForumChat(payload).then((res) => {
+    deleteresponseForumChat(payload).then(() => {
       toast.success("Response deleted successfully");
       updateReload();
     });

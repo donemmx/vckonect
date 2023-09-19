@@ -32,8 +32,8 @@ export default function DirectMessageModal({ fullData }) {
       role: role,
     };
     console.log(fullData);
-    getUserById(payload).then((res) => {
-      setUserInfo(res);
+    getUserById(payload).then(({data}) => {
+      setUserInfo(data);
     });
   };
 

@@ -28,25 +28,25 @@ export default function Login() {
       ...values,
     };
     await login(payload)
-      .then((res) => {
-        if (!res.code) {
-          getUserById({ id: res.id, role: res.role }).then((fullData) => {
+      .then(({data}) => {
+        if (!data.code) {
+          getUserById({ id: data.id, role: data.role }).then((res) => {
             setData({
-              ...fullData,
-              ...res,
+              ...res.data,
+              ...data,
             });
           });
-          setData(res);
-          if (res.role === "Veterinarian") {
+          setData(data);
+          if (data.role === "Veterinarian") {
             location("/vet-dashboard");
-          }  else if (res.role === "Animal Owner") {
+          }  else if (data.role === "Animal Owner") {
             location("/animal-owner-dashboard");
           } else {
             location("/admin-dashboard");
           }
           toast.success("Successfully logged in");
         } else {
-          toast.error(res.detail);
+          toast.error(data.detail);
         }
       })
       .catch((err) => console.log(err));

@@ -23,7 +23,7 @@ export default function DiseasePrediction() {
       livestock_category: livestock,
       diseases: symptom,
     };
-    diseasePredictor(payload).then((res) => setResult(res));
+    diseasePredictor(payload).then(({data}) => setResult(data));
   };
   
   const checker = (route) => {
@@ -47,8 +47,8 @@ export default function DiseasePrediction() {
       const payload = {
         livestock: livestock,
       };
-      getLivestockDiseases(payload).then((res) => {
-        setDisease(res);
+      getLivestockDiseases(payload).then(({data}) => {
+        setDisease(data);
         
       });
     }

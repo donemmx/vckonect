@@ -39,8 +39,8 @@ export default function SubscribeToPlan() {
       ...others
     };
 
-    subscribePromotionPlan(payload).then((res) => {
-      toast.success(res.detail);
+    subscribePromotionPlan(payload).then(({data}) => {
+      toast.success(data.detail);
       updateReload()
       getPromotionPlan().then(({data}) => {
         setAllPromotions(data);

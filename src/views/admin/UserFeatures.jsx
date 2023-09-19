@@ -62,8 +62,8 @@ export default function UserFeatures() {
       setLoading(false);
     });
 
-    await getStore().then((res) => {
-      setStores(res);
+    await getStore().then(({data}) => {
+      setStores(data);
       setLoading(false);
     });
 
@@ -125,9 +125,9 @@ export default function UserFeatures() {
         break;
       case "store":
         setLoading(true);
-        await getStoreByFilter({ name: search }).then((res) => {
+        await getStoreByFilter({ name: search }).then(({data}) => {
           setLoading(false);
-          setStores(res);
+          setStores(data);
         });
         break;
       case "clinic":

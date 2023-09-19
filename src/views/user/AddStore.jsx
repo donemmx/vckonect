@@ -94,10 +94,9 @@ export default function AddStore() {
       formData.append(key, value);
     });
     await addStore(formData)
-      .then((res) => {
-        console.log(res);
-        if (res.code) {
-          toast.error(res.detail);
+      .then(({data}) => {
+        if (data.code) {
+          toast.error(data.detail);
         } else {
           if (action && action === "edit") {
             toast.success("Store details edited successfully");

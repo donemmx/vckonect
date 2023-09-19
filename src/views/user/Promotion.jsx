@@ -38,17 +38,17 @@ export default function Promotion() {
       id: userData?.id,
       role: userData?.role,
     };
-    getMyPromotionPlan(payload).then((res) => {
-      setMyPromotion(res);
+    getMyPromotionPlan(payload).then(({data}) => {
+      setMyPromotion(data);
     });
   };
 
   const getProductsPromoted = () => {
     adminGetPromotion({
       name: "",
-    }).then(({data}) => {
-      setProductsPromoted(data);
-      const filtedData = data.filter((data)=> data.user_id === userData?.id)
+    }).then((res) => {
+      setProductsPromoted(res.data);
+      const filtedData = res.data.filter((data)=> data.user_id === userData?.id)
       setMyProductsPromoted(filtedData)
     })
   };

@@ -28,8 +28,8 @@ export default function Stores() {
   };
 
   useEffect(() => {
-    getStore({ id: userData?.id, role: userData?.role }).then((res) => {
-      SetAllStores(res);
+    getStore({ id: userData?.id, role: userData?.role }).then(({data}) => {
+      SetAllStores(data);
       setLoading(false);
     });
   }, [reload]);

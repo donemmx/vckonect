@@ -47,8 +47,8 @@ export default function StoreDetails() {
   };
 
   const getCurrentStore = () => {
-    getOneStore({ store_id: params.id }).then((res) => {
-      setStoreInfo(res);
+    getOneStore({ store_id: params.id }).then(({data}) => {
+      setStoreInfo(data);
     });
   };
 
