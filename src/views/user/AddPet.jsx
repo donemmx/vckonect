@@ -80,8 +80,8 @@ export default function AddPet() {
     console.log(payload);
 
       await addPet(formData)
-        .then((res) => {
-          if (!res.code) {
+        .then(({data}) => {
+          if (!data.code) {
             window.history.back();
             if(action&& action === 'edit'){
               toast.success("Pet details edited successfully");
@@ -92,7 +92,7 @@ export default function AddPet() {
             }
             setPetStore(null)
           } else {
-            toast.error(res.detail);
+            toast.error(data.detail);
           }
         })
         .catch((err) => console.log(err));

@@ -30,14 +30,14 @@ export default function OnboardAnimalOwnerPersonal() {
     };
 
     await registerAnimalOwner2(payload)
-      .then((res) => {
-        console.log(res.code === 200);
-        if (!res.code) {
+      .then(({data}) => {
+        console.log(data.code === 200);
+        if (!data.code) {
           setRegEmail(payload)
           location("/onboard-verify");
-          toast.success(res.detail);
+          toast.success(data.detail);
         } else {
-          toast.error(res.detail);
+          toast.error(data.detail);
         }
       })
       .catch((err) => console.log(err));

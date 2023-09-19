@@ -86,10 +86,9 @@ export default function AddFarm() {
     });
 
     await addFarm(formData)
-      .then((res) => {
-        console.log(res);
-        if (res.code) {
-          toast.error(res.detail);
+      .then(({data}) => {
+        if (data.code) {
+          toast.error(data.detail);
         } else {
           toast.success("Farm added successfully");
           setStore(null);

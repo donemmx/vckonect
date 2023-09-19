@@ -36,8 +36,8 @@ export default function CaseCard({ fullData }) {
       id: fullData?.id,
     };
     deleteCase(payload)
-      .then((res) => {
-        toast.success(res.detail);
+      .then(({data}) => {
+        toast.success(data.detail);
         updateReload();
       })
       .catch((err) => toast.error(err.detail));

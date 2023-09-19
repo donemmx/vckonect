@@ -31,8 +31,8 @@ export default function Home() {
   const [vets, setVets] = useState([]);
 
   const getVetsData = async () => {
-    await getVeterinarianByFilter({ name: "" }).then((res) => {
-      setVets(res.slice(0, 4));
+    await getVeterinarianByFilter({ name: "" }).then(({data}) => {
+      setVets(data.slice(0, 4));
       setLoading(false);
     });
   };

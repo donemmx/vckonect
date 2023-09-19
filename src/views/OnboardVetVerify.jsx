@@ -24,12 +24,12 @@ export default function OnboardVetVerify() {
       ...values,
     };
     await registerVeterinarian3(payload)
-      .then((res) => {
-        if (!res.code) {
+      .then(({data}) => {
+        if (!data.code) {
           location("/verified");
-          toast.success(res.detail);
+          toast.success(data.detail);
         } else {
-          toast.error(res.detail);
+          toast.error(data.detail);
         }
       })
       .catch((err) => console.log(err));

@@ -10,7 +10,7 @@ import "react-toastify/dist/ReactToastify.css";
 import App from "./App";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
+  <>
     <RecoilRoot>
       <ToastContainer
         position="top-right"
@@ -22,5 +22,5 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <App />
       <RouterProvider router={router} />
     </RecoilRoot>
-  </React.StrictMode>
+  </>
 );

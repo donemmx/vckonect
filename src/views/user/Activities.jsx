@@ -19,13 +19,13 @@ export default function Activities() {
       role: userData?.role,
     };
     if (userData.role === "Animal Owner") {
-      getAnimalOwnerActivity(payload).then((res) => {
-        setAllActivities(res);
+      getAnimalOwnerActivity(payload).then(({data}) => {
+        setAllActivities(data);
         setLoading(false);
       });
     } else {
-      getVeterinarianActivity(payload).then((res) => {
-        setAllActivities(res);
+      getVeterinarianActivity(payload).then(({data}) => {
+        setAllActivities(data);
         setLoading(false);
       });
     }

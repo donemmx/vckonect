@@ -35,8 +35,8 @@ export default function AddCase() {
       role: userData?.role,
     }
     await addCase(payload)
-      .then((res) => {
-        if (!res.code) {
+      .then(({data}) => {
+        if (!data.code) {
           window.history.back();
           if (action && action === "edit") {
             toast.success("Add cases edited successfully");
@@ -45,7 +45,7 @@ export default function AddCase() {
           }
           setStore(null);
         } else {
-          toast.error(res.detail);
+          toast.error(data.detail);
         }
       })
       .catch((err) => console.log(err));

@@ -48,14 +48,14 @@ export default function Dashboard() {
     };
     if (userData.role === "Animal Owner") {
       setLoading(true);
-      getAnimalOwnerActivity(payload).then((res) => {
-        setAllActivities(res);
+      getAnimalOwnerActivity(payload).then(({data}) => {
+        setAllActivities(data);
         setLoading(false);
       });
     } else {
       setLoading(true);
-      getVeterinarianActivity(payload).then((res) => {
-        setAllActivities(res);
+      getVeterinarianActivity(payload).then(({data}) => {
+        setAllActivities(data);
         setLoading(false);
       });
     }

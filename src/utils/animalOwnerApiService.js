@@ -9,32 +9,24 @@ const addFarm = (payload) => {
     .post(
       `${baseURl}/addFarm`, payload
     )
-    .then((res) => res.data)
-    .catch((err) => console.log(err));
 };
 const deleteFarm = (payload) => {
   return axios
     .post(
       `${baseURl}/deleteFarm`, payload
     )
-    .then((res) => res.data)
-    .catch((err) => console.log(err));
 };
 
 const getFarm = (payload) => {
   // const { userId, id } = payload;
   return axios
     .post(`${baseURl}/getFarm`, payload)
-    .then((res) => res.data)
-    .catch((err) => console.log(err));
 };
 
 const getOneFarm = (payload) => {
   // const { userId, id } = payload;
   return axios
     .post(`${baseURl}/getOneFarm`, payload)
-    .then((res) => res.data)
-    .catch((err) => console.log(err));
 };
 
 //   Pets
@@ -45,32 +37,24 @@ const addPet = (payload) => {
     .post(
       `${baseURl}/addPet`, payload
     )
-    .then((res) => res.data)
-    .catch((err) => console.log(err));
 };
 
 const getOnePet = (payload) => {
   // const { userId, id } = payload;
   return axios
     .post(`${baseURl}/getOnePet`, payload)
-    .then((res) => res.data)
-    .catch((err) => console.log(err));
 };
 
 const getPet = (payload) => {
   // const { userId, id } = payload;
   return axios
     .post(`${baseURl}/getPet`, payload)
-    .then((res) => res.data)
-    .catch((err) => console.log(err));
 };
 
 const deletePet = (payload) => {
   // const { userId, id } = payload;
   return axios
     .post(`${baseURl}/deletePet`, payload)
-    .then((res) => res.data)
-    .catch((err) => console.log(err));
 };
 
 // Animal owner Activity
@@ -79,8 +63,6 @@ const getAnimalOwnerActivity = (payload) => {
   // const { role, id } = payload;
   return axios
     .post(`${baseURl}/getAnimalOwnerActivity`, payload)
-    .then((res) => res.data)
-    .catch((err) => console.log(err));
 };
 
 // Register Animal owner
@@ -91,8 +73,6 @@ const registerAnimalOwner1 = (payload) => {
     .post(
       `${baseURl}/registerAnimalOwner`, payload
     )
-    .then((res) => res.data)
-    .catch((err) => console.log(err));
 };
 
 const registerAnimalOwner2 = (payload) => {
@@ -101,8 +81,6 @@ const registerAnimalOwner2 = (payload) => {
     .post(
       `${baseURl}/registerAnimalOwner`, payload
     )
-    .then((res) => res.data)
-    .catch((err) => console.log(err));
 };
 
 const registerAnimalOwner3 = (payload) => {
@@ -111,8 +89,6 @@ const registerAnimalOwner3 = (payload) => {
     .post(
       `${baseURl}/registerAnimalOwner`, payload
     )
-    .then((res) => res.data)
-    .catch((err) => console.log(err));
 };
 
 export  {

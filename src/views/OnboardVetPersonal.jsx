@@ -51,13 +51,13 @@ export default function OnboardVetPersonal() {
       ...others,
     };
     await registerVeterinarian2(payload)
-      .then((res) => {
-        if (!res.code) {
+      .then(({data}) => {
+        if (!data.code) {
           setRegEmail(payload)
           location("/onboard-vet-verify");
-          toast.success(res.detail);
+          toast.success(data.detail);
         } else {
-          toast.error(res.detail);
+          toast.error(data.detail);
         }
       })
       .catch((err) => console.log(err));

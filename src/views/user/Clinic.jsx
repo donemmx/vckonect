@@ -17,8 +17,8 @@ export default function Clinic() {
   const [allClinics, SetAllClinics] = useState([]);
 
   useEffect(() => {
-    getClinic({ user_id: userData?.id }).then((res) => {
-      SetAllClinics(res);
+    getClinic({ user_id: userData?.id }).then(({data}) => {
+      SetAllClinics(data);
       setLoading(false);
     });
   }, [reload]);

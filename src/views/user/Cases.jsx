@@ -15,8 +15,8 @@ export default function Cases() {
 
   const navigate = useNavigate()
   useEffect(()=> {
-    getCase({user_id: userData?.id}).then((res)=> {
-      setAllCases(res)
+    getCase({user_id: userData?.id}).then(({data})=> {
+      setAllCases(data)
     })
   }, [])
 

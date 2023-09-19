@@ -27,13 +27,13 @@ export default function OnboardVetAccount() {
       ...values,
     };
     await registerVeterinarian1(payload)
-      .then((res) => {
-        if (!res.code) {
+      .then(({data}) => {
+        if (!data.code) {
           location("/onboard-vet-details");
           setData(values.email);
-          toast.success(res.detail);
+          toast.success(data.detail);
         } else {
-          toast.error(res.detail);
+          toast.error(data.detail);
         }
       })
       .catch((error) => toast(error.message));

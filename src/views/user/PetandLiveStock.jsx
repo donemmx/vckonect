@@ -28,9 +28,9 @@ export default function PetandLiveStock() {
     let payload = {
       user_id: userData.id,
     };
-    getPet(payload).then((res) => setAllPets(res));
-    getFarm(payload).then((res) => {
-      setAllFarms(res);
+    getPet(payload).then(({data}) => setAllPets(data));
+    getFarm(payload).then(({data}) => {
+      setAllFarms(data);
       setLoading(false);
     });
   }, [reload, tab]);

@@ -26,13 +26,13 @@ export default function OnboardAnimalOwnerAccount() {
       ...values,
     };
     await registerAnimalOwner1(payload)
-      .then((res) => {
-        if (!res.code) {
+      .then(({data}) => {
+        if (!data.code) {
           location("/onboard-animal-owner-details");
           setData(values.email);
-          toast.success(res.detail);
+          toast.success(data.detail);
         } else {
-          toast.error(res.detail);
+          toast.error(data.detail);
         }
       })
       .catch((err) => console.log(err));

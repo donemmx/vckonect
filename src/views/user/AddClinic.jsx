@@ -85,9 +85,9 @@ export default function AddClinic() {
       formData.append(key, value);
     });
     await addClinic(formData)
-      .then((res) => {
-        if (res.code) {
-          toast.error(res.detail);
+      .then(({data}) => {
+        if (data.code) {
+          toast.error(data.detail);
         } else {
           if (action && action === "edit") {
             toast.success("Clinic details edited successfully");

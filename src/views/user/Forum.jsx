@@ -320,10 +320,10 @@ export default function Forum() {
                 )
               )}
             </div>
-            <div className="w-full !overflow-y-auto h-[50vh] ">
+            <div className="w-full overflow-y-scoll h-[50vh] ">
               {messages?.length > 0 ? (
                 <>
-                  <div className="lg:fixed  lg:w-[38%] lg:right-[8%] ">
+                  <div className="lg:fixed   lg:w-[38%] lg:right-[8%] ">
                     <div className="flex flex-col gap-2">
                       {messages?.map((res) => (
                         <div

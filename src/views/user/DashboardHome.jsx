@@ -53,8 +53,8 @@ export default function DashboardHome() {
     });
   };
   const getVetsData = async () => {
-    await getVeterinarianByFilter({ name: "" }).then((res) => {
-      setVets(res);
+    await getVeterinarianByFilter({ name: "" }).then(({data}) => {
+      setVets(data);
       setLoading(false);
     });
   };
@@ -74,8 +74,8 @@ export default function DashboardHome() {
         setLoading(false);
       });
     } else {
-      await getVeterinarianByFilter({ name: searchData }).then((res) => {
-        setVets(res);
+      await getVeterinarianByFilter({ name: searchData }).then(({data}) => {
+        setVets(data);
         setLoading(false);
       });
     }

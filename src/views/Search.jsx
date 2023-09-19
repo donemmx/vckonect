@@ -47,8 +47,8 @@ export default function Search() {
     });
   };
   const getVetsData = async () => {
-    await getVeterinarianByFilter({ name: "" }).then((res) => {
-      setVets(res.slice(0, 4));
+    await getVeterinarianByFilter({ name: "" }).then(({data}) => {
+      setVets(data.slice(0, 4));
       setLoading(false);
     });
   };
@@ -68,8 +68,8 @@ export default function Search() {
         setLoading(false);
       });
     } else {
-      await getVeterinarianByFilter({ name: searchData }).then((res) => {
-        setVets(res);
+      await getVeterinarianByFilter({ name: searchData }).then(({data}) => {
+        setVets(data);
         setLoading(false);
       });
     }
