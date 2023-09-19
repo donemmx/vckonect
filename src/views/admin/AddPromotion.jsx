@@ -40,10 +40,10 @@ export default function AddPromotion() {
       }
 
     await addPromotionPlan(payload)
-      .then((res) => {
-        console.log(res);
-        if (res.code) {
-          toast.error(res.detail);
+      .then(({data}) => {
+        console.log(data);
+        if (data.code) {
+          toast.error(data.detail);
         } else {
           toast.success("promotion added successfully");
           setStore(null);

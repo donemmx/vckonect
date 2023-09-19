@@ -40,22 +40,22 @@ export default function Subscriptions() {
   const getSubscriptions = async () => {
     setLoading(true);
     const payload = {};
-    await adminGetSubscriptionPlan(payload).then((res) => {
-      setSubscriptions(res);
+    await adminGetSubscriptionPlan(payload).then(({data}) => {
+      setSubscriptions(data);
       setLoading(false);
     });
   };
 
   const getmySubscriptions = () => {
-    adminGetSubscription({ name: null }).then((res) => {
-      setUserSubscription(res);
-      const filteredActiveSub = res.filter(
+    adminGetSubscription({ name: null }).then(({data}) => {
+      setUserSubscription(data);
+      const filteredActiveSub = data.filter(
         (data) => data.subscription === "Active"
       );
-      const freemiumSub = res.filter((data) => data.plan === "Freenium");
-      const monthlySub = res.filter((data) => data.plan === "Monthly");
-      const quarterlySub = res.filter((data) => data.plan === "Quarterly");
-      const yearlySub = res.filter((data) => data.plan === "Yearly");
+      const freemiumSub = data.filter((data) => data.plan === "Freenium");
+      const monthlySub = data.filter((data) => data.plan === "Monthly");
+      const quarterlySub = data.filter((data) => data.plan === "Quarterly");
+      const yearlySub = data.filter((data) => data.plan === "Yearly");
 
       setFreemium(freemiumSub);
       setMonthly(monthlySub);

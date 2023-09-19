@@ -85,10 +85,9 @@ export default function AddSubscription() {
     });
 
     addSubscriptionPlan(formData)
-      .then((res) => {
-        console.log(res);
-        if (res.code) {
-          toast.error(res.detail);
+      .then(({data}) => {
+        if (data.code) {
+          toast.error(data.detail);
         } else {
           toast.success("Subscription added successfully");
           setStore(null);

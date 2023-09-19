@@ -46,9 +46,9 @@ export default function Promotion() {
   const getProductsPromoted = () => {
     adminGetPromotion({
       name: "",
-    }).then((res) => {
-      setProductsPromoted(res);
-      const filtedData = res.filter((data)=> data.user_id === userData?.id)
+    }).then(({data}) => {
+      setProductsPromoted(data);
+      const filtedData = data.filter((data)=> data.user_id === userData?.id)
       setMyProductsPromoted(filtedData)
     })
   };

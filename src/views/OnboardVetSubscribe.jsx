@@ -10,9 +10,9 @@ export default function OnboardVetSubscribe() {
 
   
   useEffect(() => {
-    getSubscriptionPlan().then((res) => {
-      setAllSubscriptions(res);
-      setPlan(res[0].title);
+    getSubscriptionPlan().then(({data}) => {
+      setAllSubscriptions(data);
+      setPlan(data[0].title);
     });
   }, []);
 

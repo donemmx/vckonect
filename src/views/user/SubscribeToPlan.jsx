@@ -42,9 +42,9 @@ export default function SubscribeToPlan() {
     subscribePromotionPlan(payload).then((res) => {
       toast.success(res.detail);
       updateReload()
-      getPromotionPlan().then((res) => {
-        setAllPromotions(res);
-        setPlan(res[0].title);
+      getPromotionPlan().then(({data}) => {
+        setAllPromotions(data);
+        setPlan(data[0].title);
       });
     });
   };
@@ -114,9 +114,9 @@ export default function SubscribeToPlan() {
 
 
   useEffect(() => {
-    getPromotionPlan().then((res) => {
-      setAllPromotions(res);
-      setPlan(res[0].title);
+    getPromotionPlan().then(({data}) => {
+      setAllPromotions(data);
+      setPlan(data[0].title);
     });
   }, []);
   return (

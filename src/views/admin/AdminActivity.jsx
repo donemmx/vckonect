@@ -20,8 +20,8 @@ export default function AdminActivity() {
     const payload = {
       staff_id: userData.staff_id,
     };
-    await getAdminActivity(payload).then((res) => {
-      setActivities(res);
+    await getAdminActivity(payload).then(({data}) => {
+      setActivities(data);
       setLoading(false);
     });
   };

@@ -20,16 +20,16 @@ export default function AdminLogin() {
       ...values,
     };
     await adminLogin(payload)
-      .then((res) => {
-        if (!res.code) {
+      .then(({data}) => {
+        if (!data.code) {
             location("/admin-dashboard");
             toast.success("Successfully logged in");
               setData({
-                ...res,
+                ...data,
               });
           }
         else {
-          toast.error(res.detail);
+          toast.error(data.detail);
         }
     }
       )

@@ -52,13 +52,13 @@ export default function UserFeatures() {
       setLoading(false);
     });
 
-    await adminGetAnimalOwner().then((res) => {
-      setAnimalOwner(res);
+    await adminGetAnimalOwner().then(({data}) => {
+      setAnimalOwner(data);
       setLoading(false);
     });
 
-    await adminGetClinic().then((res) => {
-      setClinic(res);
+    await adminGetClinic().then(({data}) => {
+      setClinic(data);
       setLoading(false);
     });
 
@@ -67,22 +67,22 @@ export default function UserFeatures() {
       setLoading(false);
     });
 
-    await adminGetFarm().then((res) => {
-      setFarms(res);
+    await adminGetFarm().then(({data}) => {
+      setFarms(data);
       setLoading(false);
     });
 
-    await adminGetPet().then((res) => {
-      setPet(res);
+    await adminGetPet().then(({data}) => {
+      setPet(data);
       setLoading(false);
     });
-    await adminGetVeterinarian().then((res) => {
-      setVet(res);
+    await adminGetVeterinarian().then(({data}) => {
+      setVet(data);
       setLoading(false);
     });
 
-    await adminGetProduct().then((res) => {
-      setProduct(res);
+    await adminGetProduct().then(({data}) => {
+      setProduct(data);
       setLoading(false);
     });
   };
@@ -96,9 +96,9 @@ export default function UserFeatures() {
     switch (tab) {
       case "animalOwner":
         setLoading(true);
-        await adminGetAnimalOwner({ name: search }).then((res) => {
+        await adminGetAnimalOwner({ name: search }).then(({data}) => {
           setLoading(false);
-          setAnimalOwner(res);
+          setAnimalOwner(data);
         });
         break;
       case "pets":
@@ -110,17 +110,17 @@ export default function UserFeatures() {
           });
         } else {
           setLoading(true);
-          await adminGetFarm({ name: search }).then((res) => {
+          await adminGetFarm({ name: search }).then(({data}) => {
             setLoading(false);
-            setFarms(res);
+            setFarms(data);
           });
         }
         break;
       case "vet":
         setLoading(true);
-        await adminGetVeterinarian({ name: search }).then((res) => {
+        await adminGetVeterinarian({ name: search }).then(({data}) => {
           setLoading(false);
-          setVet(res);
+          setVet(data);
         });
         break;
       case "store":
@@ -132,9 +132,9 @@ export default function UserFeatures() {
         break;
       case "clinic":
         setLoading(true);
-        await adminGetClinic({ name: search }).then((res) => {
+        await adminGetClinic({ name: search }).then(({data}) => {
           setLoading(false);
-          setClinic(res);
+          setClinic(data);
         });
         break;
       default:
@@ -154,7 +154,7 @@ export default function UserFeatures() {
       id: data.id,
       role: data.role,
     };
-    deactivateAccount(payload).then((res) => {
+    deactivateAccount(payload).then(() => {
       toast.success("User successfully deactivated");
       setButtonLoading(false);
       getUserCounter();
@@ -168,7 +168,7 @@ export default function UserFeatures() {
     };
     setSelectedId(id);
 
-    verifyVetNumber(payload).then((res) => {
+    verifyVetNumber(payload).then(() => {
       toast.success("Vet Number Verified successfully");
       setVetLoading(false);
       getUserCounter();
@@ -182,7 +182,7 @@ export default function UserFeatures() {
       id: data.id,
       role: data.role,
     };
-    activateAccount(payload).then((res) => {
+    activateAccount(payload).then(() => {
       toast.success("User successfully activated");
       setButtonLoading(false);
       getUserCounter();

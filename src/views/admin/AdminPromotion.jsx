@@ -45,18 +45,18 @@ export default function AdminPromotion() {
 
   const getPromotions = async () => {
     const payload = {};
-    await adminGetPromotionPlan(payload).then((res) => {
-      setPromotions(res);
+    await adminGetPromotionPlan(payload).then(({data}) => {
+      setPromotions(data);
       setLoading(false);
     });
   };
   const getUserPromotions = async () => {
     const payload = {};
-    await adminGetPromotion(payload).then((res) => {
-      setUserPromotions(res);
-      const active = res.filter((data) => data.subscription === "Active");
-      const suspended = res.filter((data) => data.subscription === "Suspended");
-      const expired = res.filter(
+    await adminGetPromotion(payload).then(({data}) => {
+      setUserPromotions(data);
+      const active = data.filter((data) => data.subscription === "Active");
+      const suspended = data.filter((data) => data.subscription === "Suspended");
+      const expired = data.filter(
         (data) =>
           data.subscription === "Expired" || data.subscription === "Suspended"
       );

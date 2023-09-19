@@ -79,15 +79,15 @@ export default function AdminAccountDetails() {
       });
   
       await updateAdminProfile(formData)
-        .then((res) => {
-          if (!res.code) {
+        .then(({data}) => {
+          if (!data.code) {
             toast.success("User data updated");
               setUserData({
-                ...res.data,
+                ...data.data,
             });
             window.history.back();
           } else {
-            toast.error(res.detail);
+            toast.error(data.detail);
           }
         })
         .catch((err) => console.log(err));

@@ -50,7 +50,7 @@ export default function AdminContent() {
   const approveContent = (payload) => {
     setButtonLoading(true);
     setSelectedId(payload.forum_chat_id)
-    approveForumChat(payload).then((res) => {
+    approveForumChat(payload).then(() => {
       toast.success("Post Approved Successfully");
       setButtonLoading(false);
       getUserCounter();
@@ -59,7 +59,7 @@ export default function AdminContent() {
   const rejectContent = (payload) => {
     setButtonLoading(true);
     setSelectedId(payload.forum_chat_id)
-    rejectForumChat(payload).then((res) => {
+    rejectForumChat(payload).then(() => {
       toast.success("Post Rejected Successfully");
       setButtonLoading(false);
       getUserCounter();
