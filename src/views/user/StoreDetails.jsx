@@ -58,13 +58,13 @@ export default function StoreDetails() {
 
   return (
     <div className=" bg-white h-full pb-10 mb-10  rounded-md border-[1px] border-[#EBEBEB]">
-      <div className="top bg-account h-[25vh] p-3 lg:p-10 rounded-t-lg">
+      <div className="top bg-account z-[-10px] h-[25vh] p-3 lg:p-10 rounded-t-lg">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3 text-[.75rem] lg:text-[.9rem] cursor-pointer">
+          <div className="flex items-center z-20 gap-3 text-[.75rem] lg:text-[.9rem] cursor-pointer">
             {userData?.id ? (
               <Link
                 onClick={back}
-                className=" flex items-center gap-3 text-[.75rem] lg:text-[.9rem] cursor-pointer"
+                className=" flex items-center mt-10 md:mt-0 gap-3 text-[.75rem] lg:text-[.9rem] cursor-pointer"
               >
                 <i className="pi pi-angle-left p-1 lg:p-3 h-[25px] w-[25px] lg:h-[45px] lg:w-[45px] bg-white rounded-full"></i>
                 Back
