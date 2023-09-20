@@ -122,7 +122,7 @@ const clinic = yup.object().shape({
 const addCaseValidation  =  yup.object().shape({
     client_name: yup.string(),
     client_phone: yup.string(),
-    case_title: yup.string(),
+    case_title: yup.string().required("Required"),
     details: yup.string(),
     date_of_occurence: yup.string(),
     history: yup.string(),

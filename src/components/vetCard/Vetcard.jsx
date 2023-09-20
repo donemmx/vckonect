@@ -51,9 +51,9 @@ export default function Vetcard({ fullData }) {
               </div>
             )}
           </div>
-          
+
           <div className="bottom flex items-center justify-between p-2 absolute bottom-2 w-full ">
-          <div className="rating bg-gray-50 left-2 rounded-full text-black px-3 py-2 font-bold bottom-0 text-sm flex items-center gap-2 mb-2">
+            <div className="rating bg-gray-50 left-2 rounded-full text-black px-3 py-2 font-bold bottom-0 text-sm flex items-center gap-2 mb-2">
               <img src={star} alt="" className="h-6" />
               {fullData?.rating ?? 0} of 5
             </div>
@@ -74,34 +74,38 @@ export default function Vetcard({ fullData }) {
             <img src={location} alt="" className=" h-5" />
             {`${fullData?.state}, ${fullData?.address}`}
           </div>
-          <div className="buttons pt-1 flex justify-between items-center mt-3">
-            <div className="group flex items-center gap-3  ">
-              <a href={`tel:${fullData?.phone_number}`} rel="noReferrer">
-                <img
-                  src={phone}
-                  className=" p-2 h-[35px] bg-white w-[35px] object-contain rounded-full shadow-md cursor-pointer"
-                  alt=""
-                />
-              </a>
-              {userData?.id ? <DirectMessageModal fullData={fullData} /> : ""}
-              <a href={`mailto:${fullData?.email}`} rel="noReferrer">
-                <img
-                  src={message}
-                  alt=""
-                  className=" p-2 h-[35px] bg-white w-[35px] object-contain rounded-full shadow-md cursor-pointer"
-                />
-              </a>
+          {fullData?.subscription_title !== "Freenium Plan" ? (
+            <div className="buttons pt-1 flex justify-between items-center mt-3">
+              <div className="group flex items-center gap-3  ">
+                <a href={`tel:${fullData?.phone_number}`} rel="noReferrer">
+                  <img
+                    src={phone}
+                    className=" p-2 h-[35px] bg-white w-[35px] object-contain rounded-full shadow-md cursor-pointer"
+                    alt=""
+                  />
+                </a>
+                {userData?.id ? <DirectMessageModal fullData={fullData} /> : ""}
+                <a href={`mailto:${fullData?.email}`} rel="noReferrer">
+                  <img
+                    src={message}
+                    alt=""
+                    className=" p-2 h-[35px] bg-white w-[35px] object-contain rounded-full shadow-md cursor-pointer"
+                  />
+                </a>
+              </div>
+              <div className="message">
+                <button
+                  onClick={() => {
+                    checker("vet-details");
+                  }}
+                >
+                  <img src={openIcon} alt="" />
+                </button>
+              </div>
             </div>
-            <div className="message">
-              <button
-                onClick={() => {
-                  checker("vet-details");
-                }}
-              >
-                <img src={openIcon} alt="" />
-              </button>
-            </div>
-          </div>
+          ) : (
+            ""
+          )}
         </div>
       </div>
     </div>
