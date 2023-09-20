@@ -144,7 +144,9 @@ export default function AddProduct() {
       } else {
         setAvailability(false);
       }
-      setPicture(store?.picture);
+      setImagePreviews(store?.images);
+      setTags(store?.tags)
+      setCategory(store?.category)
     }
   }, []);
 
