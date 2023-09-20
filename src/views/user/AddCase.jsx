@@ -26,13 +26,26 @@ export default function AddCase() {
 
   const onSubmit = async (values) => {
     console.log(values, data, type);
+    let payload
     const {id, date, ...others} = data
-    const payload = {
-      ...others,
-      ...values,
-      case_type: type,
-      user_id: userData?.id,
-      role: userData?.role,
+    if (action && action === "edit") {
+      payload = {
+        ...others,
+        ...values,
+        case_type: type,
+        user_id: userData?.id,
+        role: userData?.role,
+        case_id: store?.id
+      }
+    }
+    else{
+      payload = {
+        ...others,
+        ...values,
+        case_type: type,
+        user_id: userData?.id,
+        role: userData?.role,
+      }
     }
     await addCase(payload)
       .then(({data}) => {
@@ -105,7 +118,16 @@ export default function AddCase() {
     getAllPets(), getAllFarms();
   }, []);
 
- 
+  useEffect(() => {
+    if (action && action == "edit") {
+      if(store?.farm_id === null){
+        setData(store?.farm_name);
+      }
+      else{
+        setData(store?.pet_name)
+      }
+    }
+  }, []);
 
   return (
     <div className=" bg-white h-full pb-20  mb-10 rounded-md border-[1px] border-[#EBEBEB]">
