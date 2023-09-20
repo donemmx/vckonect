@@ -12,7 +12,7 @@ export default function PromotionSubscriptionCard({ promotion }) {
   return (
     <>
       <div className=" border  h-full lg:h-[10vh] rounded-md bg-gray-100  my-5">
-        <div className="flex flex-wrap  items-center justify-between h-full">
+        <div className="flex flex-wrap   items-center justify-between h-full">
           <div className=" flex items-center  justify-between flex-wrap lg:flex-nowrap gap-5 p-5 w-full lg:w-[60%] rounded-md bg-green-900 h-full text-white">
             <div className="flex items-center gap-5">
               <i className=" pi pi-cog  pi-spin !text-xl"></i>
