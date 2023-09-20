@@ -54,7 +54,7 @@ export default function ClinicDetails() {
   return (
     <div className=" bg-white h-full pb-10 mb-10  rounded-md border-[1px] border-[#EBEBEB]">
       <div className="top bg-account h-[25vh] p-3 lg:p-10 rounded-t-lg">
-        <div className="flex items-center justify-between">
+        <div className="flex mt-10 md:mt-0 items-center justify-between">
           <div className="flex w-full items-center gap-3 text-[.75rem] lg:text-[.9rem] cursor-pointer">
             {userData?.id ? (
               <>
