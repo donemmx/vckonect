@@ -20,7 +20,7 @@ export default function PromotionSubscriptionCard({ promotion }) {
                 <h3 className="font-black text-lg ">
                   {promotion?.promotion_title}
                 </h3>
-                <p className="">{promotion?.no_of_products} Products</p>
+                <p className="">{promotion?.no_of_products === '1' ? `${promotion?.no_of_products} Product` : ` ${promotion?.no_of_products} Products`} </p>
               </div>
             </div>
             {promotion?.plan !== "Yearly" ? (

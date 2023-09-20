@@ -74,7 +74,15 @@ export default function Promotion() {
               } `}
               onClick={() => activeTab("all")}
             >
-              Promotion
+             All Promotion
+            </h2>
+            <h2
+              className={` text-[1rem] lg:text-[1.1rem] cursor-pointer ${
+                tab === "myPromotion" ? "font-black" : ""
+              } `}
+              onClick={() => activeTab("myPromotion")}
+            >
+             My Promotion
             </h2>
             <h4
               className={`text-[1rem] lg:text-[1.1rem] cursor-pointer ${
@@ -89,11 +97,7 @@ export default function Promotion() {
             <>
               {myPromotion?.subscription === "Active" ? (
                 <>
-                  <PromotionPlanCard
-                    myPromotion={myPromotion}
-                    productsPromoted={myproductsPromoted}
-                  />
-                  <div className=" flex flex-wrap justify-center items-center gap-4">
+                  <div className=" mt-20 flex flex-wrap  items-center gap-4">
                     {productsPromoted.map((res) => (
                       <>
                         {res.subscription === "Active" ? (
@@ -112,7 +116,37 @@ export default function Promotion() {
                 ""
               )}
             </>
-          ) : myPromotion?.subscription === "Active" ? (
+          ) 
+          :
+          tab === 'myPromotion' ?
+          <>
+          {myPromotion?.subscription === "Active" ? (
+            <>
+              <PromotionPlanCard
+                myPromotion={myPromotion}
+                productsPromoted={myproductsPromoted}
+              />
+              <div className=" flex flex-wrap justify-center items-center gap-4">
+                {myproductsPromoted.map((res) => (
+                  <>
+                    {res.subscription === "Active" ? (
+                      <PromoCard key={res.id} data={res} />
+                    ) : (res.subscription === "Expired " || res.subscription === "Suspended") &&
+                      res.user_id === userData?.id ? (
+                      <PromoCard key={res.id} data={res} />
+                    ) : (
+                      ""
+                    )}
+                  </>
+                ))}
+              </div>
+            </>
+          ) : (
+            ""
+          )}
+        </>
+          
+          : myPromotion?.subscription === "Active" ? (
             <PromotionSubscriptionCard promotion={myPromotion} />
           ) : (
             <SubscribeToPlan />
