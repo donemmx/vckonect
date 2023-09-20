@@ -120,21 +120,21 @@ const clinic = yup.object().shape({
 
 
 const addCaseValidation  =  yup.object().shape({
-    client_name: yup.string().required("Required"),
-    client_phone: yup.string().required("Required"),
-    case_title: yup.string().required("Required"),
-    details: yup.string().required("Required"),
-    date_of_occurence: yup.string().required("Required"),
-    history: yup.string().required("Required"),
-    clinical_sign: yup.string().required("Required"),
-    motality: yup.string().required("Required"),
-    mobile_veterinarian: yup.string().required("Required"),
-    treatment_regiment: yup.string().required("Required"),
-    clinic_physical_address: yup.string().required("Required"),
-    lab_confirm: yup.string().required("Required"),
-    disease_diagnostic: yup.string().required("Required"),
-    differential_diagnosis: yup.string().required("Required"),
-    tentative_diagnoistic: yup.string().required("Required"),
+    client_name: yup.string(),
+    client_phone: yup.string(),
+    case_title: yup.string(),
+    details: yup.string(),
+    date_of_occurence: yup.string(),
+    history: yup.string(),
+    clinical_sign: yup.string(),
+    motality: yup.string(),
+    mobile_veterinarian: yup.string(),
+    treatment_regiment: yup.string(),
+    clinic_physical_address: yup.string(),
+    lab_confirm: yup.string(),
+    disease_diagnostic: yup.string(),
+    differential_diagnosis: yup.string(),
+    tentative_diagnoistic: yup.string()
 })
 
 const pet  =  yup.object().shape({
