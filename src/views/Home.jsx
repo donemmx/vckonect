@@ -31,7 +31,7 @@ export default function Home() {
   const [vets, setVets] = useState([]);
 
   const getVetsData = async () => {
-    await getVeterinarianByFilter({ name: "" }).then(({data}) => {
+    await getVeterinarianByFilter({ name: "" }).then(({ data }) => {
       setVets(data.slice(0, 4));
       setLoading(false);
     });
@@ -66,7 +66,6 @@ export default function Home() {
                   btnText="Get Started"
                   icon={arrowRed}
                   route={"/vet-add-clinic"}
-                  
                 />
               </div>
             </div>
@@ -148,6 +147,7 @@ export default function Home() {
                 <CardOne
                   image={chatIcon}
                   title="Join our forum chat"
+                  route={"/vet-forum"}
                   subtitle="Connect with others to share and receive knowledge, experiences, and advice on pet and livestock health and behavior issues"
                   btnText="Browse Now"
                   icon={arrowYellow}
@@ -155,6 +155,7 @@ export default function Home() {
                 <CardOne
                   image={sendIcon}
                   title="Send a direct message"
+                  route={"/vet-forum"}
                   subtitle="Connect with others by sending a direct message, and also receiving and replying the messages on the direct message tab option on the forum chat page."
                   btnText="Get Started"
                   icon={arrowGreen}
