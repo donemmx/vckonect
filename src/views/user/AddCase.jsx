@@ -125,6 +125,9 @@ export default function AddCase() {
       }
       else{
         setData(store?.pet_name)
+        setPets({
+          pet_name: store?.pet_name
+        })
       }
     }
   }, []);
