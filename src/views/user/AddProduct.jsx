@@ -64,7 +64,7 @@ export default function AddProduct() {
         user_id: store?.user_id,
         store_id: store?.id,
         availability: available,
-        tags: [...tags],
+        tags: JSON.stringify([...tags]),
         category: category,
         ...values,
       };
@@ -145,6 +145,7 @@ export default function AddProduct() {
         setAvailability(false);
       }
       setImagePreviews(store?.images);
+      setSelectedFiles(store?.images);
       setTags(store?.tags)
       setCategory(store?.category)
     }
@@ -203,7 +204,7 @@ export default function AddProduct() {
                 value={tags}
                 onChange={(e) => setTags(e.target.value)}
               />
-              <label htmlFor="username">Tags (Required) :</label>
+              <label htmlFor="username">Tags (Required) : Press Enter to add a tag</label>
             </span>
             <span className="p-float-label">
               <InputText
