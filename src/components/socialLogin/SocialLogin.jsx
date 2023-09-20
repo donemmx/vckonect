@@ -8,12 +8,15 @@ import {
     linkedInCallback,
     login,
   } from "../../utils/userApiService";
+import { useSetRecoilState } from "recoil";
+import { user } from "../../atom/userAtom";
 export default function SocialLogin() {
     const googleClientId =
     "905736705694-be5othcfreqgko6km4qce2sci8od92ki.apps.googleusercontent.com";
   const linkedinClientId = "77c5cdjvez8wof";
   const linkedinSecretId = "jM6eGS3zA6HgKbKN";
   const state = "1234567890";
+  const [userData, setUserData] = useSetRecoilState(user)
   return (
     <div>
          <div className=" flex items-center justify-center mt-5 gap-4">
@@ -47,7 +50,7 @@ export default function SocialLogin() {
             onResolve={({ data }) => {
               // setData(data)
               googleCallback(data.access_token).then(({data}) => {
-                console.log(data);
+                setUserData(data)
               });
             }}
             onReject={(err) => {
