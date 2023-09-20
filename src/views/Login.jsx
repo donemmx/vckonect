@@ -9,13 +9,10 @@ import { toast } from "react-toastify";
 import { useFormik } from "formik";
 import {
   getUserById,
-  googleCallback,
-  linkedInCallback,
   login,
 } from "../utils/userApiService";
 import { user } from "../atom/userAtom";
 import { useRecoilState } from "recoil";
-import { log } from "deck.gl";
 import SocialLogin from "../components/socialLogin/SocialLogin";
 
 
