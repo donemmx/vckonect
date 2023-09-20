@@ -50,7 +50,7 @@ export default function SocialLogin() {
             onResolve={({ data }) => {
               // setData(data)
               googleCallback(data.access_token).then((res) => {
-                setUserData(res.data)
+               console.log(res.data);
               });
             }}
             onReject={(err) => {
