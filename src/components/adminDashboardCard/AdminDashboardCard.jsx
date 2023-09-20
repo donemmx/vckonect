@@ -28,6 +28,7 @@ export default function AdminDashboardCard({
   id,
   email,
   phone,
+  vet_number,
   selectedId,
 }) {
   return (
@@ -55,8 +56,9 @@ export default function AdminDashboardCard({
               <div className="font-bold text-sm">{title}</div>
               <div className=" text-[11px]">{name}</div>
               {vet ? <div className="">
-                <div className="">{email}</div>
-                <div className="">{phone}</div>
+                <div className="text-sm font-bold">Email: {email}</div>
+                <div className="text-sm font-bold">Phone: {phone}</div>
+                <div className="text-sm font-bold">Vet Number: {vet_number}</div>
               </div> : ""}
               {duration ? <div className=" text-[11px]">{duration}</div> : ""}
             </div>

@@ -47,8 +47,8 @@ export default function UserFeatures() {
   const [vetLoading, setVetLoading] = useState(false);
 
   const getUserCounter = async () => {
-    await usersCounter().then((res) => {
-      setCounter(res);
+    await usersCounter().then(({data}) => {
+      setCounter(data);
       setLoading(false);
     });
 
@@ -104,9 +104,9 @@ export default function UserFeatures() {
       case "pets":
         if (active === "pet") {
           setLoading(true);
-          await adminGetPet({ name: search }).then((res) => {
+          await adminGetPet({ name: search }).then(({data}) => {
             setLoading(false);
-            setPet(res);
+            setPet(data);
           });
         } else {
           setLoading(true);
@@ -149,7 +149,6 @@ export default function UserFeatures() {
   const disableUserAccount = (data) => {
     setButtonLoading(true);
     setSelectedId(data.id);
-    console.log(data);
     const payload = {
       id: data.id,
       role: data.role,
@@ -355,6 +354,9 @@ export default function UserFeatures() {
                       verifyVetFunction={() => verifyVetNumberFunction(res.id)}
                       vetLoading={vetLoading}
                       selectedId={selectedId}
+                      email={res.email}
+                      phone={res.phone_number}
+                      vet_number={res.vet_number}
                       name={res.role}
                       image={res.profile_picture}
                       rejcetButtonText="Disable"
@@ -369,6 +371,9 @@ export default function UserFeatures() {
                       title={res.first_name + res.last_name}
                       name={res.role}
                       id={res.id}
+                      email={res.email}
+                      vet_number={res.vet_number}
+                      phone={res.phone_number}
                       selectedId={selectedId}
                       image={res.profile_picture}
                       approveButtonText="Enable"
