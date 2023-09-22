@@ -137,7 +137,7 @@ export default function StoreCard({
           <div className="name flex items-center font-black sm:text-[.85rem] h-[5vh]">
             {storeName}
           </div>
-          <div className="location flex text-sm items-center gap-2 h-[5vh]">
+          <div className="location flex text-xs items-center gap-2 h-[5vh]">
             <img src={location} alt="" className=" h-5" />
             {storeLocation}
           </div>

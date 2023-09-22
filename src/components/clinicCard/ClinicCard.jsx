@@ -54,7 +54,7 @@ export default function ClinicCard({ fullData }) {
   };
 
   return (
-    <div className=" vetCard mb-6">
+    <div className=" vetCard my-6">
       <div className="group h-full w-full ">
         <div
           className="top h-[65%] w-full relative"
@@ -101,10 +101,10 @@ export default function ClinicCard({ fullData }) {
         </div>
         <div className="bottom bg-white p-2 rounded-b-[12px]">
       
-          <div className="name font-black sm:text-[.85rem] md:text-[1.1rem]">
+          <div className="name font-black sm:text-[.85rem] h-[5vh]">
             {fullData?.clinic_name}
           </div>
-          <div className="location flex text-sm items-center gap-2">
+          <div className="location flex text-xs items-center gap-2 h-[5vh]">
             <img src={location} alt="" className=" h-5" />
             {fullData?.location}
           </div>
