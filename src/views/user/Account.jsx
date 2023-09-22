@@ -14,14 +14,16 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 import { toast } from "react-toastify";
 import RatingModal from "../../components/ratingModal/RatingModal";
 import DirectMessageModal from "../../components/directMessageModal/DirectMessageModal";
+import { getMySubscription } from "../../utils/vetApiService";
 
 export default function Account() {
   const [userData, setUserData] = useState();
   const userDetails = useRecoilValue(user);
   const [openDetail, setOpenDetail] = useState(null);
+  const [subscription, setSubscription] = useState();
   const location = useNavigate();
   const params = useParams();
-
+  
   let role;
   if (window.location.pathname.split("/")[1].includes("vet")) {
     role = "Veterinarian";
@@ -65,8 +67,21 @@ export default function Account() {
     setData(route, "share");
   };
 
+  const getSubscription = (payload) => {
+    getMySubscription(payload).then(({data})=> {
+      setSubscription(data)
+    })
+  }
+
+
   useEffect(() => {
     getUser();
+    if(userDetails){
+      const payload ={
+        user_id: params.id
+      }
+      getSubscription(payload)
+    }
   }, []);
 
   return (
@@ -175,6 +190,10 @@ export default function Account() {
           ""
         )}
       </div>
+
+<div className="">
+  
+</div>
 
       {openDetail && openDetail[0] !== "rate" ? (
         <div className="user  flex flex-col justify-center items-center w-[65%] lg:w-[20%] mx-auto mt-[15vh]">

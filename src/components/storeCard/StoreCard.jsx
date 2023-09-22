@@ -86,7 +86,7 @@ export default function StoreCard({
   };
 
   return (
-    <div className=" vetCard mb-6 mt-6">
+    <div className=" vetCard my-6">
       <div className="group h-full w-full ">
         <div
           className="top h-[65%] w-full relative"

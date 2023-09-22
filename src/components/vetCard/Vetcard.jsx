@@ -28,7 +28,7 @@ export default function Vetcard({ fullData }) {
   };
 
   return (
-    <div className=" vetCard mb-6">
+    <div className=" vetCard my-6">
       <div className="group h-full w-full ">
         <div
           className="top h-[65%] w-full relative"
@@ -67,10 +67,10 @@ export default function Vetcard({ fullData }) {
           </div>
         </div>
         <div className="bottom bg-white p-2 rounded-b-[12px]">
-          <div className="name font-black sm:text-[.85rem] md:text-[1.1rem]">
+          <div className="name font-black sm:text-[.85rem] md:text-[1.1rem] h-[5vh]">
             {`${fullData?.first_name} ${fullData?.last_name}`}
           </div>
-          <div className="location flex text-sm items-center gap-2">
+          <div className="location flex text-sm items-center gap-2  h-[5vh]">
             <img src={location} alt="" className=" h-5" />
             {`${fullData?.state}, ${fullData?.address}`}
           </div>
@@ -104,7 +104,7 @@ export default function Vetcard({ fullData }) {
               </div>
             </div>
           ) : (
-            ""
+            <div className=" h-[11.5vh]" ></div>
           )}
         </div>
       </div>

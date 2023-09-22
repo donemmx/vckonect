@@ -113,7 +113,13 @@ const vetPlan = (payload) => {
     .post(
       `${baseURl}/vetPlan`, payload
     )
+};
 
+const getMySubscription = (payload) => {
+  return axios
+    .post(
+      `${baseURl}/getMySubscription`, payload
+    )
 };
 
 export {
@@ -132,5 +138,6 @@ export {
   registerVeterinarian3,
   getVeterinarianByLocation,
   getVeterinarianByFilter,
-  vetPlan
+  vetPlan,
+  getMySubscription
 };
