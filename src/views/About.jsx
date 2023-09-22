@@ -7,8 +7,21 @@ import Cardcolor from "../components/cardColor/Cardcolor";
 import Value from "../components/value/Value";
 import Footer from "../components/footer/Footer";
 import flags from "../assets/icons/flag-high.svg";
+import { useEffect, useState } from "react";
+import { usersCounter } from "../utils/adminApiService";
 
 export default function About() {
+  const [counterData, setCounterData] = useState([])
+
+  const getCounterData = () => {
+    usersCounter().then(({data})=> {
+     setCounterData(data)
+    })
+  }
+
+  useEffect(()=> {
+      getCounterData()
+  }, [])
   return (
     <>
       <div className="section pt-[20vh] pb-[10vh] w-[100%]  bg-[white]">
@@ -26,22 +39,22 @@ export default function About() {
               <div className="section__cards flex w-[100%] md:w-[90%] flex-wrap items-center justify-center pt-10 gap-4">
                 <Cardcolor
                   text={"Number of Veterinarians"}
-                  title={"8k+"}
+                  title={counterData?.veterinarian}
                   image={green}
                 />
                 <Cardcolor
                   text={"Number of Vet Clinics"}
-                  title={"5.7k+"}
+                  title={counterData?.clinic}
                   image={yellow}
                 />
                 <Cardcolor
-                  text={"Vet Vendor & Store"}
-                  title={"9.3k+"}
+                  text={"Store"}
+                  title={counterData?.store}
                   image={orange}
                 />
                 <Cardcolor
-                  text={"Pet Owners & livestock Farmers"}
-                  title={"2m+"}
+                  text={"Pets / Farms"}
+                  title={counterData?.farm + counterData?.pet}
                   image={red}
                 />
               </div>

@@ -6,8 +6,21 @@ import red from "../../assets/bg/light-red-shape-bg.svg";
 import green from "../../assets/bg/green-shape-bg.svg";
 import people from "../../assets/bg/people-img.png";
 import { Link } from "react-router-dom";
+import { usersCounter } from "../../utils/adminApiService";
+import { useEffect, useState } from "react";
 
 export default function Section() {
+  const [counterData, setCounterData] = useState([]);
+
+  const getCounterData = () => {
+    usersCounter().then(({ data }) => {
+      setCounterData(data);
+    });
+  };
+
+  useEffect(() => {
+    getCounterData();
+  }, []);
   return (
     <div className="section pt-[10vh] pb-[10vh] w-[100%]  bg-[white]">
       <div className="main w-[90%] md:w-[85%] m-auto flex flex-col-reverse  md:grid grid-cols-12 ">
@@ -24,31 +37,37 @@ export default function Section() {
             <div className="section__cards flex flex-wrap items-center justify-center md:justify-start pt-10 gap-2">
               <Cardcolor
                 text={"Number of Veterinarians"}
-                title={"8k+"}
+                title={counterData?.veterinarian}
                 image={green}
               />
               <Cardcolor
                 text={"Number of Vet Clinics"}
-                title={"5.7k+"}
+                title={counterData?.clinic}
                 image={yellow}
               />
               <Cardcolor
-                text={"Vet Vendor & Store"}
-                title={"9.3k+"}
+                text={"Store"}
+                title={counterData?.store}
                 image={orange}
               />
               <Cardcolor
-                text={"Pet Owners & livestock Farmers"}
-                title={"2m+"}
+                text={"Pets / Farms"}
+                title={counterData?.farm + counterData?.pet}
                 image={red}
               />
             </div>
             <div className="people pt-10 flex items-center gap-4">
-              <img src={people} alt="" className=" h-[40px] md:h-[60px] object-contain" />
+              <img
+                src={people}
+                alt=""
+                className=" h-[40px] md:h-[60px] object-contain"
+              />
               <div className="top font-black text-[1.5rem]">20+</div>
               <small>Team Members</small>
             </div>
-            <Link to='/about-us' className="primary__btn mt-10 w-fit ">Read About Us</Link>
+            <Link to="/about-us" className="primary__btn mt-10 w-fit ">
+              Read About Us
+            </Link>
           </div>
         </div>
         <div className="section__right col-span-4">
