@@ -13,6 +13,7 @@ import { useEffect, useState } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { toast } from "react-toastify";
 import RatingModal from "../../components/ratingModal/RatingModal";
+import DirectMessageModal from "../../components/directMessageModal/DirectMessageModal";
 
 export default function Account() {
   const [userData, setUserData] = useState();
@@ -139,6 +140,18 @@ export default function Account() {
           />
           Location
         </div>
+
+        {userDetails?.id && userDetails?.id !== params.id ? (
+          <div className="flex flex-col items-center justify-center gap-3">
+            <DirectMessageModal
+              fullData={userData}
+              className="!h-[20px] !border-2"
+            />
+            Direct Message
+          </div>
+        ) : (
+          ""
+        )}
         <div
           className="flex flex-col items-center justify-center"
           onClick={shareAccount}

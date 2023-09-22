@@ -10,6 +10,7 @@ import available from "../../assets/sidebar/available.svg";
 import notAvailable from "../../assets/sidebar/notAvailable.svg";
 import CopyToClipboard from "react-copy-to-clipboard";
 import { toast } from "react-toastify";
+import DirectMessageModal from "../../components/directMessageModal/DirectMessageModal";
 
 
 export default function VetUserDetails() {
@@ -93,6 +94,17 @@ export default function VetUserDetails() {
             />
             Location
           </div>
+          {userData?.id ? (
+          <div className="flex flex-col items-center justify-center gap-3">
+            <DirectMessageModal
+              fullData={storeInfo}
+              className="!h-[20px] !border-2"
+            />
+            Direct Message
+          </div>
+        ) : (
+          ""
+        )}
         </div>
         <small className=" text-[1.1rem] pt-5 text-center flex flex-col gap-4 items-center justify-center space-y-2">
           Availability

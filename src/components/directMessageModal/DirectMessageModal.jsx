@@ -7,6 +7,7 @@ import { reloadStore } from "../../atom/reloadAtom";
 import { directMessage, getUserById } from "../../utils/userApiService";
 import { user } from "../../atom/userAtom";
 import { toast } from "react-toastify";
+import { useParams } from "react-router-dom";
 
 export default function DirectMessageModal({ fullData }) {
   const [comment, setComment] = useState([]);
@@ -16,19 +17,17 @@ export default function DirectMessageModal({ fullData }) {
   const [loading, setLoading] = useState(false);
   const [reload, setReload] = useRecoilState(reloadStore);
   const userData = useRecoilValue(user);
-  const openModal = () => {
+  const params = useParams()
+   const openModal = () => {
     setVisible(!visible);
-    let id;
     let role;
     if(fullData?.hasOwnProperty('vet_number_status')){
-     id=fullData?.id
      role='Veterinarian';
     }else{
-      id=fullData?.user_id;
       role=fullData?.role;
     }
     const payload = {
-      id: id,
+      id: params.id,
       role: role,
     };
     console.log(fullData);

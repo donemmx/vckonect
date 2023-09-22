@@ -3,7 +3,7 @@ import flags from "../../assets/bg/flags.png";
 import location from "../../assets/icons/marker-icon.svg";
 import search from "../../assets/icons/search-icons/search-icon-white.svg";
 import playstore from '../../assets/icons/playstore.svg';
-import applestore from '../../assets/icons/applestore.svg';
+import apple from '../../assets/icons/applestore.svg';
 export default function Hero() {
   return (
     <div className="hero pt-[10vh] pb-10 w-[100%] h-[100%] md:h-[100vh] bg-hero bg-cover bg-bottom">
@@ -22,7 +22,7 @@ export default function Hero() {
                 <p>Google Play</p>
               </a>
               <a href="https://apps.apple.com/ng/app/vetkonect/id1661529111" target="_blank" rel="noreferrer" className="p-3.5 lg:px-5 bg-[#1D2432]  text-white cursor-pointer rounded-full border-[1px] border-gray-400 flex items-center gap-2">
-                <img className="h-[24px] w-[30px]" src={applestore} alt="" />
+                <img className="h-[24px] w-[30px]" src={apple} alt="" />
                 <p>Apple Store</p>
               </a>
           </div>
