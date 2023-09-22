@@ -3,7 +3,7 @@ import flags from "../../assets/bg/flags.png";
 import location from "../../assets/icons/marker-icon.svg";
 import search from "../../assets/icons/search-icons/search-icon-white.svg";
 import playstore from '../../assets/icons/playstore.svg';
-import apple from '../../assets/icons/applestore.svg';
+import apple from '../../assets/icons/storeApple.svg';
 export default function Hero() {
   return (
     <div className="hero pt-[10vh] pb-10 w-[100%] h-[100%] md:h-[100vh] bg-hero bg-cover bg-bottom">
