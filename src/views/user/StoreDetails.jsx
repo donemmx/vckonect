@@ -90,7 +90,7 @@ export default function StoreDetails() {
         {storeInfo?.store_name}
       </div>
       <small className=" text-[.9rem] py-3 text-center flex items-center justify-center ">
-        {storeInfo?.role}
+        {storeInfo?.role === 'Animal Owner' ? 'User': storeInfo?.role }
       </small>
       <div className=" text-[.82rem] flex items-center gap-7 flex-wrap justify-center mt-2">
         <a

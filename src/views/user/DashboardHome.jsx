@@ -6,9 +6,6 @@ import vet from "../../assets/tab-icon/vet-icon-tab.svg";
 import search from "../../assets/icons/search-icons/search-icon-white.svg";
 import verified from "../../assets/vetcard/verified-icon.svg";
 import location from "../../assets/icons/marker-icon.svg";
-import filter from "../../assets/menu-search/filter.svg";
-import mapView from "../../assets/menu-search/map-view.svg";
-import listView from "../../assets/menu-search/list-view.svg";
 import StoreCard from "../../components/storeCard/StoreCard";
 import ClinicCard from "../../components/clinicCard/ClinicCard";
 import {
@@ -17,15 +14,26 @@ import {
 } from "../../utils/userApiService";
 import { getVeterinarianByFilter } from "../../utils/vetApiService";
 import Loading from "../../components/loading/Loading";
-import { storeData } from "../../atom/storeAtom";
+import { Paginator } from "primereact/paginator";
 
 export default function DashboardHome() {
   const [active, setActive] = useState("vet");
   const [searchData, setSearchData] = useState("");
-  const [stores, setStores] = useState([]);
-  const [clinics, setClinics] = useState([]);
-  const [vets, setVets] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [totalRecords, setTotalRecords] = useState(0);
+  const [currentPage, setCurrentPage] = useState([]);
+  const [currentData, setCurrentData] = useState();
+
+  const [first, setFirst] = useState(0);
+  const [rows, setRows] = useState(10);
+
+  const onPageChange = (event) => {
+    setFirst(event.first);
+    setRows(event.rows);
+    const myData = currentData?.slice(event.first, event.rows + event.first);
+    setCurrentPage(myData);
+    setTotalRecords(currentData?.length);
+  };
 
   const selectTab = (value) => {
     setActive(value);
@@ -40,21 +48,21 @@ export default function DashboardHome() {
 
   const getClinicData = async () => {
     setLoading(true);
-    await getClinicByFilter(name).then(({data}) => {
-      setClinics(data);
+    await getClinicByFilter(name).then(({ data }) => {
+      setCurrentData(data);
       setLoading(false);
     });
   };
   const getStoreData = async () => {
     setLoading(true);
-    await getStoreByFilter({ name: "" }).then(({data}) => {
-      setStores(data);
+    await getStoreByFilter({ name: "" }).then(({ data }) => {
+      setCurrentData(data);
       setLoading(false);
     });
   };
   const getVetsData = async () => {
-    await getVeterinarianByFilter({ name: "" }).then(({data}) => {
-      setVets(data);
+    await getVeterinarianByFilter({ name: "" }).then((res) => {
+      setCurrentData(res.data);
       setLoading(false);
     });
   };
@@ -64,26 +72,40 @@ export default function DashboardHome() {
     if (active == "clinic") {
       await getClinicByFilter({
         name: searchData,
-      }).then(({data}) => {
-        setClinics(data);
+      }).then(({ data }) => {
+        setCurrentData(data);
         setLoading(false);
       });
     } else if (active == "store") {
-      await getStoreByFilter({ name: searchData }).then(({data}) => {
-        setStores(data);
+      await getStoreByFilter({ name: searchData }).then(({ data }) => {
+        setCurrentData(data);
         setLoading(false);
       });
     } else {
-      await getVeterinarianByFilter({ name: searchData }).then(({data}) => {
-        setVets(data);
+      await getVeterinarianByFilter({ name: searchData }).then(({ data }) => {
+        setCurrentData(data);
         setLoading(false);
       });
     }
   };
 
   useEffect(() => {
-    getVetsData();
+    if (active === "vet") {
+      getVetsData();
+    } else if (active === "clinic") {
+       getClinicData();
+    } else {
+      getStoreData();
+    }
   }, [searchData.length < 3]);
+
+  useEffect(() => {
+    const event = {
+      first: 0,
+      rows: 8,
+    };
+    onPageChange(event);
+  }, [currentData]);
 
   return (
     <>
@@ -178,10 +200,12 @@ export default function DashboardHome() {
           </div>
           <div className=" pt-12 gap-6  pb-10 grid md:grid-cols-2  lg:grid-cols-4 w-full">
             {active == "vet"
-              ? vets?.map((res) => <Vetcard key={res} fullData={res} />)
+              ? currentPage?.map((res) => (
+                  <Vetcard key={res.id} fullData={res} />
+                ))
               : ""}
             {active == "store"
-              ? stores?.map((res) => (
+              ? currentPage?.map((res) => (
                   <StoreCard
                     availability={res.availability}
                     storeName={res.store_name}
@@ -195,11 +219,19 @@ export default function DashboardHome() {
                 ))
               : ""}
             {active == "clinic"
-              ? clinics?.map((res) => (
-                  <ClinicCard key={res.id} fullData={res} />
+              ? currentPage?.map((res, i) => (
+                  <ClinicCard key={i} fullData={res} />
                 ))
               : ""}
           </div>
+          <Paginator
+            className="mt-10"
+            first={first}
+            rows={rows}
+            totalRecords={totalRecords}
+            rowsPerPageOptions={[8, 16, 24, 32]}
+            onPageChange={onPageChange}
+          />
         </div>
       </div>
     </>

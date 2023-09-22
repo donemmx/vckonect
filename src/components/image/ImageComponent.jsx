@@ -25,7 +25,7 @@ export default function ImageComponent({ data }) {
         <div className="text-sm">
           {userInfo?.first_name + " " + userInfo?.last_name}
         </div>
-        <small className=" font-light text-[11px]">{userInfo?.role}</small>
+        <small className=" font-light text-[11px]">{userInfo?.role === 'Animal Owner' ? 'User': userInfo?.role }</small>
       </div>
     </div>
   );

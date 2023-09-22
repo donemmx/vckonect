@@ -86,7 +86,7 @@ export default function StoreCard({
   };
 
   return (
-    <div className=" vetCard mb-6">
+    <div className=" vetCard mb-6 mt-6">
       <div className="group h-full w-full ">
         <div
           className="top h-[65%] w-full relative"
@@ -134,10 +134,10 @@ export default function StoreCard({
 
         <div className="bottom bg-white p-2 rounded-b-[12px]">
         
-          <div className="name font-black sm:text-[.85rem] md:text-[1.2rem]">
+          <div className="name flex items-center font-black sm:text-[.85rem] h-[5vh]">
             {storeName}
           </div>
-          <div className="location flex text-sm items-center gap-2">
+          <div className="location flex text-sm items-center gap-2 h-[5vh]">
             <img src={location} alt="" className=" h-5" />
             {storeLocation}
           </div>

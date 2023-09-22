@@ -402,7 +402,7 @@ export default function Forum() {
                             {userData?.first_name + " " + userData?.last_name}
                           </div>
                           <small className=" font-light text-[11px]">
-                            {userData?.role}
+                            {userData?.role === 'Animal Owner' ? 'User': userData?.role}
                           </small>
                         </div>
                       </div>

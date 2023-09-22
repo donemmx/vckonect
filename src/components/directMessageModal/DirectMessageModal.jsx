@@ -112,7 +112,7 @@ export default function DirectMessageModal({ fullData }) {
                 {userInfo?.first_name + " " + userInfo?.last_name}
               </div>
               <small className=" font-light text-[11px]">
-                {userInfo?.role}
+                {userInfo?.role  === 'Animal Owner' ? 'User': userInfo?.role}
               </small>
             </div>
           </div>

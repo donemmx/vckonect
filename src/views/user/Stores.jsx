@@ -10,6 +10,7 @@ import { getStore } from "../../utils/userApiService";
 import Loading from "../../components/loading/Loading";
 import { reloadStore } from "../../atom/reloadAtom";
 import { actionState } from "../../atom/actionAtom";
+import { Paginator } from "primereact/paginator";
 
 export default function Stores() {
   const userData = useRecoilValue(user);
@@ -17,9 +18,24 @@ export default function Stores() {
   const [action, setAction] = useRecoilState(actionState);
   const location = useNavigate();
   const [loading, setLoading] = useState(true);
-  const [allStores, SetAllStores] = useState([]);
+  const [allStores, setAllStores] = useState([]);
+  const [currentPage, setCurrentPage] = useState([]);
+
+  const [first, setFirst] = useState(0);
+  const [rows, setRows] = useState(10);
+
+  const onPageChange = (event) => {
+    setFirst(event.first);
+    setRows(event.rows);
+    const myData = allStores.slice(event.first, event.rows + event.first);
+    setCurrentPage(myData);
+    console.log(myData);
+    console.log(allStores);
+
+  };
+
   const checker = (route) => {
-    setAction("add")
+    setAction("add");
     if (userData?.role === "Veterinarian") {
       location(`/vet-${route}`);
     } else {
@@ -28,9 +44,15 @@ export default function Stores() {
   };
 
   useEffect(() => {
-    getStore({ id: userData?.id, role: userData?.role }).then(({data}) => {
-      SetAllStores(data);
+    getStore({ id: userData?.id, role: userData?.role }).then(({ data }) => {
+      setAllStores(data);
       setLoading(false);
+      const event ={
+        first: 0,
+        rows: 10
+      }
+      onPageChange(event)
+      
     });
   }, [reload]);
 
@@ -54,19 +76,29 @@ export default function Stores() {
             ))
           : ""}
       </div>
-      <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 items-center justify-center">
-        {allStores?.map((res) => (
-          <StoreCard
-            availability={res.availability}
-            storeName={res.store_name}
-            storeLocation={res.location}
-            storePhone={res.phone_number}
-            image={res.picture}
-            fullData={res}
-            store_id={res.id}
-            key={res.id}
-          />
-        ))}
+      <div className="">
+        <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 items-center justify-center">
+          {currentPage?.map((res) => (
+            <StoreCard
+              availability={res.availability}
+              storeName={res.store_name}
+              storeLocation={res.location}
+              storePhone={res.phone_number}
+              image={res.picture}
+              fullData={res}
+              store_id={res.id}
+              key={res.id}
+            />
+          ))}
+        </div>
+        <Paginator
+        className="mt-10"
+          first={first}
+          rows={rows}
+          totalRecords={120}
+          rowsPerPageOptions={[10, 20, 30]}
+          onPageChange={onPageChange}
+        />
       </div>
     </div>
   );
