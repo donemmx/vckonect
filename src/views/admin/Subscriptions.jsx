@@ -111,6 +111,10 @@ export default function Subscriptions() {
       setYearly(yearlySub);
       setActiveSub(filteredActiveSub);
       setExpiredSub(filteredExpiredSub);
+ 
+        if(subscribers === 'freemium'){
+          setCurrentData(freemiumSub)
+        }
     });
   };
 
@@ -135,8 +139,8 @@ export default function Subscriptions() {
   };
 
   useEffect(() => {
-    getSubscriptions();
-    getmySubscriptions();
+    getmySubscriptions()
+    getSubscriptions()
   }, []);
 
   useEffect(() => {

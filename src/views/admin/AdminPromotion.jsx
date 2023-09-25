@@ -24,6 +24,7 @@ import { actionState } from "../../atom/actionAtom";
 import PromoCard from "../../components/promoCard/PromoCard";
 import { getUserById } from "../../utils/userApiService";
 import ImageComponent from "../../components/image/ImageComponent";
+import { Paginator } from "primereact/paginator";
 
 export default function AdminPromotion() {
   const [promotions, setPromotions] = useState();
@@ -37,25 +38,59 @@ export default function AdminPromotion() {
   const [action, setAction] = useRecoilState(actionState);
   const [tab, setTab] = useState("active");
 
+  const [totalRecords, setTotalRecords] = useState(0);
+  const [currentPage, setCurrentPage] = useState([]);
+  const [currentData, setCurrentData] = useState();
+
+  const [first, setFirst] = useState(0);
+  const [rows, setRows] = useState(10);
+
+  const onPageChange = (event) => {
+    setFirst(event.first);
+    setRows(event.rows);
+    const myData = currentData?.slice(event.first, event.rows + event.first);
+    setCurrentPage(myData);
+    setTotalRecords(currentData?.length);
+  };
+
+  const formatNumber = (number) => {
+    if (number > 999) {
+      return `${(number / 1000).toFixed(2)}k`;
+    }
+    return number;
+  };
+
   const location = useNavigate();
 
   const activeTab = (type) => {
     setTab(type);
+    if(type === 'active'){
+      setCurrentData(activeSub)
+    }
+    else if(type === 'expired'){
+      setCurrentData(expiredSub)
+    }
+    else{
+      setCurrentData(promotions)
+    }
   };
 
   const getPromotions = async () => {
     const payload = {};
-    await adminGetPromotionPlan(payload).then(({data}) => {
+    await adminGetPromotionPlan(payload).then(({ data }) => {
       setPromotions(data);
       setLoading(false);
     });
   };
+
   const getUserPromotions = async () => {
     const payload = {};
     await adminGetPromotion(payload).then((res) => {
       setUserPromotions(res.data);
       const active = res.data.filter((data) => data.subscription === "Active");
-      const suspended = res.data.filter((data) => data.subscription === "Suspended");
+      const suspended = res.data.filter(
+        (data) => data.subscription === "Suspended"
+      );
       const expired = res.data.filter(
         (data) =>
           data.subscription === "Expired" || data.subscription === "Suspended"
@@ -99,26 +134,34 @@ export default function AdminPromotion() {
       id: res.user_id,
       role: res.role,
     };
-    let myInfo = getUserById(payload).then(({data}) => data.role);
+    let myInfo = getUserById(payload).then(({ data }) => data.role);
     return myInfo;
   };
+
+  useEffect(() => {
+    const event = {
+      first: 0,
+      rows: 8,
+    };
+    onPageChange(event);
+  }, [currentData]);
 
   return (
     <div className="w-full">
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-1 lg:gap-2 mt-5">
         <AdminCard
-          number={promotions?.length}
+          number={formatNumber(promotions?.length)}
           text="Total Promotions"
           icon={totalPromotions}
         />
         <AdminCard
-          number={activeSub?.length}
+          number={formatNumber(activeSub?.length)}
           text="Active Promotions"
           icon={activePromotions}
         />
 
         <AdminCard
-          number={expiredSub?.length}
+          number={formatNumber(expiredSub?.length)}
           text="Expired Promotions"
           icon={expiredPromotions}
         />
@@ -158,23 +201,6 @@ export default function AdminPromotion() {
               All Promotion plans
             </h4>
           </div>
-          {/* <div className="form__group flex space-x-2 items-center p-1 border-[#EBEBEB] border  bg-white rounded-[16px]">
-            <input
-              type="text"
-              placeholder="Search"
-              className=" outline-none px-2 w-full"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-            />
-            <button
-              className="search__btn  bg-green-800 h-[45px] w-[200px] text-white  flex items-center gap-4 justify-center rounded-r-[16px]"
-              onClick={searchData}
-              disabled={search.length < 3}
-            >
-              <img src={searchIcon} alt="" className=" h-[15px]" />
-              Search
-            </button>
-          </div> */}
           {loading ? (
             <>
               <AdminCardLoading />
@@ -185,7 +211,7 @@ export default function AdminPromotion() {
             <>
               {tab == "plans" ? (
                 <>
-                  {promotions?.map((res) => (
+                  {currentPage?.map((res) => (
                     <AdminDashboardCard
                       key={res.id}
                       title={res.promotion_title + " " + "plan"}
@@ -205,7 +231,7 @@ export default function AdminPromotion() {
               ) : tab == "active" ? (
                 <>
                   <div className="posts w-full mx-auto items-center pt-10 flex flex-wrap gap-5">
-                    {activeSub?.map((res) => (
+                    {currentPage?.map((res) => (
                       <div
                         className="flex  justify-center flex-col"
                         key={res.id}
@@ -221,7 +247,7 @@ export default function AdminPromotion() {
               ) : tab == "expired" ? (
                 <>
                   <div className="posts w-full mx-auto items-center pt-10 flex flex-wrap gap-5">
-                    {expiredSub?.map((res) => (
+                    {currentPage?.map((res) => (
                       <div
                         className="flex  justify-center flex-col"
                         key={res.id}
@@ -240,6 +266,14 @@ export default function AdminPromotion() {
             </>
           )}
         </div>
+        <Paginator
+          className="mt-10"
+          first={first}
+          rows={rows}
+          totalRecords={totalRecords}
+          rowsPerPageOptions={[8, 16, 24, 32]}
+          onPageChange={onPageChange}
+        />
       </div>
     </div>
   );
