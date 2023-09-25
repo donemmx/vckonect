@@ -213,6 +213,13 @@ export default function UserFeatures() {
           setCurrentData(data);
         });
         break;
+      case "products":
+        setLoading(true);
+        await adminGetProduct({ name: search }).then(({ data }) => {
+          setCurrentData(data);
+          setLoading(false);
+        });
+        break;
       default:
         break;
     }
