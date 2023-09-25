@@ -27,7 +27,7 @@ export default function Clinic() {
     <div>
       <div className=" font-black text-2xl">Clinic</div>
       {userData?.vet_number_status === "Verified" ? (
-        <div className="border border-[#52CE06] p-3 rounded-[18px] bg-[#F9FFF5] mt-6">
+        <div className="border border-[#52CE06] p-3  text-sm rounded-[18px] bg-[#F9FFF5] mt-6">
           <small>Congratulations</small>
           <p>Your Clinic License Number (CLN) has been Verified and Approved</p>
         </div>
