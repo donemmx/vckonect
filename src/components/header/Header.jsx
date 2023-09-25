@@ -76,7 +76,7 @@ export default function Header({ bg }) {
       <div
         className={`${
           bg ? "bg-hero" : " bg-white"
-        }  w-[100vw] h-[80px] flex justify-center items-center fixed z-[100] `}
+        }  w-[100vw] h-[75px] lg:h-[80px] flex justify-center items-center fixed z-[100] `}
       >
         <div className="header flex items-center justify-between p-2 w-[90%] md:w-[85%] m-auto">
           <Link to="/" className="logo h-[25px] md:h-[30px] lg:h-[35px]">
