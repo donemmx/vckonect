@@ -193,7 +193,7 @@ export default function Account() {
         )}
       </div>
 
-      <div className="w-[95%] lg:w-[80%] mx-auto">{<SubscriptionPlanCard promotion={subscription}/>}</div>
+      <div className="w-[95%] lg:w-[80%] mx-auto">{<SubscriptionPlanCard subscription={subscription}/>}</div>
 
       {openDetail && openDetail[0] !== "rate" ? (
         <div className="user  flex flex-col justify-center items-center w-[65%] lg:w-[20%] mx-auto mt-[15vh]">

@@ -28,7 +28,7 @@ export default function SubscriptionPlanCard({ subscription }) {
             <div className="flex items-center gap-5">
               <i className=" pi pi-cog  pi-spin !text-xl"></i>
               <div className="">
-                <h3 className="font-black text-lg ">
+                <h3 className="font-black text-sm lg:text-sm ">
                   {subscription?.subscription_title}
                 </h3>
                 <p className="">
