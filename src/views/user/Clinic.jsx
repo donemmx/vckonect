@@ -32,7 +32,7 @@ export default function Clinic() {
           <p>Your Clinic License Number (CLN) has been Verified and Approved</p>
         </div>
       ) : (
-        <div className="border text-red-700 bg-red-50 border-red-400  p-3 rounded-[18px] mt-6">
+        <div className="border text-red-700 bg-red-50 text-sm border-red-400  p-3 rounded-[18px] mt-6">
           <small>Pending Verification</small>
           <p>
             Your Clinic License Number (CLN) has not been Verified / Approved
