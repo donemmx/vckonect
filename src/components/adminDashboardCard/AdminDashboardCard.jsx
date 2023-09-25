@@ -44,12 +44,12 @@ export default function AdminDashboardCard({
               />
             </div>
           ) : (
-            <Avatar
-              label={title?.split("")[0].toUpperCase()}
-              size="xlarge"
-              className=" !bg-green-500 !text-white"
-              shape="circle"
-            />
+          title ? <Avatar
+            label={title?.split("")[0].toUpperCase()}
+            size="xlarge"
+            className=" !bg-green-500 !text-white"
+            shape="circle"
+          /> : ''
           )}
           <div className="flex gap-6 items-center">
             <div className="">

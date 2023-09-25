@@ -582,7 +582,7 @@ export default function UserFeatures() {
               </>
             ) : tab == "product" ? (
               <div className="posts w-full mx-auto items-center pt-10 flex justify-center flex-wrap gap-5">
-                {product?.map((res) => (
+                {currentPage?.map((res) => (
                   <div className="flex  justify-center flex-col" key={res.id}>
                     <div className="">
                       <ImageComponent data={res} />
