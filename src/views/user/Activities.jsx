@@ -7,11 +7,27 @@ import { getAnimalOwnerActivity } from "../../utils/animalOwnerApiService";
 import moment from "moment";
 import { getVeterinarianActivity } from "../../utils/vetApiService";
 import AdminCardLoading from "../../components/loading/AdminCardLoading";
+import { Paginator } from "primereact/paginator";
 
 export default function Activities() {
   const userData = useRecoilValue(user);
   const [loading, setLoading] = useState(true);
   const [allActivities, setAllActivities] = useState([]);
+
+  const [totalRecords, setTotalRecords] = useState(0);
+  const [currentPage, setCurrentPage] = useState([]);
+  const [currentData, setCurrentData] = useState();
+
+  const [first, setFirst] = useState(0);
+  const [rows, setRows] = useState(10);
+
+  const onPageChange = (event) => {
+    setFirst(event.first);
+    setRows(event.rows);
+    const myData = currentData?.slice(event.first, event.rows + event.first);
+    setCurrentPage(myData);
+    setTotalRecords(currentData?.length);
+  };
 
   useEffect(() => {
     let payload = {
@@ -20,16 +36,25 @@ export default function Activities() {
     };
     if (userData.role === "Animal Owner") {
       getAnimalOwnerActivity(payload).then(({data}) => {
-        setAllActivities(data);
+        setCurrentData(data);
         setLoading(false);
       });
     } else {
       getVeterinarianActivity(payload).then(({data}) => {
-        setAllActivities(data);
+        setCurrentData(data);
         setLoading(false);
       });
     }
   }, []);
+
+  useEffect(() => {
+    const event = {
+      first: 0,
+      rows: 8,
+    };
+    onPageChange(event);
+  }, [currentData]);
+
   return (
     <div className="">
       <div className="activity mt-5  mb-5 p-4 border bg-white rounded-lg">
@@ -46,7 +71,7 @@ export default function Activities() {
           </div>
         ) : (
           <div className="posts p-3 mt-5 grid gap-2">
-            {allActivities?.map((res) => (
+            {currentPage?.map((res) => (
               <DashboardCard
                 time={moment(res.date).fromNow()}
                 title={res.title}
@@ -57,6 +82,14 @@ export default function Activities() {
           </div>
         )}
       </div>
+      <Paginator
+        className="mt-10"
+        first={first}
+        rows={rows}
+        totalRecords={totalRecords}
+        rowsPerPageOptions={[8, 16, 24, 32]}
+        onPageChange={onPageChange}
+      />
     </div>
   );
 }

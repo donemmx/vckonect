@@ -25,6 +25,7 @@ import { message } from "../../atom/messageAtom";
 import moment from "moment";
 import { Badge } from "primereact/badge";
 import Pusher from "pusher-js";
+import { Paginator } from "primereact/paginator";
 
 export default function Forum() {
   const [tab, setTab] = useState("chat");
@@ -42,44 +43,56 @@ export default function Forum() {
   const [reload, setReload] = useRecoilState(reloadStore);
   const userStore = useRecoilValue(storeData);
   const userData = useRecoilValue(user);
-  const [sendMessage, setSendMessage]=useState(false);
-  const [newMessage, setNewMessage]=useState();
+  const [sendMessage, setSendMessage] = useState(false);
+  const [newMessage, setNewMessage] = useState();
 
   const [messageStore, setMessageStore] = useState();
 
-  useEffect(() => {
-    const pusher = new Pusher("c38d7afddec65408e4cd", {
-      cluster: "mt1",
-      encrypted: true,
-    });
-    const channel = pusher.subscribe("chatbox");
-    channel.bind("App\\Events\\DirectMessage", (data) => {
-      if (
-        (data.sender_id == userData?.id &&
-          data.sender_role == userData?.role) ||
-        (data.receiver_id == userData?.id &&
-          data.receiver_role == userData?.role)
-      ) {
-        setNewMessage(data)
-        setSendMessage(true);
-        getDirectMessage({ id: userData?.id, role: userData?.role }).then(
-          ({data}) => {
-            setAllMessages(data);
-          }
-        );
-      }
-    });
-  }, []);
+  const [totalRecords, setTotalRecords] = useState(0);
+  const [currentPage, setCurrentPage] = useState([]);
+  const [currentData, setCurrentData] = useState();
+
+  const [first, setFirst] = useState(0);
+  const [rows, setRows] = useState(10);
+
+  const onPageChange = (event) => {
+    setFirst(event.first);
+    setRows(event.rows);
+    const myData = currentData?.slice(event.first, event.rows + event.first);
+    setCurrentPage(myData);
+    setTotalRecords(currentData?.length);
+  };
+
+  // useEffect(() => {
+  //   const pusher = new Pusher("c38d7afddec65408e4cd", {
+  //     cluster: "mt1",
+  //     encrypted: true,
+  //   });
+  //   const channel = pusher.subscribe("chatbox");
+  //   channel.bind("App\\Events\\DirectMessage", (data) => {
+  //     if (
+  //       (data.sender_id == userData?.id &&
+  //         data.sender_role == userData?.role) ||
+  //       (data.receiver_id == userData?.id &&
+  //         data.receiver_role == userData?.role)
+  //     ) {
+  //       setNewMessage(data)
+  //       setSendMessage(true);
+  //       getDirectMessage({ id: userData?.id, role: userData?.role }).then(
+  //         ({data}) => {
+  //           setAllMessages(data);
+  //         }
+  //       );
+  //     }
+  //   });
+  // }, []);
 
   useEffect(() => {
-  if(sendMessage){
-    setMessages([...messages, newMessage])
-    setSendMessage(false);
-  }
-  }, [messages,newMessage, sendMessage]);
-
-
- 
+    if (sendMessage) {
+      setMessages([...messages, newMessage]);
+      setSendMessage(false);
+    }
+  }, [messages, newMessage, sendMessage]);
 
   const viewMessage = (data) => {
     let payload = {
@@ -91,7 +104,7 @@ export default function Forum() {
     viewDirectMessage(payload).then(() => {
       data.counter = 0;
       getUserById(data)
-        .then(({data}) => {
+        .then(({ data }) => {
           setMessageData(data);
         })
         .catch((err) => console.log(err));
@@ -100,6 +113,11 @@ export default function Forum() {
   };
   const activeTab = (type) => {
     setTab(type);
+    if (type == "chat") {
+      getAllForumChat();
+    } else {
+      getAllMessages();
+    }
   };
   const checker = (route) => {
     setAction("add");
@@ -110,15 +128,29 @@ export default function Forum() {
     }
   };
 
-  const getAllMessages = () => {
-    getDirectMessage({ id: userData?.id, role: userData?.role }).then(({data}) => {
-      setAllMessages(data);
+  const getAllMessages = async () => {
+    setLoading(true);
+    await getDirectMessage({ id: userData?.id, role: userData?.role }).then(
+      ({ data }) => {
+        setCurrentData(data);
+        setLoading(false);
+      }
+    );
+  };
+
+  const getAllForumChat = async () => {
+    setLoading(true);
+    await getForumChat().then(({ data }) => {
+      setCurrentData(data);
+      setLoading(false);
     });
   };
 
   const searchData = async () => {
-    await getForumChatByFilter({ name: search }).then(({data}) => {
-      setForumData(data);
+    setLoading(true);
+    await getForumChatByFilter({ name: search }).then(({ data }) => {
+      setCurrentData(data);
+      setLoading(false);
     });
   };
 
@@ -172,11 +204,11 @@ export default function Forum() {
   };
 
   useEffect(() => {
-    getForumChat().then(({data}) => {
-      setLoading(false);
-      setForumData(data);
+    if (tab === "chat") {
+      getAllForumChat();
+    } else {
       getAllMessages();
-    });
+    }
   }, [userStore?.like, reload]);
 
   useEffect(() => {
@@ -187,6 +219,16 @@ export default function Forum() {
       location("/vet-subscription");
     }
   }, []);
+
+
+  useEffect(() => {
+    const event = {
+      first: 0,
+      rows: 8,
+    };
+    onPageChange(event);
+  }, [currentData]);
+
 
   return (
     <div>
@@ -251,7 +293,7 @@ export default function Forum() {
       </div>
       {tab === "chat" ? (
         <>
-          {forumData?.map((res) => (
+          {currentPage?.map((res) => (
             <div className="" key={res.id}>
               <ForumCard
                 user={userIcon}
@@ -274,13 +316,13 @@ export default function Forum() {
         <>
           <div
             className={`${
-              allmessages?.length > 0
+              currentPage?.length > 0
                 ? "grid md:grid-cols-1   gap-2 relative w-full lg:grid-cols-2"
                 : " grid md:grid-cols-1   gap-2 relative w-full lg:grid-cols-1"
             }  `}
           >
             <div className="flex flex-col gap-2">
-              {allmessages?.map((res) =>
+              {currentPage?.map((res) =>
                 res.id !== userData.id ? (
                   <div
                     key={res.id}
@@ -402,7 +444,9 @@ export default function Forum() {
                             {userData?.first_name + " " + userData?.last_name}
                           </div>
                           <small className=" font-light text-[11px]">
-                            {userData?.role === 'Animal Owner' ? 'User': userData?.role}
+                            {userData?.role === "Animal Owner"
+                              ? "User"
+                              : userData?.role}
                           </small>
                         </div>
                       </div>
@@ -475,6 +519,14 @@ export default function Forum() {
           </div>
         </>
       )}
+      <Paginator
+        className="mt-10"
+        first={first}
+        rows={rows}
+        totalRecords={totalRecords}
+        rowsPerPageOptions={[8, 16, 24, 32]}
+        onPageChange={onPageChange}
+      />
     </div>
   );
 }

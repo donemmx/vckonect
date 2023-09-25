@@ -15,6 +15,8 @@ import { toast } from "react-toastify";
 import RatingModal from "../../components/ratingModal/RatingModal";
 import DirectMessageModal from "../../components/directMessageModal/DirectMessageModal";
 import { getMySubscription } from "../../utils/vetApiService";
+import PromotionSubscriptionCard from "../../components/promotionSubscriptionCard/PromotionSubscriptionCard";
+import SubscriptionPlanCard from "../../components/subscriptionPlanCard/SubscriptionPlanCard";
 
 export default function Account() {
   const [userData, setUserData] = useState();
@@ -23,7 +25,7 @@ export default function Account() {
   const [subscription, setSubscription] = useState();
   const location = useNavigate();
   const params = useParams();
-  
+
   let role;
   if (window.location.pathname.split("/")[1].includes("vet")) {
     role = "Veterinarian";
@@ -37,7 +39,7 @@ export default function Account() {
 
   const getUser = () => {
     getUserById(payload)
-      .then(({data}) => {
+      .then(({ data }) => {
         setUserData(data);
       })
       .catch((err) => console.log(err));
@@ -68,19 +70,18 @@ export default function Account() {
   };
 
   const getSubscription = (payload) => {
-    getMySubscription(payload).then(({data})=> {
-      setSubscription(data)
-    })
-  }
-
+    getMySubscription(payload).then(({ data }) => {
+      setSubscription(data);
+    });
+  };
 
   useEffect(() => {
     getUser();
-    if(userDetails){
-      const payload ={
-        user_id: params.id
-      }
-      getSubscription(payload)
+    if (userDetails) {
+      const payload = {
+        user_id: params.id,
+      };
+      getSubscription(payload);
     }
   }, []);
 
@@ -178,7 +179,8 @@ export default function Account() {
           />
           Share
         </div>
-        {userDetails?.role === "Veterinarian" && userDetails?.id !== params.id ? (
+        {userDetails?.role === "Veterinarian" &&
+        userDetails?.id !== params.id ? (
           <div
             className="flex flex-col items-center justify-center"
             onClick={() => setData("rate")}
@@ -191,9 +193,7 @@ export default function Account() {
         )}
       </div>
 
-<div className="">
-  
-</div>
+      <div className="w-[50%] mx-auto">{<SubscriptionPlanCard promotion={subscription}/>}</div>
 
       {openDetail && openDetail[0] !== "rate" ? (
         <div className="user  flex flex-col justify-center items-center w-[65%] lg:w-[20%] mx-auto mt-[15vh]">
@@ -223,7 +223,7 @@ export default function Account() {
           </CopyToClipboard>
           <p className="text-xs mt-4">Click to copy</p>
         </div>
-      ) :  openDetail && openDetail[0] === "rate" ? (
+      ) : openDetail && openDetail[0] === "rate" ? (
         <RatingModal type={"vet"} id={params.id} />
       ) : (
         <div className="user  flex flex-col justify-center items-center w-[65%] lg:w-[20%] mx-auto mt-[15vh]">

@@ -18,48 +18,72 @@ import AdminHeader from "../../components/header/AdminHeader";
 import { getVeterinarianActivity } from "../../utils/vetApiService";
 import { useNavigate } from "react-router-dom";
 import AdminCardLoading from "../../components/loading/AdminCardLoading";
+import { Paginator } from "primereact/paginator";
 
 export default function Dashboard() {
   const [tab, setTab] = useState("activity");
   const userData = useRecoilValue(user);
-
-  const [forumData, setForumData] = useState([]);
-  const [routeChecker] = useRouteChecker();
   const [loading, setLoading] = useState(true);
-  const [allActivities, setAllActivities] = useState([]);
+
+  const [totalRecords, setTotalRecords] = useState(0);
+  const [currentPage, setCurrentPage] = useState([]);
+  const [currentData, setCurrentData] = useState();
+
+  const [first, setFirst] = useState(0);
+  const [rows, setRows] = useState(10);
+
+  const onPageChange = (event) => {
+    setFirst(event.first);
+    setRows(event.rows);
+    const myData = currentData?.slice(event.first, event.rows + event.first);
+    setCurrentPage(myData);
+    setTotalRecords(currentData?.length);
+  };
+
   const location = useNavigate();
   const activeTab = (type) => {
     setTab(type);
+    if (type == "activity") {
+      getActivity()
+    } else 
+      getForum();
+    }
+  
+
+  const getForum = async () => {
+    setLoading(true);
+    await getForumChat().then(({ data }) =>{
+      setCurrentData(data)
+      setLoading(false)
+    });
   };
-  useEffect(() => {
-    getForumChat().then(({data}) => setForumData(data));
-  }, []);
 
-  const getRoute = (route) => {
-    const myRoute = routeChecker(route);
-
-    console.log(myRoute);
-  };
-
-  useEffect(() => {
-    let payload = {
+  const getActivity = async () => {
+    setLoading(true);
+       let payload = {
       id: userData.id,
       role: userData.role,
     };
     if (userData.role === "Animal Owner") {
       setLoading(true);
-      getAnimalOwnerActivity(payload).then(({data}) => {
-        setAllActivities(data);
+      await  getAnimalOwnerActivity(payload).then(({ data }) => {
+        setCurrentData(data);
         setLoading(false);
       });
     } else {
       setLoading(true);
-      getVeterinarianActivity(payload).then(({data}) => {
-        setAllActivities(data);
+      await getVeterinarianActivity(payload).then(({ data }) => {
+        setCurrentData(data);
         setLoading(false);
       });
     }
-  }, []);
+  };
+
+
+
+  const getRoute = (route) => {
+    const myRoute = routeChecker(route);
+  };
 
   useEffect(() => {
     if (
@@ -69,6 +93,24 @@ export default function Dashboard() {
       location("/vet-subscription");
     }
   }, []);
+
+  useEffect(() => {
+    if (tab === "activity") {
+      getActivity();
+    } else {
+      getForum();
+    }
+  }, []);
+
+
+  useEffect(() => {
+    const event = {
+      first: 0,
+      rows: 8,
+    };
+    onPageChange(event);
+  }, [currentData]);
+
   return (
     <div className="">
       <div className="form grid grid-cols-1 md:grid-cols-2 gap-3 pt-6">
@@ -142,7 +184,7 @@ export default function Dashboard() {
         )}
         {tab == "activity" ? (
           <div className="posts p-3 mt-5 grid gap-2">
-            {allActivities?.map((res) => (
+            {currentPage?.map((res) => (
               <DashboardCard
                 time={moment(res.date).fromNow()}
                 title={res.title}
@@ -156,7 +198,7 @@ export default function Dashboard() {
         )}
         {tab == "forum" ? (
           <div className="posts p-3 mt-5 grid gap-2">
-            {forumData?.map((res) => (
+            {currentPage?.map((res) => (
               <DashboardCard
                 time={moment(res.date).fromNow()}
                 title={res.title}
@@ -169,6 +211,14 @@ export default function Dashboard() {
           ""
         )}
       </div>
+      <Paginator
+        className="mt-10"
+        first={first}
+        rows={rows}
+        totalRecords={totalRecords}
+        rowsPerPageOptions={[8, 16, 24, 32]}
+        onPageChange={onPageChange}
+      />
     </div>
   );
 }

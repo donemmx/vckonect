@@ -18,8 +18,9 @@ export default function Stores() {
   const [action, setAction] = useRecoilState(actionState);
   const location = useNavigate();
   const [loading, setLoading] = useState(true);
-  const [allStores, setAllStores] = useState([]);
+  const [totalRecords, setTotalRecords] = useState(0);
   const [currentPage, setCurrentPage] = useState([]);
+  const [currentData, setCurrentData] = useState();
 
   const [first, setFirst] = useState(0);
   const [rows, setRows] = useState(10);
@@ -27,11 +28,9 @@ export default function Stores() {
   const onPageChange = (event) => {
     setFirst(event.first);
     setRows(event.rows);
-    const myData = allStores.slice(event.first, event.rows + event.first);
+    const myData = currentData?.slice(event.first, event.rows + event.first);
     setCurrentPage(myData);
-    console.log(myData);
-    console.log(allStores);
-
+    setTotalRecords(currentData?.length);
   };
 
   const checker = (route) => {
@@ -45,16 +44,18 @@ export default function Stores() {
 
   useEffect(() => {
     getStore({ id: userData?.id, role: userData?.role }).then(({ data }) => {
-      setAllStores(data);
+      setCurrentData(data);
       setLoading(false);
-      const event ={
-        first: 0,
-        rows: 10
-      }
-      onPageChange(event)
-      
     });
   }, [reload]);
+
+  useEffect(() => {
+    const event = {
+      first: 0,
+      rows: 8,
+    };
+    onPageChange(event);
+  }, [currentData]);
 
   return (
     <div>
@@ -91,14 +92,14 @@ export default function Stores() {
             />
           ))}
         </div>
-        <Paginator
-        className="mt-10"
-          first={first}
-          rows={rows}
-          totalRecords={120}
-          rowsPerPageOptions={[10, 20, 30]}
-          onPageChange={onPageChange}
-        />
+         <Paginator
+            className="mt-10"
+            first={first}
+            rows={rows}
+            totalRecords={totalRecords}
+            rowsPerPageOptions={[8, 16, 24, 32]}
+            onPageChange={onPageChange}
+          />
       </div>
     </div>
   );
