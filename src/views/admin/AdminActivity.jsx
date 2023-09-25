@@ -9,19 +9,34 @@ import AdminDashboardCard from "../../components/adminDashboardCard/AdminDashboa
 import { useRecoilValue } from "recoil";
 import { user } from "../../atom/userAtom";
 import AdminCardLoading from "../../components/loading/AdminCardLoading";
+import { Paginator } from "primereact/paginator";
 
 export default function AdminActivity() {
-  const [activities, setActivities] = useState();
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
+
+  const [totalRecords, setTotalRecords] = useState(0);
+  const [currentPage, setCurrentPage] = useState([]);
+  const [currentData, setCurrentData] = useState();
+
+  const [first, setFirst] = useState(0);
+  const [rows, setRows] = useState(10);
+
+  const onPageChange = (event) => {
+    setFirst(event.first);
+    setRows(event.rows);
+    const myData = currentData?.slice(event.first, event.rows + event.first);
+    setCurrentPage(myData);
+    setTotalRecords(currentData?.length);
+  };
 
   const userData = useRecoilValue(user);
   const getUserCounter = async () => {
     const payload = {
       staff_id: userData.staff_id,
     };
-    await getAdminActivity(payload).then(({data}) => {
-      setActivities(data);
+    await getAdminActivity(payload).then(({ data }) => {
+      setCurrentData(data);
       setLoading(false);
     });
   };
@@ -32,13 +47,21 @@ export default function AdminActivity() {
       name: search,
       staff_id: userData.staff_id,
     }).then((res) => {
-      setActivities(res);
+      setCurrentData(res.data);
       setLoading(false);
     });
   };
   useEffect(() => {
     getUserCounter();
   }, [search.length < 3]);
+
+  useEffect(() => {
+    const event = {
+      first: 0,
+      rows: 8,
+    };
+    onPageChange(event);
+  }, [currentData]);
 
   return (
     <div className="w-full">
@@ -71,7 +94,7 @@ export default function AdminActivity() {
         ) : (
           <>
             <div className="posts p-3 mt-5 grid gap-2">
-              {activities?.map((res) => (
+              {currentPage?.map((res) => (
                 <AdminDashboardCard
                   time={moment(res.date).utc().fromNow()}
                   title={res.title}
@@ -84,6 +107,14 @@ export default function AdminActivity() {
           </>
         )}
       </div>
+      <Paginator
+        className="mt-10"
+        first={first}
+        rows={rows}
+        totalRecords={totalRecords}
+        rowsPerPageOptions={[8, 16, 24, 32]}
+        onPageChange={onPageChange}
+      />
     </div>
   );
 }
