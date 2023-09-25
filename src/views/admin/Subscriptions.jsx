@@ -20,6 +20,7 @@ import expiredSubscribers from "../../assets/sidebar/active-subscription.svg";
 import { toast } from "react-toastify";
 import { storeData } from "../../atom/storeAtom";
 import { actionState } from "../../atom/actionAtom";
+import { Paginator } from "primereact/paginator";
 
 export default function Subscriptions() {
   const [subscriptions, setSubscriptions] = useState();
@@ -37,6 +38,28 @@ export default function Subscriptions() {
   const [action, setAction] = useRecoilState(actionState);
   const location = useNavigate();
 
+  const [totalRecords, setTotalRecords] = useState(0);
+  const [currentPage, setCurrentPage] = useState([]);
+  const [currentData, setCurrentData] = useState();
+
+  const [first, setFirst] = useState(0);
+  const [rows, setRows] = useState(10);
+
+  const onPageChange = (event) => {
+    setFirst(event.first);
+    setRows(event.rows);
+    const myData = currentData?.slice(event.first, event.rows + event.first);
+    setCurrentPage(myData);
+    setTotalRecords(currentData?.length);
+  };
+
+  const formatNumber = (number) => {
+    if (number > 999) {
+      return `${(number / 1000).toFixed(2)}k`;
+    }
+    return number;
+  };
+
   const getSubscriptions = async () => {
     setLoading(true);
     const payload = {};
@@ -45,6 +68,27 @@ export default function Subscriptions() {
       setLoading(false);
     });
   };
+
+
+  const getActiveTabData = (type) => {
+    setSubscribers(type)
+    switch(type){
+      case 'freemium':
+        setCurrentData(freemium);
+        break;
+      case 'monthly':
+        setCurrentData(monthly);
+        break;
+      case 'quarterly':
+        setCurrentData(quarterly);
+        break;
+      case 'yearly':
+        setCurrentData(yearly);
+        break;
+      default:
+      break;
+    }
+  }
 
   const getmySubscriptions = () => {
     adminGetSubscription({ name: null }).then(({data}) => {
@@ -56,12 +100,11 @@ export default function Subscriptions() {
       const monthlySub = data.filter((data) => data.plan === "Monthly");
       const quarterlySub = data.filter((data) => data.plan === "Quarterly");
       const yearlySub = data.filter((data) => data.plan === "Yearly");
-
+    
       setFreemium(freemiumSub);
       setMonthly(monthlySub);
       setQuarterly(quarterlySub);
       setYearly(yearlySub);
-
       setActiveSub(filteredActiveSub);
     });
   };
@@ -90,24 +133,33 @@ export default function Subscriptions() {
     getSubscriptions();
     getmySubscriptions();
   }, []);
+
+  useEffect(() => {
+    const event = {
+      first: 0,
+      rows: 8,
+    };
+    onPageChange(event);
+  }, [currentData]);
+
   return (
     <div className="w-full">
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-1 lg:gap-2 mt-5">
         <AdminCard
-          number={userSubscription?.length}
+          number={formatNumber(userSubscription?.length)}
           text="Total Subscribers"
           icon={totalSubscribers}
         />
         <AdminCard
-          number={activeSub?.length}
+          number={formatNumber(activeSub?.length)}
           text="Active Subscription"
-          icon={activeSubscriber}
+          icon={formatNumber(activeSubscriber)}
         />
 
         <AdminCard
           number={0}
           text="Expired Subscription"
-          icon={expiredSubscribers}
+          icon={formatNumber(expiredSubscribers)}
         />
       </div>
       <div className="activity mt-5  mb-5 p-4 border bg-white rounded-lg w-full">
@@ -143,7 +195,7 @@ export default function Subscriptions() {
                 className={` text-[1rem] lg:text-[1rem] cursor-pointer ${
                   subscribers === "freemium" ? "font-black" : ""
                 } `}
-                onClick={() => setSubscribers("freemium")}
+                onClick={() => getActiveTabData("freemium")}
               >
                 Freemium
               </h2>
@@ -151,7 +203,7 @@ export default function Subscriptions() {
                 className={` text-[1rem] lg:text-[1rem] cursor-pointer ${
                   subscribers === "monthly" ? "font-black" : ""
                 } `}
-                onClick={() =>  setSubscribers("monthly")}
+                onClick={() =>  getActiveTabData("monthly")}
               >
                 Monthly
               </h2>
@@ -159,7 +211,7 @@ export default function Subscriptions() {
                 className={` text-[1rem] lg:text-[1rem] cursor-pointer ${
                   subscribers === "quarterly" ? "font-black" : ""
                 } `}
-                onClick={() => setSubscribers("quarterly")}
+                onClick={() => getActiveTabData("quarterly")}
               >
                 Quarterly
               </h2>
@@ -167,7 +219,7 @@ export default function Subscriptions() {
                 className={` text-[1rem] lg:text-[1rem] cursor-pointer ${
                   subscribers === "yearly" ? "font-black" : ""
                 } `}
-                onClick={() => setSubscribers("yearly")}
+                onClick={() => getActiveTabData("yearly")}
               >
                 Yearly
               </h2>
@@ -186,7 +238,7 @@ export default function Subscriptions() {
               {tab === "all" ? (
                subscribers === 'freemium' ?
                 <>
-                  {freemium?.map((res) => (
+                  {currentPage?.map((res) => (
                     <AdminDashboardCard
                       key={res.id}
                       time={moment(res.date).utc().fromNow()}
@@ -201,7 +253,7 @@ export default function Subscriptions() {
                 :
                 subscribers === 'monthly' ?
                 <>
-                  {monthly?.map((res) => (
+                  {currentPage?.map((res) => (
                     <AdminDashboardCard
                       key={res.id}
                       time={moment(res.date).utc().fromNow()}
@@ -215,7 +267,7 @@ export default function Subscriptions() {
                 </> :
                  subscribers === 'quarterly' ?
                 <>
-                  {quarterly?.map((res) => (
+                  {currentPage?.map((res) => (
                     <AdminDashboardCard
                       key={res.id}
                       time={moment(res.date).utc().fromNow()}
@@ -229,7 +281,7 @@ export default function Subscriptions() {
                 </> :
                   subscribers === 'yearly' ?
                 <>
-                  {yearly?.map((res) => (
+                  {currentPage?.map((res) => (
                     <AdminDashboardCard
                       key={res.id}
                       time={moment(res.date).utc().fromNow()}
@@ -271,6 +323,14 @@ export default function Subscriptions() {
           )}
         </div>
       </div>
+      <Paginator
+        className="mt-10"
+        first={first}
+        rows={rows}
+        totalRecords={totalRecords}
+        rowsPerPageOptions={[8, 16, 24, 32]}
+        onPageChange={onPageChange}
+      />
     </div>
   );
 }
