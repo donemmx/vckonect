@@ -64,35 +64,34 @@ export default function Subscriptions() {
   const getSubscriptions = async () => {
     setLoading(true);
     const payload = {};
-    await adminGetSubscriptionPlan(payload).then(({data}) => {
+    await adminGetSubscriptionPlan(payload).then(({ data }) => {
       setSubscriptions(data);
       setLoading(false);
     });
   };
 
-
   const getActiveTabData = (type) => {
-    setSubscribers(type)
-    switch(type){
-      case 'freemium':
+    setSubscribers(type);
+    switch (type) {
+      case "freemium":
         setCurrentData(freemium);
         break;
-      case 'monthly':
+      case "monthly":
         setCurrentData(monthly);
         break;
-      case 'quarterly':
+      case "quarterly":
         setCurrentData(quarterly);
         break;
-      case 'yearly':
+      case "yearly":
         setCurrentData(yearly);
         break;
       default:
-      break;
+        break;
     }
-  }
+  };
 
   const getmySubscriptions = () => {
-    adminGetSubscription({ name: null }).then(({data}) => {
+    adminGetSubscription({ name: null }).then(({ data }) => {
       setUserSubscription(data);
       const filteredActiveSub = data.filter(
         (data) => data.subscription === "Active"
@@ -104,17 +103,30 @@ export default function Subscriptions() {
       const monthlySub = data.filter((data) => data.plan === "Monthly");
       const quarterlySub = data.filter((data) => data.plan === "Quarterly");
       const yearlySub = data.filter((data) => data.plan === "Yearly");
-    
+
       setFreemium(freemiumSub);
       setMonthly(monthlySub);
       setQuarterly(quarterlySub);
       setYearly(yearlySub);
       setActiveSub(filteredActiveSub);
       setExpiredSub(filteredExpiredSub);
- 
-        if(subscribers === 'freemium'){
-          setCurrentData(freemiumSub)
-        }
+
+      switch (subscribers) {
+        case "freemium":
+          setCurrentData(freemiumSub);
+          break;
+        case "monthly":
+          setCurrentData(monthlySub);
+          break;
+        case "quarterly":
+          setCurrentData(quarterlySub);
+          break;
+        case "yearly":
+          setCurrentData(yearlySub);
+          break;
+        default:
+          break;
+      }
     });
   };
 
@@ -139,8 +151,8 @@ export default function Subscriptions() {
   };
 
   useEffect(() => {
-    getmySubscriptions()
-    getSubscriptions()
+    getmySubscriptions();
+    getSubscriptions();
   }, []);
 
   useEffect(() => {
@@ -166,7 +178,7 @@ export default function Subscriptions() {
         />
 
         <AdminCard
-           number={formatNumber(expiredSub?.length)}
+          number={formatNumber(expiredSub?.length)}
           text="Expired Subscription"
           icon={expiredSubscribers}
         />
@@ -212,7 +224,7 @@ export default function Subscriptions() {
                 className={` text-[.75rem] lg:text-[1rem] cursor-pointer ${
                   subscribers === "monthly" ? "font-black" : ""
                 } `}
-                onClick={() =>  getActiveTabData("monthly")}
+                onClick={() => getActiveTabData("monthly")}
               >
                 Monthly
               </h2>
@@ -245,65 +257,65 @@ export default function Subscriptions() {
           ) : (
             <>
               {tab === "all" ? (
-               subscribers === 'freemium' ?
-                <>
-                  {currentPage?.map((res) => (
-                    <AdminDashboardCard
-                      key={res.id}
-                      time={moment(res.date).utc().fromNow()}
-                      title={res.first_name + res.last_name}
-                      name={res.role}
-                      status={res.subscription}
-                      image={res.profile_picture}
-                      loading={loading}
-                    />
-                  ))}
-                </>
-                :
-                subscribers === 'monthly' ?
-                <>
-                  {currentPage?.map((res) => (
-                    <AdminDashboardCard
-                      key={res.id}
-                      time={moment(res.date).utc().fromNow()}
-                      title={res.first_name + res.last_name}
-                      name={res.role}
-                      status={res.subscription}
-                      image={res.profile_picture}
-                      loading={loading}
-                    />
-                  ))}
-                </> :
-                 subscribers === 'quarterly' ?
-                <>
-                  {currentPage?.map((res) => (
-                    <AdminDashboardCard
-                      key={res.id}
-                      time={moment(res.date).utc().fromNow()}
-                      title={res.first_name + res.last_name}
-                      name={res.role}
-                      status={res.subscription}
-                      image={res.profile_picture}
-                      loading={loading}
-                    />
-                  ))}
-                </> :
-                  subscribers === 'yearly' ?
-                <>
-                  {currentPage?.map((res) => (
-                    <AdminDashboardCard
-                      key={res.id}
-                      time={moment(res.date).utc().fromNow()}
-                      title={res.first_name + res.last_name}
-                      name={res.role}
-                      status={res.subscription}
-                      image={res.profile_picture}
-                      loading={loading}
-                    />
-                  ))}
-                </>
-
-                : ''
+                subscribers === "freemium" ? (
+                  <>
+                    {currentPage?.map((res) => (
+                      <AdminDashboardCard
+                        key={res.id}
+                        time={moment(res.date).utc().fromNow()}
+                        title={res.first_name + res.last_name}
+                        name={res.role}
+                        status={res.subscription}
+                        image={res.profile_picture}
+                        loading={loading}
+                      />
+                    ))}
+                  </>
+                ) : subscribers === "monthly" ? (
+                  <>
+                    {currentPage?.map((res) => (
+                      <AdminDashboardCard
+                        key={res.id}
+                        time={moment(res.date).utc().fromNow()}
+                        title={res.first_name + res.last_name}
+                        name={res.role}
+                        status={res.subscription}
+                        image={res.profile_picture}
+                        loading={loading}
+                      />
+                    ))}
+                  </>
+                ) : subscribers === "quarterly" ? (
+                  <>
+                    {currentPage?.map((res) => (
+                      <AdminDashboardCard
+                        key={res.id}
+                        time={moment(res.date).utc().fromNow()}
+                        title={res.first_name + res.last_name}
+                        name={res.role}
+                        status={res.subscription}
+                        image={res.profile_picture}
+                        loading={loading}
+                      />
+                    ))}
+                  </>
+                ) : subscribers === "yearly" ? (
+                  <>
+                    {currentPage?.map((res) => (
+                      <AdminDashboardCard
+                        key={res.id}
+                        time={moment(res.date).utc().fromNow()}
+                        title={res.first_name + res.last_name}
+                        name={res.role}
+                        status={res.subscription}
+                        image={res.profile_picture}
+                        loading={loading}
+                      />
+                    ))}
+                  </>
+                ) : (
+                  ""
+                )
               ) : (
                 <>
                   {subscriptions?.map((res) => (

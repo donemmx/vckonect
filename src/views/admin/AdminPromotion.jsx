@@ -98,7 +98,16 @@ export default function AdminPromotion() {
       setActiveSub(active);
       setExpiredSub(expired);
       setLoading(false);
-    });
+      switch (tab) {
+        case "active":
+          setCurrentData(active)
+          break;
+        case "expired":
+          setCurrentData(expired)
+          break;
+        default:
+          break;
+    }})
   };
 
   const deletePromotion = (data) => {
