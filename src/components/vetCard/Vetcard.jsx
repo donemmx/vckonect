@@ -76,23 +76,27 @@ export default function Vetcard({ fullData }) {
           </div>
           {fullData?.subscription_title !== "Freenium Plan" ? (
             <div className="buttons pt-1 flex justify-between items-center mt-3">
-              <div className="group flex items-center gap-3  ">
-                <a href={`tel:${fullData?.phone_number}`} rel="noReferrer">
-                  <img
-                    src={phone}
-                    className=" p-2 h-[35px] bg-white w-[35px] object-contain rounded-full shadow-md cursor-pointer"
-                    alt=""
-                  />
-                </a>
-                {userData?.id ? <DirectMessageModal fullData={fullData} /> : ""}
-                <a href={`mailto:${fullData?.email}`} rel="noReferrer">
-                  <img
-                    src={message}
-                    alt=""
-                    className=" p-2 h-[35px] bg-white w-[35px] object-contain rounded-full shadow-md cursor-pointer"
-                  />
-                </a>
-              </div>
+              {userData?.id ? (
+                <div className="group flex items-center gap-3  ">
+                  <a href={`tel:${fullData?.phone_number}`} rel="noReferrer">
+                    <img
+                      src={phone}
+                      className=" p-2 h-[35px] bg-white w-[35px] object-contain rounded-full shadow-md cursor-pointer"
+                      alt=""
+                    />
+                  </a>
+                  <DirectMessageModal fullData={fullData} />
+                  <a href={`mailto:${fullData?.email}`} rel="noReferrer">
+                    <img
+                      src={message}
+                      alt=""
+                      className=" p-2 h-[35px] bg-white w-[35px] object-contain rounded-full shadow-md cursor-pointer"
+                    />
+                  </a>
+                </div>
+              ) : (
+                ""
+              )}
               <div className="message">
                 <button
                   onClick={() => {
@@ -104,7 +108,7 @@ export default function Vetcard({ fullData }) {
               </div>
             </div>
           ) : (
-            <div className=" h-[11.5vh]" ></div>
+            <div className=" h-[11.5vh]"></div>
           )}
         </div>
       </div>
