@@ -25,6 +25,7 @@ import { Paginator } from "primereact/paginator";
 export default function Subscriptions() {
   const [subscriptions, setSubscriptions] = useState();
   const [activeSub, setActiveSub] = useState([]);
+  const [expiredSub, setExpiredSub] = useState([]);
   const [monthly, setMonthly] = useState([]);
   const [yearly, setYearly] = useState([]);
   const [quarterly, setQuarterly] = useState([]);
@@ -96,6 +97,9 @@ export default function Subscriptions() {
       const filteredActiveSub = data.filter(
         (data) => data.subscription === "Active"
       );
+      const filteredExpiredSub = data.filter(
+        (data) => data.subscription === "Expired"
+      );
       const freemiumSub = data.filter((data) => data.plan === "Freenium");
       const monthlySub = data.filter((data) => data.plan === "Monthly");
       const quarterlySub = data.filter((data) => data.plan === "Quarterly");
@@ -106,6 +110,7 @@ export default function Subscriptions() {
       setQuarterly(quarterlySub);
       setYearly(yearlySub);
       setActiveSub(filteredActiveSub);
+      setExpiredSub(filteredExpiredSub);
     });
   };
 
@@ -153,13 +158,13 @@ export default function Subscriptions() {
         <AdminCard
           number={formatNumber(activeSub?.length)}
           text="Active Subscription"
-          icon={formatNumber(activeSubscriber)}
+          icon={activeSubscriber}
         />
 
         <AdminCard
-          number={0}
+           number={formatNumber(expiredSub?.length)}
           text="Expired Subscription"
-          icon={formatNumber(expiredSubscribers)}
+          icon={expiredSubscribers}
         />
       </div>
       <div className="activity mt-5  mb-5 p-4 border bg-white rounded-lg w-full">
