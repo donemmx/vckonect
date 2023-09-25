@@ -3,9 +3,27 @@ import icon1 from "../../assets/icons/socials/linkedin.svg";
 import icon2 from "../../assets/icons/socials/twitter-icon.svg";
 import icon4 from "../../assets/icons/socials/slack-icon.svg";
 import icon5 from "../../assets/icons/socials/facebook-icon.svg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import { user } from "../../atom/userAtom";
 
 export default function Footer() {
+  const [data, setData] = useRecoilState(user);
+  const location = useNavigate();
+  const checker = (route) => {
+    if (data?.role) {
+      if (data?.role === "Veterinarian") {
+        location(`/vet-${route}`);
+      } else if (data?.role === "Animal Owner") {
+        location(`/animal-owner-${route}`);
+      } else {
+        location(`/admin-${route}`);
+      }
+    } else {
+      location("/login");
+    }
+  };
+
   return (
     <div className=" w-[100vw] h-full pb-[7vh] lg:h-[38vh] bg-[#F1F1F1] ">
       <div className="w-[90%] grid gap-10 grid-cols-3 md:grid-cols-12 m-auto pt-10">
@@ -25,15 +43,26 @@ export default function Footer() {
           <div className="title">Quick Links</div>
           <div className="group list-none underline text-sm grid gap-2 pt-3 cursor-pointer">
             <Link to='/about-us'>About Us</Link>
-            <Link to='/feed-calculator' >Feed Calculator</Link>
-            <Link to='/disease-prediction'>Disease Predictor</Link>
-            <li>Blog Post</li>
-            <li>Chat Forum</li>
+            <div
+              onClick={() => checker("feed-calculator")}
+              className=" cursor-pointer"
+            >
+              Feed Calculator
+            </div>
+            <div
+              onClick={() => checker("disease-prediction")}
+              className=" cursor-pointer"
+            >
+              Disease Predictor
+            </div>
+            <div onClick={() => checker("forum")} className=" cursor-pointer">
+              Chat Forum
+            </div>
           </div>
         </div>
         <div className="group col-span-full  md:col-span-4">
           <div className="group flex justify-between items-center bg-white p-2 rounded-full">
-            <input type="text" placeholder="enter email"  className=" outline-none w-full px-4"/>
+            <input type="text" placeholder="enter email" readOnly="true" className=" outline-none w-full px-4"/>
             <div className="button flex text-sm p-3 bg-gray-700 text-white rounded-full" >
               <img src="" alt="" />
               Submit

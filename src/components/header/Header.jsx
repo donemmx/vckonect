@@ -173,12 +173,10 @@ export default function Header({ bg }) {
               Login / Signup
             </Link>
             <div className="group text-[15px] text-gray-600 p-2 flex items-center gap-3  hover:bg-gray-300 rounded-md cursor-pointer">
-              <img src={language} alt="" className="h-4" />
-              Language Option
-            </div>
-            <div className="group text-[15px] text-gray-600 p-2 flex items-center gap-3  hover:bg-gray-300 rounded-md cursor-pointer">
-              <img src={support} alt="" className="h-4" />
+            <a href="mailto:info@vetkonect.com" rel="noReferrer" className="flex items-center gap-3">
+            <img src={support} alt="" className="h-4" />
               Customer Support
+              </a>
             </div>
           </div>
         </div>
@@ -207,8 +205,10 @@ export default function Header({ bg }) {
             </button>
 
             <div className="group text-[15px] text-gray-600 p-2 flex items-center gap-3  hover:bg-gray-300 rounded-md cursor-pointer">
-              <img src={support} alt="" className="h-4" />
+            <a href="mailto:info@vetkonect.com" rel="noReferrer" className="flex items-center gap-3">
+            <img src={support} alt="" className="h-4" />
               Customer Support
+              </a>
             </div>
           </div>
         </div>

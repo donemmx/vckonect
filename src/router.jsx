@@ -98,6 +98,18 @@ const router = createBrowserRouter([
         element: <Account />,
       },
       {
+        path: "/store/:id",
+        element: <StoreDetails />,
+      },
+      {
+        path: "/clinic/:id",
+        element: <ClinicDetails />,
+      },
+      {
+        path: "/veterinarian/:id",
+        element: <Account />,
+      },
+      {
         path: "/vet-cases",
         element: <Cases />,
       },
@@ -196,6 +208,22 @@ const router = createBrowserRouter([
       {
         path: "/livestock",
         element: <PetandLiveStock />,
+      },
+      {
+        path: "/store/:id",
+        element: <StoreDetails />,
+      },
+      {
+        path: "/user/:id",
+        element: <Account />,
+      },
+      {
+        path: "/farm/:id",
+        element: <Farm />,
+      },
+      {
+        path: "/pet/:id",
+        element: <Pets />,
       },
       {
         path: "/add-pet",
@@ -336,30 +364,6 @@ const router = createBrowserRouter([
       {
         path: "/signup",
         element: <Signup />,
-      },
-      {
-        path: "/store/:id",
-        element: <StoreDetails />,
-      },
-      {
-        path: "/clinic/:id",
-        element: <ClinicDetails />,
-      },
-      {
-        path: "/veterinarian/:id",
-        element: <Account />,
-      },
-      {
-        path: "/user/:id",
-        element: <Account />,
-      },
-      {
-        path: "/farm/:id",
-        element: <Farm />,
-      },
-      {
-        path: "/pet/:id",
-        element: <Pets />,
       },
       {
         path: "/otp",
