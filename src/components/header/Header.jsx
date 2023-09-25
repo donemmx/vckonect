@@ -173,7 +173,7 @@ export default function Header({ bg }) {
               Login / Signup
             </Link>
             <div className="group text-[15px] text-gray-600 p-2 flex items-center gap-3  hover:bg-gray-300 rounded-md cursor-pointer">
-            <a href="mailto:info@vetkonect.com" rel="noReferrer" className="flex items-center gap-3">
+            <a href="mailto:info@vetkonect.com" target="_blank" rel="noReferrer" className="flex items-center gap-3">
             <img src={support} alt="" className="h-4" />
               Customer Support
               </a>
