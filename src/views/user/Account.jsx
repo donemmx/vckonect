@@ -86,7 +86,7 @@ export default function Account() {
   }, []);
 
   return (
-    <div className=" bg-white h-[110vh] mb-10  rounded-md border-[1px] border-[#EBEBEB]">
+    <div className=" bg-white min-h-[110vh] mb-10  rounded-md border-[1px] border-[#EBEBEB]">
       <div className="top bg-account h-[25vh] p-3 lg:p-10 rounded-t-lg">
         <div className="flex mt-10 md:mt-0 items-center justify-between">
           <div className="flex items-center gap-3 text-[.75rem] lg:text-[.9rem] cursor-pointer"></div>
@@ -193,7 +193,7 @@ export default function Account() {
         )}
       </div>
 
-      <div className="w-[50%] mx-auto">{<SubscriptionPlanCard promotion={subscription}/>}</div>
+      <div className="w-[95%] lg:w-[80%] mx-auto">{<SubscriptionPlanCard promotion={subscription}/>}</div>
 
       {openDetail && openDetail[0] !== "rate" ? (
         <div className="user  flex flex-col justify-center items-center w-[65%] lg:w-[20%] mx-auto mt-[15vh]">

@@ -2,6 +2,7 @@ import moment from "moment";
 import { useEffect, useState } from "react";
 import SubscriptionCard from "../subscriptionCard/SubscriptionCard";
 import { getSubscriptionPlan } from "../../utils/userApiService";
+import VetSubscriptionCard from "./VetSubscriptionCard";
 
 export default function SubscriptionPlanCard({ subscription }) {
   const [visible, setVisible] = useState(false);
@@ -21,9 +22,9 @@ export default function SubscriptionPlanCard({ subscription }) {
 
   return (
     <>
-      <div className=" border  h-full lg:h-[10vh] rounded-md bg-gray-100  my-5">
+      <div className=" border  h-full lg:min-h-[8vh] rounded-md bg-gray-100  m-5">
         <div className="flex flex-wrap   items-center justify-between h-full">
-          <div className=" flex items-center  justify-between flex-wrap lg:flex-nowrap gap-5 p-5 w-full lg:w-[60%] rounded-md bg-green-900 h-full text-white">
+          <div className=" flex items-center  justify-between flex-wrap lg:flex-nowrap gap-5 p-2 w-full lg:w-[60%] rounded-md bg-green-900 h-full text-white">
             <div className="flex items-center gap-5">
               <i className=" pi pi-cog  pi-spin !text-xl"></i>
               <div className="">
@@ -63,8 +64,8 @@ export default function SubscriptionPlanCard({ subscription }) {
             </p>
           </div>
           {visible ? (
-            <div className="">
-              <h2 className="font-black text-center text-4xl mt-10 ">
+            <div className="w-full">
+              <h2 className="font-black text-center text-xl lg:text-4xl mt-10 ">
                 Subscribe to a plan
               </h2>
               <div className="subtitle paragraph text-center">
@@ -77,8 +78,8 @@ export default function SubscriptionPlanCard({ subscription }) {
                       <div
                         className={
                           plan === res.title
-                            ? "bg-gray-100 p-2  border rounded-full text-center font-bold text-[14px] cursor-pointer"
-                            : "p-2 rounded-full text-center cursor-pointer text-[14px]"
+                            ? "bg-gray-100 p-2  border rounded-full text-center font-bold text-xs lg:text-[14px] cursor-pointer"
+                            : "p-2 rounded-full text-center cursor-pointer text-xs lg:text-[14px]"
                         }
                         onClick={() => setPlan(res.title)}
                       >
@@ -88,9 +89,9 @@ export default function SubscriptionPlanCard({ subscription }) {
                   ))}
                 </div>
               </div>
-              <div className="flex items-center w-[100%] gap-3 flex-wrap py-10 mx-auto">
+              <div className="flex items-center justify-center w-full gap-3 flex-wrap py-10 mx-auto">
                 {allSubscriptions?.map((res) => (
-                  <SubscriptionCard
+                  <VetSubscriptionCard
                     data={res}
                     selectedPlan={plan}
                     key={res.id}
