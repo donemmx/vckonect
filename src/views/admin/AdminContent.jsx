@@ -69,7 +69,10 @@ export default function AdminContent() {
       setCurrentData(data);
       setLoading(false);
       setApproved(() => data.filter((data) => data.status === "Approved"));
-      setRejected(() => data.filter((data) => data.status === "Not Approved"));
+      const rejected  = data.filter((data) => data.status === "Rejected")
+      const notApproved = data.filter((data) => data.status === "Not Approved")
+      const totalRejected = rejected.length + notApproved.length
+      setRejected(totalRejected);
     });
   };
 
@@ -116,7 +119,7 @@ export default function AdminContent() {
     <div className="w-full">
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-1 lg:gap-2 mt-5">
         <AdminCard
-          number={formatNumber(forum?.length)}
+          number={formatNumber(currentData?.length)}
           text="Total Published"
           icon={recentPublished}
         />
@@ -127,7 +130,7 @@ export default function AdminContent() {
         />
 
         <AdminCard
-          number={formatNumber(rejected?.length)}
+          number={formatNumber(rejected)}
           text="Rejected Post"
           icon={rejectedPost}
         />
