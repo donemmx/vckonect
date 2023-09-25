@@ -26,6 +26,7 @@ import AdminDashboardCard from "../../components/adminDashboardCard/AdminDashboa
 import moment from "moment";
 import { product } from "../../validations/UserValidation";
 import AdminCardLoading from "../../components/loading/AdminCardLoading";
+import { Paginator } from "primereact/paginator";
 
 export default function AdminContent() {
   const [animalOwner, setAnimalOwner] = useState();
@@ -38,10 +39,35 @@ export default function AdminContent() {
   const [selectedId, setSelectedId] = useState();
   const [search, setSearch] = useState("");
 
+  const [totalRecords, setTotalRecords] = useState(0);
+  const [currentPage, setCurrentPage] = useState([]);
+  const [currentData, setCurrentData] = useState();
+
+  const [first, setFirst] = useState(0);
+  const [rows, setRows] = useState(10);
+
+  const onPageChange = (event) => {
+    setFirst(event.first);
+    setRows(event.rows);
+    const myData = currentData?.slice(event.first, event.rows + event.first);
+    setCurrentPage(myData);
+    setTotalRecords(currentData?.length);
+  };
+
+  const formatNumber = (number) => {
+    if (number > 999) {
+      return `${(number / 1000).toFixed(2)}k`;
+    }
+    return number;
+  };
+
+
+
   const getUserCounter = async () => {
+    setLoading(true);
     await getForumChat().then(({data}) => {
-      setForum(data);
-      setLoading(false)
+      setCurrentData(data);
+      setLoading(false);
       setApproved(() => data.filter((data) => data.status === "Approved"));
       setRejected(() => data.filter((data) => data.status === "Not Approved"));
     });
@@ -69,7 +95,7 @@ export default function AdminContent() {
   const searchData = async () => {
     setLoading(true);
     await getForumChatByFilter({ name: search }).then(({data}) => {
-      setForum(data);
+      setCurrentData(data);
       setLoading(false);
     });
   };
@@ -78,22 +104,30 @@ export default function AdminContent() {
     getUserCounter();
   }, [search.length < 3]);
 
+  useEffect(() => {
+    const event = {
+      first: 0,
+      rows: 8,
+    };
+    onPageChange(event);
+  }, [currentData]);
+
   return (
     <div className="w-full">
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-1 lg:gap-2 mt-5">
         <AdminCard
-          number={forum?.length}
+          number={formatNumber(forum?.length)}
           text="Total Published"
           icon={recentPublished}
         />
         <AdminCard
-          number={approved?.length}
+          number={formatNumber(approved?.length)}
           text="Approved Post"
           icon={approvedPost}
         />
 
         <AdminCard
-          number={rejected?.length}
+          number={formatNumber(rejected?.length)}
           text="Rejected Post"
           icon={rejectedPost}
         />
@@ -127,7 +161,7 @@ export default function AdminContent() {
         ) : (
           <>
             <div className="posts p-3 mt-5 grid gap-2">
-              {forum?.map((res) =>
+              {currentPage?.map((res) =>
                 res.status === "Approved" ? (
                   <AdminDashboardCard
                     key={res.id}
@@ -172,6 +206,14 @@ export default function AdminContent() {
           </>
         )}
       </div>
+      <Paginator
+        className="mt-10"
+        first={first}
+        rows={rows}
+        totalRecords={totalRecords}
+        rowsPerPageOptions={[8, 16, 24, 32]}
+        onPageChange={onPageChange}
+      />
     </div>
   );
 }
