@@ -173,7 +173,7 @@ export default function Subscriptions() {
         <div className="posts p-3 mt-5 grid gap-2">
           <div className="flex  items-center gap-6">
             <h2
-              className={` text-[1rem] lg:text-[1rem] cursor-pointer ${
+              className={` text-[.85rem] lg:text-[1rem] cursor-pointer ${
                 tab === "all" ? "font-black" : ""
               } `}
               onClick={() => setTab("all")}
@@ -181,7 +181,7 @@ export default function Subscriptions() {
               Subscribers
             </h2>
             <h2
-              className={` text-[1rem] lg:text-[1rem] cursor-pointer ${
+              className={` text-[.85rem] lg:text-[1rem] cursor-pointer ${
                 tab === "subscription" ? "font-black" : ""
               } `}
               onClick={() => setTab("subscription")}
@@ -192,7 +192,7 @@ export default function Subscriptions() {
           {tab === "all" ? (
             <div className="flex  items-center gap-6">
               <h2
-                className={` text-[1rem] lg:text-[1rem] cursor-pointer ${
+                className={` text-[.75rem] lg:text-[1rem] cursor-pointer ${
                   subscribers === "freemium" ? "font-black" : ""
                 } `}
                 onClick={() => getActiveTabData("freemium")}
@@ -200,7 +200,7 @@ export default function Subscriptions() {
                 Freemium
               </h2>
               <h2
-                className={` text-[1rem] lg:text-[1rem] cursor-pointer ${
+                className={` text-[.75rem] lg:text-[1rem] cursor-pointer ${
                   subscribers === "monthly" ? "font-black" : ""
                 } `}
                 onClick={() =>  getActiveTabData("monthly")}
@@ -208,7 +208,7 @@ export default function Subscriptions() {
                 Monthly
               </h2>
               <h2
-                className={` text-[1rem] lg:text-[1rem] cursor-pointer ${
+                className={` text-[.75rem] lg:text-[1rem] cursor-pointer ${
                   subscribers === "quarterly" ? "font-black" : ""
                 } `}
                 onClick={() => getActiveTabData("quarterly")}
@@ -216,7 +216,7 @@ export default function Subscriptions() {
                 Quarterly
               </h2>
               <h2
-                className={` text-[1rem] lg:text-[1rem] cursor-pointer ${
+                className={` text-[.75rem] lg:text-[1rem] cursor-pointer ${
                   subscribers === "yearly" ? "font-black" : ""
                 } `}
                 onClick={() => getActiveTabData("yearly")}
