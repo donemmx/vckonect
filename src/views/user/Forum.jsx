@@ -280,7 +280,7 @@ export default function Forum() {
           ""
         )}
       </div>
-      <div className=" flex flex-wrap gap-4 w-full mb-10">
+     {tab === 'chat' ? <div className=" flex flex-wrap gap-4 w-full mb-10">
         {loading
           ? [1, 2].map((data) => (
               <div className="w-full mt-10" key={data}>
@@ -288,7 +288,7 @@ export default function Forum() {
               </div>
             ))
           : ""}
-      </div>
+      </div> : ''}
       {tab === "chat" ? (
         <>
           {currentPage?.map((res) => (
