@@ -78,6 +78,7 @@ export default function UserFeatures() {
     await adminGetAnimalOwner().then(({ data }) => {
       setCurrentData(data);
       setLoading(false);
+      
     });
   };
 
@@ -325,17 +326,17 @@ export default function UserFeatures() {
           icon={totalVet}
         />
         <AdminCard
-          number={formatNumber(stores?.length)}
+          number={formatNumber(counter?.store)}
           text="Total Stores"
           icon={storesIcon}
         />
         <AdminCard
-          number={formatNumber(clinic?.length)}
+          number={formatNumber(counter?.clinic)}
           text="Total Clinics"
           icon={clinicsIcon}
         />
         <AdminCard
-          number={formatNumber(pet?.length + farms?.length)}
+          number={formatNumber(counter?.pet + counter?.farm)}
           text="Total Pets/Farms"
           icon={petsIcon}
         />
