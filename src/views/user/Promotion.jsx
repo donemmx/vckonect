@@ -11,6 +11,7 @@ import PromotionSubscriptionCard from "../../components/promotionSubscriptionCar
 import { reloadStore } from "../../atom/reloadAtom";
 import PromoCard from "../../components/promoCard/PromoCard";
 import { adminGetPromotion } from "../../utils/adminApiService";
+import { Paginator } from "primereact/paginator";
 
 export default function Promotion() {
   const userData = useRecoilValue(user);
@@ -19,10 +20,30 @@ export default function Promotion() {
   const [myPromotion, setMyPromotion] = useState([]);
   const [productsPromoted, setProductsPromoted] = useState([]);
   const [myproductsPromoted, setMyProductsPromoted] = useState([]);
+  const [totalRecords, setTotalRecords] = useState(0);
+  const [currentPage, setCurrentPage] = useState([]);
+  const [currentData, setCurrentData] = useState();
+
+  const [first, setFirst] = useState(0);
+  const [rows, setRows] = useState(10);
+
+  const onPageChange = (event) => {
+    setFirst(event.first);
+    setRows(event.rows);
+    const myData = currentData?.slice(event.first, event.rows + event.first);
+    setCurrentPage(myData);
+    setTotalRecords(currentData?.length);
+  };
+
   const location = useNavigate();
 
   const activeTab = (type) => {
     setTab(type);
+    if (type === "all") {
+      setCurrentData(productsPromoted);
+    } else {
+       setCurrentData(myproductsPromoted);
+    } 
   };
 
   const checker = (route) => {
@@ -38,7 +59,7 @@ export default function Promotion() {
       id: userData?.id,
       role: userData?.role,
     };
-    getMyPromotionPlan(payload).then(({data}) => {
+    getMyPromotionPlan(payload).then(({ data }) => {
       setMyPromotion(data);
     });
   };
@@ -48,15 +69,25 @@ export default function Promotion() {
       name: "",
     }).then((res) => {
       setProductsPromoted(res.data);
-      const filtedData = res.data.filter((data)=> data.user_id === userData?.id)
-      setMyProductsPromoted(filtedData)
-    })
+      const filtedData = res.data.filter(
+        (data) => data.user_id === userData?.id
+      );
+      setMyProductsPromoted(filtedData);
+    });
   };
 
   useEffect(() => {
     getCurrentPromotion();
     getProductsPromoted();
   }, [reload]);
+
+  useEffect(() => {
+    const event = {
+      first: 0,
+      rows: 8,
+    };
+    onPageChange(event);
+  }, [currentData]);
 
   return (
     <div className=" flex flex-wrap gap-6">
@@ -74,7 +105,7 @@ export default function Promotion() {
               } `}
               onClick={() => activeTab("all")}
             >
-             All Promotion
+              All Promotion
             </h2>
             <h2
               className={` text-[1rem] lg:text-[1.1rem] cursor-pointer ${
@@ -82,7 +113,7 @@ export default function Promotion() {
               } `}
               onClick={() => activeTab("myPromotion")}
             >
-             My Promotion
+              My Promotion
             </h2>
             <h4
               className={`text-[1rem] lg:text-[1.1rem] cursor-pointer ${
@@ -102,7 +133,8 @@ export default function Promotion() {
                       <>
                         {res.subscription === "Active" ? (
                           <PromoCard key={res.id} data={res} />
-                        ) : (res.subscription === "Expired " || res.subscription === "Suspended") &&
+                        ) : (res.subscription === "Expired " ||
+                            res.subscription === "Suspended") &&
                           res.user_id === userData?.id ? (
                           <PromoCard key={res.id} data={res} />
                         ) : (
@@ -116,42 +148,48 @@ export default function Promotion() {
                 ""
               )}
             </>
-          ) 
-          :
-          tab === 'myPromotion' ?
-          <>
-          {myPromotion?.subscription === "Active" ? (
+          ) : tab === "myPromotion" ? (
             <>
-              <PromotionPlanCard
-                myPromotion={myPromotion}
-                productsPromoted={myproductsPromoted}
-              />
-              <div className=" flex flex-wrap justify-center items-center gap-4">
-                {myproductsPromoted.map((res) => (
-                  <>
-                    {res.subscription === "Active" ? (
-                      <PromoCard key={res.id} data={res} />
-                    ) : (res.subscription === "Expired " || res.subscription === "Suspended") &&
-                      res.user_id === userData?.id ? (
-                      <PromoCard key={res.id} data={res} />
-                    ) : (
-                      ""
-                    )}
-                  </>
-                ))}
-              </div>
+              {myPromotion?.subscription === "Active" ? (
+                <>
+                  <PromotionPlanCard
+                    myPromotion={myPromotion}
+                    productsPromoted={myproductsPromoted}
+                  />
+                  <div className=" flex flex-wrap justify-center items-center gap-4">
+                    {myproductsPromoted.map((res) => (
+                      <>
+                        {res.subscription === "Active" ? (
+                          <PromoCard key={res.id} data={res} />
+                        ) : (res.subscription === "Expired " ||
+                            res.subscription === "Suspended") &&
+                          res.user_id === userData?.id ? (
+                          <PromoCard key={res.id} data={res} />
+                        ) : (
+                          ""
+                        )}
+                      </>
+                    ))}
+                  </div>
+                </>
+              ) : (
+                ""
+              )}
             </>
-          ) : (
-            ""
-          )}
-        </>
-          
-          : myPromotion?.subscription === "Active" ? (
+          ) : myPromotion?.subscription === "Active" ? (
             <PromotionSubscriptionCard promotion={myPromotion} />
           ) : (
             <SubscribeToPlan />
           )}
         </div>
+      <Paginator
+        className="mt-10"
+        first={first}
+        rows={rows}
+        totalRecords={totalRecords}
+        rowsPerPageOptions={[8, 16, 24, 32]}
+        onPageChange={onPageChange}
+      />
       </div>
     </div>
   );
