@@ -220,7 +220,6 @@ export default function Forum() {
     }
   }, []);
 
-
   useEffect(() => {
     const event = {
       first: 0,
@@ -228,7 +227,6 @@ export default function Forum() {
     };
     onPageChange(event);
   }, [currentData]);
-
 
   return (
     <div>
@@ -309,8 +307,17 @@ export default function Forum() {
                 date={res.date}
                 fullData={res}
               />
+            
             </div>
           ))}
+            <Paginator
+                className="mt-10"
+                first={first}
+                rows={rows}
+                totalRecords={totalRecords}
+                rowsPerPageOptions={[8, 16, 24, 32]}
+                onPageChange={onPageChange}
+              />
         </>
       ) : (
         <>
@@ -519,14 +526,6 @@ export default function Forum() {
           </div>
         </>
       )}
-      <Paginator
-        className="mt-10"
-        first={first}
-        rows={rows}
-        totalRecords={totalRecords}
-        rowsPerPageOptions={[8, 16, 24, 32]}
-        onPageChange={onPageChange}
-      />
     </div>
   );
 }
