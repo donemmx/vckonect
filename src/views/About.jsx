@@ -12,7 +12,14 @@ import { usersCounter } from "../utils/adminApiService";
 
 export default function About() {
   const [counterData, setCounterData] = useState([])
+  const formatNumber = (number) => {
+    if(number > 999){
+      return `${(number/1000).toFixed(2)}k`
+    }
+    return number
+  }
 
+  
   const getCounterData = () => {
     usersCounter().then(({data})=> {
      setCounterData(data)
@@ -37,26 +44,26 @@ export default function About() {
                 the use of technology.
               </p>
               <div className="section__cards flex w-[100%] md:w-[90%] flex-wrap items-center justify-center pt-10 gap-4">
-                <Cardcolor
-                  text={"Number of Veterinarians"}
-                  title={counterData?.veterinarian}
-                  image={green}
-                />
-                <Cardcolor
-                  text={"Number of Vet Clinics"}
-                  title={counterData?.clinic}
-                  image={yellow}
-                />
-                <Cardcolor
-                  text={"Store"}
-                  title={counterData?.store}
-                  image={orange}
-                />
-                <Cardcolor
-                  text={"Pets / Farms"}
-                  title={counterData?.farm + counterData?.pet}
-                  image={red}
-                />
+              <Cardcolor
+                text={"Number of Veterinarians"}
+                title={formatNumber(counterData?.veterinarian)}
+                image={green}
+              />
+              <Cardcolor
+                text={"Number of Vet Clinics"}
+                title={formatNumber(counterData?.clinic)}
+                image={yellow}
+              />
+              <Cardcolor
+                text={"Store"}
+                title={formatNumber(counterData?.store)}
+                image={orange}
+              />
+              <Cardcolor
+                text={"Pets / Farms"}
+                title={formatNumber(counterData?.farm + counterData?.pet)}
+                image={red}
+              />
               </div>
             </div>
           </div>

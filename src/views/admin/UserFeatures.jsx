@@ -20,7 +20,11 @@ import {
   verifyVetNumber,
 } from "../../utils/adminApiService";
 import { toast } from "react-toastify";
-import { getStore, getStoreByFilter } from "../../utils/userApiService";
+import {
+  getStore,
+  getStoreByFilter,
+  getUserProduct,
+} from "../../utils/userApiService";
 import searchIcon from "../../assets/icons/search-icons/search-icon-white.svg";
 import moment from "moment";
 import { farm, product } from "../../validations/UserValidation";
@@ -28,6 +32,7 @@ import AdminDashboardCard from "../../components/adminDashboardCard/AdminDashboa
 import AdminCardLoading from "../../components/loading/AdminCardLoading";
 import PromoCard from "../../components/promoCard/PromoCard";
 import ImageComponent from "../../components/image/ImageComponent";
+import { Paginator } from "primereact/paginator";
 
 export default function UserFeatures() {
   const [counter, setCounter] = useState();
@@ -46,49 +51,119 @@ export default function UserFeatures() {
   const [buttonLoading, setButtonLoading] = useState(false);
   const [vetLoading, setVetLoading] = useState(false);
 
+  const [totalRecords, setTotalRecords] = useState(0);
+  const [currentPage, setCurrentPage] = useState([]);
+  const [currentData, setCurrentData] = useState();
+
+  const [first, setFirst] = useState(0);
+  const [rows, setRows] = useState(10);
+
+  const formatNumber = (number) => {
+    if (number > 999) {
+      return `${(number / 1000).toFixed(2)}k`;
+    }
+    return number;
+  };
+
+  const onPageChange = (event) => {
+    setFirst(event.first);
+    setRows(event.rows);
+    const myData = currentData?.slice(event.first, event.rows + event.first);
+    setCurrentPage(myData);
+    setTotalRecords(currentData?.length);
+  };
+
+  const getAnimalOwner = async () => {
+    setLoading(true);
+    await adminGetAnimalOwner().then(({ data }) => {
+      setCurrentData(data);
+      setLoading(false);
+    });
+  };
+
+  const getUserStore = async () => {
+    setLoading(true);
+    await getStore().then(({ data }) => {
+      setCurrentData(data);
+      setLoading(false);
+    });
+  };
+
+  const getUserClinic = async () => {
+    setLoading(true);
+    await adminGetClinic().then(({ data }) => {
+      setCurrentData(data);
+      setLoading(false);
+    });
+  };
+
+  const getFarmByAdmin = async () => {
+    setLoading(true);
+    await adminGetFarm().then(({ data }) => {
+      setCurrentData(data);
+      setLoading(false);
+    });
+  };
+
+  const getPetByAdmin = async () => {
+    setLoading(true);
+    await adminGetPet().then(({ data }) => {
+      setCurrentData(data);
+      setLoading(false);
+    });
+  };
+
+  const getAdminVeterinarian = async () => {
+    setLoading(true);
+    await adminGetVeterinarian().then(({ data }) => {
+      setCurrentData(data);
+      setLoading(false);
+    });
+  };
+
+  const getadminProduct = async () => {
+    setLoading(true);
+    await adminGetProduct().then(({ data }) => {
+      setCurrentData(data);
+      setLoading(false);
+    });
+  };
+
   const getUserCounter = async () => {
-    await usersCounter().then(({data}) => {
+    await usersCounter().then(({ data }) => {
       setCounter(data);
-      setLoading(false);
-    });
-
-    await adminGetAnimalOwner().then(({data}) => {
-      setAnimalOwner(data);
-      setLoading(false);
-    });
-
-    await adminGetClinic().then(({data}) => {
-      setClinic(data);
-      setLoading(false);
-    });
-
-    await getStore().then(({data}) => {
-      setStores(data);
-      setLoading(false);
-    });
-
-    await adminGetFarm().then(({data}) => {
-      setFarms(data);
-      setLoading(false);
-    });
-
-    await adminGetPet().then(({data}) => {
-      setPet(data);
-      setLoading(false);
-    });
-    await adminGetVeterinarian().then(({data}) => {
-      setVet(data);
-      setLoading(false);
-    });
-
-    await adminGetProduct().then(({data}) => {
-      setProduct(data);
       setLoading(false);
     });
   };
 
   const activeTab = (type) => {
     setTab(type);
+    switch (type) {
+      case "animalOwner":
+        getAnimalOwner();
+        break;
+      case "pets":
+        if (active === "pet") {
+          getPetByAdmin();
+        } else {
+          getFarmByAdmin();
+        }
+        break;
+      case "vet":
+        getAdminVeterinarian();
+        break;
+      case "store":
+        getUserStore();
+        break;
+      case "clinic":
+        getUserClinic();
+        break;
+      case "product":
+        getadminProduct();
+        break;
+      default:
+        break;
+    }
   };
 
   const searchData = async () => {
@@ -96,7 +171,7 @@ export default function UserFeatures() {
     switch (tab) {
       case "animalOwner":
         setLoading(true);
-        await adminGetAnimalOwner({ name: search }).then(({data}) => {
+        await adminGetAnimalOwner({ name: search }).then(({ data }) => {
           setLoading(false);
           setAnimalOwner(data);
         });
@@ -104,13 +179,13 @@ export default function UserFeatures() {
       case "pets":
         if (active === "pet") {
           setLoading(true);
-          await adminGetPet({ name: search }).then(({data}) => {
+          await adminGetPet({ name: search }).then(({ data }) => {
             setLoading(false);
             setPet(data);
           });
         } else {
           setLoading(true);
-          await adminGetFarm({ name: search }).then(({data}) => {
+          await adminGetFarm({ name: search }).then(({ data }) => {
             setLoading(false);
             setFarms(data);
           });
@@ -118,21 +193,21 @@ export default function UserFeatures() {
         break;
       case "vet":
         setLoading(true);
-        await adminGetVeterinarian({ name: search }).then(({data}) => {
+        await adminGetVeterinarian({ name: search }).then(({ data }) => {
           setLoading(false);
           setVet(data);
         });
         break;
       case "store":
         setLoading(true);
-        await getStoreByFilter({ name: search }).then(({data}) => {
+        await getStoreByFilter({ name: search }).then(({ data }) => {
           setLoading(false);
           setStores(data);
         });
         break;
       case "clinic":
         setLoading(true);
-        await adminGetClinic({ name: search }).then(({data}) => {
+        await adminGetClinic({ name: search }).then(({ data }) => {
           setLoading(false);
           setClinic(data);
         });
@@ -192,37 +267,75 @@ export default function UserFeatures() {
     getUserCounter();
   }, [search.length < 3]);
 
+
+  useEffect(()=> {
+      switch (tab) {
+        case "animalOwner":
+          getAnimalOwner();
+          break;
+        case "pets":
+          if (active === "pet") {
+            getPetByAdmin();
+          } else {
+            getFarmByAdmin();
+          }
+          break;
+        case "vet":
+          getAdminVeterinarian();
+          break;
+        case "store":
+          getUserStore();
+          break;
+        case "clinic":
+          getUserClinic();
+          break;
+        case "product":
+          getadminProduct();
+          break;
+        default:
+          break;
+      }
+  }, [])
+
+  useEffect(() => {
+    const event = {
+      first: 0,
+      rows: 8,
+    };
+    onPageChange(event);
+  }, [currentData]);
+
   return (
     <div className="w-full">
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-1 mt-5">
         <AdminCard
-          number={counter?.total_user}
+          number={formatNumber(counter?.total_user)}
           text="Total Users"
           icon={totalUsers}
         />
         <AdminCard
-          number={counter?.animal_owner}
+          number={formatNumber(counter?.animal_owner)}
           text="Animal Owners"
           icon={animalOwnerIcon}
         />
 
         <AdminCard
-          number={counter?.veterinarian}
+          number={formatNumber(counter?.veterinarian)}
           text="Total Veterinarian"
           icon={totalVet}
         />
         <AdminCard
-          number={stores?.length}
+          number={formatNumber(stores?.length)}
           text="Total Stores"
           icon={storesIcon}
         />
         <AdminCard
-          number={clinic?.length}
+          number={formatNumber(clinic?.length)}
           text="Total Clinics"
           icon={clinicsIcon}
         />
         <AdminCard
-          number={pet?.length + farms?.length}
+          number={formatNumber(pet?.length + farms?.length)}
           text="Total Pets/Farms"
           icon={petsIcon}
         />
@@ -309,12 +422,12 @@ export default function UserFeatures() {
           <>
             {tab == "animalOwner" ? (
               <div className="posts lg:p-3 mt-5 grid gap-2">
-                {animalOwner?.map((res) =>
+                {currentPage?.map((res) =>
                   res.account_activation === "Activated" ? (
                     <AdminDashboardCard
                       key={res.id}
                       time={moment(res.date).utc().fromNow()}
-                      title={res.first_name + res.last_name}
+                      title={res?.first_name + res?.last_name}
                       name={res.role}
                       id={res.id}
                       selectedId={selectedId}
@@ -328,7 +441,7 @@ export default function UserFeatures() {
                     <AdminDashboardCard
                       key={res.id}
                       time={moment(res.date).utc().fromNow()}
-                      title={res.first_name + res.last_name}
+                      title={res?.first_name + res?.last_name}
                       selectedId={selectedId}
                       name={res.role}
                       id={res.id}
@@ -343,12 +456,12 @@ export default function UserFeatures() {
               </div>
             ) : tab == "vet" ? (
               <div className="posts p-3 mt-5 grid gap-2">
-                {vet?.map((res) =>
+                {currentPage?.map((res) =>
                   res.account_activation === "Activated" ? (
                     <AdminDashboardCard
                       key={res.id}
                       time={moment(res.date).utc().fromNow()}
-                      title={res.first_name + res.last_name}
+                      title={res?.first_name + res?.last_name}
                       id={res.id}
                       vet={res.vet_number_status}
                       verifyVetFunction={() => verifyVetNumberFunction(res.id)}
@@ -368,7 +481,7 @@ export default function UserFeatures() {
                     <AdminDashboardCard
                       key={res.id}
                       time={moment(res.date).utc().fromNow()}
-                      title={res.first_name + res.last_name}
+                      title={res?.first_name + res?.last_name}
                       name={res.role}
                       id={res.id}
                       email={res.email}
@@ -386,11 +499,11 @@ export default function UserFeatures() {
               </div>
             ) : tab == "store" ? (
               <div className="posts p-3 mt-5 grid gap-2">
-                {stores?.map((res) => (
+                {currentPage?.map((res) => (
                   <AdminDashboardCard
                     key={res.id}
                     time={moment(res.date).utc().fromNow()}
-                    title={res.store_name}
+                    title={res?.store_name}
                     id={res.id}
                     selectedId={selectedId}
                     name={res.location}
@@ -401,11 +514,11 @@ export default function UserFeatures() {
               </div>
             ) : tab == "clinic" ? (
               <div className="posts p-3 mt-5 grid gap-2">
-                {clinic?.map((res) => (
+                {currentPage?.map((res) => (
                   <AdminDashboardCard
                     key={res.id}
                     time={moment(res.date).utc().fromNow()}
-                    title={res.clinic_name}
+                    title={res?.clinic_name}
                     id={res.id}
                     selectedId={selectedId}
                     name={res.location}
@@ -436,7 +549,7 @@ export default function UserFeatures() {
                 </div>
                 {active === "pet" ? (
                   <div className="posts p-3 mt-5 grid gap-2">
-                    {pet?.map((res) => (
+                    {currentPage?.map((res) => (
                       <AdminDashboardCard
                         key={res.id}
                         time={moment(res.date).utc().fromNow()}
@@ -451,7 +564,7 @@ export default function UserFeatures() {
                   </div>
                 ) : (
                   <div className="posts p-3 mt-5 grid gap-2">
-                    {farms?.map((res) => (
+                    {currentPage?.map((res) => (
                       <AdminDashboardCard
                         key={res.id}
                         time={moment(res.date).utc().fromNow()}
@@ -473,11 +586,7 @@ export default function UserFeatures() {
                     <div className="">
                       <ImageComponent data={res} />
                     </div>
-                    <PromoCard
-                      data={res}
-                      store_id={res.id}
-                      show={true}
-                    />
+                    <PromoCard data={res} store_id={res.id} show={true} />
                   </div>
                 ))}
               </div>
@@ -487,6 +596,14 @@ export default function UserFeatures() {
           </>
         )}
       </div>
+      <Paginator
+        className="mt-10"
+        first={first}
+        rows={rows}
+        totalRecords={totalRecords}
+        rowsPerPageOptions={[8, 16, 24, 32]}
+        onPageChange={onPageChange}
+      />
     </div>
   );
 }

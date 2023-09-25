@@ -27,6 +27,7 @@ export default function Vetcard({ fullData }) {
     }
   };
 
+
   return (
     <div className=" vetCard my-6">
       <div className="group h-full w-full ">

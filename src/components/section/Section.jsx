@@ -12,6 +12,15 @@ import { useEffect, useState } from "react";
 export default function Section() {
   const [counterData, setCounterData] = useState([]);
 
+  const formatNumber = (number) => {
+    if(number > 999){
+      return `${(number/1000).toFixed(2)}k`
+    }
+    return number
+  }
+
+
+
   const getCounterData = () => {
     usersCounter().then(({ data }) => {
       setCounterData(data);
@@ -37,22 +46,22 @@ export default function Section() {
             <div className="section__cards flex flex-wrap items-center justify-center md:justify-start pt-10 gap-2">
               <Cardcolor
                 text={"Number of Veterinarians"}
-                title={counterData?.veterinarian}
+                title={formatNumber(counterData?.veterinarian)}
                 image={green}
               />
               <Cardcolor
                 text={"Number of Vet Clinics"}
-                title={counterData?.clinic}
+                title={formatNumber(counterData?.clinic)}
                 image={yellow}
               />
               <Cardcolor
                 text={"Store"}
-                title={counterData?.store}
+                title={formatNumber(counterData?.store)}
                 image={orange}
               />
               <Cardcolor
                 text={"Pets / Farms"}
-                title={counterData?.farm + counterData?.pet}
+                title={formatNumber(counterData?.farm + counterData?.pet)}
                 image={red}
               />
             </div>

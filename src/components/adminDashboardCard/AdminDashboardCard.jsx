@@ -45,7 +45,7 @@ export default function AdminDashboardCard({
             </div>
           ) : (
             <Avatar
-              label={title.split("")[0].toUpperCase()}
+              label={title?.split("")[0].toUpperCase()}
               size="xlarge"
               className=" !bg-green-500 !text-white"
               shape="circle"
