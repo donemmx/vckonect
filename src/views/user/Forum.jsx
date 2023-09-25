@@ -132,7 +132,7 @@ export default function Forum() {
     setLoading(true);
     await getDirectMessage({ id: userData?.id, role: userData?.role }).then(
       ({ data }) => {
-        setCurrentData(data);
+        setAllMessages(data);
         setLoading(false);
       }
     );
@@ -316,13 +316,13 @@ export default function Forum() {
         <>
           <div
             className={`${
-              currentPage?.length > 0
+              allmessages?.length > 0
                 ? "grid md:grid-cols-1   gap-2 relative w-full lg:grid-cols-2"
                 : " grid md:grid-cols-1   gap-2 relative w-full lg:grid-cols-1"
             }  `}
           >
             <div className="flex flex-col gap-2">
-              {currentPage?.map((res) =>
+              {allmessages?.map((res) =>
                 res.id !== userData.id ? (
                   <div
                     key={res.id}
