@@ -174,7 +174,7 @@ export default function UserFeatures() {
         setLoading(true);
         await adminGetAnimalOwner({ name: search }).then(({ data }) => {
           setLoading(false);
-          setAnimalOwner(data);
+          setCurrentData(data);
         });
         break;
       case "pets":
@@ -182,13 +182,13 @@ export default function UserFeatures() {
           setLoading(true);
           await adminGetPet({ name: search }).then(({ data }) => {
             setLoading(false);
-            setPet(data);
+            setCurrentData(data);
           });
         } else {
           setLoading(true);
           await adminGetFarm({ name: search }).then(({ data }) => {
             setLoading(false);
-            setFarms(data);
+            setCurrentData(data);
           });
         }
         break;
@@ -196,21 +196,21 @@ export default function UserFeatures() {
         setLoading(true);
         await adminGetVeterinarian({ name: search }).then(({ data }) => {
           setLoading(false);
-          setVet(data);
+          setCurrentData(data);
         });
         break;
       case "store":
         setLoading(true);
         await getStoreByFilter({ name: search }).then(({ data }) => {
           setLoading(false);
-          setStores(data);
+          setCurrentData(data);
         });
         break;
       case "clinic":
         setLoading(true);
         await adminGetClinic({ name: search }).then(({ data }) => {
           setLoading(false);
-          setClinic(data);
+          setCurrentData(data);
         });
         break;
       default:
