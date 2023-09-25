@@ -47,6 +47,7 @@ export default function UserFeatures() {
   const [tab, setTab] = useState("animalOwner");
   const [active, setActive] = useState("pet");
   const [search, setSearch] = useState("");
+  const [timer, setTimer] = useState("");
   const [loading, setLoading] = useState(true);
   const [buttonLoading, setButtonLoading] = useState(false);
   const [vetLoading, setVetLoading] = useState(false);
@@ -78,7 +79,6 @@ export default function UserFeatures() {
     await adminGetAnimalOwner().then(({ data }) => {
       setCurrentData(data);
       setLoading(false);
-      
     });
   };
 
@@ -222,6 +222,20 @@ export default function UserFeatures() {
     setActive(type);
   };
 
+  const useDebounce = () => {
+    return function debounce(fn,  wait) {
+        let timer = setTimer(null)
+        return function(...args) {
+            if(timer) {
+                clearTimeout(timer);
+            }
+            timer = setTimeout(async () => {
+                await fn.apply(this, args);
+            }, wait);
+        }
+    }
+}
+
   const disableUserAccount = (data) => {
     setButtonLoading(true);
     setSelectedId(data.id);
@@ -266,37 +280,40 @@ export default function UserFeatures() {
 
   useEffect(() => {
     getUserCounter();
+  }, []);
+
+  useEffect(() => {
+    searchData();
   }, [search.length < 3]);
 
-
-  useEffect(()=> {
-      switch (tab) {
-        case "animalOwner":
-          getAnimalOwner();
-          break;
-        case "pets":
-          if (active === "pet") {
-            getPetByAdmin();
-          } else {
-            getFarmByAdmin();
-          }
-          break;
-        case "vet":
-          getAdminVeterinarian();
-          break;
-        case "store":
-          getUserStore();
-          break;
-        case "clinic":
-          getUserClinic();
-          break;
-        case "product":
-          getadminProduct();
-          break;
-        default:
-          break;
-      }
-  }, [])
+  useEffect(() => {
+    switch (tab) {
+      case "animalOwner":
+        getAnimalOwner();
+        break;
+      case "pets":
+        if (active === "pet") {
+          getPetByAdmin();
+        } else {
+          getFarmByAdmin();
+        }
+        break;
+      case "vet":
+        getAdminVeterinarian();
+        break;
+      case "store":
+        getUserStore();
+        break;
+      case "clinic":
+        getUserClinic();
+        break;
+      case "product":
+        getadminProduct();
+        break;
+      default:
+        break;
+    }
+  }, []);
 
   useEffect(() => {
     const event = {
