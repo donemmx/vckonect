@@ -8,20 +8,43 @@ import { useEffect, useState } from "react";
 import { getClinic } from "../../utils/vetApiService";
 import { reloadStore } from "../../atom/reloadAtom";
 import Loading from "../../components/loading/Loading";
+import { Paginator } from "primereact/paginator";
 
 export default function Clinic() {
   const userData = useRecoilValue(user);
   const reload = useRecoilValue(reloadStore);
   const [action, setAction] = useRecoilState(actionState);
   const [loading, setLoading] = useState(true);
-  const [allClinics, SetAllClinics] = useState([]);
+
+  const [totalRecords, setTotalRecords] = useState(0);
+  const [currentPage, setCurrentPage] = useState([]);
+  const [currentData, setCurrentData] = useState();
+
+  const [first, setFirst] = useState(0);
+  const [rows, setRows] = useState(10);
+
+  const onPageChange = (event) => {
+    setFirst(event.first);
+    setRows(event.rows);
+    const myData = currentData?.slice(event.first, event.rows + event.first);
+    setCurrentPage(myData);
+    setTotalRecords(currentData?.length);
+  };
 
   useEffect(() => {
-    getClinic({ user_id: userData?.id }).then(({data}) => {
-      SetAllClinics(data);
+    getClinic({ user_id: userData?.id }).then(({ data }) => {
+      setCurrentData(data);
       setLoading(false);
     });
   }, [reload]);
+
+  useEffect(() => {
+    const event = {
+      first: 0,
+      rows: 8,
+    };
+    onPageChange(event);
+  }, [currentData]);
 
   return (
     <div>
@@ -47,7 +70,7 @@ export default function Clinic() {
         <p className="font-bold px-2">Add New Clinic</p>
         <img src={addIcon} alt="" className="w-[40px]" />
       </Link>
-      <div className=" grid md:grid-col-2 lg:grid-cols-4 gap-4 w-full mb-10">
+      <div className=" grid md:grid-cols-2  lg:grid-cols-4 w-full">
         {loading
           ? [1, 2, 3, 4].map((data) => (
               <div className="w-full mt-10" key={data}>
@@ -56,8 +79,8 @@ export default function Clinic() {
             ))
           : ""}
       </div>
-      <div className=" grid md:grid-cols-2 lg:grid-cols-4 gap-2">
-      {allClinics?.map((res) => (
+      <div className="pt-5 gap-6  pb-10 grid md:grid-cols-2  lg:grid-cols-4 w-full">
+        {currentPage?.map((res) => (
           <ClinicCard
             availability={res.availability}
             clinicName={res.clinic_name}
@@ -69,6 +92,14 @@ export default function Clinic() {
           />
         ))}
       </div>
+      <Paginator
+        className="mt-10"
+        first={first}
+        rows={rows}
+        totalRecords={totalRecords}
+        rowsPerPageOptions={[8, 16, 24, 32]}
+        onPageChange={onPageChange}
+      />
     </div>
   );
 }
