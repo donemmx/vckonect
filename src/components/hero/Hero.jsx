@@ -4,7 +4,12 @@ import location from "../../assets/icons/marker-icon.svg";
 import search from "../../assets/icons/search-icons/search-icon-white.svg";
 import playstore from '../../assets/icons/playstore.svg';
 import apple from '../../assets/icons/storeApple.svg';
+import { useNavigate } from "react-router-dom";
 export default function Hero() {
+  const navigate = useNavigate()
+  const openSearch = () => {
+    navigate('/search')
+  }
   return (
     <div className="hero pt-[10vh] pb-10 w-[100%] h-[100%] md:h-[100vh] bg-hero bg-cover bg-bottom">
       <div className="hero__body w-[90%] md:w-[85%] h-[100%] flex flex-col-reverse m-auto space-y-2 md:flex md:flex-col-reverse lg:flex-row space-x-2  justify-between">
@@ -29,7 +34,7 @@ export default function Hero() {
           <div className="search pt-5">
             <div className="form__group flex space-x-4 items-center p-2 bg-white rounded-full">
               <img src={location} alt="" className=" h-[26px] px-3 object-contain" />
-              <input type="text" placeholder="Type in your location"  className=" outline-none p-1 w-full"/>
+              <input type="text" placeholder="Type in your location" onClick={openSearch} className=" outline-none p-1 w-full"/>
               <div className="search__btn  bg-gray-600 h-[45px] w-[80px] flex items-center justify-center rounded-r-full">
                 <img src={search} alt="" className=" h-[15px]"  />
               </div>
