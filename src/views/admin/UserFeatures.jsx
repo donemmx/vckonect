@@ -179,7 +179,11 @@ export default function UserFeatures() {
         break;
       case "pets":
         if (active === "pet") {
-         
+          setLoading(true);
+          await adminGetPet({ name: search }).then(({ data }) => {
+            setLoading(false);
+            setCurrentData(data);
+          });
         } else {
           setLoading(true);
           await adminGetFarm({ name: search }).then(({ data }) => {
