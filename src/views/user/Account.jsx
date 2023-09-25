@@ -192,9 +192,23 @@ export default function Account() {
           ""
         )}
       </div>
+     {userDetails?.role === "Veterinarian" ? <div className=" flex items-center flex-col justify-center p-4">
+        <h3 className="font-black p-2 ">Specialty </h3>
+        <div className=" flex gap-2 items-center">
+          {userData?.speciality &&
+            userData?.speciality?.map((res) => (
+              <div
+                className=" flex items-center text-sm p-1 bg-green-100 text-green-500 px-3 rounded-full "
+                key={res}
+              >
+                {res}
+              </div>
+            ))}
+        </div>
+      </div> : ''}
 
       <div className="w-[95%] lg:w-[80%] mx-auto">{<SubscriptionPlanCard subscription={subscription}/>}</div>
-
+        
       {openDetail && openDetail[0] !== "rate" ? (
         <div className="user  flex flex-col justify-center items-center w-[65%] lg:w-[20%] mx-auto mt-[15vh]">
           <h4 className=" font-bold pt-3">Users’ {openDetail[1]}</h4>
