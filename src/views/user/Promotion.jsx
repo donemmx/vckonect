@@ -66,7 +66,7 @@ export default function Promotion() {
             Ads Promotions
           </h2>
         </div>
-        <div className="pets mt-5  mb-5 p-4 border bg-white rounded-lg">
+        <div className="pets mt-2  mb-5 p-4  bg-white rounded-lg">
           <div className="flex items-center gap-6">
             <h2
               className={` text-[1rem] lg:text-[1.1rem] cursor-pointer ${

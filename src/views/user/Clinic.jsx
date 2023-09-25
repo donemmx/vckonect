@@ -9,6 +9,7 @@ import { getClinic } from "../../utils/vetApiService";
 import { reloadStore } from "../../atom/reloadAtom";
 import Loading from "../../components/loading/Loading";
 import { Paginator } from "primereact/paginator";
+import { Empty } from "antd";
 
 export default function Clinic() {
   const userData = useRecoilValue(user);
@@ -79,19 +80,25 @@ export default function Clinic() {
             ))
           : ""}
       </div>
-      <div className="pt-5 gap-6  pb-10 grid md:grid-cols-2  lg:grid-cols-4 w-full">
-        {currentPage?.map((res) => (
-          <ClinicCard
-            availability={res.availability}
-            clinicName={res.clinic_name}
-            clinicLocation={res.location}
-            image={res.picture}
-            fullData={res}
-            clinic_id={res.id}
-            key={res.id}
-          />
-        ))}
-      </div>
+      {currentData?.length > 0 ? (
+        <div className="pt-5 gap-6  pb-10 grid md:grid-cols-2  lg:grid-cols-4 w-full">
+          {currentPage?.map((res) => (
+            <ClinicCard
+              availability={res.availability}
+              clinicName={res.clinic_name}
+              clinicLocation={res.location}
+              image={res.picture}
+              fullData={res}
+              clinic_id={res.id}
+              key={res.id}
+            />
+          ))}
+        </div>
+      ) : (
+        <div className="w-full flex h-[35vh] items-center justify-center">
+          <Empty className="w-full" />
+        </div>
+      )}
       <Paginator
         className="mt-10"
         first={first}
