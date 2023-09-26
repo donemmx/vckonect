@@ -19,7 +19,9 @@ export default function Header({ bg }) {
 
   const [open, setOpen] = useState(false);
   const [openNotify, setOpenNotify] = useState(false);
+  const [openMessage, setOpenMessage] = useState(false);
   const [notification, setNotification] = useState([]);
+  const [myData, setMyData] = useState();
   const userData = useRecoilValue(user);
   const [data, setData] = useRecoilState(user);
   const openModal = () => {
@@ -31,6 +33,11 @@ export default function Header({ bg }) {
     localStorage.clear();
     toast.success("Successfully logged out");
   };
+
+  const openData = (data) => {
+    setMyData(data)
+    setOpenMessage(!openMessage)
+  }
 
   const checker = (route) => {
     if (data?.role) {
@@ -65,9 +72,9 @@ export default function Header({ bg }) {
       role: userData?.role,
     };
     if(userData?.id){
-      // getNotification(payload).then(({data}) => {
-      //   setNotification(data);
-      // });
+      getNotification(payload).then(({data}) => {
+        setNotification(data);
+      });
     }
   }, []);
 
@@ -217,9 +224,9 @@ export default function Header({ bg }) {
       )}
 
       {openNotify ? (
-        <div className="fixed h-[70vh] overflow-y-scroll right-[10vw] top-[8vh] bg-white  md:w-[35vw] lg:w-[20vw] p-5 z-[1000] ">
+        <div className="fixed h-[70vh] overflow-y-scroll right-[10vw] top-[10vh] bg-white rounded-md shadow-lg  md:w-[35vw] lg:w-[20vw] p-5 z-[1000] ">
           {notification.map((res, i) => (
-            <div className=" top-[10vh] z-20" key={res.id}>
+            <div className=" top-[10vh] z-20" key={res.id} onClick={() => openData(res)}>
               <div className="flex items-center gap-2 shadow-sm cursor-pointer">
                 <i className="pi pi-inbox"></i>
               <div className="p-3">
@@ -227,8 +234,15 @@ export default function Header({ bg }) {
                 <p className="text-xs">{res.role}</p>
               </div>
               </div>
+              {
+                openMessage && myData?.id === res.id ? 
+                <div className="p-3">
+                    <p className="text-xs">{myData?.content}</p>
+                </div>: ''
+              }
             </div>
           ))}
+          
         </div>
       ) : (
         ""
