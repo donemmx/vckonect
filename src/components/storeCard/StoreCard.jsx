@@ -126,9 +126,9 @@ export default function StoreCard({
               </div>
             )}
           </div>
-          <div className="rating bg-gray-50 left-2 rounded-full text-black px-3 py-2 font-bold absolute bottom-0 text-sm flex items-center gap-2 mb-2">
+          <div className="rating bg-gray-50 left-2 w-[110px] rounded-full text-black px-3 py-2 font-bold absolute bottom-0 text-sm flex items-center gap-2 mb-2">
             <img src={star} alt="" className="h-6" />
-            {fullData.rating} of 5
+            {fullData.rating.toFixed(0)} of 5
           </div>
         </div>
 

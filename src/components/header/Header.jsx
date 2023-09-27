@@ -35,9 +35,9 @@ export default function Header({ bg }) {
   };
 
   const openData = (data) => {
-    setMyData(data)
-    setOpenMessage(!openMessage)
-  }
+    setMyData(data);
+    setOpenMessage(!openMessage);
+  };
 
   const checker = (route) => {
     if (data?.role) {
@@ -52,6 +52,7 @@ export default function Header({ bg }) {
       location("/login");
     }
   };
+
   const accountChecker = (route) => {
     if (data?.role) {
       if (data?.role === "Veterinarian") {
@@ -71,12 +72,33 @@ export default function Header({ bg }) {
       user_id: userData?.id,
       role: userData?.role,
     };
-    if(userData?.id){
-      getNotification(payload).then(({data}) => {
+    if (userData?.id) {
+      getNotification(payload).then(({ data }) => {
         setNotification(data);
       });
     }
   }, []);
+
+  // useEffect(() => {
+  //   const handler = (event) => {
+  //     if (!modalEl.current) {
+  //       return;
+  //     }
+  //     // if click was not inside of the element. "!" means not
+  //     // in other words, if click is outside the modal element
+  //     if (!modalEl.current.contains(event.target)) {
+  //       setIsModalOpen(false);
+  //     }
+  //   };
+  //   // the key is using the `true` option
+  //   // `true` will enable the `capture` phase of event handling by browser
+  //   document.addEventListener("click", handler, true);
+  //   return () => {
+  //     document.removeEventListener("click", handler);
+  //   };
+  // }, []);
+  
+
 
   return (
     <>
@@ -180,9 +202,14 @@ export default function Header({ bg }) {
               Login / Signup
             </Link>
             <div className="group text-[15px] text-gray-600 p-2 flex items-center gap-3  hover:bg-gray-300 rounded-md cursor-pointer">
-            <a href="mailto:info@vetkonect.com" target="_blank" rel="noReferrer" className="flex items-center gap-3">
-            <img src={support} alt="" className="h-4" />
-              Customer Support
+              <a
+                href="mailto:info@vetkonect.com"
+                target="_blank"
+                rel="noReferrer"
+                className="flex items-center gap-3"
+              >
+                <img src={support} alt="" className="h-4" />
+                Customer Support
               </a>
             </div>
           </div>
@@ -212,9 +239,13 @@ export default function Header({ bg }) {
             </button>
 
             <div className="group text-[15px] text-gray-600 p-2 flex items-center gap-3  hover:bg-gray-300 rounded-md cursor-pointer">
-            <a href="mailto:info@vetkonect.com" rel="noReferrer" className="flex items-center gap-3">
-            <img src={support} alt="" className="h-4" />
-              Customer Support
+              <a
+                href="mailto:info@vetkonect.com"
+                rel="noReferrer"
+                className="flex items-center gap-3"
+              >
+                <img src={support} alt="" className="h-4" />
+                Customer Support
               </a>
             </div>
           </div>
@@ -223,30 +254,47 @@ export default function Header({ bg }) {
         ""
       )}
 
-      {openNotify ? (
-        <div className="fixed h-[70vh] overflow-y-scroll right-[10vw] top-[10vh] bg-white rounded-md shadow-lg  md:w-[35vw] lg:w-[20vw] p-5 z-[1000] ">
-          {notification.map((res, i) => (
-            <div className=" top-[10vh] z-20" key={res.id} onClick={() => openData(res)}>
-              <div className="flex items-center gap-2 shadow-sm cursor-pointer">
-                <i className="pi pi-inbox"></i>
-              <div className="p-3">
-                <p className="font-bold text-sm">{res.title}</p>
-                <p className="text-xs">{res.role}</p>
+      <div className="fixed right-[10vw] top-[10vh] overflow-y-scroll z-[1000]  md:w-[35vw] lg:w-[20vw] rounded-md">
+        <div
+          className={
+            openNotify
+              ? " h-[70vh] transition-[height] ease-in-out duration-500     "
+              : " h-[0] transition-[height] ease-in-out  "
+          }
+        >
+          <div className=" bg-white  p-5  shadow-lg">
+            {notification.map((res, i) => (
+              <div
+                className={
+                  openMessage && myData?.id === res.id
+                    ? " bg-gray-50 px-1 top-[10vh] z-20"
+                    : "top-[10vh] transition-all ease-in-out 500ms z-20"
+                }
+                key={res.id}
+                onClick={() => openData(res)}
+              >
+                <div className="flex items-center gap-2 shadow-sm cursor-pointer">
+                  <i className="pi pi-inbox"></i>
+                  <div className="p-3">
+                    <p className="font-bold text-sm">{res.title}</p>
+                    <p className="text-xs">{res.role}</p>
+                  </div>
+                </div>
+
+                <div
+                  className={
+                    openMessage && myData?.id === res.id
+                      ? "max-h-[1000px] transition-[max-height] ease-in-out 500ms overflow-hidden"
+                      : "  max-h-[0] transition-[max-height] ease-in-out 500ms overflow-hidden"
+                  }
+                >
+                  <p className="p-4 text-xs">{myData?.content}</p>
+                </div>
               </div>
-              </div>
-              {
-                openMessage && myData?.id === res.id ? 
-                <div className="p-3">
-                    <p className="text-xs">{myData?.content}</p>
-                </div>: ''
-              }
-            </div>
-          ))}
-          
+            ))}
+          </div>
         </div>
-      ) : (
-        ""
-      )}
+      </div>
     </>
   );
 }

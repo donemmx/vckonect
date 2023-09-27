@@ -54,7 +54,7 @@ export default function Vetcard({ fullData }) {
           </div>
 
           <div className="bottom flex items-center justify-between p-2 absolute bottom-2 w-full ">
-            <div className="rating bg-gray-50 left-2 rounded-full text-black px-3 py-2 font-bold bottom-0 text-sm flex items-center gap-2 mb-2">
+            <div className="rating bg-gray-50 left-2 rounded-full text-black w-[110px] px-3 py-2 font-bold bottom-0 text-sm flex items-center gap-2 mb-2">
               <img src={star} alt="" className="h-6" />
               {fullData?.rating ?? 0} of 5
             </div>
