@@ -94,9 +94,9 @@ export default function ClinicCard({ fullData }) {
               </div>
             )}
           </div>
-          <div className="rating bg-gray-50 left-2 rounded-full text-black px-3 py-2 font-bold absolute bottom-0 text-sm flex items-center gap-2 mb-2">
+          <div className="rating bg-gray-50 left-2 w-[110px] rounded-full text-black px-3 py-2 font-bold absolute bottom-0 text-sm flex items-center gap-2 mb-2">
             <img src={star} alt="" className="h-6" />
-            {fullData?.rating ?? 0} of 5
+            {fullData.rating.toFixed(0)} of 5
           </div>
         </div>
         <div className="bottom bg-white p-2 rounded-b-[12px]">
