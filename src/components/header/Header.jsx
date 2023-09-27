@@ -6,7 +6,7 @@ import hamburger from "../../assets/icons/header-icons/hamburger-icon.svg";
 import language from "../../assets/icons/modal-icons/language-icon.svg";
 import support from "../../assets/icons/modal-icons/support-icon.svg";
 import userPic from "../../assets/icons/modal-icons/user-icon.svg";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { user } from "../../atom/userAtom";
 import { toast } from "react-toastify";
@@ -24,9 +24,11 @@ export default function Header({ bg }) {
   const [myData, setMyData] = useState();
   const userData = useRecoilValue(user);
   const [data, setData] = useRecoilState(user);
+
   const openModal = () => {
     setOpen(!open);
   };
+  const ref = useRef();
 
   const logOut = () => {
     setData(null);
@@ -79,26 +81,34 @@ export default function Header({ bg }) {
     }
   }, []);
 
-  // useEffect(() => {
-  //   const handler = (event) => {
-  //     if (!modalEl.current) {
-  //       return;
-  //     }
-  //     // if click was not inside of the element. "!" means not
-  //     // in other words, if click is outside the modal element
-  //     if (!modalEl.current.contains(event.target)) {
-  //       setIsModalOpen(false);
-  //     }
-  //   };
-  //   // the key is using the `true` option
-  //   // `true` will enable the `capture` phase of event handling by browser
-  //   document.addEventListener("click", handler, true);
-  //   return () => {
-  //     document.removeEventListener("click", handler);
-  //   };
-  // }, []);
-  
+  const closeNotify = () => {
+    setOpenNotify(false);
+  };
 
+  const setNotify = () => {
+    setOpenNotify(true);
+  };
+
+  useEffect(() => {
+    const checkIfClickedOutside = (e) => {
+      if (ref.current && !ref.current.contains(e.target) ) {
+        closeNotify();
+        console.log(ref.current.className);
+        console.log(ref.current.contains(e.target));
+      }
+      else {
+        setNotify();
+        console.log(ref.current.className);
+        console.log(e.target.className);
+      }
+    };
+    // the key is using the `true` option
+    // `true` will enable the `capture` phase of event handling by browser
+    document.addEventListener("click", checkIfClickedOutside);
+    return () => {
+      document.removeEventListener("click", checkIfClickedOutside);
+    };
+  }, [closeNotify]);
 
   return (
     <>
@@ -153,7 +163,7 @@ export default function Header({ bg }) {
               </div>
             </div>
           ) : (
-            <div className="">
+            <div ref={ref} className="notify">
               <div className="flex items-center gap-4">
                 <i
                   className="pi pi-bell p-overlay-badge p-3 !cursor-pointer bg-gray-50 rounded-full border"
@@ -264,31 +274,33 @@ export default function Header({ bg }) {
         >
           <div className=" bg-white  p-5  shadow-lg">
             {notification.map((res, i) => (
-              <div
-                className={
-                  openMessage && myData?.id === res.id
-                    ? " bg-gray-50 px-1 top-[10vh] z-20"
-                    : "top-[10vh] transition-all ease-in-out 500ms z-20"
-                }
-                key={res.id}
-                onClick={() => openData(res)}
-              >
-                <div className="flex items-center gap-2 shadow-sm cursor-pointer">
-                  <i className="pi pi-inbox"></i>
-                  <div className="p-3">
-                    <p className="font-bold text-sm">{res.title}</p>
-                    <p className="text-xs">{res.role}</p>
-                  </div>
-                </div>
-
+              <div className="notify"  key={res.id}   onClick={() => openData(res)}>
                 <div
                   className={
                     openMessage && myData?.id === res.id
-                      ? "max-h-[1000px] transition-[max-height] ease-in-out 500ms overflow-hidden"
-                      : "  max-h-[0] transition-[max-height] ease-in-out 500ms overflow-hidden"
+                      ? " bg-gray-50 px-1 top-[10vh] z-20"
+                      : "top-[10vh] transition-all ease-in-out 500ms z-20"
                   }
+                 
+                
                 >
-                  <p className="p-4 text-xs">{myData?.content}</p>
+                  <div className="flex items-center gap-2 shadow-sm cursor-pointer">
+                    <i className="pi pi-inbox"></i>
+                    <div className="p-3">
+                      <p className="font-bold text-sm">{res.title}</p>
+                      <p className="text-xs">{res.role}</p>
+                    </div>
+                  </div>
+
+                  <div
+                    className={
+                      openMessage && myData?.id === res.id
+                        ? "max-h-[1000px] transition-[max-height] ease-in-out 500ms overflow-hidden"
+                        : "  max-h-[0] transition-[max-height] ease-in-out 500ms overflow-hidden"
+                    }
+                  >
+                    <p className="p-4 text-xs">{myData?.content}</p>
+                  </div>
                 </div>
               </div>
             ))}
