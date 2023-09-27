@@ -105,9 +105,6 @@ export default function Header({ bg }) {
       if (ref.current && !ref.current.contains(e.target) ) {
         closeNotify();
       }
-      else {
-        setNotify();
-      }
     };
     // the key is using the `true` option
     // `true` will enable the `capture` phase of event handling by browser
@@ -121,9 +118,6 @@ export default function Header({ bg }) {
     const checkIfClickedOutside = (e) => {
       if (menuRef.current && !menuRef.current.contains(e.target) ) {
         closeMenu();
-      }
-      else {
-        openMenu();
       }
     };
     // the key is using the `true` option
@@ -187,7 +181,6 @@ export default function Header({ bg }) {
               </div>
             </div>
           ) : (
-            <div className="notify">
               <div className="flex items-center gap-4">
                 <i
                 ref={ref} 
@@ -219,7 +212,6 @@ export default function Header({ bg }) {
                   />
                 )}
               </div>
-            </div>
           )}
         </div>
       </div>
@@ -299,34 +291,32 @@ export default function Header({ bg }) {
           }
         >
           <div className=" bg-white  p-5  shadow-lg">
-            {notification.map((res, i) => (
-              <div className="notify"  key={res.id}   onClick={() => openData(res)}>
+          {notification.map((res, i) => (
+              <div
+                className={
+                  openMessage && myData?.id === res.id
+                    ? " bg-gray-50 px-1 top-[10vh] z-20"
+                    : "top-[10vh] transition-all ease-in-out 500ms z-20"
+                }
+                key={res.id}
+                onClick={() => openData(res)}
+              >
+                <div className="flex items-center gap-2 shadow-sm cursor-pointer">
+                  <i className="pi pi-inbox"></i>
+                  <div className="p-3">
+                    <p className="font-bold text-sm">{res.title}</p>
+                    <p className="text-xs">{res.role}</p>
+                  </div>
+                </div>
+
                 <div
                   className={
                     openMessage && myData?.id === res.id
-                      ? " bg-gray-50 px-1 top-[10vh] z-20"
-                      : "top-[10vh] transition-all ease-in-out 500ms z-20"
+                      ? "max-h-[1000px] transition-[max-height] ease-in-out 500ms overflow-hidden"
+                      : "  max-h-[0] transition-[max-height] ease-in-out 500ms overflow-hidden"
                   }
-                 
-                
                 >
-                  <div className="flex items-center gap-2 shadow-sm cursor-pointer">
-                    <i className="pi pi-inbox"></i>
-                    <div className="p-3">
-                      <p className="font-bold text-sm">{res.title}</p>
-                      <p className="text-xs">{res.role}</p>
-                    </div>
-                  </div>
-
-                  <div
-                    className={
-                      openMessage && myData?.id === res.id
-                        ? "max-h-[1000px] transition-[max-height] ease-in-out 500ms overflow-hidden"
-                        : "  max-h-[0] transition-[max-height] ease-in-out 500ms overflow-hidden"
-                    }
-                  >
-                    <p className="p-4 text-xs">{myData?.content}</p>
-                  </div>
+                  <p className="p-4 text-xs">{myData?.content}</p>
                 </div>
               </div>
             ))}
