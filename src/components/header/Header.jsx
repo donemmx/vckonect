@@ -29,6 +29,7 @@ export default function Header({ bg }) {
     setOpen(!open);
   };
   const ref = useRef();
+  const menuRef = useRef()
 
   const logOut = () => {
     setData(null);
@@ -88,18 +89,24 @@ export default function Header({ bg }) {
   const setNotify = () => {
     setOpenNotify(true);
   };
+  
+  const closeMenu = () => {
+    setOpen(false);
+  };
+
+  const openMenu = () => {
+    setOpen(true);
+  };
+
+  
 
   useEffect(() => {
     const checkIfClickedOutside = (e) => {
       if (ref.current && !ref.current.contains(e.target) ) {
         closeNotify();
-        console.log(ref.current.className);
-        console.log(ref.current.contains(e.target));
       }
       else {
         setNotify();
-        console.log(ref.current.className);
-        console.log(e.target.className);
       }
     };
     // the key is using the `true` option
@@ -109,6 +116,23 @@ export default function Header({ bg }) {
       document.removeEventListener("click", checkIfClickedOutside);
     };
   }, [closeNotify]);
+
+  useEffect(() => {
+    const checkIfClickedOutside = (e) => {
+      if (menuRef.current && !menuRef.current.contains(e.target) ) {
+        closeMenu();
+      }
+      else {
+        openMenu();
+      }
+    };
+    // the key is using the `true` option
+    // `true` will enable the `capture` phase of event handling by browser
+    document.addEventListener("click", checkIfClickedOutside);
+    return () => {
+      document.removeEventListener("click", checkIfClickedOutside);
+    };
+  }, [closeMenu]);
 
   return (
     <>
@@ -177,7 +201,7 @@ export default function Header({ bg }) {
                   ></Badge>
                 </i>
                 {userData?.profile_picture?.length > 64 ? (
-                  <div className="w-[48px] h-[48px] " onClick={openModal}>
+                  <div ref={menuRef}  className="w-[48px] h-[48px] " onClick={openModal}>
                     <img
                       src={userData?.profile_picture}
                       alt=""
@@ -190,6 +214,7 @@ export default function Header({ bg }) {
                     size="large"
                     className=" !bg-green-500 !text-white"
                     shape="circle"
+                    ref={menuRef}
                     onClick={openModal}
                   />
                 )}
