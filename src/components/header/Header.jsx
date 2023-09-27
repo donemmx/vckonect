@@ -163,9 +163,10 @@ export default function Header({ bg }) {
               </div>
             </div>
           ) : (
-            <div ref={ref} className="notify">
+            <div className="notify">
               <div className="flex items-center gap-4">
                 <i
+                ref={ref} 
                   className="pi pi-bell p-overlay-badge p-3 !cursor-pointer bg-gray-50 rounded-full border"
                   onClick={() => setOpenNotify(!openNotify)}
                 >
