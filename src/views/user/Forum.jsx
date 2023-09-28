@@ -76,7 +76,7 @@ export default function Forum() {
         (data.receiver_id == userData?.id &&
           data.receiver_role == userData?.role)
       ) {
-        setNewMessage(data)
+        setNewMessage(data);
         setSendMessage(true);
         getDirectMessage({ id: userData?.id, role: userData?.role }).then(
           ({data}) => {
@@ -85,11 +85,14 @@ export default function Forum() {
         );
       }
     });
+    return () => {
+      pusher.unsubscribe("App\\Events\\DirectMessage");
+    };
   }, []);
 
   useEffect(() => {
     if (sendMessage) {
-      setMessages([...messages, newMessage]);
+      setMessages([...messages, newMessage])
       setSendMessage(false);
     }
   }, [messages, newMessage, sendMessage]);
@@ -166,7 +169,6 @@ export default function Forum() {
     };
 
     directMessage(payload).then(() => {
-      // toast.success("Message sent successfully");
       setLoading(false);
       setComment("");
     });
@@ -193,7 +195,6 @@ export default function Forum() {
     });
     const maxFileSize = 5000 * 1000; // 5Kb
     const myfile = e.target.files[0];
-    console.log(myfile.size);
     if (myfile.size > maxFileSize) {
       toast.error("Failed to attach file. The set limit is 5mb");
     } else {
@@ -356,7 +357,7 @@ export default function Forum() {
                     </div>
                     <div className="flex items-center gap-2">
                       <div className="time text-xs p-1 px-3 rounded-full bg-gray-200 w-fit ">
-                        {moment(res?.message[0].date).fromNow()}
+                        {moment(res?.message[res?.message.length-1].date).fromNow()}
                       </div>
                       {res.counter > 0 ? (
                         <Badge value={res?.counter} severity={"danger"}></Badge>
@@ -408,7 +409,15 @@ export default function Forum() {
                                 </div>
                               )}
                               <small className="font-light text-xs">
-                                {messageData?.role}
+                              {res.sender_id === userData.id ? (
+                                <div className="name text-sm font-bold">
+                                 {userData?.role}
+                                </div>
+                              ) : (
+                                <div className="name text-sm font-bold">
+                                  {'User'}
+                                </div>
+                              )}
                               </small>
                             </div>
                           </div>
