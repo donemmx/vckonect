@@ -29,7 +29,7 @@ export default function Header({ bg }) {
     setOpen(!open);
   };
   const ref = useRef();
-  const menuRef = useRef()
+  const menuRef = useRef();
 
   const logOut = () => {
     setData(null);
@@ -89,7 +89,7 @@ export default function Header({ bg }) {
   const setNotify = () => {
     setOpenNotify(true);
   };
-  
+
   const closeMenu = () => {
     setOpen(false);
   };
@@ -98,14 +98,12 @@ export default function Header({ bg }) {
     setOpen(true);
   };
 
-  
-
   // useEffect(() => {
   //   let isNotifyOpen = false;
   //   const checkIfClickedOutside = (e) => {
   //     const target = e.target;
   //     const notifyContainer = ref.current;
-      
+
   //     if(notifyContainer !== target && !notifyContainer.contains(target)) {
   //       console.log('clicked', openNotify);
   //       setOpenNotify(false);
@@ -124,7 +122,7 @@ export default function Header({ bg }) {
 
   useEffect(() => {
     const checkIfClickedOutside = (e) => {
-      if (menuRef.current && !menuRef.current.contains(e.target) ) {
+      if (menuRef.current && !menuRef.current.contains(e.target)) {
         closeMenu();
       }
     };
@@ -173,7 +171,7 @@ export default function Header({ bg }) {
           {!userData?.id ? (
             <div className="header__user">
               <div
-               ref={menuRef}
+                ref={menuRef}
                 className="grouped__icons flex space-x-2 bg-white border p-2 border-gray-300 h-[40px] md:h-[45px] lg:h-[50px] cursor-pointer rounded-[16px]"
                 onClick={openModal}
               >
@@ -190,36 +188,40 @@ export default function Header({ bg }) {
               </div>
             </div>
           ) : (
-              <div className="flex items-center gap-4">
-                <i 
-                  className="pi pi-bell p-overlay-badge p-3 !cursor-pointer bg-gray-50 rounded-full border"
-                  onClick={() => setOpenNotify(!openNotify)}
+            <div className="flex items-center gap-4">
+              <i
+                className="pi pi-bell p-overlay-badge p-3 !cursor-pointer bg-gray-50 rounded-full border"
+                onClick={() => setOpenNotify(!openNotify)}
+              >
+                <Badge
+                  value={notification?.length}
+                  severity="danger"
+                  className="w-[20px] h-[20px]  !flex !justify-center !items-center !rounded-full !text-[10px]"
+                ></Badge>
+              </i>
+              {userData?.profile_picture?.length > 64 ? (
+                <div
+                  ref={menuRef}
+                  className="w-[48px] h-[48px] "
+                  onClick={openModal}
                 >
-                  <Badge
-                    value={notification?.length}
-                    severity="danger"
-                    className="w-[20px] h-[20px]  !flex !justify-center !items-center !rounded-full !text-[10px]"
-                  ></Badge>
-                </i>
-                {userData?.profile_picture?.length > 64 ? (
-                  <div ref={menuRef}  className="w-[48px] h-[48px] " onClick={openModal}>
-                    <img
-                      src={userData?.profile_picture}
-                      alt=""
-                      className="w-full h-full object-cover rounded-full"
-                    />
-                  </div>
-                ) : (
-                  <Avatar
-                    label={userData?.first_name?.split("")[0].toUpperCase()}
-                    size="large"
-                    className=" !bg-green-500 !text-white"
-                    shape="circle"
-                    ref={menuRef}
-                    onClick={openModal}
+                  <img
+                    src={userData?.profile_picture}
+                    alt=""
+                    className="w-full h-full object-cover rounded-full"
                   />
-                )}
-              </div>
+                </div>
+              ) : (
+                <Avatar
+                  label={userData?.first_name?.split("")[0].toUpperCase()}
+                  size="large"
+                  className=" !bg-green-500 !text-white"
+                  shape="circle"
+                  ref={menuRef}
+                  onClick={openModal}
+                />
+              )}
+            </div>
           )}
         </div>
       </div>
@@ -290,16 +292,17 @@ export default function Header({ bg }) {
         ""
       )}
 
-      <div className="fixed right-[10vw] top-[10vh] overflow-y-scroll z-[1000]  md:w-[35vw] lg:w-[20vw] rounded-md">
-        <div ref={ref}
+      <div className="fixed right-[10vw] top-[10vh] overflow-y-scroll overflow-x-hidden z-[1000]   rounded-md">
+        <div
+          ref={ref}
           className={
             openNotify
-              ? " h-[70vh] transition-[height] ease-in-out duration-500     "
+              ? " h-[70vh] w-[70vw] lg:w-[22vw] transition-[height] ease-in-out duration-500     "
               : " h-[0] transition-[height] ease-in-out  "
           }
         >
           <div className=" bg-white  p-5  shadow-lg">
-          {notification.map((res, i) => (
+            {notification.map((res, i) => (
               <div
                 className={
                   openMessage && myData?.id === res.id
@@ -317,14 +320,19 @@ export default function Header({ bg }) {
                   </div>
                 </div>
 
-                <div
-                  className={
-                    openMessage && myData?.id === res.id
-                      ? "max-h-[1000px] transition-[max-height] ease-in-out 500ms overflow-hidden"
-                      : "  max-h-[0] transition-[max-height] ease-in-out 500ms overflow-hidden"
-                  }
-                >
-                  <p dangerouslySetInnerHTML={{__html: myData?.content}}  className="p-4 text-xs"></p>
+                <div className=" ">
+                  <div
+                    className={
+                      openMessage && myData?.id === res.id
+                        ? "max-h-[1000px] transition-[max-height] ease-in-out 500ms overflow-hidden"
+                        : "  max-h-[0] transition-[max-height] ease-in-out 500ms overflow-hidden"
+                    }
+                  >
+                    <p
+                      dangerouslySetInnerHTML={{ __html: myData?.content }}
+                      className="p-4 text-xs w-full"
+                    ></p>
+                  </div>
                 </div>
               </div>
             ))}
