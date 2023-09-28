@@ -27,7 +27,7 @@ export default function DirectMessageModal({ fullData }) {
       role=fullData?.role;
     }
     const payload = {
-      id: params.id,
+      id: params.id ?? fullData.id,
       role: role,
     };
     console.log(fullData);

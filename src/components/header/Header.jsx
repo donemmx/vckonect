@@ -145,19 +145,27 @@ export default function Header({ bg }) {
     setOpen(true);
   };
 
-  useEffect(() => {
-    const checkIfClickedOutside = (e) => {
-      if (ref.current && !ref.current.contains(e.target)) {
-        closeNotify();
-      }
-    };
-    // the key is using the `true` option
-    // `true` will enable the `capture` phase of event handling by browser
-    document.addEventListener("click", checkIfClickedOutside);
-    return () => {
-      document.removeEventListener("click", checkIfClickedOutside);
-    };
-  }, [closeNotify]);
+  // useEffect(() => {
+  //   let isNotifyOpen = false;
+  //   const checkIfClickedOutside = (e) => {
+  //     const target = e.target;
+  //     const notifyContainer = ref.current;
+
+  //     if(notifyContainer !== target && !notifyContainer.contains(target)) {
+  //       console.log('clicked', openNotify);
+  //       setOpenNotify(false);
+  //     }
+  //     else{
+  //       setOpenNotify(true);
+  //     }
+  //   };
+  //   // the key is using the `true` option
+  //   // `true` will enable the `capture` phase of event handling by browser
+  //   document.addEventListener("click", checkIfClickedOutside);
+  //   return () => {
+  //     document.removeEventListener("click", checkIfClickedOutside);
+  //   };
+  // }, [closeNotify]);
 
   useEffect(() => {
     const checkIfClickedOutside = (e) => {
@@ -340,11 +348,12 @@ export default function Header({ bg }) {
         ""
       )}
 
-      <div className="fixed right-[10vw] top-[10vh] overflow-y-scroll z-[1000]  md:w-[35vw] lg:w-[20vw] rounded-md">
+      <div className="fixed right-[10vw] top-[10vh] overflow-y-scroll overflow-x-hidden z-[1000]   rounded-md">
         <div
+          ref={ref}
           className={
             openNotify
-              ? " h-[70vh] transition-[height] ease-in-out duration-500     "
+              ? " h-[70vh] w-[70vw] lg:w-[22vw] transition-[height] ease-in-out duration-500     "
               : " h-[0] transition-[height] ease-in-out  "
           }
         >
@@ -367,14 +376,19 @@ export default function Header({ bg }) {
                   </div>
                 </div>
 
-                <div
-                  className={
-                    openMessage && myData?.id === res.id
-                      ? "max-h-[1000px] transition-[max-height] ease-in-out 500ms overflow-hidden"
-                      : "  max-h-[0] transition-[max-height] ease-in-out 500ms overflow-hidden"
-                  }
-                >
-                  <p className="p-4 text-xs">{myData?.content}</p>
+                <div className=" ">
+                  <div
+                    className={
+                      openMessage && myData?.id === res.id
+                        ? "max-h-[1000px] transition-[max-height] ease-in-out 500ms overflow-hidden"
+                        : "  max-h-[0] transition-[max-height] ease-in-out 500ms overflow-hidden"
+                    }
+                  >
+                    <p
+                      dangerouslySetInnerHTML={{ __html: myData?.content }}
+                      className="p-4 text-xs w-full"
+                    ></p>
+                  </div>
                 </div>
               </div>
             ))}

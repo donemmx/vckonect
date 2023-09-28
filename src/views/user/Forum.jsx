@@ -371,14 +371,14 @@ export default function Forum() {
                 )
               )}
             </div>
-            <div className="w-full overflow-y-scoll h-[50vh] ">
+            <div className="w-full relative  h-[80vh] ">
               {messages?.length > 0 ? (
                 <>
-                  <div className="   w-full lg:right-[8%] ">
+                  <div className=" absolute top-0 overflow-y-scroll h-[43vh] w-full lg:right-[0%] ">
                     <div className="flex flex-col gap-2">
                       {messages?.map((res) => (
                         <div
-                          className="border p-4 bg-white rounded"
+                          className="  border p-4 bg-white rounded"
                           key={res.id}
                         >
                           <div className="flex gap-2  ">
@@ -448,7 +448,7 @@ export default function Forum() {
                       ))}
                     </div>
                   </div>
-                  <div className=" bg-white mt-4 rounded-md  p-5">
+                  <div className="absolute bottom-0 w-full bg-white mt-4 rounded-md  p-5">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
                         <img
@@ -498,9 +498,9 @@ export default function Forum() {
                           name="content"
                           value={comment}
                           onChange={(e) => setComment(e.target.value)}
-                          rows={5}
-                          cols={5}
-                          className="!border !h-[160px] !border-gray-200 outline-none"
+                          rows={4}
+                          cols={4}
+                          className="!border !h-[100px] !border-gray-200 outline-none"
                         ></textarea>
                       </form>
                       <button
