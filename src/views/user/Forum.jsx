@@ -26,6 +26,7 @@ import moment from "moment";
 import { Badge } from "primereact/badge";
 import Pusher from "pusher-js";
 import { Paginator } from "primereact/paginator";
+import { useRef } from "react";
 
 export default function Forum() {
   const [tab, setTab] = useState("chat");
@@ -79,7 +80,7 @@ export default function Forum() {
         setNewMessage(data);
         setSendMessage(true);
         getDirectMessage({ id: userData?.id, role: userData?.role }).then(
-          ({data}) => {
+          ({ data }) => {
             setAllMessages(data);
           }
         );
@@ -90,9 +91,15 @@ export default function Forum() {
     };
   }, []);
 
+  const listRef = useRef(null);
+
+  useEffect(() => {
+    listRef.current?.lastElementChild?.scrollIntoView();
+  }, [messages]);
+
   useEffect(() => {
     if (sendMessage) {
-      setMessages([...messages, newMessage])
+      setMessages([...messages, newMessage]);
       setSendMessage(false);
     }
   }, [messages, newMessage, sendMessage]);
@@ -282,15 +289,19 @@ export default function Forum() {
           ""
         )}
       </div>
-     {tab === 'chat' ? <div className=" flex flex-wrap gap-4 w-full mb-10">
-        {loading
-          ? [1, 2].map((data) => (
-              <div className="w-full mt-10" key={data}>
-                <Loading />
-              </div>
-            ))
-          : ""}
-      </div> : ''}
+      {tab === "chat" ? (
+        <div className=" flex flex-wrap gap-4 w-full mb-10">
+          {loading
+            ? [1, 2].map((data) => (
+                <div className="w-full mt-10" key={data}>
+                  <Loading />
+                </div>
+              ))
+            : ""}
+        </div>
+      ) : (
+        ""
+      )}
       {tab === "chat" ? (
         <>
           {currentPage?.map((res) => (
@@ -309,17 +320,16 @@ export default function Forum() {
                 date={res.date}
                 fullData={res}
               />
-            
             </div>
           ))}
-            <Paginator
-                className="mt-10"
-                first={first}
-                rows={rows}
-                totalRecords={totalRecords}
-                rowsPerPageOptions={[8, 16, 24, 32]}
-                onPageChange={onPageChange}
-              />
+          <Paginator
+            className="mt-10"
+            first={first}
+            rows={rows}
+            totalRecords={totalRecords}
+            rowsPerPageOptions={[8, 16, 24, 32]}
+            onPageChange={onPageChange}
+          />
         </>
       ) : (
         <>
@@ -357,7 +367,9 @@ export default function Forum() {
                     </div>
                     <div className="flex items-center gap-2">
                       <div className="time text-xs p-1 px-3 rounded-full bg-gray-200 w-fit ">
-                        {moment(res?.message[res?.message.length-1].date).fromNow()}
+                        {moment(
+                          res?.message[res?.message.length - 1].date
+                        ).fromNow()}
                       </div>
                       {res.counter > 0 ? (
                         <Badge value={res?.counter} severity={"danger"}></Badge>
@@ -378,6 +390,7 @@ export default function Forum() {
                     <div className="flex flex-col gap-2">
                       {messages?.map((res) => (
                         <div
+                          ref={listRef}
                           className="  border p-4 bg-white rounded"
                           key={res.id}
                         >
@@ -409,15 +422,17 @@ export default function Forum() {
                                 </div>
                               )}
                               <small className="font-light text-xs">
-                              {res.sender_id === userData.id ? (
-                                <div className="name text-sm font-bold">
-                                Me
-                                </div>
-                              ) : (
-                                <div className="name text-sm font-bold">
-                                  {messageData?.role  === 'Animal Owner' ? 'User': messageData?.role}
-                                </div>
-                              )}
+                                {res.sender_id === userData.id ? (
+                                  <div className="name text-sm font-bold">
+                                    Me
+                                  </div>
+                                ) : (
+                                  <div className="name text-sm font-bold">
+                                    {messageData?.role === "Animal Owner"
+                                      ? "User"
+                                      : messageData?.role}
+                                  </div>
+                                )}
                               </small>
                             </div>
                           </div>
@@ -460,9 +475,7 @@ export default function Forum() {
                           <div className="text-sm">
                             {userData?.first_name + " " + userData?.last_name}
                           </div>
-                          <small className=" font-light text-[11px]">
-                           Me
-                          </small>
+                          <small className=" font-light text-[11px]">Me</small>
                         </div>
                       </div>
                       <div className="p-2 border w-fit rounded-full bg-white ">

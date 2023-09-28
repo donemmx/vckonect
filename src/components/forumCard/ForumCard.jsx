@@ -225,7 +225,7 @@ export default function ForumCard({
                 <div className=" flex flex-col text-green-700 font-bold text-md">
                   {fullData.user_name}
                   <small className=" font-light text-[12px] italic">
-                    {fullData.user_role}
+                  {fullData?.role  === 'Animal Owner' ? 'User': fullData?.role}
                   </small>
                   <div className="font-light text-black">
                     {fullData.shared_comment}
@@ -246,7 +246,7 @@ export default function ForumCard({
                 />
                 <div className=" flex flex-col font-bold text-md">
                   {name}
-                  <small className=" font-light text-sm">{position}</small>
+                  <small className=" font-light text-sm"> {position  === 'Animal Owner' ? 'User': position}</small>
                 </div>
               </div>
             </div>
@@ -420,7 +420,7 @@ export default function ForumCard({
                                 {response.first_name + " " + response.last_name}
                               </p>
                               <small className="bg-green-100 p-1 text-[10px] text-green-600">
-                              {response?.user_role  === 'Animal Owner' ? 'User': response?.useer_role}
+                              {response?.user_role  === 'Animal Owner' ? 'User': response?.user_role}
                               </small>
                             </div>
                             <div className="flex items-center justify-center gap-2">
@@ -473,7 +473,9 @@ export default function ForumCard({
                 />
                 <div className=" flex flex-col font-bold text-md">
                   {name}
-                  <small className=" font-light text-sm">{position}</small>
+                  <small className=" font-light text-sm">
+                  {position  === 'Animal Owner' ? 'User': position}
+                  </small>
                 </div>
               </div>
               <div className="flex items-center gap-2 w-fit ml-auto">

@@ -173,7 +173,7 @@ export default function DashboardHome() {
                 />
                 <input
                   type="text"
-                  placeholder="Type in your name"
+                  placeholder="Search by Location or Name"
                   className=" outline-none p-1 w-full"
                   value={searchData}
                   onChange={(e) => setSearchData(e.target.value)}

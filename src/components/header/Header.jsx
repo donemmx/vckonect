@@ -50,10 +50,11 @@ export default function Header({ bg }) {
 
   useEffect(() => {
     if (noti) {
+      setCounter(counter+1)
       setNotification([...newNotification, ...notification]);
       setNoti(false);
     }
-  }, [newNotification, noti, notification]);
+  }, [newNotification, noti, notification, counter]);
 
   const openModal = () => {
     setOpen(!open);
@@ -109,13 +110,13 @@ export default function Header({ bg }) {
       getNotification(payload).then(({ data }) => {
         setNotification(data);
       });
-      if (localStorage.getItem("notification_counter")) {
-        let formalCounter = localStorage.getItem("notification_counter");
+      if (localStorage.getItem("user_notification")) {
+        let formalCounter = localStorage.getItem("user_notification");
         setCounter(JSON.parse(notification.length - formalCounter));
       } else {
         setCounter(notification.length);
         localStorage.setItem(
-          "notification_counter",
+          "user_notification",
           JSON.stringify(notification.length)
         );
       }
@@ -248,11 +249,7 @@ export default function Header({ bg }) {
                     className="w-[20px] h-[20px]  !flex !justify-center !items-center !rounded-full !text-[10px]"
                   ></Badge>
                 ) : (
-                  <Badge
-                    value={''}
-                    severity="danger"
-                    className="w-[20px] h-[20px]  !flex !justify-center !items-center !rounded-full !text-[10px]"
-                  ></Badge>
+                  ''
                 )}
               </i>
               {userData?.profile_picture?.length > 64 ? (
