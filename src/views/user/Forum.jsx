@@ -411,11 +411,11 @@ export default function Forum() {
                               <small className="font-light text-xs">
                               {res.sender_id === userData.id ? (
                                 <div className="name text-sm font-bold">
-                                 {userData?.role}
+                                {userData?.role  === 'Animal Owner' ? 'User': userData?.role}
                                 </div>
                               ) : (
                                 <div className="name text-sm font-bold">
-                                  {'User'}
+                                  {messageData?.role  === 'Animal Owner' ? 'User': messageData?.role}
                                 </div>
                               )}
                               </small>
