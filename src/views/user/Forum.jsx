@@ -393,7 +393,7 @@ export default function Forum() {
                           ref={listRef}
                           className="  border p-4 bg-white rounded"
                           key={res.id}
-                        >
+                         >
                           <div className="flex gap-2  ">
                             <div className="h-[40px] w-[40px]">
                               {res.sender_id === userData.id ? (
@@ -459,6 +459,13 @@ export default function Forum() {
                           ) : (
                             ""
                           )}
+                        <div className="flex justify-end mt-2">
+                      <div className="time text-xs p-1 px-3 rounded-full bg-gray-200 w-100">
+                        {moment(
+                          res?.date
+                        ).fromNow()}
+                      </div>
+                    </div>
                         </div>
                       ))}
                     </div>
