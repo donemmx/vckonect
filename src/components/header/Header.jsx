@@ -13,6 +13,7 @@ import { toast } from "react-toastify";
 import { getNotification } from "../../utils/userApiService";
 import { Badge } from "primereact/badge";
 import { Avatar } from "primereact/avatar";
+import Pusher from "pusher-js";
 
 export default function Header({ bg }) {
   const location = useNavigate();
@@ -24,6 +25,37 @@ export default function Header({ bg }) {
   const [myData, setMyData] = useState();
   const userData = useRecoilValue(user);
   const [data, setData] = useRecoilState(user);
+  const [newNotification, setNewNotification] = useState();
+  const [noti, setNoti] = useState(false);
+  const [counter, setCounter] = useState(0);
+
+  useEffect(() => {
+    const pusher = new Pusher("c38d7afddec65408e4cd", {
+      cluster: "mt1",
+      encrypted: true,
+    });
+    const channel = pusher.subscribe("chatbox");
+    channel.bind("App\\Events\\UserNotification", (data) => {
+      if (
+        data.user_id == userData?.id &&
+         data.user_role == userData?.role) 
+       {
+        setNoti(true);
+        setNewNotification(data);
+      }
+    });
+    return () => {
+      pusher.unsubscribe("App\\Events\\DirectMessage");
+    };
+  }, []);
+
+  useEffect(() => {
+    if (noti) {
+      setNotification([...notification, newNotification])
+      setNoti(false);
+    }
+  }, [newNotification, noti, notification]);
+
 
   const openModal = () => {
     setOpen(!open);
@@ -79,8 +111,23 @@ export default function Header({ bg }) {
       getNotification(payload).then(({ data }) => {
         setNotification(data);
       });
+      if(localStorage.getItem('notification_counter')){
+        let formalCounter=localStorage.getItem('notification_counter');
+        setCounter(JSON.parse(notification.length-formalCounter));
+      }else{
+        setCounter(notification.length);
+        localStorage.setItem('notification_counter', JSON.stringify(notification.length))
+      }
     }
   }, []);
+
+
+  useEffect(()=>{
+   if(counter){
+    setCounter(0);
+    localStorage.setItem('notification_counter', JSON.stringify(0))
+   }
+  }, [counter])
 
   const closeNotify = () => {
     setOpenNotify(false);
@@ -93,6 +140,11 @@ export default function Header({ bg }) {
   const closeMenu = () => {
     setOpen(false);
   };
+
+  const openNotification=()=>{
+    setOpenNotify(!openNotify);
+    setCounter(0);
+  }
 
   const openMenu = () => {
     setOpen(true);
@@ -186,13 +238,17 @@ export default function Header({ bg }) {
                 <i
                 ref={ref} 
                   className="pi pi-bell p-overlay-badge p-3 !cursor-pointer bg-gray-50 rounded-full border"
-                  onClick={() => setOpenNotify(!openNotify)}
+                  onClick={openNotification}
                 >
-                  <Badge
-                    value={notification?.length}
-                    severity="danger"
-                    className="w-[20px] h-[20px]  !flex !justify-center !items-center !rounded-full !text-[10px]"
-                  ></Badge>
+                  {
+                  counter>0?(
+                    <Badge
+                      value={counter}
+                      severity="danger"
+                      className="w-[20px] h-[20px]  !flex !justify-center !items-center !rounded-full !text-[10px]"
+                    ></Badge>
+
+                  ):('')}
                 </i>
                 {userData?.profile_picture?.length > 64 ? (
                   <div ref={menuRef}  className="w-[48px] h-[48px] " onClick={openModal}>
