@@ -63,29 +63,29 @@ export default function Forum() {
     setTotalRecords(currentData?.length);
   };
 
-  // useEffect(() => {
-  //   const pusher = new Pusher("c38d7afddec65408e4cd", {
-  //     cluster: "mt1",
-  //     encrypted: true,
-  //   });
-  //   const channel = pusher.subscribe("chatbox");
-  //   channel.bind("App\\Events\\DirectMessage", (data) => {
-  //     if (
-  //       (data.sender_id == userData?.id &&
-  //         data.sender_role == userData?.role) ||
-  //       (data.receiver_id == userData?.id &&
-  //         data.receiver_role == userData?.role)
-  //     ) {
-  //       setNewMessage(data)
-  //       setSendMessage(true);
-  //       getDirectMessage({ id: userData?.id, role: userData?.role }).then(
-  //         ({data}) => {
-  //           setAllMessages(data);
-  //         }
-  //       );
-  //     }
-  //   });
-  // }, []);
+  useEffect(() => {
+    const pusher = new Pusher("c38d7afddec65408e4cd", {
+      cluster: "mt1",
+      encrypted: true,
+    });
+    const channel = pusher.subscribe("chatbox");
+    channel.bind("App\\Events\\DirectMessage", (data) => {
+      if (
+        (data.sender_id == userData?.id &&
+          data.sender_role == userData?.role) ||
+        (data.receiver_id == userData?.id &&
+          data.receiver_role == userData?.role)
+      ) {
+        setNewMessage(data)
+        setSendMessage(true);
+        getDirectMessage({ id: userData?.id, role: userData?.role }).then(
+          ({data}) => {
+            setAllMessages(data);
+          }
+        );
+      }
+    });
+  }, []);
 
   useEffect(() => {
     if (sendMessage) {
@@ -173,6 +173,7 @@ export default function Forum() {
   };
 
   const getFile = (e) => {
+    console.log(e);
     const formData = new FormData();
     // setLoading(true);
 
@@ -191,9 +192,9 @@ export default function Forum() {
       formData.append(key, value);
     });
     const maxFileSize = 5000 * 1000; // 5Kb
-    const myfile = event.target.files[0];
+    const myfile = e.target.files[0];
     console.log(myfile.size);
-    if (file.size > maxFileSize) {
+    if (myfile.size > maxFileSize) {
       toast.error("Failed to attach file. The set limit is 5mb");
     } else {
       directMessage(formData).then(() => {
