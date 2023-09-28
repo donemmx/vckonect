@@ -36,19 +36,21 @@ export default function Header({ bg }) {
     });
     const channel = pusher.subscribe("chatbox");
     channel.bind("App\\Events\\UserNotification", (data) => {
-      if (data.user_id == userData?.id && data.user_role == userData?.role) {
+      if (data.user_id == userData?.id && data.role == userData?.role) {
         setNoti(true);
-        setNewNotification(data);
+        let myData=[];
+        myData.push(data)
+        setNewNotification(myData);
       }
     });
     return () => {
-      pusher.unsubscribe("App\\Events\\DirectMessage");
+      pusher.unsubscribe("App\\Events\\UserNotification");
     };
   }, []);
 
   useEffect(() => {
     if (noti) {
-      setNotification([...notification, newNotification]);
+      setNotification([...newNotification, ...notification]);
       setNoti(false);
     }
   }, [newNotification, noti, notification]);
@@ -120,12 +122,6 @@ export default function Header({ bg }) {
     }
   }, []);
 
-  useEffect(() => {
-    if (counter) {
-      setCounter(0);
-      localStorage.setItem("notification_counter", JSON.stringify(0));
-    }
-  }, [counter]);
 
   const closeNotify = () => {
     setOpenNotify(false);
@@ -142,6 +138,7 @@ export default function Header({ bg }) {
   const openNotification = () => {
     setOpenNotify(!openNotify);
     setCounter(0);
+    localStorage.setItem('user_notification', JSON.stringify(notification.length))
   };
 
   const openMenu = () => {

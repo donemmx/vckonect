@@ -420,7 +420,7 @@ export default function ForumCard({
                                 {response.first_name + " " + response.last_name}
                               </p>
                               <small className="bg-green-100 p-1 text-[10px] text-green-600">
-                                {response.user_role}
+                              {response?.user_role  === 'Animal Owner' ? 'User': response?.useer_role}
                               </small>
                             </div>
                             <div className="flex items-center justify-center gap-2">
