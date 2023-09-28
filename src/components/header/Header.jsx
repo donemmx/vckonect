@@ -100,19 +100,27 @@ export default function Header({ bg }) {
 
   
 
-  useEffect(() => {
-    const checkIfClickedOutside = (e) => {
-      if (ref.current && !ref.current.contains(e.target) ) {
-        closeNotify();
-      }
-    };
-    // the key is using the `true` option
-    // `true` will enable the `capture` phase of event handling by browser
-    document.addEventListener("click", checkIfClickedOutside);
-    return () => {
-      document.removeEventListener("click", checkIfClickedOutside);
-    };
-  }, [closeNotify]);
+  // useEffect(() => {
+  //   let isNotifyOpen = false;
+  //   const checkIfClickedOutside = (e) => {
+  //     const target = e.target;
+  //     const notifyContainer = ref.current;
+      
+  //     if(notifyContainer !== target && !notifyContainer.contains(target)) {
+  //       console.log('clicked', openNotify);
+  //       setOpenNotify(false);
+  //     }
+  //     else{
+  //       setOpenNotify(true);
+  //     }
+  //   };
+  //   // the key is using the `true` option
+  //   // `true` will enable the `capture` phase of event handling by browser
+  //   document.addEventListener("click", checkIfClickedOutside);
+  //   return () => {
+  //     document.removeEventListener("click", checkIfClickedOutside);
+  //   };
+  // }, [closeNotify]);
 
   useEffect(() => {
     const checkIfClickedOutside = (e) => {
@@ -183,8 +191,7 @@ export default function Header({ bg }) {
             </div>
           ) : (
               <div className="flex items-center gap-4">
-                <i
-                ref={ref} 
+                <i 
                   className="pi pi-bell p-overlay-badge p-3 !cursor-pointer bg-gray-50 rounded-full border"
                   onClick={() => setOpenNotify(!openNotify)}
                 >
@@ -284,7 +291,7 @@ export default function Header({ bg }) {
       )}
 
       <div className="fixed right-[10vw] top-[10vh] overflow-y-scroll z-[1000]  md:w-[35vw] lg:w-[20vw] rounded-md">
-        <div
+        <div ref={ref}
           className={
             openNotify
               ? " h-[70vh] transition-[height] ease-in-out duration-500     "
@@ -317,7 +324,7 @@ export default function Header({ bg }) {
                       : "  max-h-[0] transition-[max-height] ease-in-out 500ms overflow-hidden"
                   }
                 >
-                  <p className="p-4 text-xs">{myData?.content}</p>
+                  <p dangerouslySetInnerHTML={{__html: myData?.content}}  className="p-4 text-xs"></p>
                 </div>
               </div>
             ))}
