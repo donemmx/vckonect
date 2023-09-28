@@ -36,10 +36,7 @@ export default function Header({ bg }) {
     });
     const channel = pusher.subscribe("chatbox");
     channel.bind("App\\Events\\UserNotification", (data) => {
-      if (
-        data.user_id == userData?.id &&
-         data.user_role == userData?.role) 
-       {
+      if (data.user_id == userData?.id && data.user_role == userData?.role) {
         setNoti(true);
         setNewNotification(data);
       }
@@ -51,17 +48,16 @@ export default function Header({ bg }) {
 
   useEffect(() => {
     if (noti) {
-      setNotification([...notification, newNotification])
+      setNotification([...notification, newNotification]);
       setNoti(false);
     }
   }, [newNotification, noti, notification]);
-
 
   const openModal = () => {
     setOpen(!open);
   };
   const ref = useRef();
-  const menuRef = useRef()
+  const menuRef = useRef();
 
   const logOut = () => {
     setData(null);
@@ -111,23 +107,25 @@ export default function Header({ bg }) {
       getNotification(payload).then(({ data }) => {
         setNotification(data);
       });
-      if(localStorage.getItem('notification_counter')){
-        let formalCounter=localStorage.getItem('notification_counter');
-        setCounter(JSON.parse(notification.length-formalCounter));
-      }else{
+      if (localStorage.getItem("notification_counter")) {
+        let formalCounter = localStorage.getItem("notification_counter");
+        setCounter(JSON.parse(notification.length - formalCounter));
+      } else {
         setCounter(notification.length);
-        localStorage.setItem('notification_counter', JSON.stringify(notification.length))
+        localStorage.setItem(
+          "notification_counter",
+          JSON.stringify(notification.length)
+        );
       }
     }
   }, []);
 
-
-  useEffect(()=>{
-   if(counter){
-    setCounter(0);
-    localStorage.setItem('notification_counter', JSON.stringify(0))
-   }
-  }, [counter])
+  useEffect(() => {
+    if (counter) {
+      setCounter(0);
+      localStorage.setItem("notification_counter", JSON.stringify(0));
+    }
+  }, [counter]);
 
   const closeNotify = () => {
     setOpenNotify(false);
@@ -136,25 +134,23 @@ export default function Header({ bg }) {
   const setNotify = () => {
     setOpenNotify(true);
   };
-  
+
   const closeMenu = () => {
     setOpen(false);
   };
 
-  const openNotification=()=>{
+  const openNotification = () => {
     setOpenNotify(!openNotify);
     setCounter(0);
-  }
+  };
 
   const openMenu = () => {
     setOpen(true);
   };
 
-  
-
   useEffect(() => {
     const checkIfClickedOutside = (e) => {
-      if (ref.current && !ref.current.contains(e.target) ) {
+      if (ref.current && !ref.current.contains(e.target)) {
         closeNotify();
       }
     };
@@ -168,7 +164,7 @@ export default function Header({ bg }) {
 
   useEffect(() => {
     const checkIfClickedOutside = (e) => {
-      if (menuRef.current && !menuRef.current.contains(e.target) ) {
+      if (menuRef.current && !menuRef.current.contains(e.target)) {
         closeMenu();
       }
     };
@@ -217,7 +213,7 @@ export default function Header({ bg }) {
           {!userData?.id ? (
             <div className="header__user">
               <div
-               ref={menuRef}
+                ref={menuRef}
                 className="grouped__icons flex space-x-2 bg-white border p-2 border-gray-300 h-[40px] md:h-[45px] lg:h-[50px] cursor-pointer rounded-[16px]"
                 onClick={openModal}
               >
@@ -234,41 +230,49 @@ export default function Header({ bg }) {
               </div>
             </div>
           ) : (
-              <div className="flex items-center gap-4">
-                <i
-                ref={ref} 
-                  className="pi pi-bell p-overlay-badge p-3 !cursor-pointer bg-gray-50 rounded-full border"
-                  onClick={openNotification}
-                >
-                  {
-                  counter>0?(
-                    <Badge
-                      value={counter}
-                      severity="danger"
-                      className="w-[20px] h-[20px]  !flex !justify-center !items-center !rounded-full !text-[10px]"
-                    ></Badge>
-
-                  ):('')}
-                </i>
-                {userData?.profile_picture?.length > 64 ? (
-                  <div ref={menuRef}  className="w-[48px] h-[48px] " onClick={openModal}>
-                    <img
-                      src={userData?.profile_picture}
-                      alt=""
-                      className="w-full h-full object-cover rounded-full"
-                    />
-                  </div>
+            <div className="flex items-center gap-4">
+              <i
+                ref={ref}
+                className="pi pi-bell p-overlay-badge p-3 !cursor-pointer bg-gray-50 rounded-full border"
+                onClick={openNotification}
+              >
+                {counter > 0 ? (
+                  <Badge
+                    value={counter}
+                    severity="danger"
+                    className="w-[20px] h-[20px]  !flex !justify-center !items-center !rounded-full !text-[10px]"
+                  ></Badge>
                 ) : (
-                  <Avatar
-                    label={userData?.first_name?.split("")[0].toUpperCase()}
-                    size="large"
-                    className=" !bg-green-500 !text-white"
-                    shape="circle"
-                    ref={menuRef}
-                    onClick={openModal}
-                  />
+                  <Badge
+                    value={''}
+                    severity="danger"
+                    className="w-[20px] h-[20px]  !flex !justify-center !items-center !rounded-full !text-[10px]"
+                  ></Badge>
                 )}
-              </div>
+              </i>
+              {userData?.profile_picture?.length > 64 ? (
+                <div
+                  ref={menuRef}
+                  className="w-[48px] h-[48px] "
+                  onClick={openModal}
+                >
+                  <img
+                    src={userData?.profile_picture}
+                    alt=""
+                    className="w-full h-full object-cover rounded-full"
+                  />
+                </div>
+              ) : (
+                <Avatar
+                  label={userData?.first_name?.split("")[0].toUpperCase()}
+                  size="large"
+                  className=" !bg-green-500 !text-white"
+                  shape="circle"
+                  ref={menuRef}
+                  onClick={openModal}
+                />
+              )}
+            </div>
           )}
         </div>
       </div>
@@ -348,7 +352,7 @@ export default function Header({ bg }) {
           }
         >
           <div className=" bg-white  p-5  shadow-lg">
-          {notification.map((res, i) => (
+            {notification.map((res, i) => (
               <div
                 className={
                   openMessage && myData?.id === res.id
