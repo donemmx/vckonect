@@ -369,7 +369,9 @@ export default function Header({ bg }) {
                   <i className="pi pi-inbox"></i>
                   <div className="p-3">
                     <p className="font-bold text-sm">{res.title}</p>
-                    <p className="text-xs">{res.role}</p>
+                    <p className="text-xs">
+                    {res?.role  === 'Animal Owner' ? 'User': res?.role}
+                    </p>
                   </div>
                 </div>
 
