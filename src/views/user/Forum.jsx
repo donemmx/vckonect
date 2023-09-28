@@ -411,7 +411,7 @@ export default function Forum() {
                               <small className="font-light text-xs">
                               {res.sender_id === userData.id ? (
                                 <div className="name text-sm font-bold">
-                                {userData?.role  === 'Animal Owner' ? 'User': userData?.role}
+                                Me
                                 </div>
                               ) : (
                                 <div className="name text-sm font-bold">
@@ -461,9 +461,7 @@ export default function Forum() {
                             {userData?.first_name + " " + userData?.last_name}
                           </div>
                           <small className=" font-light text-[11px]">
-                            {userData?.role === "Animal Owner"
-                              ? "User"
-                              : userData?.role}
+                           Me
                           </small>
                         </div>
                       </div>
