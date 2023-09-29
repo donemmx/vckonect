@@ -53,8 +53,8 @@ export default function Home() {
               <div className="grouped flex flex-col gap-5">
                 <CardOne
                   image={searchBlue}
-                  title="Discover a vet clinic in your area"
-                  subtitle="Discover nearby vet clinics that can provides quality vet care for your pets/livestock via our platform."
+                  title="Discover nearby vet clinic"
+                  subtitle="Find nearby vet clinics for quality pet/livestock care on our platform"
                   btnText="Browse Now"
                   icon={arrowBlue}
                   route={"/search"}
@@ -92,8 +92,8 @@ export default function Home() {
             </div>
             <div className="right pt-[4%] flex flex-col gap-5">
               <CardOne
-                title="Discover nearby vet vendor & stores"
-                subtitle="Discover nearby vet store or vendor that can supply quality vet care products for your pets & livestock."
+                title="Discover nearby vet stores"
+                subtitle="Find nearby vet supply vendors for quality products."
                 btnText="Browse Now"
                 icon={arrowYellow}
                 image={searchYellow}
@@ -120,7 +120,7 @@ export default function Home() {
             <CardOne
               image={calculatorIcon}
               title="Feed Calculator"
-              subtitle="Discover the appropriate amount of feed to give your livestock to stay healthy and productive"
+              subtitle="Determine optimal livestock feed for health and productivity."
               btnText="Try it Now"
               icon={arrowOrange}
               route={"/vet-feed-calculator"}
@@ -128,7 +128,7 @@ export default function Home() {
             <CardOne
               image={diseaseIcon}
               title="Disease Predictor"
-              subtitle="Diagnose and treat various diseases in animals to improving their health and well-being"
+              subtitle="Diagnose and treat animal diseases for better health."
               btnText="Try it Now"
               icon={arrowMixed}
               route={"/vet-disease-prediction"}
@@ -148,7 +148,7 @@ export default function Home() {
                   image={chatIcon}
                   title="Join our forum chat"
                   route={"/vet-forum"}
-                  subtitle="Connect with others to share and receive knowledge, experiences, and advice on pet and livestock health and behavior issues"
+                  subtitle="Connect for pet and livestock health advice and experiences."
                   btnText="Browse Now"
                   icon={arrowYellow}
                 />
@@ -156,7 +156,7 @@ export default function Home() {
                   image={sendIcon}
                   title="Send a direct message"
                   route={"/vet-forum"}
-                  subtitle="Connect with others by sending a direct message, and also receiving and replying the messages on the direct message tab option on the forum chat page."
+                  subtitle="Chat directly with others on the forum's DM tab."
                   btnText="Get Started"
                   icon={arrowGreen}
                 />

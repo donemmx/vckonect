@@ -15,7 +15,7 @@ export default function SectionTwo() {
             image={searchGreen}
             btnText="Browse Now"
             icon={arrowGreen}
-            subtitle="Discover nearby veterinarians who can provide quality vet care for your pets/livestock via our platform.."
+            subtitle="Discover nearby veterinarians for quality pet/livestock care on our platform."
             title="Discover a vet in your area"
             route={"/search"}
           />
