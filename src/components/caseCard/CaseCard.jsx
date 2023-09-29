@@ -36,7 +36,7 @@ export default function CaseCard({ fullData }) {
       id: fullData?.id,
     };
     deleteCase(payload)
-      .then(({data}) => {
+      .then(({ data }) => {
         toast.success(data.detail);
         updateReload();
       })
@@ -47,7 +47,6 @@ export default function CaseCard({ fullData }) {
     const payload = [data, type];
     setOpenDetail(payload);
   };
-
 
   return (
     <>
@@ -86,30 +85,132 @@ export default function CaseCard({ fullData }) {
           ) : (
             ""
           )}
-          {Object.entries(fullData).map((res) =>
-            res[1] == null ? (
-              ""
-            ) : (
-              <div
-                className="grouped-pets px-4 pt-1 flex items-center justify-between"
-                key={res.id}
-              >
-                <div className="title font-bold">
-                  {res[0].split("_").join(" ")}
-                </div>
+          <div className="grouped-pets px-4 pt-1 flex items-center justify-between">
+            <div className="title font-bold">Client Name</div>
 
-                {res[0].includes("date") ? (
-                  <div className="value">
-                    {moment(res[1]).format("DD-MM-YYYY")}
-                  </div>
-                ) : (
-                  <div className="value">{res[1]}</div>
-                )}
-              </div>
-            )
+            <div className="value">{fullData?.client_name}</div>
+          </div>
+          <div className="grouped-pets px-4 pt-1 flex items-center justify-between">
+            <div className="title font-bold">Client Phone Number</div>
+
+            <div className="value">{fullData?.client_phone}</div>
+          </div>
+          <div className="grouped-pets px-4 pt-1 flex items-center justify-between">
+            <div className="title font-bold">Pet or Farm</div>
+
+            <div className="value">{fullData?.case_type}</div>
+          </div>
+          <div className="grouped-pets px-4 pt-1 flex items-center justify-between">
+            <div className="title font-bold">
+              {fullData?.case_type === "Pet" ? "Pet Name" : "Farm  Name"}
+            </div>
+            <div className="value">
+              {fullData?.case_type === "Pet"
+                ? fullData?.pet_name
+                : fullData?.farm_name}
+            </div>
+          </div>
+          {fullData?.case_type === "Pet" ? (
+            <div className="grouped-pets px-4 pt-1 flex items-center justify-between">
+              <div className="title font-bold">Specie</div>
+              <div className="value">{fullData?.specie}</div>
+            </div>
+          ) : (
+            ""
           )}
+          {fullData?.case_type === "Pet" ? (
+            <div className="grouped-pets px-4 pt-1 flex items-center justify-between">
+              <div className="title font-bold">
+                {fullData?.case_type === "Pet" ? "Breed" : ""}
+              </div>
+              <div className="value">{fullData?.breed}</div>
+            </div>
+          ) : (
+            ""
+          )}
+          {fullData?.case_type === "Pet" ? (
+            <div className="grouped-pets px-4 pt-1 flex items-center justify-between">
+              <div className="title font-bold">Age</div>
+              <div className="value">{fullData?.age}</div>
+            </div>
+          ) : (
+            ""
+          )}
+          {fullData?.case_type === "Pet" ? (
+            <div className="grouped-pets px-4 pt-1 flex items-center justify-between">
+              <div className="title font-bold">
+                Sex
+              </div>
+              <div className="value">{fullData?.sex}</div>
+            </div>
+          ) : (
+            ""
+          )}
+          <div className="grouped-pets px-4 pt-1 flex items-center justify-between">
+            <div className="title font-bold">
+              {fullData?.case_type === "Pet" ? "Pet Number" : "Farm Number"}
+            </div>
+            <div className="value">
+              {fullData?.case_type === "Pet"
+                ? fullData?.pet_id
+                : fullData.farm_id}
+            </div>
+          </div>
+          <div className="grouped-pets px-4 pt-1 flex items-center justify-between">
+            <div className="title font-bold">Disease Diagnosis</div>
+            <div className="value">{fullData?.disease_diagnostic}</div>
+          </div>
+          <div className="grouped-pets px-4 pt-1 flex items-center justify-between">
+            <div className="title font-bold">Clinical Signs</div>
+            <div className="value">{fullData?.clinical_sign}</div>
+          </div>
+          <div className="grouped-pets px-4 pt-1 flex items-center justify-between">
+            <div className="title font-bold">Date Occured</div>
+            <div className="value">
+              {moment(fullData?.date).format("DD-MM-YYYY")}
+            </div>
+          </div>
+          <div className="grouped-pets px-4 pt-1 flex items-center justify-between">
+            <div className="title font-bold">Date Reported</div>
+            <div className="value">
+              {/* {moment(fullData?.date).format("DD-MM-YYYY")} */}
+            </div>
+          </div>
+          <div className="grouped-pets px-4 pt-1 flex items-center justify-between">
+            <div className="title font-bold">History</div>
+            <div className="value">{fullData?.history}</div>
+          </div>
+          <div className="grouped-pets px-4 pt-1 flex items-center justify-between">
+            <div className="title font-bold">Differential Diagnosis</div>
+            <div className="value">{fullData?.differential_diagnosis}</div>
+          </div>
+          <div className="grouped-pets px-4 pt-1 flex items-center justify-between">
+            <div className="title font-bold">Tentative Diagnosis</div>
+            <div className="value">{fullData?.tentative_diagnoistic}</div>
+          </div>
+          <div className="grouped-pets px-4 pt-1 flex items-center justify-between">
+            <div className="title font-bold">Confirmatory Diagnosis</div>
+            <div className="value"></div>
+          </div>
+          <div className="grouped-pets px-4 pt-1 flex items-center justify-between">
+            <div className="title font-bold">Mortality</div>
+            <div className="value">{fullData?.motality}</div>
+          </div>
+          <div className="grouped-pets px-4 pt-1 flex items-center justify-between">
+            <div className="title font-bold">Treatment Regimen</div>
+            <div className="value">{fullData?.treatment_regiment}</div>
+          </div>
+          <div className="grouped-pets px-4 pt-1 flex items-center justify-between">
+            <div className="title font-bold">Clinic Physical Address</div>
+            <div className="value">{fullData?.clinic_physical_address}</div>
+          </div>
+          <div className="grouped-pets px-4 pt-1 flex items-center justify-between">
+            <div className="title font-bold">Mobile Vet</div>
+            <div className="value">{fullData?.mobile_veterinarian}</div>
+          </div>
         </div>
       </div>
     </>
   );
 }
+//  {/* {moment(res[1]).format("DD-MM-YYYY")} */}

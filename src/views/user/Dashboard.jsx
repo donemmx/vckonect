@@ -125,7 +125,7 @@ export default function Dashboard() {
           image={storeIcon}
           icon={arrow}
           title="Manage your store"
-          subtitle="Join the poor of vendors on our platform to earn from sales."
+          subtitle="Join the pool of vendors on our platform to earn from sales."
           onClick={() => getRoute("stores")}
         />
         {userData?.role === "Animal Owner" ? (

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 export default function CardOne({image, title, icon, subtitle, btnText, route }) {
   return (
     <div className=" card w-[100%] md:w-[500px]">
-            <img src={image} className=' h-10' alt="" />
+            <img src={image} className='h-10' alt="" />
         <div className="right flex flex-col">
             <div className="heading text-[.9rem] md:text-[1rem]">
            {title}

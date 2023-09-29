@@ -285,7 +285,7 @@ export default function AddCase() {
                 onChange={handleChange}
                 onBlur={handleBlur}
               />
-              <label htmlFor="username">Motality </label>
+              <label htmlFor="username">Mortality </label>
             </span>
             {errors.motality && touched.motality && (
               <p className="error">{errors.motality}</p>

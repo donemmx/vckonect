@@ -7,25 +7,55 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { user } from "../../atom/userAtom";
 import CaseCard from "../../components/caseCard/CaseCard";
 import { actionState } from "../../atom/actionAtom";
+import { reloadStore } from "../../atom/reloadAtom";
+import Loading from "../../components/loading/Loading";
+import { Paginator } from "primereact/paginator";
+import { Empty } from "antd";
 
 export default function Cases() {
-  const [allcase, setAllCases] = useState([])
-  const userData = useRecoilValue(user)
+  const [allcase, setAllCases] = useState([]);
+  const userData = useRecoilValue(user);
+  const reload = useRecoilValue(reloadStore);
   const [action, setAction] = useRecoilState(actionState);
+  const [loading, setLoading] = useState(true);
 
-  const navigate = useNavigate()
-  useEffect(()=> {
-    getCase({user_id: userData?.id}).then(({data})=> {
-      setAllCases(data)
-    })
-  }, [])
+  const [totalRecords, setTotalRecords] = useState(0);
+  const [currentPage, setCurrentPage] = useState([]);
+  const [currentData, setCurrentData] = useState();
+
+  const [first, setFirst] = useState(0);
+  const [rows, setRows] = useState(10);
+
+  const onPageChange = (event) => {
+    setFirst(event.first);
+    setRows(event.rows);
+    const myData = currentData?.slice(event.first, event.rows + event.first);
+    setCurrentPage(myData);
+    setTotalRecords(currentData?.length);
+  };
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    getCase({ user_id: userData?.id }).then(({ data }) => {
+      setCurrentData(data);
+      setLoading(false);
+    });
+  }, [reload]);
+
+  useEffect(() => {
+    const event = {
+      first: 0,
+      rows: 8,
+    };
+    onPageChange(event);
+  }, [currentData]);
 
   //  to="/vet-add-case"
-  const addCase = ()=> {
-    setAction("add")
-    navigate('/vet-add-case')
-
-  }
+  const addCase = () => {
+    setAction("add");
+    navigate("/vet-add-case");
+  };
 
   return (
     <div className="p-3">
@@ -42,13 +72,35 @@ export default function Cases() {
           <p className="font-bold px-2">Add New Case</p>
           <img src={addIcon} alt="" className="w-[40px]" />
         </button>
-
-      <div className="">
-       {allcase?.map((res)=> (
-        <CaseCard name={res.farm_name} fullData={res} key={res.id}/> 
-       )) }
+        <div className=" grid md:grid-cols-2  lg:grid-cols-4 w-full">
+          {loading
+            ? [1, 2, 3, 4].map((data) => (
+                <div className="w-full mt-10" key={data}>
+                  <Loading />
+                </div>
+              ))
+            : ""}
+        </div>
+        {currentData?.length > 0 ? (
+          <div className="">
+            {currentPage?.map((res) => (
+              <CaseCard name={res.farm_name} fullData={res} key={res.id} />
+            ))}
+          </div>
+        ) : (
+          <div className="w-full flex h-[35vh] items-center justify-center">
+            <Empty className="w-full" />
+          </div>
+        )}
       </div>
-      </div>
+      <Paginator
+        className="mt-10"
+        first={first}
+        rows={rows}
+        totalRecords={totalRecords}
+        rowsPerPageOptions={[8, 16, 24, 32]}
+        onPageChange={onPageChange}
+      />
     </div>
   );
 }
