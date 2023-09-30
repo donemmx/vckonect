@@ -2,7 +2,7 @@ import { Navigate, Outlet } from "react-router-dom";
 import Sidebar from "./sidebar/Sidebar";
 import { useRecoilValue } from "recoil";
 import { user } from "../atom/userAtom";
-import AdminHeader from "./header/AdminHeader";
+import ScrollToTop from "../hooks/ScrollToTop";
 
 export default function AdminLayout() {
   let userData = useRecoilValue(user);
@@ -12,7 +12,7 @@ export default function AdminLayout() {
       {userData?.role === "Admin" ? (
         <>
           <Sidebar />
-          {/* <AdminHeader /> */}
+          <ScrollToTop />
 
           <div className="flex w-[90%] mx-auto pt-[12vh] lg:pt-0 lg:absolute lg:top-2 lg:w-[calc(100vw-19vw)] lg:left-[18vw]">
             <Outlet />
