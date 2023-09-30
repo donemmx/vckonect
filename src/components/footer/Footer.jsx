@@ -105,10 +105,10 @@ export default function Footer() {
             Subscribe to our newsletter for update on our initiatives
           </p>
           <div className=" flex flex-col">
-            <Link to="/privacy-policy" className="text-sm underline pt-3 ">
+            <Link to="/privacy-policy" className="text-sm underline pt-3 " onClick={() => window.scrollTo(0, 0)}>
               Privacy Policy
             </Link>
-            <Link to="/privacy-policy" className="text-sm underline ">
+            <Link to="/privacy-policy" className="text-sm underline " onClick={() => window.scrollTo(0, 0)}>
               Terms & Conditions
             </Link>
           </div>
