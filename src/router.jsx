@@ -60,6 +60,7 @@ import ClinicDetails from "./views/user/ClinicDetails";
 import VetUserDetails from "./views/user/VetUserDetails";
 import Farm from "./views/user/Farm";
 import Pets from "./views/user/Pets";
+import Privacy from "./views/Privacy";
 
 const router = createBrowserRouter([
 
@@ -402,11 +403,16 @@ const router = createBrowserRouter([
         path: "/onboard-verify",
         element: <OnboardVerify />,
       },
+     
       {
         path: "/verified",
         element: <Verified />,
       },
     ],
+  },
+  {
+    path: "/privacy-policy",
+    element: <Privacy />,
   },
   {
     path: '*',
