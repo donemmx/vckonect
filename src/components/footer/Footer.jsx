@@ -32,17 +32,45 @@ export default function Footer() {
           <p className="pt-4 text-sm">100, Wuse Road, Abuja, Nigeria.</p>
           <p className="text-sm"> hello@vkonnect.com | +10020001234 </p>
           <div className="icons flex items-center gap-3">
-           <a href="https://twitter.com/vetkonect" target="_" referrerPolicy="no-referral"> <img src={icon2} alt="" /></a>
-           <a href="https://facebook.com/vetkonect" target="_" referrerPolicy="no-referral"> <img src={icon5} alt="" /> </a>
-           <a href="https://linkedin.com/in/vet-konect-68a2b31a6" target="_" referrerPolicy="no-referral">  <img src={icon1} alt="" /> </a>
-           <a href="https://youtube.com/@vetkonect" target="_" referrerPolicy="no-referral"> <img src={icon4} alt="" /> </a>
+            <a
+              href="https://twitter.com/vetkonect"
+              target="_"
+              referrerPolicy="no-referral"
+            >
+              {" "}
+              <img src={icon2} alt="" />
+            </a>
+            <a
+              href="https://facebook.com/vetkonect"
+              target="_"
+              referrerPolicy="no-referral"
+            >
+              {" "}
+              <img src={icon5} alt="" />{" "}
+            </a>
+            <a
+              href="https://linkedin.com/in/vet-konect-68a2b31a6"
+              target="_"
+              referrerPolicy="no-referral"
+            >
+              {" "}
+              <img src={icon1} alt="" />{" "}
+            </a>
+            <a
+              href="https://youtube.com/@vetkonect"
+              target="_"
+              referrerPolicy="no-referral"
+            >
+              {" "}
+              <img src={icon4} alt="" />{" "}
+            </a>
           </div>
           <p className="text-sm"> Copyright Vetkonect 2023 </p>
         </div>
         <div className="group col-span-full md:col-span-4">
           <div className="title">Quick Links</div>
           <div className="group list-none underline text-sm grid gap-2 pt-3 cursor-pointer">
-            <Link to='/about-us'>About Us</Link>
+            <Link to="/about-us">About Us</Link>
             <div
               onClick={() => checker("feed-calculator")}
               className=" cursor-pointer"
@@ -62,15 +90,28 @@ export default function Footer() {
         </div>
         <div className="group col-span-full  md:col-span-4">
           <div className="group flex justify-between items-center bg-white p-2 rounded-full">
-            <input type="text" placeholder="enter email" readOnly="true" className=" outline-none w-full px-4"/>
-            <div className="button flex text-sm p-3 bg-gray-700 text-white rounded-full" >
+            <input
+              type="text"
+              placeholder="enter email"
+              readOnly="true"
+              className=" outline-none w-full px-4"
+            />
+            <div className="button flex text-sm p-3 bg-gray-700 text-white rounded-full">
               <img src="" alt="" />
               Submit
             </div>
           </div>
-          <p className="pt-3">Subscribe to our newsletter for update on our initiatives</p>
-          <p className="text-sm underline pt-3 ">Privacy Policy</p>
-          <p className="text-sm underline ">Terms & Conditions</p>
+          <p className="pt-3">
+            Subscribe to our newsletter for update on our initiatives
+          </p>
+          <div className=" flex flex-col">
+            <Link to="/privacy-policy" className="text-sm underline pt-3 " onClick={() => window.scrollTo(0, 0)}>
+              Privacy Policy
+            </Link>
+            <Link to="/privacy-policy" className="text-sm underline " onClick={() => window.scrollTo(0, 0)}>
+              Terms & Conditions
+            </Link>
+          </div>
         </div>
       </div>
     </div>

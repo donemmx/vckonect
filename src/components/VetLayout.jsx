@@ -3,6 +3,7 @@ import Header from "./header/Header";
 import VetSidebar from "./sidebar/VetSidebar";
 import { useRecoilValue } from "recoil";
 import { user } from "../atom/userAtom";
+import ScrollToTop from "../hooks/ScrollToTop";
 
 export default function VetLayout() {
   let auth = useRecoilValue(user);
@@ -13,6 +14,7 @@ export default function VetLayout() {
           <>
             <Header />
             <Navigate to="/vet-subscription" />
+            <ScrollToTop />
             <Outlet />
           </>
         ) : (
@@ -20,6 +22,7 @@ export default function VetLayout() {
             <Header />
             <VetSidebar />
             <div className="absolute left-[5.5vw] lg:left-[13vw] top-[25vh] lg:top-[15vh] w-[90%] lg:w-[80%]">
+              <ScrollToTop />
               <Outlet />
             </div>
           </>
