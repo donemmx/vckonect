@@ -1,11 +1,8 @@
 import { useRecoilValue } from "recoil";
 import { user } from "../../atom/userAtom";
-import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import SubscribeToPlan from "./SubscribeToPlan";
-import { getMyPromotionPlan, getPromotion } from "../../utils/userApiService";
-import { promotion } from "../../validations/UserValidation";
-import moment from "moment/moment";
+import { getMyPromotionPlan } from "../../utils/userApiService";
 import PromotionPlanCard from "../../components/promotionPlanCard/PromotionPlanCard";
 import PromotionSubscriptionCard from "../../components/promotionSubscriptionCard/PromotionSubscriptionCard";
 import { reloadStore } from "../../atom/reloadAtom";
@@ -35,8 +32,6 @@ export default function Promotion() {
     setTotalRecords(currentData?.length);
   };
 
-  const location = useNavigate();
-
   const activeTab = (type) => {
     setTab(type);
     if (type === "all") {
@@ -46,13 +41,6 @@ export default function Promotion() {
     } 
   };
 
-  const checker = (route) => {
-    if (userData?.role === "Veterinarian") {
-      location(`/vet-${route}`);
-    } else {
-      location(`/animal-owner-${route}`);
-    }
-  };
 
   const getCurrentPromotion = () => {
     const payload = {
