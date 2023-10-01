@@ -98,9 +98,9 @@ export default function Promotion() {
           </h2>
         </div>
         <div className="pets mt-2  mb-5 p-4  bg-white rounded-lg">
-          <div className="flex items-center gap-6">
+          <div className="flex items-center flex-wrap gap-6">
             <h2
-              className={` text-[1rem] lg:text-[1.1rem] cursor-pointer ${
+              className={` text-[0.9rem] lg:text-[1.1rem] cursor-pointer ${
                 tab === "all" ? "font-black" : ""
               } `}
               onClick={() => activeTab("all")}
@@ -108,7 +108,7 @@ export default function Promotion() {
               All Promotion
             </h2>
             <h2
-              className={` text-[1rem] lg:text-[1.1rem] cursor-pointer ${
+              className={` text-[0.9rem] lg:text-[1.1rem] cursor-pointer ${
                 tab === "myPromotion" ? "font-black" : ""
               } `}
               onClick={() => activeTab("myPromotion")}
@@ -116,7 +116,7 @@ export default function Promotion() {
               My Promotion
             </h2>
             <h4
-              className={`text-[1rem] lg:text-[1.1rem] cursor-pointer ${
+              className={`text-[0.9rem] lg:text-[1.1rem] cursor-pointer ${
                 tab === "subscription" ? "font-black" : ""
               } `}
               onClick={() => activeTab("subscription")}
