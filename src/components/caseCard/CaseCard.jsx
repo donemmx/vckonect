@@ -22,7 +22,7 @@ export default function CaseCard({ fullData }) {
   const userData = useRecoilValue(user);
   const [filtered, setFiltered] = useState();
   const [openDetail, setOpenDetail] = useState(null);
-
+  const [open, setOpen] = useState(false)
   const location = useNavigate();
   const editPet = () => {
     setStore(fullData);
@@ -51,7 +51,7 @@ export default function CaseCard({ fullData }) {
   return (
     <>
       <div className="border rounded-lg p-5">
-        <div className="flex justify-between flex-wrap gap-2">
+        <div className="flex justify-between flex-wrap gap-2 cursor-pointer" onClick={()=> setOpen(!open)}>
           <div className="pet flex items-center gap-4">
             <div className=" flex flex-col font-bold text-2xl">
               {fullData?.case_title}
@@ -74,7 +74,7 @@ export default function CaseCard({ fullData }) {
             />
           </div>
         </div>
-        <div className="py-4">
+        {open ? <div className="py-4">
           {openDetail ? (
             <div className="user  flex flex-col justify-center items-center w-[65%] lg:w-[20%] mx-auto mt-[0vh]">
               <h4 className=" font-bold pt-3">Users’ {openDetail[1]}</h4>
@@ -208,7 +208,7 @@ export default function CaseCard({ fullData }) {
             <div className="title font-bold">Mobile Vet</div>
             <div className="value">{fullData?.mobile_veterinarian}</div>
           </div>
-        </div>
+        </div> : ''}
       </div>
     </>
   );
