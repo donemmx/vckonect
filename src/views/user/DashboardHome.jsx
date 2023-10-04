@@ -201,7 +201,7 @@ export default function DashboardHome() {
           <div className=" pt-12 gap-6  pb-10 grid md:grid-cols-2  lg:grid-cols-4 w-full">
             {active == "vet"
               ? currentPage?.map((res) => (
-                  <Vetcard key={res.id} fullData={res} />
+                  <Vetcard key={res.id} module='vet' fullData={res} />
                 ))
               : ""}
             {active == "store"

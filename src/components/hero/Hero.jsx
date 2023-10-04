@@ -18,8 +18,7 @@ export default function Hero() {
             Quality veterinary care at your fingertips
           </div>
           <div className="subtitle paragraph">
-            Download our user-friendly mobile app today and access high-quality
-            veterinary care effortlessly and conveniently.
+          An easy to use platform for everyone to get quality veterinary care quickly and easily. Download on
           </div>
           <div className="store pt-4 flex items-center gap-2">
             <a

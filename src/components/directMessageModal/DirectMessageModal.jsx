@@ -1,7 +1,7 @@
 /* eslint-disable no-prototype-builtins */
 import { Dialog } from "primereact/dialog";
 import chat from "../../assets/icons/chat-icon.svg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { reloadStore } from "../../atom/reloadAtom";
 import { directMessage, getUserById } from "../../utils/userApiService";
@@ -9,7 +9,7 @@ import { user } from "../../atom/userAtom";
 import { toast } from "react-toastify";
 import { useParams } from "react-router-dom";
 
-export default function DirectMessageModal({ fullData }) {
+export default function DirectMessageModal({ fullData, module }) {
   const [comment, setComment] = useState([]);
   const [userInfo, setUserInfo] = useState(null);
   const [file, setFile] = useState(null);
@@ -26,15 +26,19 @@ export default function DirectMessageModal({ fullData }) {
     }else{
       role=fullData?.role;
     }
+    if(module=='vet'){
+      fullData.user_id=fullData.id;
+    }
+    console.log(fullData);
     const payload = {
-      id: params.id ?? fullData.id,
+      id: params.id ?? fullData.user_id,
       role: role,
     };
-    console.log(fullData);
     getUserById(payload).then(({data}) => {
       setUserInfo(data);
     });
   };
+
 
   const accept = () => {
     setLoading(true);

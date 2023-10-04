@@ -14,6 +14,7 @@ import { useNavigate } from "react-router-dom";
 import useUpadateReload from "../../hooks/UpdateRelaod";
 import DirectMessageModal from "../directMessageModal/DirectMessageModal";
 import star from "../../assets/icons/star.svg";
+import { useEffect } from "react";
 
 export default function StoreCard({
   availability,
@@ -35,6 +36,8 @@ export default function StoreCard({
     setAction("edit");
     checker("add-store");
   };
+
+ 
 
   const checker = (route) => {
     setStore(fullData);

@@ -29,8 +29,8 @@ export default function Footer() {
       <div className="w-[90%] grid gap-10 grid-cols-3 md:grid-cols-12 m-auto pt-10">
         <div className="group flex flex-col items-start gap-2 col-span-full md:col-span-4">
           <img src={logo} alt="" className="h-7" />
-          <p className="pt-4 text-sm">100, Wuse Road, Abuja, Nigeria.</p>
-          <p className="text-sm"> hello@vkonnect.com | +10020001234 </p>
+          <p className="pt-4 text-sm">47, Abu King Sholuwa road, Makurdi, Benue state, Nigeria.</p>
+          <p className="text-sm"> vetconnectng@gmail.com   |   +2348066459317 </p>
           <div className="icons flex items-center gap-3">
             <a
               href="https://twitter.com/vetkonect"
@@ -89,7 +89,7 @@ export default function Footer() {
           </div>
         </div>
         <div className="group col-span-full  md:col-span-4">
-          <div className="group flex justify-between items-center bg-white p-2 rounded-full">
+          {/* <div className="group flex justify-between items-center bg-white p-2 rounded-full">
             <input
               type="text"
               placeholder="enter email"
@@ -103,7 +103,7 @@ export default function Footer() {
           </div>
           <p className="pt-3">
             Subscribe to our newsletter for update on our initiatives
-          </p>
+          </p> */}
           <div className=" flex flex-col">
             <Link to="/privacy-policy" className="text-sm underline pt-3 " onClick={() => window.scrollTo(0, 0)}>
               Privacy Policy

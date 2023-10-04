@@ -365,7 +365,7 @@ export default function AddCase() {
                 onChange={handleChange}
                 onBlur={handleBlur}
               />
-              <label htmlFor="username">Disease Diagnostic </label>
+              <label htmlFor="username">Disease Diagnosis </label>
             </span>
             {errors.disease_diagnostic && touched.disease_diagnostic && (
               <p className="error">{errors.disease_diagnostic}</p>
@@ -378,7 +378,7 @@ export default function AddCase() {
                 onChange={handleChange}
                 onBlur={handleBlur}
               />
-              <label htmlFor="username">Differential Diagnosis </label>
+              <label htmlFor="username">Tentative Diagnosis </label>
             </span>
             {errors.differential_diagnosis &&
               touched.differential_diagnosis && (
@@ -392,7 +392,7 @@ export default function AddCase() {
                 onChange={handleChange}
                 onBlur={handleBlur}
               />
-              <label htmlFor="username">Tentative Diagnoistic </label>
+              <label htmlFor="username">Confirmatory Diagnosis </label>
             </span>
             {errors.tentative_diagnoistic && touched.tentative_diagnoistic && (
               <p className="error">{errors.tentative_diagnoistic}</p>

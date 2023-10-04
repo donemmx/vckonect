@@ -9,8 +9,9 @@ import { user } from "../../atom/userAtom";
 import { actionState } from "../../atom/actionAtom";
 import DirectMessageModal from "../directMessageModal/DirectMessageModal";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
-export default function Vetcard({ fullData }) {
+export default function Vetcard({ fullData, module }) {
   const userData = useRecoilValue(user);
   const [action, setAction] = useRecoilState(actionState);
   const location = useNavigate();
@@ -26,6 +27,10 @@ export default function Vetcard({ fullData }) {
       location(`/veterinarian/${fullData?.id}`);
     }
   };
+
+  useEffect(()=>{
+    fullData={...fullData, user_id:fullData.id}
+   }, [fullData])
 
 
   return (
@@ -86,7 +91,7 @@ export default function Vetcard({ fullData }) {
                       alt=""
                     />
                   </a>
-                  <DirectMessageModal fullData={fullData} />
+                  <DirectMessageModal module={module} fullData={fullData} />
                   <a href={`mailto:${fullData?.email}`} rel="noReferrer">
                     <img
                       src={message}

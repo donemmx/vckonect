@@ -171,26 +171,16 @@ export default function CaseCard({ fullData }) {
             </div>
           </div>
           <div className="grouped-pets px-4 pt-1 flex items-center justify-between">
-            <div className="title font-bold">Date Reported</div>
-            <div className="value">
-              {/* {moment(fullData?.date).format("DD-MM-YYYY")} */}
-            </div>
-          </div>
-          <div className="grouped-pets px-4 pt-1 flex items-center justify-between">
             <div className="title font-bold">History</div>
             <div className="value">{fullData?.history}</div>
           </div>
           <div className="grouped-pets px-4 pt-1 flex items-center justify-between">
-            <div className="title font-bold">Differential Diagnosis</div>
+            <div className="title font-bold">Tentative Diagnosis</div>
             <div className="value">{fullData?.differential_diagnosis}</div>
           </div>
           <div className="grouped-pets px-4 pt-1 flex items-center justify-between">
-            <div className="title font-bold">Tentative Diagnosis</div>
-            <div className="value">{fullData?.tentative_diagnoistic}</div>
-          </div>
-          <div className="grouped-pets px-4 pt-1 flex items-center justify-between">
             <div className="title font-bold">Confirmatory Diagnosis</div>
-            <div className="value"></div>
+            <div className="value">{fullData?.tentative_diagnoistic}</div>
           </div>
           <div className="grouped-pets px-4 pt-1 flex items-center justify-between">
             <div className="title font-bold">Mortality</div>
