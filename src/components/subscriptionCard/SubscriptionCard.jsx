@@ -21,7 +21,7 @@ export default function SubscriptionCard({ data, selectedPlan }) {
   const [paymentChannel, setPaymentChannel] = useState();
   const [visible, setVisible] = useState(false);
 
-  const publicKey = "pk_test_b151276bd6786f5c094f1c35d7ee0008f073fb2d";
+  const publicKey = "pk_live_84c0e59217a4dbd069bd02c2d16d2d3ae428dc42";
   const navigate = useNavigate();
 
   const [userData, setUserData] = useRecoilState(user);
