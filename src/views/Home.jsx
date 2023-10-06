@@ -181,7 +181,7 @@ export default function Home() {
               <button className="h-12 w-12 shadow-lg rounded-full bg-white justify-center items-center flex text-slate-300">
                 &larr;
               </button>
-              <button className="h-12 w-12 shadow-lg rounded-full bg-white justify-center items-center flex">
+              <button className="h-12 w-12 shadow-lg rounded-full bg-white justify-center items-center flex text-slate-300" >
                 &rarr;
               </button>
             </div>
