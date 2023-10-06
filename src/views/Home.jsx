@@ -24,7 +24,7 @@ import Vetcard from "../components/vetCard/Vetcard";
 import { useEffect, useState } from "react";
 import { getVeterinarianByFilter } from "../utils/vetApiService";
 import Loading from "../components/loading/Loading";
-import userImage from '../assets/account/image-1.png'
+import userImage from '../assets/account/image.png'
 
 export default function Home() {
   const [loading, setLoading] = useState(true);
