@@ -24,6 +24,7 @@ import Vetcard from "../components/vetCard/Vetcard";
 import { useEffect, useState } from "react";
 import { getVeterinarianByFilter } from "../utils/vetApiService";
 import Loading from "../components/loading/Loading";
+import userImage from '../assets/account/image-1.png'
 
 export default function Home() {
   const [loading, setLoading] = useState(true);
@@ -168,6 +169,41 @@ export default function Home() {
                 alt=""
                 className=" h-full w-full object-contain"
               />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="section flex pt-[10vh] pb-10 w-[100%] h-[100%] lg:h-[100vh] bg-cover bg-[#FFFAF4]">
+        <div className="body flexBody hero__body w-[90%] md:w-[85%] h-[100%] m-auto">
+          <div className="flex justify-between">
+            <div className="text-3xl font-extrabold">Testimonials</div>
+            <div className="flex items-center gap-3">
+              <button className="h-12 w-12 shadow-lg rounded-full bg-white justify-center items-center flex text-slate-300">
+                &larr;
+              </button>
+              <button className="h-12 w-12 shadow-lg rounded-full bg-white justify-center items-center flex">
+                &rarr;
+              </button>
+            </div>
+          </div>
+          <div className="mt-16 flex justify-center">
+            <div className="w-full max-w-lg">
+              <div className="text-2xl lg:text-3xl text-center font-semibold leading-10 mb-20">What are people saying about Vetkonect?</div>
+              <div className="bg-white rounded-xl shadow-lg relative p-10">
+                <div className="h-20 w-20     absolute left-1/2 -translate-x-1/2 -translate-y-1/2 -top-0.5">
+                  <img src={userImage} alt="" className="w-full h-full object-cover shadow-lg rounded-full" />
+                </div>
+                <div className="text-center mt-7">
+                  <div className="mb-12">
+                    &quot;On the Window&apos;s talking painted pasture yet it express parties use.
+                    Sure last upon he came as knew next. Of believed or diverted no.&quot;
+                  </div>
+                  <div className="text-lg">
+                    <div className="font-semibold">Dr. Amaechi Anayor</div>
+                    <div className="mb-5 text-xs font-thin">Lagos, Nigeria</div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
