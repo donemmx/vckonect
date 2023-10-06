@@ -188,7 +188,7 @@ export default function Home() {
           </div>
           <div className="mt-16 flex justify-center">
             <div className="w-full max-w-lg">
-              <div className="text-2xl lg:text-3xl text-center font-semibold leading-10 mb-20">What are people saying about Vetkonect?</div>
+              <div className="text-2xl lg:text-3xl text-center font-semibold leading-10 mb-20"> What are people saying about Vetkonect? </div>
               <div className="bg-white rounded-xl shadow-lg relative p-10">
                 <div className="h-20 w-20     absolute left-1/2 -translate-x-1/2 -translate-y-1/2 -top-0.5">
                   <img src={userImage} alt="" className="w-full h-full object-cover shadow-lg rounded-full" />
